@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "mogula";
+  src: url("../fonts/mogula.otf") format("opentype");
+}
+.f-mogula {
+  font-family: var(--font-mogula);
+}
+
+@font-face {
+  font-family: "molengo";
+  src: url("../fonts/molengo.ttf") format("opentype");
+}
+.f-molengo {
+  font-family: var(--font-molengo);
+}
+
+@font-face {
+  font-family: "montserrat-bold";
+  src: url("../fonts/montserrat-bold.otf") format("opentype");
+}
+.f-montserrat-bold {
+  font-family: var(--font-montserrat-bold);
+}
+
+@font-face {
+  font-family: "montserrat-regular";
+  src: url("../fonts/montserrat-regular.otf") format("opentype");
+}
+.f-montserrat-regular {
+  font-family: var(--font-montserrat-regular);
+}
+
+@font-face {
+  font-family: "montserrat-light";
+  src: url("../fonts/montserrat-light.otf") format("opentype");
+}
+.f-montserrat-light {
+  font-family: var(--font-montserrat-light);
+}

@@ -1,0 +1,17 @@
+.swal2-container {
+ background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.swal2-modal {
+ background: var(--item) !important;
+}
+
+.swal2-title {
+  font-family: var(--font-montserrat-bold) !important;
+  color: var(--text-color) !important;
+}
+
+.swal2-html-container {
+  font-family: var(--font-montserrat-light) !important;
+  color: var(--text-color) !important;
+}

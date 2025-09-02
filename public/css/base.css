@@ -1,0 +1,27 @@
+body {
+  background-color: var(--bg);
+}
+
+input,
+select,
+textarea,
+button:focus,
+:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+  border-color: var(--item);
+}
+
+.text-color {
+  color: var(--text-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+footer {
+  background-color: var(--item);
+}

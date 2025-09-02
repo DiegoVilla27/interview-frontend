@@ -1,0 +1,12 @@
+:root {
+  --text-color: #ffffff;
+  --primary: #9452e7;
+  --item: #1e1e1e;
+  --bg: #121212;
+  --font-mogula: "mogula";
+  --font-molengo: "molengo";
+  --font-montserrat-bold: "montserrat-bold";
+  --font-montserrat-regular: "montserrat-regular";
+  --font-montserrat-light: "montserrat-light";
+  --icon-arrow:'url("/public/icons/arrow-white.svg")';
+}

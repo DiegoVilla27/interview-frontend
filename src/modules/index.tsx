@@ -1,0 +1,46 @@
+import { ISection } from "../types";
+
+import questionsInternet from "./01-internet";
+import questionsHTML from "./02-html";
+import questionsCSS from "./03-css";
+import questionsJavascript from "./04-javascript";
+import questionsBrowser from "./05-browser";
+import questionsVersionControl from "./06-version-control";
+import questionsPackageManager from "./07-package-managers";
+import questionsBuildTools from "./08-build-tools";
+import questionsTesting from "./09-testing";
+import questionsTypescript from "./10-typescript";
+import questionsWebapps from "./11-webapps";
+import questionsReact from "./12-react";
+import questionsReactNative from "./13-react-native";
+import questionsAngular from "./14-angular";
+import questionsIonic from "./15-ionic";
+import questionsFlutter from "./16-flutter";
+import questionsSOLID from "./17-solid";
+import questionsCICD from "./18-cicd";
+import questionsRegularExpresions from "./19-regular-expresions";
+import questionsUIUX from "./20-ui-ux";
+
+const sections: ISection[] = [];
+sections.push(questionsInternet);
+sections.push(questionsHTML);
+sections.push(questionsCSS);
+sections.push(questionsJavascript);
+sections.push(questionsBrowser);
+sections.push(questionsVersionControl);
+sections.push(questionsPackageManager);
+sections.push(questionsBuildTools);
+sections.push(questionsTesting);
+sections.push(questionsTypescript);
+sections.push(questionsWebapps);
+sections.push(questionsReact);
+sections.push(questionsReactNative);
+sections.push(questionsAngular);
+sections.push(questionsIonic);
+sections.push(questionsFlutter);
+sections.push(questionsSOLID);
+sections.push(questionsCICD);
+sections.push(questionsRegularExpresions);
+sections.push(questionsUIUX);
+
+export { sections };

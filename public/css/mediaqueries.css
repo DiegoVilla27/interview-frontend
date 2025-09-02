@@ -1,0 +1,17 @@
+@media screen and (max-width: 420px) {
+  h1 {
+    font-size: 25px !important;
+  }
+  h2 button span {
+    font-size: 15px !important;
+  }
+  ul li span {
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  h2 button span {
+    font-size: 18px;
+  }
+}
