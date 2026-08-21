@@ -1,3 +1,5 @@
+export type QuestionLevel = "basico" | "medio" | "avanzado" | "experto";
+
 export interface ISection {
   title: string;
   collapse: string;
@@ -8,4 +10,5 @@ export interface ISection {
 export interface IQuestion {
   title: string;
   response: string;
+  level: QuestionLevel;
 }

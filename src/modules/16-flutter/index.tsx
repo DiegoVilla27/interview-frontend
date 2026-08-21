@@ -5,204 +5,129 @@ export const questionsFlutter: ISection = {
   collapse: "collapseFlutter",
   icon: "flutter",
   questions: [
+    // === BÁSICO ===
     {
-      title: "¿Qué es Flutter?",
+      title: "¿Qué es Flutter y qué lenguaje utiliza?",
       response:
-        "Un framework de Google para crear aplicaciones móviles, web y de escritorio desde una sola base de código."
+        "Flutter es el framework de UI de Google para construir aplicaciones nativas compiladas para móvil (iOS, Android), web y desktop desde una única base de código. Utiliza el lenguaje Dart.",
+      level: "basico"
     },
     {
-      title: "¿Qué lenguaje usa Flutter?",
-      response: "Usa el lenguaje Dart."
-    },
-    {
-      title: "¿Qué es un Widget en Flutter?",
+      title: "¿Qué es un Widget en Flutter y qué tipos principales existen?",
       response:
-        "Es el bloque básico de construcción de la interfaz de usuario en Flutter."
+        "En Flutter, 'todo es un Widget' (la unidad declarativa de UI). Los dos tipos básicos son: `StatelessWidget` (inmutable, no almacena estado que cambie en runtime) y `StatefulWidget` (posee un objeto `State` que puede mutar y disparar reconstrucciones con `setState`).",
+      level: "basico"
     },
     {
-      title: "¿Qué diferencia hay entre StatelessWidget y StatefulWidget?",
+      title: "¿Qué diferencia hay entre `const` y `final` en Dart?",
       response:
-        "StatelessWidget no cambia de estado una vez creado, mientras que StatefulWidget puede actualizarse y renderizarse de nuevo."
-    },
-    {
-      title:
-        "¿Cómo se ejecuta un proyecto Flutter en un emulador o dispositivo?",
-      response: "Usando el comando `flutter run`."
-    },
-    {
-      title: "¿Qué comando se usa para crear un nuevo proyecto en Flutter?",
-      response: "`flutter create nombre_proyecto`."
-    },
-    {
-      title:
-        "¿Qué archivo contiene la configuración principal del proyecto Flutter?",
-      response: "El archivo `pubspec.yaml`."
-    },
-    {
-      title: "¿Qué es Hot Reload en Flutter?",
-      response:
-        "Es la capacidad de actualizar la app inmediatamente sin perder el estado."
-    },
-    {
-      title: "¿Qué es DartPad?",
-      response:
-        "Un editor online para probar código en Dart y Flutter sin necesidad de instalar nada."
-    },
-    {
-      title: "¿Cómo se define el punto de entrada en una aplicación Flutter?",
-      response: "Con la función `main()`."
-    },
-    {
-      title: "¿Qué es el árbol de widgets en Flutter?",
-      response:
-        "Es la estructura jerárquica que representa cómo los widgets se organizan y renderizan en la interfaz."
+        "`final` es una variable de asignación única evaluada en tiempo de ejecución (runtime). `const` es una constante evaluada en tiempo de compilación (compile-time) que canonicaliza objetos en memoria, evitando reconstrucciones de widgets.",
+      level: "basico"
     },
     {
       title: "¿Qué es el BuildContext en Flutter?",
       response:
-        "Es un objeto que permite acceder al árbol de widgets y a información sobre el lugar donde se construye un widget."
+        "Es una referencia a la ubicación exacta de un widget dentro del árbol de elementos (`Element Tree`). Permite interactuar con widgets ancestros (como `Theme.of(context)`, `MediaQuery.of(context)` o `Navigator.of(context)`).",
+      level: "basico"
     },
     {
-      title:
-        "¿Qué diferencia hay entre Navigator.push y Navigator.pushReplacement?",
+      title: "¿Qué es Hot Reload vs Hot Restart en Flutter?",
       response:
-        "Navigator.push agrega una nueva pantalla encima, mientras que pushReplacement reemplaza la pantalla actual."
+        "`Hot Reload` inyecta el código fuente actualizado en la Dart Virtual Machine conservando el estado actual de la app en menos de 1 segundo. `Hot Restart` destruye el estado y reinicia la app desde `main()`, siendo necesario al cambiar dependencias o código nativo.",
+      level: "basico"
     },
-    {
-      title: "¿Qué es un Future en Dart?",
-      response:
-        "Un objeto que representa un valor que estará disponible en el futuro, similar a una Promesa en JavaScript."
-    },
-    {
-      title: "¿Qué es un Stream en Dart?",
-      response:
-        "Una secuencia asíncrona de datos que pueden recibirse a lo largo del tiempo."
-    },
-    {
-      title: "¿Cómo se manejan los estados globales en Flutter?",
-      response: "Con patrones como Provider, Riverpod, Bloc o Redux."
-    },
-    {
-      title: "¿Qué es un Key en Flutter?",
-      response:
-        "Es un identificador único que ayuda a Flutter a diferenciar widgets cuando el árbol cambia."
-    },
-    {
-      title: "¿Qué es setState en Flutter?",
-      response:
-        "Un método que notifica a Flutter que el estado cambió y necesita reconstruir el widget."
-    },
-    {
-      title: "¿Qué diferencia hay entre const y final en Dart?",
-      response:
-        "`const` define constantes en tiempo de compilación y `final` en tiempo de ejecución."
-    },
-    {
-      title: "¿Cómo se agregan dependencias externas en Flutter?",
-      response:
-        "Editando el archivo `pubspec.yaml` en la sección de `dependencies`."
-    },
-    {
-      title: "¿Qué es un CustomPainter en Flutter?",
-      response:
-        "Una clase para dibujar gráficos personalizados en el canvas de Flutter."
-    },
+    // === MEDIO ===
     {
       title: "¿Cómo funciona el ciclo de vida de un StatefulWidget?",
       response:
-        "Incluye métodos como initState, build, didUpdateWidget y dispose."
+        "Secuencia: `createState()` -> `initState()` -> `didChangeDependencies()` -> `build()` -> (opcional `didUpdateWidget()`) -> `deactivate()` -> `dispose()`. `dispose()` es fundamental para cancelar streams, timers y controllers.",
+      level: "medio"
     },
     {
-      title: "¿Qué es un Isolate en Dart?",
+      title: "¿Qué diferencia hay entre Future y Stream en Dart?",
       response:
-        "Es un hilo independiente que permite ejecutar tareas en paralelo sin bloquear el hilo principal."
+        "Un `Future<T>` representa un único valor asíncrono que se completará una sola vez (o emitirá error). Un `Stream<T>` es una secuencia continua de múltiples eventos asíncronos en el tiempo (consumibles con `StreamBuilder` o `await for`).",
+      level: "medio"
     },
     {
-      title: "¿Qué es el render tree en Flutter?",
+      title: "¿Qué son los Keys en Flutter y cuándo son obligatorios?",
       response:
-        "Es la representación optimizada del árbol de widgets que Flutter usa para dibujar en pantalla."
+        "Son identificadores únicos (`ValueKey`, `ObjectKey`, `UniqueKey`, `GlobalKey`) que preservan el estado cuando los widgets cambian de posición o se reordenan dentro de una colección del árbol de elementos.",
+      level: "medio"
     },
     {
-      title: "¿Cómo se implementa lazy loading en Flutter?",
+      title: "¿Qué es InheritedWidget y cómo funciona Provider/Riverpod sobre él?",
       response:
-        "Usando widgets como ListView.builder o métodos de paginación personalizados."
+        "`InheritedWidget` es la base del paso eficiente de datos hacia abajo en el árbol de widgets sin prop drilling. Notifica automáticamente a los widgets suscritos cuando su data cambia. Provider y Riverpod simplifican este patrón con inyección reactiva.",
+      level: "medio"
     },
     {
-      title: "¿Qué es un Sliver en Flutter?",
+      title: "¿Qué son los Slivers y cuándo utilizarlos?",
       response:
-        "Es un tipo especial de widget que permite scrolls avanzados y efectos como listas expandibles."
+        "Son porciones de área con scroll (`CustomScrollView`) que implementan efectos avanzados y bajo consumo de memoria: `SliverAppBar` expandible, `SliverList`, `SliverGrid` y `SliverToBoxAdapter`.",
+      level: "medio"
+    },
+    // === AVANZADO ===
+    {
+      title: "¿Cómo interactúan los 3 Árboles en Flutter: Widget Tree, Element Tree y Render Tree?",
+      response:
+        "1) **Widget Tree**: Configuración declarativa inmutable y ligera. 2) **Element Tree**: Instancia intermedia que administra el ciclo de vida y retiene el estado. 3) **Render Tree**: Objetos `RenderObject` de bajo nivel que calculan layout, dimensiones y pintan píxeles en pantalla.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué es un InheritedWidget?",
+      title: "¿Qué es el nuevo motor de renderizado Impeller vs Skia?",
       response:
-        "Un widget que permite pasar datos eficientemente a widgets descendientes en el árbol."
+        "Impeller es el motor gráfico de nueva generación de Flutter diseñado para reemplazar Skia en iOS y Android. Precompila todos los shaders en build time (AOT) eliminando el 'shader compilation jank' y logrando 60/120 FPS estables.",
+      level: "avanzado"
     },
     {
-      title: "¿Cómo funciona el árbol de elementos (Element Tree) en Flutter?",
+      title: "¿Cómo funciona la Arquitectura BLoC (Business Logic Component)?",
       response:
-        "Es la capa intermedia entre el árbol de widgets y el árbol de render, encargada de mantener el estado."
+        "Separa la presentación de la lógica de negocio usando Streams y RxDart. La UI envía `Events` al BLoC, el BLoC procesa la lógica y emite nuevos `States` inmutables que son consumidos por `BlocBuilder` o `BlocConsumer`.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué es la arquitectura BLoC?",
+      title: "¿Qué es un CustomPainter y cómo funciona el Canvas en Flutter?",
       response:
-        "Business Logic Component, un patrón para separar la lógica de negocio del UI usando Streams."
+        "Es una clase que hereda de `CustomPainter` implementando `paint(Canvas canvas, Size size)` y `shouldRepaint()`. Permite dibujar gráficos vectoriales, formas personalizadas, trazados de paths y shaders directos sobre el canvas.",
+      level: "avanzado"
     },
     {
-      title: "¿Cómo se optimiza el rendimiento en Flutter?",
+      title: "¿Qué son los Isolates en Dart y cómo difieren del Event Loop?",
       response:
-        "Usando const widgets, evitando reconstrucciones innecesarias, optimizando listas y usando Isolates."
+        "Dart es single-threaded por defecto (manejado por el Event Loop con microtasks y event queues). Un `Isolate` es un hilo de ejecución independiente con su propio espacio de memoria no compartida. Se comunican exclusivamente mediante paso de mensajes (`SendPort`/`ReceivePort`) o `compute()`.",
+      level: "avanzado"
+    },
+    // === EXPERTO ===
+    {
+      title: "¿Cómo funciona la comunicación con código nativo mediante Platform Channels y FFI?",
+      response:
+        "`MethodChannel` y `EventChannel` comunican Dart con Java/Kotlin o Swift/Obj-C serializando datos de forma binaria. Para máximo rendimiento, `Dart FFI` (Foreign Function Interface) permite invocar bibliotecas nativas de C/C++/Rust directamente en memoria sin serialización.",
+      level: "experto"
     },
     {
-      title:
-        "¿Qué diferencia hay entre el Widget Tree, Element Tree y Render Tree en Flutter?",
+      title: "¿Cómo crear un RenderObject personalizado (`LeafRenderObjectWidget` / `SingleChildRenderObjectWidget`)?",
       response:
-        "El Widget Tree define la UI declarativa, el Element Tree mantiene instancias y estado, y el Render Tree gestiona la disposición y el renderizado."
+        "Sobrescribiendo `createRenderObject()`, `performLayout()` para definir el algoritmo de sizing y layout intrínseco, y `paint(PaintingContext context, Offset offset)` para control absoluto del pipeline de rasterizado del framework.",
+      level: "experto"
     },
     {
-      title: "¿Qué es el motor Skia en Flutter?",
+      title: "¿Cómo aplicar Clean Architecture con Domain-Driven Design (DDD) en Flutter?",
       response:
-        "Es el motor gráfico usado por Flutter para renderizar en pantallas móviles, web y escritorio."
+        "Dividiendo la aplicación en 3 capas estrictas: 1) **Domain** (Entities, Value Objects, Use Cases, Interfaces de Repositorio; 0 dependencias externas), 2) **Data** (DataSources, Models DTOs, Implementación de Repositorios), y 3) **Presentation** (BLoC/Riverpod, Widgets, Pages).",
+      level: "experto"
     },
     {
-      title:
-        "¿Cómo implementar un canal nativo (Platform Channels) en Flutter?",
+      title: "¿Cómo optimizar el rendimiento y consumo de memoria en apps Flutter de escala masiva?",
       response:
-        "Permite la comunicación entre código Dart y código nativo (Java/Kotlin en Android, Swift/Objective-C en iOS)."
+        "Uso estricto de widgets `const`, evitar `saveLayer()` en Canvas por el costo de offscreen buffers, cachear imágenes con `cached_network_image`, virtualizar listas con `ListView.builder(itemExtent: ...)`, e inspeccionar con Flutter DevTools Timeline y Memory Allocation Tracing.",
+      level: "experto"
     },
     {
-      title: "¿Qué es FFI en Flutter?",
+      title: "¿Qué es Tree Shaking de fuentes y código en Flutter para Web y Móvil?",
       response:
-        "Foreign Function Interface, que permite llamar librerías nativas desde Dart."
-    },
-    {
-      title: "¿Qué diferencia hay entre Isolates y microtasks en Dart?",
-      response:
-        "Isolates corren en hilos separados, mientras que microtasks se ejecutan en el event loop actual."
-    },
-    {
-      title: "¿Qué es un RenderObject en Flutter?",
-      response:
-        "Es la base de bajo nivel usada para definir cómo un widget se pinta y se mide en pantalla."
-    },
-    {
-      title: "¿Cómo manejar animaciones complejas en Flutter?",
-      response:
-        "Usando AnimationController, Tween, CurvedAnimation y librerías como Rive o Lottie."
-    },
-    {
-      title: "¿Qué es la arquitectura Clean en Flutter?",
-      response:
-        "Un enfoque para dividir la app en capas (domain, data, presentation) que mejora mantenibilidad y escalabilidad."
-    },
-    {
-      title: "¿Qué es Dart DevTools?",
-      response:
-        "Un conjunto de herramientas de depuración y análisis para Flutter y Dart."
-    },
-    {
-      title: "¿Cómo implementar testing avanzado en Flutter?",
-      response:
-        "Con unit tests, widget tests, integration tests y herramientas como Mockito para mocks."
+        "Durante el build de release (`flutter build --release`), el compilador AOT de Dart analiza el grafo de dependencias y elimina código, clases, métodos y glifos de fuentes no referenciados, reduciendo el binario final a su mínima expresión.",
+      level: "experto"
     }
   ]
 };

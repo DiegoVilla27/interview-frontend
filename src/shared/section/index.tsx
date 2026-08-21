@@ -15,23 +15,26 @@ export const StructureSection = ({ theme, idAccordion, section }: IProps) => {
   }.svg`;
 
   return (
-    <div className="accordion-item rounded overflow-hidden mb-2 border-0">
+    <div className="accordion-item rounded-3 overflow-hidden mb-2 border-0">
       <h2 className="accordion-header">
         <button
-          className="accordion-button collapsed text-color fw-bold f-montserrat-regular"
+          className="accordion-button collapsed text-color f-montserrat-regular"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target={`#${collapse}`}
           aria-expanded="false"
           aria-controls={collapse}
         >
-          <img
-            src={URL_ICON}
-            className="me-3"
-            width="24px"
-            height="24px"
-          />{" "}
-          <span>{title}</span>
+          <div className="section-icon-wrapper me-3">
+            <img
+              src={URL_ICON}
+              width="20px"
+              height="20px"
+              alt={title}
+            />
+          </div>
+          <span className="accordion-title">{title}</span>
+          <span className="question-count">({questions.length})</span>
         </button>
       </h2>
       <div

@@ -5,185 +5,141 @@ export const questionsAngular: ISection = {
   collapse: "collapseAngular",
   icon: "angular",
   questions: [
+    // === BÁSICO ===
     {
-      title: "¿Qué es Angular y en qué se diferencia de AngularJS?",
+      title: "¿Qué es Angular y qué elementos componen un Componente?",
       response:
-        "Angular es un framework moderno para construir aplicaciones web basadas en TypeScript. AngularJS fue la primera versión (basada en JavaScript y MVC). Angular es totalmente reescrito, usa TypeScript, RxJS y un enfoque modular más escalable."
+        "Angular es un framework TypeScript integral para aplicaciones web escalables. Un componente se compone de: clase TypeScript (lógica), template HTML (vista), estilos CSS/SCSS (diseño) y el decorador `@Component` con metadatos asociados.",
+      level: "basico"
     },
     {
-      title: "¿Qué es un componente en Angular y qué elementos lo componen?",
+      title: "¿Qué tipos de Data Binding existen en Angular?",
       response:
-        "Un componente es la unidad básica de la UI en Angular. Incluye: clase TypeScript (lógica), template HTML (vista), estilos CSS/SCSS, y metadatos definidos en el decorador @Component."
+        "Interpolación `{{ valor }}`, Property Binding `[prop]='valor'` (envía datos al DOM), Event Binding `(event)='metodo()'` (escucha eventos de la vista) y Two-Way Binding `[(ngModel)]='valor'` (sincronización bidireccional).",
+      level: "basico"
     },
     {
-      title: "¿Qué diferencia hay entre un componente y un módulo?",
+      title: "¿Qué es el nuevo Control Flow sintáctico (@if, @for, @switch) en Angular?",
       response:
-        "Un componente representa una parte visual y lógica de la aplicación, mientras que un módulo (NgModule) agrupa componentes, directivas, pipes y servicios para organizarlos y reutilizarlos."
+        "Introducido en Angular 17 para reemplazar las directivas estructurales `*ngIf`, `*ngFor` y `*ngSwitch`. Ofrece mejor rendimiento de compilación, chequeo de tipos estricto y bloque `@empty` nativo en `@for`.",
+      level: "basico"
     },
     {
-      title:
-        "Explica la diferencia entre property binding, event binding y two-way binding.",
+      title: "¿Qué son las Directivas y qué tipos existen?",
       response:
-        "Property binding: pasar datos del TS al template `[prop]`. Event binding: escuchar eventos del template `(event)`. Two-way binding: combinación de ambos con `[(ngModel)]`."
+        "Las directivas extienden el comportamiento o estructura del DOM. Se dividen en: Directivas de Componente (con vista propia), Directivas de Atributo (modifican apariencia o conducta: `ngClass`, `ngStyle`) y Directivas Estructurales (alteran la estructura del árbol DOM).",
+      level: "basico"
     },
     {
-      title: "¿Qué es NgModule y qué decoradores principales conoces?",
+      title: "¿Qué son los Pipes y cómo se utilizan?",
       response:
-        "NgModule organiza bloques de código Angular (componentes, directivas, pipes, servicios). Los principales decoradores son: @Component, @Directive, @Pipe, @Injectable, @NgModule."
+        "Son funciones de transformación de datos en plantillas (`{{ fecha | date:'short' }}`). Existen pipes puros (se ejecutan solo ante cambios primitivos o de referencia) e impuros (se re-evalúan en cada ciclo de detección de cambios).",
+      level: "basico"
     },
     {
-      title:
-        "¿Qué son las directivas y qué diferencias hay entre estructurales y de atributos?",
+      title: "¿Qué diferencia hay entre ngOnInit y el constructor?",
       response:
-        "Las directivas alteran el DOM o el comportamiento de los elementos. Estructurales cambian la estructura (`*ngIf`, `*ngFor`), y de atributos cambian apariencia o comportamiento (`ngClass`, `ngStyle`)."
+        "El `constructor` es un método de TypeScript para instanciar la clase e inyectar dependencias. `ngOnInit` es un hook del ciclo de vida de Angular que se ejecuta cuando los `@Input()` y bindings iniciales ya están listos.",
+      level: "basico"
+    },
+    // === MEDIO ===
+    {
+      title: "¿Qué son los Standalone Components y por qué reemplazan a NgModule?",
+      response:
+        "Son componentes independientes que declaran sus propias dependencias (`imports: [...]`) directamente en el decorador `@Component({ standalone: true })`. Simplifican la arquitectura, eliminan el boilerplate de `NgModule` y facilitan el tree-shaking.",
+      level: "medio"
     },
     {
-      title:
-        "¿Qué diferencia hay entre ngOnInit y el constructor de una clase en Angular?",
+      title: "¿Qué son los Signals en Angular (Angular 16+) y cómo funcionan?",
       response:
-        "El constructor se ejecuta al instanciar el componente, mientras que ngOnInit es un hook del ciclo de vida que se ejecuta cuando Angular ha inicializado las propiedades vinculadas."
+        "Son primitivas reactivas (`signal(valor)`, `computed(() => ...)`, `effect(() => ...)`) que notifican granularmente a Angular qué partes específicas del DOM deben actualizarse, habilitando reactividad sincrónica y libre de Zone.js.",
+      level: "medio"
     },
     {
-      title: "¿Qué es el data binding en Angular y cuántos tipos existen?",
+      title: "¿Qué diferencia hay entre Template-driven Forms y Reactive Forms?",
       response:
-        "Es la sincronización de datos entre la vista y la lógica. Tipos: interpolación `{{}}`, property binding `[prop]`, event binding `(event)` y two-way binding `[(ngModel)]`."
+        "Template-driven: declarativos en el template, asíncronos y pensados para formularios simples. Reactive Forms: controlados por TypeScript (`FormGroup`, `FormControl`), sincrónicos, fuertemente tipados y óptimos para validaciones dinámicas complejas.",
+      level: "medio"
     },
     {
-      title: "¿Qué es el router de Angular y cómo defines rutas básicas?",
+      title: "¿Qué es el Async Pipe y por qué es una buena práctica?",
       response:
-        "El router permite navegación SPA. Se definen rutas en un arreglo con `path` y `component`, y se configuran con `RouterModule.forRoot(routes)`."
+        "Es un pipe (`observable$ | async`) que se suscribe automáticamente a un Observable o Promise, desenvuelve su valor en la plantilla y se desuscribe al destruir el componente, evitando memory leaks.",
+      level: "medio"
     },
     {
-      title: "¿Para qué sirve el archivo angular.json?",
+      title: "¿Qué diferencia hay entre Subject, BehaviorSubject y ReplaySubject en RxJS?",
       response:
-        "Configura el proyecto: scripts, estilos globales, assets, configuración de compilación y entornos."
+        "`Subject`: multidifusión simple sin valor inicial. `BehaviorSubject`: almacena y emite de inmediato el último valor a nuevos suscriptores. `ReplaySubject`: almacena un buffer histórico de N valores emitidos para nuevos suscriptores.",
+      level: "medio"
     },
     {
-      title: "¿Qué es RxJS y qué papel cumplen los Observables en Angular?",
+      title: "¿Qué son los Guards en el Router de Angular?",
       response:
-        "RxJS es una librería para programación reactiva basada en flujos de datos asíncronos. Los Observables representan esos flujos y Angular los usa en HTTP, formularios y eventos."
+        "Son interfaces o funciones funcionales (`canActivate`, `canDeactivate`, `canMatch`, `resolve`) que restringen o condicionan la navegación a rutas según autenticación, roles o resolución de datos previos.",
+      level: "medio"
     },
     {
-      title:
-        "Diferencia entre Observables y Promises. ¿Cuándo usarías cada uno?",
+      title: "¿Qué es un HTTP Interceptor y cuáles son sus casos de uso?",
       response:
-        "Promise maneja un único valor asincrónico. Observable maneja múltiples valores en el tiempo y permite cancelación. Angular recomienda Observables para flujos reactivos."
+        "Es una función o servicio que intercepta peticiones y respuestas HTTP. Casos de uso: inyección automática de Bearer tokens, manejo centralizado de errores, loaders globales y reintentos de peticiones.",
+      level: "medio"
+    },
+    // === AVANZADO ===
+    {
+      title: "¿Cómo funciona Change Detection: Default vs OnPush?",
+      response:
+        "`Default` revisa el árbol completo de componentes ante cualquier evento en el navegador. `OnPush` solo dispara la verificación si cambian las referencias de los `@Input()`, si se dispara un evento originado en el propio componente, o si emite un Signal/Observable con async pipe.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué son los servicios en Angular y cómo se inyectan?",
+      title: "¿Qué son las Deferrable Views (@defer) y cómo optimizan la carga inicial?",
       response:
-        "Son clases con lógica de negocio o conexión a APIs. Se inyectan con Dependency Injection mediante el decorador @Injectable y se registran en providers."
+        "Permiten cargar bloques de template y sus dependencias de forma perezosa (lazy) según disparadores como `on viewport`, `on interaction`, `on hover` o `when condición`, reduciendo el First Contentful Paint drásticamente.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué son los pipes? ¿Cómo crear uno personalizado?",
+      title: "¿Cómo funciona la Inyección de Dependencias Jerárquica y los modificadores de resolución?",
       response:
-        "Los pipes transforman datos en la vista (ej: date, uppercase). Un pipe personalizado se crea con @Pipe y la interfaz PipeTransform."
+        "Angular busca dependencias ascendiendo por el árbol de inyectores (ElementInjector -> EnvironmentInjector). Modificadores: `@Self()` (solo inyector actual), `@SkipSelf()` (inicia en el padre), `@Optional()` (retorna null si falta), `@Host()` (limita al host component).",
+      level: "avanzado"
     },
     {
-      title: "Diferencia entre template-driven forms y reactive forms.",
+      title: "¿Qué es NgZone y cómo funciona Zone.js?",
       response:
-        "Template-driven: más simples, declarativos en el HTML. Reactive: controlados por código TS, más escalables, con validaciones complejas y mayor testabilidad."
+        "Zone.js parcha todas las APIs asíncronas del navegador (setTimeout, fetch, addEventListener) para notificar a Angular cuándo una tarea terminó y ejecutar `ApplicationRef.tick()` automáticamente.",
+      level: "avanzado"
     },
     {
-      title: "Explica el ciclo de vida completo de un componente en Angular.",
+      title: "¿Qué es signalInputs, signalOutputs y model() en Angular moderno?",
       response:
-        "Incluye hooks como: ngOnChanges, ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy."
+        "Nuevas APIs basadas en Signals: `input()` reemplaza `@Input()`, `output()` reemplaza `@Output()`, y `model()` provee Two-Way Binding tipado reactivo basado en Signals.",
+      level: "avanzado"
+    },
+    // === EXPERTO ===
+    {
+      title: "¿Qué es Zoneless Angular y cómo se logra un rendimiento extremo?",
+      response:
+        "Es la capacidad de ejecutar Angular sin la sobrecarga de `Zone.js` (`provideExperimentalZonelessChangeDetection()`). La detección de cambios se vuelve 100% reactiva y local basada en Signals, reduciendo el bundle y eliminando ciclos de chequeo global innecesarios.",
+      level: "experto"
     },
     {
-      title: "¿Qué es Change Detection y cómo funciona en Angular?",
+      title: "¿Cómo implementar Non-Destructive Hydration con SSR en Angular?",
       response:
-        "Es el mecanismo de Angular que actualiza la vista cuando cambian los datos. Por defecto recorre el árbol de componentes; se puede optimizar con OnPush."
+        "A diferencia de la hidratación destructiva tradicional que destruía y recreaba el DOM, `provideClientHydration()` reutiliza los nodos DOM generados por el servidor preservando el estado de inputs y scroll sin parpadeos visuales.",
+      level: "experto"
     },
     {
-      title:
-        "¿Qué diferencia hay entre Subject, BehaviorSubject y ReplaySubject?",
+      title: "¿Cómo estructurar el Estado Global con NgRx SignalStore?",
       response:
-        "Subject: emite valores a los subscriptores. BehaviorSubject: guarda el último valor y lo entrega al nuevo suscriptor. ReplaySubject: guarda varios valores anteriores y los entrega a nuevos suscriptores."
+        "NgRx SignalStore es una solución ligera basada en Signals con arquitectura modular: `signalStore(withState(...), withComputed(...), withMethods(...), withHooks(...))`. Ofrece tipado estricto, reactividad nativa y cero boilerplate comparado con reducers tradicionales.",
+      level: "experto"
     },
     {
-      title: "¿Qué es un Guard en el router de Angular?",
+      title: "¿Cómo diseñar una arquitectura empresarial escalable con NX y Module Federation en Angular?",
       response:
-        "Son funciones/clases que controlan acceso a rutas (`CanActivate`, `CanDeactivate`, `Resolve`, `CanLoad`) para seguridad o pre-carga de datos."
-    },
-    {
-      title: "¿Qué es el async pipe y por qué se prefiere usarlo?",
-      response:
-        "Es un pipe que se suscribe automáticamente a un Observable o Promise y maneja la cancelación de la suscripción. Evita fugas de memoria."
-    },
-    {
-      title: "¿Cómo manejas lazy loading de módulos y qué ventajas tiene?",
-      response:
-        "Se carga un módulo solo cuando la ruta es accedida, optimizando el performance inicial. Se configura con loadChildren en las rutas."
-    },
-    {
-      title: "¿Qué es un interceptor HTTP y qué casos de uso tiene?",
-      response:
-        "Es una clase que intercepta las peticiones/respuestas HTTP. Se usa para logging, manejo de errores, autenticación (tokens), o añadir headers."
-    },
-    {
-      title:
-        "¿Cómo funciona la estrategia de Change Detection en Angular? Explica Default vs OnPush.",
-      response:
-        "Default: revisa todo el árbol de componentes. OnPush: solo revisa cuando cambian inputs, un evento o un Observable emite, mejorando rendimiento."
-    },
-    {
-      title: "¿Qué es NgZone y cómo optimiza la detección de cambios?",
-      response:
-        "NgZone controla la ejecución de código asincrónico para disparar Change Detection. Permite optimizar corriendo tareas fuera de Angular y reducir ciclos innecesarios."
-    },
-    {
-      title: "¿Qué es un Standalone Component y qué ventajas tiene?",
-      response:
-        "Es un componente independiente (sin necesidad de NgModule) introducido en Angular 14+. Simplifica la estructura y facilita lazy loading."
-    },
-    {
-      title:
-        "¿Cómo manejarías la optimización de performance en una app Angular grande?",
-      response:
-        "Usar OnPush, trackBy en *ngFor, lazy loading, preloading selectivo, dividir bundles, tree-shaking, y evitar Change Detection innecesario."
-    },
-    {
-      title: "¿Qué es State Management en Angular? ¿Qué librerías conoces?",
-      response:
-        "Es la gestión centralizada del estado de la aplicación. Librerías: NgRx, Akita, NGXS. Mejoran consistencia, escalabilidad y debugging."
-    },
-    {
-      title:
-        "¿Qué son los Signals en Angular (desde Angular 16+) y cómo se comparan con RxJS?",
-      response:
-        "Los signals son una API reactiva para manejo de estado local. Son sincrónicos, fáciles de usar y optimizados para Change Detection. RxJS es más potente para flujos complejos asincrónicos."
-    },
-    {
-      title: "¿Cómo implementarías SSR con Angular Universal?",
-      response:
-        "Usando Angular Universal, que renderiza la app en el servidor para mejorar SEO y performance. Se configura con @nguniversal/express-engine."
-    },
-    {
-      title:
-        "¿Qué es preloading strategy en Angular Router y cuándo conviene usarlo?",
-      response:
-        "Es una estrategia para precargar módulos después de cargar la app inicial. Ejemplo: PreloadAllModules. Se usa cuando se quiere mejorar UX sin afectar el tiempo inicial de carga."
-    },
-    {
-      title: "¿Qué son los diferentes niveles de inyección en Angular?",
-      response:
-        "root: disponible en toda la app. platform: compartido entre múltiples apps en la misma plataforma. any: crea una nueva instancia en cada inyección. component: ligado al componente y descendientes."
-    },
-    {
-      title: "¿Cómo manejarías la internacionalización (i18n) en Angular?",
-      response:
-        "Con el módulo i18n integrado, usando etiquetas de marcado y comandos de Angular CLI para extraer y compilar traducciones. También con librerías como Transloco o ngx-translate."
-    },
-    {
-      title: "¿Qué es un dynamic component loader y cuándo se usaría?",
-      response:
-        "Es la carga dinámica de componentes en tiempo de ejecución con ViewContainerRef y ComponentFactoryResolver. Útil en modales, dashboards configurables o CMS."
-    },
-    {
-      title:
-        "¿Qué técnicas conoces para mejorar el tiempo de carga inicial de una aplicación Angular?",
-      response:
-        "Lazy loading, preloading selectivo, Angular Universal (SSR), tree-shaking, code splitting, optimización de assets, y uso de Service Workers."
+        "Monorepo estructurado con NX aplicando librerías por capa (feature, ui, data-access, util) con reglas de linting estrictas (`eslint-plugin-nx`), carga dinámica de microfrontends con Module Federation (`@angular-architects/module-federation`) y Caché de Computación Distribuido.",
+      level: "experto"
     }
   ]
 };

@@ -8,5 +8,22 @@
   --font-montserrat-bold: "montserrat-bold";
   --font-montserrat-regular: "montserrat-regular";
   --font-montserrat-light: "montserrat-light";
-  --icon-arrow:'url("/public/icons/arrow-white.svg")';
+  --icon-arrow: 'url("/public/icons/arrow-white.svg")';
+
+  /* Cute & Aesthetic Level Badge Tokens */
+  --badge-basico-color: #10b981;
+  --badge-basico-bg: rgba(16, 185, 129, 0.12);
+  --badge-basico-border: rgba(16, 185, 129, 0.28);
+
+  --badge-medio-color: #0ea5e9;
+  --badge-medio-bg: rgba(14, 165, 233, 0.12);
+  --badge-medio-border: rgba(14, 165, 233, 0.28);
+
+  --badge-avanzado-color: #f59e0b;
+  --badge-avanzado-bg: rgba(245, 158, 11, 0.12);
+  --badge-avanzado-border: rgba(245, 158, 11, 0.28);
+
+  --badge-experto-color: #ec4899;
+  --badge-experto-bg: rgba(236, 72, 153, 0.12);
+  --badge-experto-border: rgba(236, 72, 153, 0.28);
 }

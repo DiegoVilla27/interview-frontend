@@ -5,82 +5,26 @@ export const questionsTesting: ISection = {
   collapse: "collapseTesting",
   icon: "testing",
   questions: [
-    {
-      title:
-        "¿Qué es testing en el desarrollo frontend y por qué es importante?",
-      response:
-        "Es el proceso de verificar que el código funciona como se espera. Permite detectar errores antes de producción y asegurar la calidad del software."
-    },
-    {
-      title:
-        "¿Qué diferencias existen entre pruebas unitarias, de integración y end-to-end?",
-      response:
-        "Las unitarias prueban funciones aisladas, las de integración validan la interacción entre varios módulos y las E2E simulan el flujo completo de usuario en la aplicación."
-    },
-    {
-      title: "¿Qué es el TDD (Test Driven Development)?",
-      response:
-        "Es una metodología en la que primero se escriben pruebas fallidas, luego el código para pasarlas y finalmente se refactoriza."
-    },
-    {
-      title: "¿Qué beneficios aporta la cobertura de código en pruebas?",
-      response:
-        "Permite medir qué porcentaje del código está cubierto por tests, ayudando a identificar partes no validadas."
-    },
-    {
-      title: "¿Cuál es la diferencia entre mocks, stubs y spies?",
-      response:
-        "Mocks simulan dependencias, stubs proveen respuestas predefinidas y spies registran cómo se llaman las funciones."
-    },
-    {
-      title: "¿Qué es Jest y por qué es popular en el frontend?",
-      response:
-        "Es un framework de testing de JavaScript creado por Facebook, rápido y con funcionalidades como mocks automáticos y soporte para snapshots."
-    },
-    {
-      title: "¿Qué son los snapshot tests en Jest?",
-      response:
-        "Son pruebas que guardan la salida de un componente y comparan ejecuciones futuras para detectar cambios inesperados."
-    },
-    {
-      title: "¿Cómo se configuran pruebas asíncronas en Jest?",
-      response:
-        "Se puede usar async/await o la función done para esperar la resolución de promesas."
-    },
-    {
-      title: "¿Qué es un mock en Jest y cómo se usa?",
-      response:
-        "Un mock reemplaza funciones o módulos para controlar su comportamiento en pruebas. Se usa con jest.fn() o jest.mock()."
-    },
-    {
-      title: "¿Cómo se corre una sola prueba en Jest?",
-      response: "Se puede usar test.only o it.only en la prueba deseada."
-    },
-    {
-      title: "¿Qué es Karma y para qué se utiliza en Angular?",
-      response:
-        "Es un test runner que ejecuta pruebas en navegadores reales, usado comúnmente en Angular junto con Jasmine."
-    },
-    {
-      title: "¿Qué es Jasmine?",
-      response:
-        "Es un framework de testing para JavaScript que proporciona sintaxis tipo BDD para escribir pruebas legibles."
-    },
-    {
-      title: "¿Qué diferencia hay entre 'describe' e 'it' en Jasmine?",
-      response:
-        "describe agrupa un conjunto de pruebas relacionadas, mientras que it define un caso de prueba individual."
-    },
-    {
-      title: "¿Cómo se manejan pruebas asíncronas en Jasmine?",
-      response:
-        "Se usa la función done dentro de la prueba o async/await en versiones modernas."
-    },
-    {
-      title: "¿Qué ventajas y desventajas tiene Karma frente a Jest?",
-      response:
-        "Karma ejecuta en navegadores reales, útil para compatibilidad, pero es más lento que Jest que corre en Node con JSDOM."
-    }
+    { title: "¿Qué es testing en el desarrollo frontend?", response: "Es el proceso de verificar que el código funciona como se espera. Permite detectar errores antes de producción, documentar comportamiento esperado y refactorizar con confianza.", level: "basico" },
+    { title: "¿Qué tipos de pruebas existen?", response: "Unitarias: funciones aisladas. Integración: interacción entre módulos. E2E: flujo completo del usuario. Visual: regresiones de UI. Performance: métricas de rendimiento.", level: "basico" },
+    { title: "¿Qué es el TDD (Test Driven Development)?", response: "Metodología: 1) Escribir test que falle (Red), 2) Escribir código mínimo para pasar (Green), 3) Refactorizar (Refactor). Garantiza cobertura y diseño orientado a testabilidad.", level: "basico" },
+    { title: "¿Qué beneficios aporta la cobertura de código?", response: "Mide qué porcentaje del código está cubierto por tests (líneas, ramas, funciones). Ayuda a identificar código no validado. Un 80%+ es buen objetivo, pero cobertura ≠ calidad.", level: "basico" },
+    { title: "¿Qué es Jest y por qué es popular?", response: "Framework de testing de JavaScript por Meta. Zero-config, rápido (ejecución paralela), incluye mocks automáticos, snapshots, cobertura integrada, y soporte para React/Vue/Node.", level: "basico" },
+    { title: "¿Cuál es la diferencia entre mocks, stubs y spies?", response: "Mocks: objetos simulados que verifican interacciones. Stubs: proveen respuestas predefinidas sin verificar uso. Spies: envuelven funciones reales y registran cómo se llamaron.", level: "medio" },
+    { title: "¿Qué son los snapshot tests en Jest?", response: "Guardan la salida serializada de un componente y comparan con ejecuciones futuras. Detectan cambios inesperados en la UI. Útiles pero frágiles; actualizar con --updateSnapshot.", level: "medio" },
+    { title: "¿Cómo se configuran pruebas asíncronas en Jest?", response: "Con async/await, return de Promise, o callback done(). Para timers: jest.useFakeTimers(). Para fetch: msw (Mock Service Worker) o jest.mock().", level: "medio" },
+    { title: "¿Qué es React Testing Library (RTL)?", response: "Librería que promueve testing desde la perspectiva del usuario. Busca por texto, role, label (no por implementación). Principio: 'The more your tests resemble how software is used, the more confidence they give'.", level: "medio" },
+    { title: "¿Qué diferencia hay entre getBy, queryBy y findBy en RTL?", response: "getBy: lanza error si no encuentra. queryBy: retorna null si no encuentra (útil para verificar ausencia). findBy: async, espera hasta encontrar (ideal para cambios de estado).", level: "medio" },
+    { title: "¿Qué es Vitest y por qué reemplaza a Jest?", response: "Framework de testing compatible con Jest pero nativo de Vite. Usa el mismo config y pipeline de transformación, soporta ESM nativo, es más rápido y tiene HMR de tests.", level: "avanzado" },
+    { title: "¿Qué es Cypress y para qué se usa?", response: "Framework de testing E2E que ejecuta tests en un navegador real. Permite interactuar con la UI, hacer assertions visuales, interceptar network requests, y time-travel debugging.", level: "avanzado" },
+    { title: "¿Qué es Playwright y cómo se compara con Cypress?", response: "Framework E2E de Microsoft que soporta Chromium, Firefox y WebKit. Multi-tab, multi-origin, parallelism nativo. Cypress es más simple pero limitado a un tab y un origin.", level: "avanzado" },
+    { title: "¿Qué es MSW (Mock Service Worker)?", response: "Librería que intercepta requests HTTP a nivel de Service Worker. Permite mockear APIs sin modificar código de la app. Funciona en tests (Jest/Vitest) y en desarrollo (browser).", level: "avanzado" },
+    { title: "¿Cómo testeas custom hooks en React?", response: "Con @testing-library/react y renderHook(). Se llama al hook, se actúan los cambios (act()), y se verifican los resultados. No se renderiza UI, solo la lógica del hook.", level: "avanzado" },
+    { title: "¿Qué es mutation testing?", response: "Técnica que introduce cambios (mutaciones) en el código fuente y verifica que los tests los detecten. Si un mutante sobrevive, indica un test débil. Herramienta: Stryker.", level: "avanzado" },
+    { title: "¿Cómo diseñarías una estrategia de testing para una app enterprise?", response: "Pirámide de testing: muchos unit tests (rápidos), integración media, pocos E2E (lentos). Contract testing entre servicios. Visual regression con Chromatic. Performance testing con Lighthouse CI.", level: "experto" },
+    { title: "¿Qué es contract testing y cuándo se usa?", response: "Verifica que el contrato (schema) entre un API provider y consumer se mantiene. Herramientas: Pact. Evita roturas cuando frontend y backend evolucionan independientemente.", level: "experto" },
+    { title: "¿Qué es visual regression testing?", response: "Compara screenshots pixel-por-pixel entre versiones. Detecta cambios visuales inesperados. Herramientas: Chromatic (Storybook), Percy, BackstopJS. Esencial en design systems.", level: "experto" },
+    { title: "¿Qué es property-based testing?", response: "En lugar de casos específicos, defines propiedades que siempre deben cumplirse y el framework genera inputs aleatorios. Encuentra edge cases. Herramientas: fast-check (JS), Hypothesis (Python).", level: "experto" }
   ]
 };
 

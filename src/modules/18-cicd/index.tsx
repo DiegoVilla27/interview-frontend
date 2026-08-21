@@ -5,107 +5,123 @@ export const questionsCICD: ISection = {
   collapse: "collapseCICD",
   icon: "cicd",
   questions: [
+    // === BÁSICO ===
     {
-      title: "¿Qué significa CI/CD?",
+      title: "¿Qué significa CI/CD y qué problema resuelve?",
       response:
-        "CI/CD significa Integración Continua (Continuous Integration) y Entrega/Despliegue Continuo (Continuous Delivery/Deployment)."
+        "CI (Continuous Integration) y CD (Continuous Delivery / Continuous Deployment). Resuelve el 'integration hell' automatizando la validación, pruebas, empaquetado y entrega de software de forma continua y frecuente.",
+      level: "basico"
     },
     {
-      title: "¿Qué problema resuelve la Integración Continua?",
+      title: "¿Cuál es la diferencia entre Continuous Delivery y Continuous Deployment?",
       response:
-        "Detectar errores de integración rápidamente al ejecutar pruebas automáticas cada vez que se sube código."
+        "En Continuous Delivery, cada cambio probado se empaqueta y queda automáticamente listo para producción, pero el despliegue final requiere aprobación manual humana. En Continuous Deployment, el despliegue a producción es 100% automático sin intervención humana si todos los tests pasan.",
+      level: "basico"
     },
     {
-      title:
-        "¿Qué diferencia hay entre Continuous Delivery y Continuous Deployment?",
+      title: "¿Qué es un Pipeline y qué son los Jobs y Stages?",
       response:
-        "Continuous Delivery deja la decisión final de desplegar en producción al equipo; Continuous Deployment despliega automáticamente tras aprobar las pruebas."
+        "Un Pipeline es el flujo automatizado de pasos de CI/CD. Los 'Stages' son fases lógicas (Lint -> Test -> Build -> Deploy). Los 'Jobs' son unidades individuales de ejecución dentro de un stage (ej. 'unit-tests', 'e2e-tests') que pueden correr en paralelo.",
+      level: "basico"
     },
     {
-      title: "Menciona un servicio popular para CI/CD.",
-      response: "GitHub Actions, GitLab CI, CircleCI, Travis CI, Jenkins."
-    },
-    {
-      title: "¿Qué es un pipeline en CI/CD?",
+      title: "¿Qué es un Runner o Agente en CI/CD?",
       response:
-        "Es una secuencia de pasos automatizados para construir, probar y desplegar aplicaciones."
+        "Es el servidor o contenedor (máquina virtual) que escucha eventos del repositorio y ejecuta los comandos definidos en el archivo de pipeline (ej. GitHub Actions Hosted Runners, GitLab Runners, Jenkins Agents).",
+      level: "basico"
     },
     {
-      title: "¿Qué es un runner en GitLab CI?",
-      response: "Es el agente que ejecuta los jobs definidos en el pipeline."
-    },
-    {
-      title: "¿Cómo se asegura la calidad del código en un pipeline?",
+      title: "¿Qué herramientas populares de CI/CD existen en la actualidad?",
       response:
-        "Con análisis estáticos (linting), pruebas unitarias, pruebas de integración y revisiones de seguridad automatizadas."
+        "GitHub Actions, GitLab CI/CD, Bitbucket Pipelines, CircleCI, Jenkins, ArgoCD (GitOps) y plataformas de hosting con CI integrado como Vercel, Netlify y Cloudflare Pages.",
+      level: "basico"
+    },
+    // === MEDIO ===
+    {
+      title: "¿Cómo se asegura la calidad del código frontend dentro de un pipeline?",
+      response:
+        "Encadenando gates de validación: 1) Linters y formateo (`eslint`, `prettier`), 2) Type-checking (`tsc --noEmit`), 3) Tests unitarios y de integración (`vitest`/`jest` con umbral de cobertura), 4) Auditoría de dependencias (`pnpm audit`), 5) Build de producción sin errores.",
+      level: "medio"
     },
     {
-      title: "¿Qué ventaja tiene usar contenedores en pipelines?",
+      title: "¿Qué es un Artefacto (Artifact) en CI/CD y cuándo se genera?",
       response:
-        "Garantizan entornos consistentes y reproducibles para construir y ejecutar la aplicación."
+        "Es un archivo o conjunto de archivos generado durante un job de build (ej. directorio `dist/`, reporte de cobertura de tests, imagen Docker o paquete npm) que se guarda temporalmente en el sistema de CI para ser consumido por jobs posteriores de despliegue.",
+      level: "medio"
     },
     {
-      title: "¿Qué es un artefacto en CI/CD?",
+      title: "¿Cómo se gestionan Secretos y Variables de Entorno de forma segura?",
       response:
-        "Es el resultado de un job (ejemplo: binario compilado, paquete npm, docker image) que puede ser reutilizado en otros pasos."
+        "Utilizando gestores de secretos dedicados (GitHub Actions Secrets, AWS Secrets Manager, HashiCorp Vault). Los secretos nunca se commitean en Git, se inyectan en tiempo de ejecución del runner y se enmascaran automáticamente en los logs de salida.",
+      level: "medio"
     },
     {
-      title: "¿Qué diferencia hay entre un job y un stage?",
+      title: "¿Cómo funciona el Caching de dependencias y builds en GitHub Actions?",
       response:
-        "Un job es una tarea individual; un stage agrupa varios jobs que se ejecutan en paralelo o secuencia."
+        "Usando `actions/cache` o `setup-node` con caché nativo (`cache: 'pnpm'`). Guarda y restaura el store de dependencias basado en el hash del lockfile (`pnpm-lock.yaml`), reduciendo el tiempo de ejecución del pipeline de minutos a segundos.",
+      level: "medio"
     },
     {
-      title: "¿Cómo implementar despliegues blue-green?",
+      title: "¿Qué es una Matriz de Ejecución (Matrix Strategy)?",
       response:
-        "Se mantienen dos entornos (blue y green); uno atiende tráfico y el otro recibe la nueva versión. Se redirige el tráfico cuando la nueva versión está validada."
+        "Una configuración de pipeline que ejecuta un job en múltiples combinaciones de entornos simultáneamente (ej. Node.js 18, 20, 22 sobre Ubuntu, macOS y Windows), asegurando compatibilidad multiplataforma sin duplicar código YAML.",
+      level: "medio"
+    },
+    // === AVANZADO ===
+    {
+      title: "¿Qué estrategias de despliegue existen: Blue-Green vs Canary vs Rolling?",
+      response:
+        "**Blue-Green**: dos entornos idénticos; se despliega en el inactivo (Green) y se conmuta el router instantáneamente. **Canary**: se envía la nueva versión al 5-10% del tráfico y se escala tras monitorear errores. **Rolling**: se actualizan instancias secuencialmente sin downtime.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué es un despliegue canary?",
+      title: "¿Cómo integrar Lighthouse CI (LHCI) en el pipeline para auditar Core Web Vitals?",
       response:
-        "Se libera la nueva versión a un pequeño porcentaje de usuarios antes de extenderlo a todos."
+        "Ejecutando `@lhci/cli` en el pipeline contra un build local o preview deploy. Establece presupuestos de rendimiento (Performance Budget), fallando el PR si las métricas de Performance, Accesibilidad, SEO o LCP caen por debajo de los umbrales configurados.",
+      level: "avanzado"
     },
     {
-      title: "¿Cómo manejar secretos en un pipeline de CI/CD?",
+      title: "¿Qué son los Preview Deployments / Ephemeral Environments?",
       response:
-        "Usando gestores seguros como Vault, AWS Secrets Manager, GitHub Secrets o variables de entorno encriptadas."
+        "Son despliegues automáticos y aislados de cada Pull Request en una URL única temporal (como hace Vercel o Cloudflare Pages). Permite que QA, diseñadores y stakeholders prueben los cambios visual y funcionalmente antes del merge a `main`.",
+      level: "avanzado"
     },
     {
-      title:
-        "¿Qué diferencia hay entre integración continua y entrega continua a nivel de frecuencia?",
+      title: "¿Qué es SAST y DAST en la seguridad de pipelines?",
       response:
-        "La integración continua asegura que cada commit se integre y pruebe; la entrega continua busca que cada cambio esté siempre listo para producción."
+        "**SAST** (Static Application Security Testing): analiza el código fuente estático en busca de vulnerabilidades conocidas (SonarQube, Snyk Code, CodeQL). **DAST** (Dynamic Application Security Testing): ataca la app en ejecución en un entorno de staging (OWASP ZAP) para detectar fallos en runtime.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué es Infrastructure as Code y cómo encaja en CI/CD?",
+      title: "¿Cómo implementar Feature Flags en combinación con CI/CD?",
       response:
-        "Es la gestión de infraestructuras mediante código (ej. Terraform, Ansible) que puede automatizarse en pipelines."
+        "Permite desacoplar el **despliegue de código** de la **activación de la funcionalidad**. Usando plataformas como LaunchDarkly o flags propios, el código nuevo se despliega a producción en modo apagado y se activa progresivamente a usuarios específicos sin nuevos builds.",
+      level: "avanzado"
+    },
+    // === EXPERTO ===
+    {
+      title: "¿Qué es GitOps y cómo funciona con ArgoCD / Flux?",
+      response:
+        "Es un modelo operativo donde un repositorio Git es la 'única fuente de verdad' para la infraestructura y estado deseado de la aplicación. Un operador dentro del clúster (ArgoCD) monitoriza el repo y aplica reconciliaciones automáticas para corregir cualquier 'drift' de configuración.",
+      level: "experto"
     },
     {
-      title:
-        "¿Cómo implementar un pipeline multi-entorno (dev, staging, producción)?",
+      title: "¿Cómo lograr Zero-Downtime y Atomic Frontend Deployments a nivel de CDN?",
       response:
-        "Definiendo stages separados y reglas de despliegue condicionadas por ramas, tags o aprobaciones manuales."
+        "Subiendo los assets estáticos con content-hashing inmutable a un bucket S3/Cloud Storage, manteniendo todas las versiones previas disponibles (evitando errores 404 en usuarios con sesiones abiertas). El archivo `index.html` se actualiza de forma atómica invalidando solo su entrada en el CDN edge.",
+      level: "experto"
     },
     {
-      title: "¿Cómo integras pruebas de performance en un pipeline?",
+      title: "¿Cómo diseñar una estrategia de Rollback Automático basada en métricas de observabilidad?",
       response:
-        "Con herramientas como JMeter, k6 o Gatling dentro de jobs automatizados."
+        "Integrando herramientas como Datadog, Sentry o Prometheus en el pipeline de CD. Si tras un despliegue Canary la tasa de errores HTTP 5xx o excepciones JS supera el 0.1%, el pipeline dispara un webhook de rollback automático en segundos sin intervención humana.",
+      level: "experto"
     },
     {
-      title: "¿Qué es GitOps y cómo se relaciona con CI/CD?",
+      title: "¿Cómo asegurar la Supply Chain Security (SLSA framework) en frontend?",
       response:
-        "Es un enfoque donde el estado deseado de la infraestructura se gestiona en repositorios Git, y los cambios se aplican automáticamente con operadores como ArgoCD o Flux."
-    },
-    {
-      title: "¿Cómo manejar despliegues en múltiples regiones con CI/CD?",
-      response:
-        "Usando pipelines paralelos/orquestados que apliquen despliegues en regiones distintas con balanceo progresivo."
-    },
-    {
-      title:
-        "¿Cómo aplicar políticas de seguridad y compliance en pipelines CI/CD?",
-      response:
-        "Con escaneos automáticos de dependencias, análisis SAST/DAST, validación de infraestructura, y gates de seguridad antes del despliegue."
+        "Implementando firmas criptográficas de commits y artefactos (Sigstore/Cosign), generando Software Bill of Materials (SBOM) con CycloneDX, usando lockfiles inmutables congelados (`--frozen-lockfile`) y verificando procedencia de paquetes npm contra ataques de typosquatting y malware inyectado.",
+      level: "experto"
     }
   ]
 };

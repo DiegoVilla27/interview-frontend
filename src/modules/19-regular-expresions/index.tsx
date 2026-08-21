@@ -5,130 +5,117 @@ export const questionsRegularExpresions: ISection = {
   collapse: "collapseRegularExpresions",
   icon: "regular-expresions",
   questions: [
+    // === BÁSICO ===
     {
-      title: "¿Qué es una expresión regular?",
-      response: "Una secuencia de caracteres que define un patrón de búsqueda."
-    },
-    {
-      title: "¿Cómo se usa una expresión regular simple en JavaScript?",
+      title: "¿Qué es una Expresión Regular (RegEx)?",
       response:
-        "Con el constructor `RegExp` o las barras `/patrón/`. Ej: `/abc/`."
+        "Es una secuencia formal de caracteres que define un patrón de búsqueda y coincidencia de texto. Se utiliza para validar entradas de usuario, buscar, reemplazar y extraer fragmentos de strings.",
+      level: "basico"
     },
     {
-      title: "¿Qué significa el metacarácter `.`?",
-      response: "Coincide con cualquier carácter excepto saltos de línea."
-    },
-    {
-      title: "¿Qué significa `^` y `$` en regex?",
-      response: "`^` coincide con el inicio de la cadena y `$` con el final."
-    },
-    {
-      title: "¿Qué hace el operador `*`?",
-      response: "Coincide con cero o más repeticiones del elemento anterior."
-    },
-    {
-      title: "¿Qué hace el operador `+`?",
-      response: "Coincide con una o más repeticiones del elemento anterior."
-    },
-    {
-      title: "¿Qué hace el operador `?`?",
-      response: "Hace que el elemento anterior sea opcional (cero o una vez)."
-    },
-    {
-      title: "¿Qué significa el cuantificador `{n,m}`?",
-      response: "Coincide entre `n` y `m` repeticiones del patrón anterior."
-    },
-    {
-      title: "¿Cómo validar un número entero con regex?",
-      response: "`/^-?\\d+$/` permite enteros positivos y negativos."
-    },
-    {
-      title: "¿Qué hace la clase `[a-z]`?",
-      response: "Coincide con cualquier letra minúscula de la 'a' a la 'z'."
-    },
-    {
-      title: "¿Qué hace `\\d` y `\\D`?",
+      title: "¿Cómo se crea una RegEx en JavaScript?",
       response:
-        "`\\d` coincide con cualquier dígito, `\\D` con cualquier carácter que no sea dígito."
+        "De dos formas: 1) Literal: `/patrón/flags` (compilada en tiempo de parseo, preferida si es estática) o 2) Constructor: `new RegExp('patrón', 'flags')` (permite construir patrones dinámicos en runtime).",
+      level: "basico"
     },
     {
-      title: "¿Qué hace `\\w` y `\\W`?",
+      title: "¿Qué significan las anclas `^` y `$`?",
       response:
-        "`\\w` coincide con letras, dígitos y `_`. `\\W` coincide con lo contrario."
+        "`^` coincide con el inicio de la línea/string. `$` coincide con el final de la línea/string. Ejemplo: `/^admin$/` solo coincide con la palabra exacta 'admin' sin caracteres adicionales alrededor.",
+      level: "basico"
     },
     {
-      title: "¿Qué hace `\\s` y `\\S`?",
+      title: "¿Qué hacen los cuantificadores `*`, `+` y `?`?",
       response:
-        "`\\s` coincide con espacios en blanco, `\\S` con caracteres que no son espacio."
+        "`*` coincide con 0 o más repeticiones. `+` coincide con 1 o más repeticiones. `?` hace que el elemento precedente sea opcional (0 o 1 repetición).",
+      level: "basico"
     },
     {
-      title: "¿Cómo usar 'grupos de captura' en regex?",
+      title: "¿Qué representan las clases de caracteres abreviadas `\\d`, `\\w` y `\\s`?",
       response:
-        "Con paréntesis `( )`. Ejemplo: `/(\\d{4})-(\\d{2})-(\\d{2})/` captura fecha."
+        "`\\d` representa cualquier dígito `[0-9]`. `\\w` representa cualquier carácter alfanumérico más guion bajo `[a-zA-Z0-9_]`. `\\s` representa cualquier espacio en blanco (espacio, tabulador, salto de línea). Sus versiones en mayúscula (`\\D`, `\\W`, `\\S`) son sus negaciones exactas.",
+      level: "basico"
     },
+    // === MEDIO ===
     {
-      title: "¿Qué son los 'grupos no capturantes'?",
-      response: "Son grupos que no guardan coincidencias, usando `(?: )`."
-    },
-    {
-      title: "¿Qué hace una 'lookahead' positiva `(?=...)`?",
+      title: "¿Qué significan los flags `g`, `i`, `m`, `s`, `u` e `y` en JavaScript?",
       response:
-        "Coincide si después de la posición actual está el patrón, sin consumirlo."
+        "`g` (global: busca todas las coincidencias), `i` (case-insensitive), `m` (multilínea: `^` y `$` aplican por línea), `s` (dotAll: el punto `.` incluye saltos de línea), `u` (unicode completo), e `y` (sticky: busca exactamente en `lastIndex`).",
+      level: "medio"
     },
     {
-      title: "¿Qué hace una 'lookahead' negativa `(?!...)`?",
-      response: "Coincide si después de la posición actual NO está el patrón."
-    },
-    {
-      title: "¿Qué hace una 'lookbehind' positiva `(?<=...)`?",
-      response: "Coincide si antes de la posición actual está el patrón."
-    },
-    {
-      title: "¿Qué hace una 'lookbehind' negativa `(?<!...)`?",
-      response: "Coincide si antes de la posición actual NO está el patrón."
-    },
-    {
-      title: "¿Cómo validar un correo electrónico con regex?",
-      response: "Ejemplo: `/^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$/`."
-    },
-    {
-      title: "¿Cómo extraer todas las coincidencias en JavaScript?",
-      response: "Con `string.matchAll(regex)`."
-    },
-    {
-      title: "¿Cómo usar 'named capturing groups' en regex?",
+      title: "¿Qué diferencia hay entre grupos de captura `(...)` y no capturantes `(?:...)`?",
       response:
-        "Con `(?<nombre>...)`. Ejemplo: `/(?<year>\\d{4})-(?<month>\\d{2})/`."
+        "`(abc)` guarda la coincidencia en la memoria de grupos para ser referenciada posteriormente (`$1` o en el array retornado). `(?:abc)` aplica cuantificadores o agrupaciones lógicas sin consumir memoria ni generar entradas de captura.",
+      level: "medio"
     },
     {
-      title: "¿Qué son las 'expresiones condicionales' en regex?",
+      title: "¿Qué diferencia hay entre coincidencia codiciosa (Greedy) y perezosa (Lazy)?",
       response:
-        "Permiten comprobar si un grupo capturó o no. Ejemplo: `(?(1)yes|no)`."
+        "Por defecto, los cuantificadores son codiciosos (Greedy): consumen la mayor cantidad posible de texto (`<.*>` en `<div><span>` toma todo hasta el último `>`). Añadir un `?` los vuelve perezosos (Lazy: `<.*?>`), deteniéndose en la primera coincidencia.",
+      level: "medio"
     },
     {
-      title: "¿Cómo limitar 'backtracking' excesivo en regex?",
+      title: "¿Qué diferencia hay entre `RegExp.test()`, `String.match()` y `String.matchAll()`?",
       response:
-        "Usando cuantificadores possessive en algunos lenguajes (`++`, `*+`)."
+        "`test()` retorna un booleano rápido sin extraer datos. `match()` retorna un array de coincidencias o null. `matchAll()` retorna un iterador de objetos detallados con grupos de captura para expresiones con flag `/g`.",
+      level: "medio"
     },
     {
-      title: "¿Qué es 'catastrophic backtracking'?",
+      title: "¿Cómo validar un formato de correo electrónico estándar con RegEx?",
       response:
-        "Cuando una regex mal optimizada prueba demasiadas combinaciones y se vuelve lenta."
+        "`/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/`. Valida el identificador de usuario, el signo `@`, el dominio y un TLD de al menos 2 letras alfabéticas.",
+      level: "medio"
+    },
+    // === AVANZADO ===
+    {
+      title: "¿Qué son los Lookaheads `(?=...)` y `(?!...)`?",
+      response:
+        "Son aserciones de longitud cero hacia adelante. **Positive Lookahead `(?=...)`**: asegura que el patrón siguiente coincida sin consumirlo (ej. `\\d+(?=px)` extrae el número antes de 'px'). **Negative Lookahead `(?!...)`**: asegura que el patrón siguiente NO coincida.",
+      level: "avanzado"
     },
     {
-      title: "¿Cómo usar regex para validar una URL?",
+      title: "¿Qué son los Lookbehinds `(?<=...)` y `(?<!...)`?",
       response:
-        "Ejemplo avanzado: `/^(https?:\\/\\/)?([\\w.-]+)\\.([a-z\\.]{2,6})([\\/\\w.-]*)*\\/?$/`."
+        "Son aserciones de longitud cero hacia atrás. **Positive Lookbehind `(?<=...)`**: verifica que lo que precede coincida (ej. `(?<=\\$)\\d+` extrae el valor monetario tras un '$'). **Negative Lookbehind `(?<!...)`**: verifica que lo que precede NO coincida.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué diferencia hay entre `greedy` y `lazy matching`?",
+      title: "¿Qué son los Named Capturing Groups `(?<name>...)`?",
       response:
-        "`Greedy` toma la mayor coincidencia posible, `lazy` la menor. Ejemplo: `.*` vs `.*?`."
+        "Permiten asignar un nombre identificador a un grupo de captura. Se accede a ellos mediante `result.groups.name` en lugar de índices numéricos, mejorando la legibilidad del código. Ejemplo: `/(?<year>\\d{4})-(?<month>\\d{2})/`.",
+      level: "avanzado"
     },
     {
-      title: "¿Qué hace el modificador `g`, `i`, `m` y `u` en regex?",
+      title: "¿Qué es el flag `v` (Unicode Sets) introducido en ECMAScript 2024?",
       response:
-        "`g`: global, `i`: insensible a mayúsculas, `m`: multilinea, `u`: Unicode."
+        "Extiende el flag `u` permitiendo operaciones de conjuntos con propiedades Unicode (unión, intersección `&&`, diferencia `--`) y coincidencia de secuencias de grafemas como emojis compuestos (`[\\p{RGI_Emoji}]`).",
+      level: "avanzado"
+    },
+    {
+      title: "¿Cómo funciona el estado interno mutable `lastIndex` en RegEx globales?",
+      response:
+        "Cuando una RegEx tiene el flag `/g` o `/y`, el objeto `RegExp` retiene el índice de la última coincidencia en `regex.lastIndex`. Invocar `regex.test(str)` sucesivamente avanza en la cadena, lo cual puede provocar bugs sutiles si se reutiliza la misma instancia en bucles.",
+      level: "avanzado"
+    },
+    // === EXPERTO ===
+    {
+      title: "¿Qué es el Retroceso Catastrófico (Catastrophic Backtracking) y cómo causa ataques ReDoS?",
+      response:
+        "Ocurre cuando una expresión regular contiene cuantificadores anidados ambiguos (ej. `(a+)+$`). Ante una entrada que casi coincide pero falla al final, el motor prueba exponencialmente todas las combinaciones posibles (O(2^n)), bloqueando el hilo de ejecución al 100% de CPU (Regular Expression Denial of Service).",
+      level: "experto"
+    },
+    {
+      title: "¿Cómo prevenir y mitigar vulnerabilidades ReDoS en el Frontend?",
+      response:
+        "1) Eliminar cuantificadores superpuestos, 2) Usar analizadores estáticos como `eslint-plugin-regexp`, 3) Validar longitudes máximas de input antes de evaluar la regex (`input.length < 255`), y 4) Utilizar motores lineales garantizados (como Google RE2 o Web Workers aislados con timeout).",
+      level: "experto"
+    },
+    {
+      title: "¿Cómo optimizar el compilador y motor de RegEx en aplicaciones de procesamiento de texto masivo?",
+      response:
+        "Reutilizar instancias de `RegExp` precompiladas fuera de funciones de renderizado, evitar capturas innecesarias usando grupos no capturantes `(?:...)`, anclar las búsquedas siempre que sea posible (`^`), y estructurar las alternativas `(A|B)` ordenando primero las opciones de mayor probabilidad.",
+      level: "experto"
     }
   ]
 };
