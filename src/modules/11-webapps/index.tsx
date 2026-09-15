@@ -4,143 +4,509 @@ export const questionsWebapps: ISection = {
   title: "Web Apps",
   collapse: "collapseWebApps",
   icon: "web-apps",
+  category: "arquitectura-ops",
+  description: "Arquitecturas SPA, MPA, SSR y SSG, Progressive Web Apps (PWA) y Service Workers.",
   questions: [
-    // === BÁSICO ===
     {
-      title: "¿Qué es una WebApp?",
-      response:
-        "Es una aplicación interactiva que se ejecuta en un navegador web y se accede vía internet o red local, sin necesidad de instalación previa en la tienda del sistema operativo.",
-      level: "basico"
+        "title": "¿Cuál es la diferencia arquitectónica fundamental entre una Single Page Application (SPA) y una Multi-Page Application (MPA) moderna, y qué trade-offs implican?",
+        "response": "Tradicionalmente, las aplicaciones web se dividían de forma binaria: o eran **MPAs clásicas** basadas en el servidor (donde cada clic provocaba una recarga completa de página con un ciclo HTTP GET completo) o **SPAs monolíticas** en el cliente (donde un único documento HTML vacío descarga megabytes de JavaScript que se adueñan del ciclo de vida y navegación mediante la History API).\n\n### 1. Single Page Application (SPA):\n* **Mecánica**: El servidor sirve un `index.html` estático casi vacío (`<div id=\"root\"></div>`). El runtime de JavaScript (React, Vue, Angular) toma el control, intercepta clics en hipervínculos (`pushState`/`replaceState`) y muta el DOM dinámicamente mediante renderizado en el cliente (CSR).\n* **Ventajas**: Transiciones instantáneas entre vistas sin pantalla blanca, persistencia de estado en memoria (reproductores de audio, carritos, editores de texto), excelente para dashboards complejos y aplicaciones ricas tipo SaaS.\n* **Trade-offs**: Bundle inicial masivo, tiempo hasta el primer contenido visual (FCP) y primer render interactivo (TTI) degradados en dispositivos móviles de gama baja, y complejidad para SEO y preview de redes sociales sin capas adicionales.\n\n### 2. Multi-Page Application (MPA) Moderna (Astro, Next.js MPA, Turbo/Hotwire):\n* **Mecánica**: Cada ruta representa un documento HTML completo procesado y renderizado en el servidor o borde (Edge). Tecnologías modernas como **Turbo Drive** o **View Transitions API** interceptan las navegaciones de enlaces tradicionales, descargan el nuevo HTML vía `fetch` en segundo plano y reemplazan el `<body>` de forma fluida sin recargar assets globales (`<head>`, scripts compartidos).\n* **Ventajas**: Cero o mínimo JavaScript inicial en el cliente, FCP y LCP ultrarrápidos, indexación SEO perfecta nativa y consumo de batería mínimo.\n* **Trade-offs**: Pérdida de estado en memoria global al cambiar de página a menos que se persista en cookies/localStorage o se usen micro-frameworks de streaming.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Mecánica básica del enrutador en una SPA cliente (HTML5 History API):\nclass ClientRouter {\n  private routes: Map<string, () => void> = new Map();\n\n  constructor() {\n    // 1. Escuchar el evento popstate para navegación del botón atrás/adelante:\n    window.addEventListener('popstate', () => this.handleRoute(window.location.pathname));\n\n    // 2. Interceptar delegación de clics en etiquetas <a> para evitar recarga de página:\n    document.body.addEventListener('click', (e) => {\n      const target = (e.target as HTMLElement).closest('a');\n      if (target && target.origin === window.location.origin && !target.hasAttribute('data-external')) {\n        e.preventDefault();\n        this.navigate(target.pathname);\n      }\n    });\n  }\n\n  public register(path: string, handler: () => void) {\n    this.routes.set(path, handler);\n  }\n\n  public navigate(path: string) {\n    window.history.pushState({}, '', path);\n    this.handleRoute(path);\n  }\n\n  private handleRoute(path: string) {\n    const handler = this.routes.get(path) || this.routes.get('/404');\n    if (handler) handler();\n  }\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-01",
+            "title": "Arquitectura y Ciclo de Vida: SPA vs MPA Moderna",
+            "caption": "Las SPAs transfieren la responsabilidad del enrutamiento y estado al cliente a costa de un bundle inicial alto; las MPAs modernas priorizan HTML server-rendered con hidratación selectiva.",
+            "diagramType": "webapp-spa-vs-mpa-lifecycle"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar que comprendes que la dicotomía tradicional está superada: las MPAs modernas usan transiciones suaves (View Transitions / Turbo) y las SPAs adoptan SSR/Streaming para mitigar el costo del bundle.",
+            "commonPitfalls": ["Afirmar que las SPAs son inherentemente superiores para cualquier proyecto web sin analizar el coste en Core Web Vitals y dispositivos móviles.", "Ignorar el impacto del Time to Interactive (TTI) cuando un bundle de SPA supera 1 MB en redes 3G/4G."]
+        },
+        "quiz": {
+            "question": "¿Cuál es la principal ventaja técnica de una MPA moderna (como Astro o con Turbo Drive) sobre una SPA monolítica tradicional basada en CSR?",
+            "options": ["Descarga automáticamente todo el estado global de la aplicación en el localStorage", "Entrega HTML pre-renderizado con mínimo JavaScript en el cliente, logrando FCP y LCP óptimos con bajo TTI", "Permite compilar código C++ directamente en el hilo de UI sin WebAssembly", "Elimina la necesidad de utilizar servidores web y bases de datos"],
+            "correctIndex": 1,
+            "explanation": "Las MPAs modernas sirven documentos HTML completos y reducen radicalmente la ejecución de JavaScript en el cliente, optimizando el primer despliegue visual y la interactividad sin la sobrecarga de un framework SPA completo."
+        },
+        "level": "basico"
     },
     {
-      title: "¿Cuál es la diferencia entre un sitio web estático y una WebApp?",
-      response:
-        "Un sitio estático muestra contenido principalmente informativo y fijo (HTML/CSS), mientras que una WebApp procesa lógica de negocio, gestiona estado, maneja datos dinámicos y permite interacción bidireccional continua con el usuario.",
-      level: "basico"
+        "title": "¿Cómo funciona el espectro de estrategias de renderizado: CSR, SSR, SSG, ISR y Streaming SSR con Suspense?",
+        "response": "El renderizado en arquitecturas web modernas no es una decisión binaria, sino un espectro de optimizaciones según la frecuencia de cambio de los datos y el tiempo de respuesta requerido:\n\n### 1. Client-Side Rendering (CSR):\n* El servidor entrega un HTML esqueleto y assets estáticos. El navegador descarga y ejecuta el bundle JS, que realiza peticiones API (`fetch`) y monta el DOM.\n* **Métricas**: TTFB muy bajo (archivos estáticos en CDN), pero FCP y LCP lentos. Alto coste de CPU en el cliente.\n\n### 2. Server-Side Rendering (SSR):\n* En cada petición HTTP, un servidor Node.js/Edge ejecuta la aplicación, consulta bases de datos o microservicios, ensambla el HTML completo y lo envía al cliente.\n* **Métricas**: FCP y SEO excepcionales; TTFB dependiente de la latencia de las consultas del servidor. Si un servicio externo tarda 2 segundos, el usuario ve una pantalla en blanco durante 2 segundos.\n\n### 3. Static Site Generation (SSG):\n* Todo el HTML se compila una sola vez durante el build (`next build` / `vite build`). Los ficheros resultantes se distribuyen en una CDN global.\n* **Métricas**: Rendimiento insuperable (TTFB < 50ms, FCP inmediato). Limitación: no apto para contenido dinámico por usuario en tiempo real sin rebuild completo.\n\n### 4. Incremental Static Regeneration (ISR):\n* Combina SSG con invalidación en segundo plano (`stale-while-revalidate`). El CDN sirve la página estática cacheada mientras regenera el HTML en segundo plano de forma asíncrona tras expirar un `revalidate` time o mediante Webhook on-demand.\n\n### 5. Streaming SSR con Suspense (React 18/19):\n* Rompe el cuello de botella del SSR monolítico: mediante HTTP Chunked Transfer Encoding (`Transfer-Encoding: chunked`), el servidor envía el shell HTML de inmediato. Las secciones lentas se envuelven en `<Suspense>` y el servidor envía los bloques secundarios conforme resuelven sus Promesas, reemplazando los esqueletos sin bloquear el primer byte.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Ejemplo de configuración de estrategias en Next.js (App Router):\n\n// 1. Static Site Generation (SSG con revalidación periódica - ISR):\nexport const revalidate = 3600; // Revalida cada 1 hora en CDN\n\n// 2. Server Component con Streaming SSR mediante Suspense:\nimport { Suspense } from 'react';\n\nasync function CriticalHeader() {\n  return <header>Dashboard de Usuario (Renderizado Inmediato)</header>;\n}\n\nasync function SlowAnalyticsWidget() {\n  // Petición a microservicio externo con latencia de 1.8s:\n  const data = await fetch('https://api.internal/analytics', { cache: 'no-store' }).then(r => r.json());\n  return <div>Métricas en tiempo real: {data.activeUsers}</div>;\n}\n\nexport default function DashboardPage() {\n  return (\n    <main>\n      <CriticalHeader />\n      {/* El usuario recibe el header de inmediato; el widget llega por streaming HTTP */}\n      <Suspense fallback={<div className=\"skeleton\">Cargando analíticas...</div>}>\n        <SlowAnalyticsWidget />\n      </Suspense>\n    </main>\n  );\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-02",
+            "title": "Matriz Comparativa de Estrategias de Renderizado",
+            "caption": "Desde CSR puro hasta Streaming SSR con Suspense: equilibrio entre TTFB, FCP y frescura de los datos.",
+            "diagramType": "webapp-rendering-strategies-matrix"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Explicar con precisión qué cuello de botella soluciona Streaming SSR respecto a SSR clásico (el bloqueo del TTFB por peticiones lentas) y cómo ISR reduce costes de computación en el servidor.",
+            "commonPitfalls": ["Confundir SSR con SSG asumiendo que ambos requieren un servidor Node.js activo ejecutándose en producción.", "Olvidar que ISR sirve contenido stale al primer visitante que solicita la página tras la expiración del TTL."]
+        },
+        "quiz": {
+            "question": "¿Qué problema crítico resuelve el Streaming SSR con Suspense frente al SSR tradicional?",
+            "options": ["Permite compilar el código JavaScript a binarios WebAssembly directamente en el navegador", "Evita que una consulta de datos lenta en una sección de la página bloquee el envío del HTML inicial (TTFB) del resto del documento", "Elimina la necesidad de definir rutas en el servidor", "Fuerza a todos los clientes a utilizar conexiones WebSocket en lugar de HTTP"],
+            "correctIndex": 1,
+            "explanation": "En SSR tradicional, el servidor debe esperar a que todas las peticiones asíncronas terminen antes de enviar el primer byte. Streaming SSR permite enviar el esqueleto HTML inmediatamente y enviar el resto de fragmentos a medida que se resuelven las promesas."
+        },
+        "level": "medio"
     },
     {
-      title: "¿Qué es una SPA (Single Page Application)?",
-      response:
-        "Es una aplicación web que carga un único documento HTML inicial y actualiza dinámicamente la interfaz mediante JavaScript sin recargar la página completa al navegar entre vistas.",
-      level: "basico"
+        "title": "¿Qué es la sobrecarga de hidratación (Hydration Overhead), qué es el 'Uncanny Valley' y cómo funciona la Hidratación Selectiva?",
+        "response": "En arquitecturas SSR tradicionales, el navegador recibe un documento HTML completamente renderizado que es visualmente atractivo pero funcionalmente inerte. Para que sea interactivo, el cliente debe atravesar el proceso de **Hidratación**:\n\n### 1. El Proceso de Hidratación Tradicional:\n1. El navegador descarga y parsea todo el bundle de JavaScript de la página.\n2. El runtime de la librería (p. ej. React) ejecuta los componentes de nuevo en el cliente para construir un **Virtual DOM completo en memoria**.\n3. Realiza la reconciliación: compara el Virtual DOM con el DOM real existente enviado por el servidor.\n4. Adjunta los **event listeners** (`onClick`, `onChange`, etc.) a los nodos correspondientes del DOM.\n\n### 2. El 'Uncanny Valley' (El Valle Inquietante de la UI):\n* Es la ventana de tiempo entre **FCP (First Contentful Paint)** y **TTI (Time to Interactive)**.\n* El usuario ve botones, inputs y menús perfectamente renderizados, pero al hacer clic o escribir, **nada ocurre** porque el hilo principal está saturado parseando JavaScript y aún no ha adjuntado los listeners. Esto frustra profundamente a los usuarios y degrada la métrica **INP (Interaction to Next Paint)**.\n\n### 3. Costes Ocultos de la Hidratación Monolítica:\n* **Duplicación de Datos**: Los datos usados en el servidor deben serializarse en el HTML (p. ej. `window.__NEXT_DATA__` o scripts JSON) para que el cliente reconstruya el mismo estado, duplicando el peso del payload de red.\n* **Doble Ejecución**: Toda la lógica del componente se evalúa dos veces: una en el servidor y otra en el cliente.\n\n### 4. Hidratación Selectiva (React 18+ Selective Hydration):\n* Al envolver componentes en `<Suspense>`, React no espera a que todo el código JS de la página se descargue para iniciar la hidratación.\n* Hidrata las partes de la pantalla independientes en paralelo.\n* **Priorización basada en interacción del usuario**: Si el usuario hace clic en un `<Suspense>` que aún no se ha hidratado, React interrumpe la hidratación en curso para priorizar e hidratar inmediatamente el componente con el que el usuario intenta interactuar.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Configuración de hidratación en React 19 / 18 con hydrateRoot:\nimport { hydrateRoot } from 'react-dom/client';\nimport App from './App';\n\n// hydrateRoot enlaza el DOM existente con el runtime de React:\nconst domNode = document.getElementById('root');\n\nif (domNode) {\n  hydrateRoot(domNode, <App />, {\n    onRecoverableError(error, errorInfo) {\n      // Detección de Hydration Mismatches (discrepancias entre Server HTML y Client VDOM):\n      console.error('Hydration mismatch detectado:', error, errorInfo);\n    }\n  });\n}\n\n// Prevención de mismatch común en componentes dependientes del cliente:\nimport { useState, useEffect } from 'react';\n\nexport function ClientOnlyTimestamp() {\n  const [hasMounted, setHasMounted] = useState(false);\n\n  useEffect(() => {\n    setHasMounted(true);\n  }, []);\n\n  if (!hasMounted) {\n    // Renderiza un placeholder idéntico en servidor y primer render de cliente:\n    return <span className=\"timestamp-placeholder\">--:--</span>;\n  }\n\n  // Se renderiza únicamente una vez completada la hidratación:\n  return <span>{new Date().toLocaleTimeString()}</span>;\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-03",
+            "title": "Sobrecarga de Hidratación y el Valle Inquietante (Uncanny Valley)",
+            "caption": "El lapso entre el renderizado visual HTML y la finalización de la hidratación de listeners bloquea la interactividad del usuario.",
+            "diagramType": "webapp-hydration-reconciliation-overhead"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar conocimiento profundo del coste de la hidratación: explicar el 'uncanny valley', la doble serialización de estado y cómo mitigar 'hydration mismatches'.",
+            "commonPitfalls": ["Creer que SSR hace que la web sea interactiva de inmediato (confundir renderizado visual con interactividad de listeners).", "Usar APIs exclusivas del navegador (`window.innerWidth`, `localStorage`) en el render inicial de componentes SSR sin comprobar hidratación."]
+        },
+        "quiz": {
+            "question": "¿A qué se refiere el término 'Uncanny Valley' en el contexto de hidratación de aplicaciones web?",
+            "options": ["Al periodo en el que una base de datos relacional replica datos hacia nodos de lectura", "Al intervalo de tiempo en el que la interfaz ya es visualmente visible en el navegador pero no responde a interacciones del usuario porque el JS no ha terminado de hidratar los listeners", "A una incompatibilidad de estilos CSS entre Safari y navegadores basados en Chromium", "Al fallo de red que ocurre cuando un Service Worker entra en estado de redundancia"],
+            "correctIndex": 1,
+            "explanation": "El 'Uncanny Valley' ocurre cuando el usuario percibe la interfaz completamente pintada gracias al SSR, pero al pulsar botones o enlaces la aplicación no reacciona porque el hilo principal aún está reconciliando el Virtual DOM y enlazando eventos."
+        },
+        "level": "medio"
     },
     {
-      title: "¿Qué ventajas y desventajas tiene una SPA?",
-      response:
-        "Ventajas: experiencia de usuario fluida y reactiva similar a apps nativas, transiciones suaves y menor transferencia de datos tras la carga inicial. Desventajas: bundle inicial más pesado, tiempo hasta el primer render (FCP) más alto y mayores desafíos para SEO sin SSR.",
-      level: "basico"
+        "title": "¿Cuáles son los pilares de una Progressive Web App (PWA) moderna y cómo se orquesta el ciclo de instalación con el Web App Manifest?",
+        "response": "Una **Progressive Web App (PWA)** es una aplicación web que aprovecha capacidades avanzadas del navegador para ofrecer una experiencia indistinguible de una aplicación nativa, manteniendo la universalidad de la Web.\n\n### 1. Pilares Fundamentales de una PWA:\n1. **Capaz (Capable)**: Acceso a APIs de hardware y sistema operativo (Web Bluetooth, Geolocation, File System Access API, Web Share, Badging API).\n2. **Confiable (Reliable)**: Carga instantánea e independiente de la red gracias a Service Workers y almacenamiento local (Cache Storage / IndexedDB).\n3. **Instalable (Installable)**: Se ejecuta en una ventana propia sin barra de URL del navegador, integrada en la pantalla de inicio, dock y lanzador del SO.\n\n### 2. Anatomía del Web App Manifest (`manifest.webmanifest`):\nEs un archivo JSON declarativo que informa al navegador sobre cómo debe comportarse la aplicación al ser instalada:\n* `display: 'standalone'` o `'fullscreen'`: Elimina la barra de navegación del navegador.\n* `scope` y `start_url`: Delimitan el contexto de rutas controladas por la PWA.\n* `icons`: Array de iconos adaptativos (`purpose: 'any maskable'`) para diferentes densidades de píxeles (192x192, 512x512).\n* `shortcuts`: Menú contextual de acceso directo al hacer clic derecho o pulsar prolongadamente el icono.\n* `protocol_handlers`: Permite registrar esquemas de URL personalizados (p. ej. `web+myapp://`).\n\n### 3. Ciclo de Instalación Programática:\nLos navegadores basados en Chromium disparan el evento `beforeinstallprompt` cuando la PWA cumple los criterios de instalabilidad. Un arquitecto frontend debe capturar este evento, prevenir el prompt por defecto y exponer un botón de instalación en el momento UX adecuado.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Hook de React para gestionar la instalación personalizada de la PWA:\nimport { useState, useEffect } from 'react';\n\ninterface BeforeInstallPromptEvent extends Event {\n  prompt: () => Promise<void>;\n  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;\n}\n\nexport function usePWAInstallPrompt() {\n  const [promptInstall, setPromptInstall] = useState<BeforeInstallPromptEvent | null>(null);\n  const [isInstallable, setIsInstallable] = useState(false);\n\n  useEffect(() => {\n    const handler = (e: Event) => {\n      // Prevenir el mini-infobar nativo de Chrome:\n      e.preventDefault();\n      setPromptInstall(e as BeforeInstallPromptEvent);\n      setIsInstallable(true);\n    };\n\n    window.addEventListener('beforeinstallprompt', handler);\n\n    window.addEventListener('appinstalled', () => {\n      setIsInstallable(false);\n      setPromptInstall(null);\n      console.log('PWA instalada satisfactoriamente');\n    });\n\n    return () => window.removeEventListener('beforeinstallprompt', handler);\n  }, []);\n\n  const triggerInstall = async () => {\n    if (!promptInstall) return;\n    await promptInstall.prompt();\n    const choice = await promptInstall.userChoice;\n    if (choice.outcome === 'accepted') {\n      setIsInstallable(false);\n    }\n  };\n\n  return { isInstallable, triggerInstall };\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-04",
+            "title": "Pilares de una PWA y Ciclo de Instalación",
+            "caption": "Intercepción del evento beforeinstallprompt y orquestación del Web App Manifest para instalación standalone.",
+            "diagramType": "webapp-progressive-web-apps-manifest"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar que conoces el ciclo de vida del evento `beforeinstallprompt`, cómo configurar iconos maskable y cómo manejar la detección cuando la app ya corre en modo standalone (`display-mode: standalone`).",
+            "commonPitfalls": ["Dejar que el navegador dispare el banner de instalación automáticamente en el primer segundo de visita sin contexto de valor para el usuario.", "Olvidar configurar el icono maskable, provocando que Android corte o muestre el icono en un círculo blanco deformado."]
+        },
+        "quiz": {
+            "question": "¿Qué evento del navegador permite interceptar el banner nativo de instalación de una PWA para mostrar un botón o modal propio de la UI?",
+            "options": ["window.ondeviceorientation", "beforeinstallprompt", "navigator.serviceWorker.onready", "document.onmanifestready"],
+            "correctIndex": 1,
+            "explanation": "El evento 'beforeinstallprompt' se dispara cuando el navegador verifica los requisitos de PWA. Se le aplica event.preventDefault() para guardar la referencia del evento y disparar event.prompt() mediante un botón custom de la aplicación."
+        },
+        "level": "basico"
     },
     {
-      title: "¿Qué es una PWA (Progressive Web App)?",
-      response:
-        "Es una aplicación web construida con estándares modernos que ofrece capacidades de app nativa: funcionamiento offline, instalación en pantalla de inicio, notificaciones push y acceso a hardware mediante APIs web avanzadas.",
-      level: "basico"
-    },
-    // === MEDIO ===
-    {
-      title: "¿Qué diferencia hay entre CSR, SSR y SSG?",
-      response:
-        "CSR (Client-Side Rendering) procesa HTML en el navegador. SSR (Server-Side Rendering) genera el HTML en el servidor en cada petición mejorando SEO y TTFB. SSG (Static Site Generation) compila el HTML en tiempo de build para máxima velocidad y distribución por CDN.",
-      level: "medio"
-    },
-    {
-      title: "¿Qué es la hidratación (Hydration) y cómo funciona?",
-      response:
-        "Es el proceso mediante el cual el runtime de JavaScript en el cliente toma el HTML estático renderizado previamente por el servidor, adjunta los event listeners y reconstruye el árbol de estado en memoria para volverlo interactivo.",
-      level: "medio"
-    },
-    {
-      title: "¿Qué es un Service Worker y cuál es su ciclo de vida?",
-      response:
-        "Es un script proxy en segundo plano entre el navegador y la red. Su ciclo de vida consta de tres fases: Registro (Register), Instalación (Install, donde se precachean recursos estáticos) y Activación (Activate, donde se limpian cachés viejas y toma control de clientes).",
-      level: "medio"
-    },
-    {
-      title: "¿Qué estrategias de caching existen con Service Workers?",
-      response:
-        "Cache First (prioriza caché sobre red), Network First (intenta red y cae a caché si falla), Stale-While-Revalidate (sirve caché de inmediato mientras actualiza en segundo plano), y Network Only / Cache Only para recursos críticos específicos.",
-      level: "medio"
+        "title": "¿Cuál es el ciclo de vida completo de un Service Worker y cómo se orquesta una actualización sin romper sesiones de usuario activas?",
+        "response": "Un **Service Worker** es un hilo en segundo plano impulsado por eventos (Event-driven Web Worker) que actúa como un proxy de red programable entre el navegador, la caché local y los servidores remotos. No tiene acceso directo al DOM ni a `window`.\n\n### 1. Fases del Ciclo de Vida:\n1. **Registro (`Registration`)**:\n   - Se invoca `navigator.serviceWorker.register('/sw.js')`. El navegador descarga el script e inicia la evaluación.\n2. **Instalación (`Installation`)**:\n   - Se dispara el evento `install`. Es el momento crítico para **precachear recursos estáticos** (HTML shell, CSS, JS core).\n   - Mediante `event.waitUntil()`, la instalación se pospone hasta que las promesas de caché se resuelven con éxito. Si una falla, el worker es descartado.\n3. **Espera (`Waiting` / `Installed`)**:\n   - Si ya existe un Service Worker activo controlando clientes, el nuevo worker pasa al estado `waiting`. **No toma el control automáticamente** para evitar inconsistencias entre versiones de assets en pestañas abiertas.\n4. **Activación (`Activation`)**:\n   - Ocurre cuando todas las pestañas controladas por el worker antiguo se cierran, o cuando se fuerza mediante `self.skipWaiting()`.\n   - Se dispara el evento `activate`, donde se purgan versiones obsoletas de la caché.\n5. **Control activo (`Redundant` / `Active`)**:\n   - Mediante `self.clients.claim()`, el Service Worker toma el control inmediato de todas las páginas abiertas dentro de su `scope` sin necesidad de recargar.\n\n### 2. Estrategia Enterprise de Actualización:\nPara evitar recargas disruptivas mientras el usuario completa un formulario o checkout, se detecta el estado `registration.waiting`, se muestra un banner sutil (*'Nueva versión disponible'*) y, tras confirmación, se envía un mensaje `postMessage({ type: 'SKIP_WAITING' })` para refrescar suavemente la página.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// sw.ts - Service Worker Script:\nconst CACHE_NAME = 'app-v2.1.0';\nconst PRECACHE_ASSETS = ['/', '/index.html', '/styles/main.css', '/bundle.js'];\n\nself.addEventListener('install', (event: ExtendableEvent) => {\n  event.waitUntil(\n    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))\n  );\n});\n\nself.addEventListener('activate', (event: ExtendableEvent) => {\n  event.waitUntil(\n    caches.keys().then((keys) =>\n      Promise.all(\n        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))\n      )\n    ).then(() => self.clients.claim())\n  );\n});\n\n// Escuchar mensaje del cliente para forzar actualización:\nself.addEventListener('message', (event) => {\n  if (event.data && event.data.type === 'SKIP_WAITING') {\n    self.skipWaiting();\n  }\n});"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-05",
+            "title": "Ciclo de Vida de un Service Worker y Transición de Versiones",
+            "caption": "Transición desde Registro, Instalación (precache), Espera (waiting) y Activación con skipWaiting y clients.claim.",
+            "diagramType": "webapp-service-worker-lifecycle"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Explicar con exactitud por qué existe el estado 'waiting' (para prevenir desajustes entre HTML antiguo y bundles nuevos con hash distinto) y cómo orquestar `skipWaiting` de forma controlada.",
+            "commonPitfalls": ["Llamar a `skipWaiting()` incondicionalmente en el evento install sin avisar al usuario, provocando roturas en lazy-loaded chunks de pestañas activas.", "Guardar el Service Worker (`sw.js`) con cabeceras `Cache-Control: max-age=31536000` en el CDN (debe servirse siempre con `max-age=0` o `no-cache`)."]
+        },
+        "quiz": {
+            "question": "¿Por qué un nuevo Service Worker entra en estado 'waiting' en lugar de activarse inmediatamente cuando ya hay uno activo?",
+            "options": ["Para esperar a que el dispositivo se conecte a una red Wi-Fi de alta velocidad", "Para proteger las páginas activas de inconsistencias entre versiones de assets (chunks JS con hash) y evitar romper la sesión actual del usuario", "Porque el navegador requiere permiso explícito del usuario mediante un diálogo nativo", "Porque los Service Workers sólo pueden activarse a las 00:00 UTC"],
+            "correctIndex": 1,
+            "explanation": "Si el nuevo worker se activara inmediatamente, podría borrar cachés de assets con hashes antiguos que una pestaña abierta aún necesita solicitar dinámicamente vía code splitting, provocando errores fatales de importación."
+        },
+        "level": "medio"
     },
     {
-      title: "¿Cómo se maneja el SEO y la indexación en aplicaciones SPA?",
-      response:
-        "Mediante Server-Side Rendering (SSR), Pre-rendering estático, generación dinámica de Open Graph / meta tags en cabeceras de respuesta, y sitemaps automáticos, permitiendo que crawlers sin soporte completo de JS indexen el contenido fielmente.",
-      level: "medio"
+        "title": "¿Cómo funcionan las estrategias de caché fundamentales (Cache First, Network First, Stale-While-Revalidate) y cómo implementarlas con Workbox?",
+        "response": "El control programático de las peticiones mediante el evento `fetch` de los Service Workers permite diseñar estrategias de caché a medida según la naturaleza del recurso:\n\n### 1. Cache First (Cache Falling Back to Network):\n* **Comportamiento**: Inspecciona la caché; si el recurso existe, lo retorna inmediatamente. Solo si falla acude a la red y actualiza la caché.\n* **Casos de Uso**: Assets estáticos versionados con hashes inmutables (`bundle.a89f3c.js`, `inter-var.woff2`, imágenes de catálogo).\n* **Beneficio**: Velocidad máxima (0 ms de latencia de red) y funcionamiento offline total.\n\n### 2. Network First (Network Falling Back to Cache):\n* **Comportamiento**: Intenta resolver la petición en la red; si tiene éxito, actualiza la caché con la respuesta fresca. Si la red falla o excede un timeout, sirve la versión en caché.\n* **Casos de Uso**: Datos de usuario altamente volátiles o documentos HTML principales donde la frescura prima sobre la velocidad.\n\n### 3. Stale-While-Revalidate:\n* **Comportamiento**: Retorna instantáneamente la respuesta de la caché (rápida interactividad) y, simultáneamente en segundo plano, lanza una petición de red para actualizar la caché de cara al siguiente acceso.\n* **Casos de Uso**: Feeds sociales, listados de artículos, avatares y endpoints de APIs semi-estáticas.\n\n### 4. Network Only & Cache Only:\n* **Network Only**: Analíticas, pasarelas de pago (Stripe) y telemetría sensible.\n* **Cache Only**: Recursos empaquetados exclusivamente para modo offline durante la instalación.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Configuración enterprise de estrategias con Workbox:\nimport { registerRoute } from 'workbox-routing';\nimport { CacheFirst, NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';\nimport { ExpirationPlugin } from 'workbox-expiration';\nimport { CacheableResponsePlugin } from 'workbox-cacheable-response';\n\n// 1. Inmutable Assets (Fuentes, Imágenes con hash) -> Cache First:\nregisterRoute(\n  ({ request }) => request.destination === 'font' || request.destination === 'image',\n  new CacheFirst({\n    cacheName: 'static-assets-v1',\n    plugins: [\n      new CacheableResponsePlugin({ statuses: [0, 200] }),\n      new ExpirationPlugin({ maxEntries: 60, maxAgeSeconds: 30 * 24 * 60 * 60 }) // 30 días\n    ]\n  })\n);\n\n// 2. APIs de Contenido y Perfiles -> Stale While Revalidate:\nregisterRoute(\n  ({ url }) => url.pathname.startsWith('/api/v1/feed'),\n  new StaleWhileRevalidate({\n    cacheName: 'api-feed-cache',\n    plugins: [\n      new ExpirationPlugin({ maxEntries: 50, maxAgeSeconds: 24 * 60 * 60 })\n    ]\n  })\n);\n\n// 3. Documento HTML Principal -> Network First con timeout de 3 segundos:\nregisterRoute(\n  ({ request }) => request.mode === 'navigate',\n  new NetworkFirst({\n    cacheName: 'html-pages-cache',\n    networkTimeoutSeconds: 3\n  })\n);"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-06",
+            "title": "Estrategias de Caché de Service Worker (Workbox)",
+            "caption": "Comparativa de flujo: Cache First vs Network First vs Stale-While-Revalidate para diferentes tipos de recursos.",
+            "diagramType": "webapp-caching-strategies-workbox"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Justificar la asignación de cada estrategia al tipo de recurso adecuado y saber cómo manejar respuestas opacas (`status: 0`) generadas por CORS al cachear assets de CDNs externos.",
+            "commonPitfalls": ["Aplicar Cache First a documentos HTML, lo que provoca que el usuario quede atrapado indefinidamente en versiones antiguas de la aplicación.", "No configurar políticas de expiración (`maxEntries` / `maxAgeSeconds`), saturando el disco del dispositivo del usuario."]
+        },
+        "quiz": {
+            "question": "¿Cuál es la estrategia de caché más adecuada para fuentes web e imágenes versionadas con hash inmutable en su nombre de archivo?",
+            "options": ["Network Only", "Cache First", "Network First con timeout de 10 segundos", "No-Cache con recarga forzada"],
+            "correctIndex": 1,
+            "explanation": "Al contener un hash inmutable en el nombre del fichero, si el asset cambia su URL cambiará también. Por tanto, Cache First garantiza latencia cero y lectura instantánea de disco sin consultas innecesarias a la red."
+        },
+        "level": "medio"
     },
     {
-      title: "¿Cómo implementar autenticación segura en una WebApp moderna?",
-      response:
-        "Utilizando cookies con atributos HttpOnly, Secure y SameSite=Strict/Lax para almacenar tokens de sesión o refresh tokens, mitigando XSS; implementando flujo OAuth 2.0 / OIDC con PKCE, y aplicando CSRF tokens en mutaciones de estado.",
-      level: "medio"
-    },
-    // === AVANZADO ===
-    {
-      title: "¿Qué es ISR (Incremental Static Regeneration)?",
-      response:
-        "Es una técnica híbrida que permite regenerar páginas estáticas en el servidor en segundo plano bajo demanda o tras un intervalo de tiempo (revalidate) sin necesidad de recompilar toda la aplicación.",
-      level: "avanzado"
-    },
-    {
-      title: "¿Qué es la Arquitectura de Islas (Islands Architecture)?",
-      response:
-        "Un paradigma de renderizado donde la página se compone de HTML estático puro generado en servidor, salpicado de pequeños componentes interactivos aislados ('islas') que se hidratan de forma independiente y concurrente (implementado en frameworks como Astro).",
-      level: "avanzado"
-    },
-    {
-      title: "¿Qué son los Micro-frontends y qué patrones de integración existen?",
-      response:
-        "Es la descomposición de un frontend monolítico en aplicaciones independientes por dominio de negocio. Patrones de integración: Module Federation en runtime (Webpack/Vite), integración en build-time con paquetes npm, o integración basada en routing/iframes.",
-      level: "avanzado"
-    },
-    {
-      title: "¿Qué son las Core Web Vitals y cómo optimizarlas?",
-      response:
-        "Son métricas clave de Google para UX: LCP (Largest Contentful Paint < 2.5s), INP (Interaction to Next Paint < 200ms) y CLS (Cumulative Layout Shift < 0.1). Se optimizan con lazy-loading, reserva de espacios de imagen, compresión moderna (AVIF/WebP) y optimización del hilo principal.",
-      level: "avanzado"
+        "title": "¿En qué consiste la Arquitectura de Islas (Islands Architecture) y cómo optimiza la entrega de JavaScript en la web moderna?",
+        "response": "Pionera en su concepto por **Jason Miller** (creador de Preact) y popularizada a nivel enterprise por **Astro** y **Fresh (Deno)**, la **Arquitectura de Islas** rechaza el dogma de las SPAs donde toda la página debe hidratarse como un único árbol de JavaScript monolítico.\n\n### 1. Modelo Conceptual:\n* Imagina la página web como un **océano de HTML estático y ultrarrápido**, dentro del cual flotan **islas de interactividad aisladas**.\n* El 80-90% de un sitio web típico (encabezados, textos, tablas informativas, footers, menús estáticos) no requiere JavaScript en el cliente: se renderiza en el servidor como HTML puro y **nunca se hidrata**.\n* Solo los widgets dinámicos (un carrusel, un selector de fechas, un buscador en vivo) son empaquetados e hidratados como componentes reactivos independientes.\n\n### 2. Client Directives (Hidratación Declarativa):\nAstro y los motores basados en islas permiten controlar con precisión milimétrica cuándo y cómo se descarga e hidrata cada isla:\n* `client:load`: Descarga e hidrata el JavaScript de inmediato al cargar la página (para elementos de UI críticos en el primer pliegue).\n* `client:idle`: Pospone la hidratación hasta que el hilo principal está inactivo (`requestIdleCallback`).\n* `client:visible`: No descarga ni un solo byte de JavaScript hasta que el componente entra en el viewport del usuario mediante un `IntersectionObserver`.\n* `client:media=\"(max-width: 768px)\"`: Se hidrata únicamente si se cumple una media query CSS (p. ej. un menú hamburguesa que en escritorio es CSS estático).\n\n### 3. Rendimiento y Core Web Vitals:\n* **Total Blocking Time (TBT) cercano a 0 ms**: El hilo principal nunca queda bloqueado construyendo un Virtual DOM gigantesco.\n* **Interactividad Aislada**: El fallo o error no capturado dentro de una isla no rompe el resto de la página ni tumba la navegación global.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Ejemplo de sintaxis Astro (.astro) integrando islas políglotas con hidratación selectiva:\n---\nimport StaticHero from '../components/StaticHero.astro';\nimport ProductGallery from '../components/ProductGallery.tsx'; // React Island\nimport CartDrawer from '../components/CartDrawer.vue';         // Vue Island\nimport CommentsSection from '../components/Comments.svelte';   // Svelte Island\n---\n\n<html>\n  <body>\n    <!-- 1. HTML puro estático sin 1 byte de JS en cliente -->\n    <StaticHero title=\"Nueva Colección de Rendimiento\" />\n\n    <!-- 2. Isla React hidratada inmediatamente (primer pliegue interactivo) -->\n    <ProductGallery client:load id=\"prod_100\" />\n\n    <!-- 3. Isla Vue hidratada únicamente cuando el hilo principal esté desocupado -->\n    <CartDrawer client:idle />\n\n    <!-- 4. Isla Svelte: CERO descarga de JS hasta que el usuario hace scroll hacia ella -->\n    <CommentsSection client:visible productId=\"prod_100\" />\n  </body>\n</html>"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-07",
+            "title": "Arquitectura de Islas (Islands Architecture - Astro)",
+            "caption": "Océano de HTML puro estático con islas reactivas independientes hidratadas según visibilidad o inactividad.",
+            "diagramType": "webapp-islands-architecture-astro"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Articular la diferencia entre la hidratación monolítica de Next.js/Remix y la hidratación aislada de Astro, destacando el impacto masivo en TBT, INP y el payload de JS inicial.",
+            "commonPitfalls": ["Creer que las islas no pueden compartir estado: se comunican elegantemente mediante Nanostores, eventos custom o URL query params sin sobrecargar la arquitectura.", "Intentar forzar Islands Architecture para aplicaciones tipo Photoshop o Figma en el navegador (donde el 100% de la pantalla es interactiva y una SPA encaja mejor)."]
+        },
+        "quiz": {
+            "question": "¿Qué efecto tiene la directiva 'client:visible' en un componente dentro de un framework con Arquitectura de Islas como Astro?",
+            "options": ["Aplica inmediatamente visibility: hidden al componente hasta que se descargue", "Pospone la descarga y la hidratación del JavaScript del componente hasta que este cruza el viewport del usuario", "Oculta el componente si el usuario no tiene habilitado JavaScript", "Ejecuta el componente en un Web Worker en segundo plano"],
+            "correctIndex": 1,
+            "explanation": "La directiva 'client:visible' utiliza un IntersectionObserver para que el bundle de JavaScript de esa isla no se transfiera por red ni se ejecute hasta que el usuario hace scroll y el elemento es visible en pantalla."
+        },
+        "level": "avanzado"
     },
     {
-      title: "¿Qué es Content Security Policy (CSP) y cómo protege una WebApp?",
-      response:
-        "Es una cabecera de seguridad HTTP que restringe los orígenes permitidos para cargar scripts, estilos, imágenes y conexiones de red. Es la defensa fundamental contra inyecciones XSS y ataques de clickjacking.",
-      level: "avanzado"
+        "title": "¿Cómo funciona la Reanudabilidad (Resumability) en Qwik y en qué se diferencia conceptualmente de la hidratación tradicional?",
+        "response": "Desarrollado por **Miško Hevery** (creador de AngularJS), **Qwik** propone una ruptura de paradigma fundamental: **eliminar por completo la hidratación** en lugar de intentar hacerla más rápida o selectiva.\n\n### 1. La Falacia de la Hidratación:\n* En React o Vue, el servidor sabe exactamente qué estado tiene la app y qué listeners necesita el DOM. Sin embargo, ese conocimiento se 'pierde' al enviar el HTML.\n* El cliente debe descargar todo el código de los componentes para reconstruir el Virtual DOM desde cero y volver a asociar los listeners.\n\n### 2. El Principio de Reanudabilidad (Resumability):\n* **El HTML es el estado**: Durante el SSR, Qwik serializa **todo**: el árbol de componentes, el estado reactivo, los closures y los manejadores de eventos directamente en atributos HTML (`q:key`, `q:obj`, `on:click`).\n* **Zero JavaScript en el arranque**: Cuando el navegador recibe el HTML, **no ejecuta ni una sola línea de JavaScript de aplicación**. La página es instantáneamente interactiva.\n* **Reanudación instantánea**: El cliente 'reanuda' la aplicación exactamente donde la dejó el servidor, sin reconciliación ni Virtual DOM previo.\n\n### 3. El Optimizador y los Símbolos con '$' (QRLs - Qwik URL):\n* Cada vez que se usa el símbolo `$()` en Qwik (p. ej. `component$`, `onClick$`), el compilador corta esa función y la separa en un **micro-chunk de JavaScript independiente**.\n* En el HTML, el listener se serializa como una URL simbólica:\n  `on:click=\"/build/q-chunk123.js#handleClick[0]\"`.\n* **Carga bajo demanda absoluta**: Cuando el usuario hace clic en el botón, el navegador descarga ese diminuto chunk de 1 KB, ejecuta el handler y actualiza el nodo del DOM quirúrgicamente.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Ejemplo de componente reanudable en Qwik:\nimport { component$, useSignal, $ } from '@builder.io/qwik';\n\nexport const Counter = component$(() => {\n  // El estado se serializa en el HTML estático:\n  const count = useSignal(0);\n\n  // El compilador extrae este handler a un chunk separado (QRL):\n  const increment = $(() => {\n    count.value++;\n  });\n\n  return (\n    <div class=\"counter-card\">\n      {/* Al cargar la página: 0 bytes de JS ejecutados.\n          Al hacer clic: descarga únicamente el micro-chunk del handler y muta el texto */}\n      <p>Contador actual: {count.value}</p>\n      <button onClick$={increment}>\n        Incrementar\n      </button>\n    </div>\n  );\n});"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-08",
+            "title": "Reanudabilidad (Qwik) vs Hidratación Tradicional",
+            "caption": "Qwik serializa el estado y closures en el HTML para pausar en servidor y reanudar en cliente con cero JS en boot.",
+            "diagramType": "webapp-resumability-qwik-engine"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar que entiendes cómo Qwik serializa los closures en atributos HTML y cómo el compilador genera QRLs para diferir la descarga de JS hasta la primera interacción del usuario.",
+            "commonPitfalls": ["Confundir Resumability con Islands Architecture: las islas siguen requiriendo hidratar sus componentes internos; Qwik no hidrata nunca.", "Creer que descargar JS bajo demanda en el primer clic causa lentitud: Qwik utiliza un Service Worker en segundo plano (Partytown/Prefetch) para precachear los chunks invisibles."]
+        },
+        "quiz": {
+            "question": "¿Cuál es el mecanismo técnico principal que permite a Qwik lograr interactividad con 0 KB de ejecución de JavaScript en el arranque?",
+            "options": ["Compila todo el código TypeScript a extensiones binarias nativas de Chrome", "Serializa el estado reactivo, los closures y los listeners directamente en atributos del HTML durante el SSR, reanudando la app sin reconstruir el Virtual DOM", "Utiliza WebSockets para procesar todos los clics y eventos de teclado exclusivamente en el servidor", "Ejecuta el bundle de React dentro de un iframe oculto con aceleración GPU"],
+            "correctIndex": 1,
+            "explanation": "Qwik convierte el HTML en un contenedor completo de estado y mapea los listeners a chunks específicos mediante QRLs, permitiendo que el navegador reanude la ejecución sin necesidad de hidratar."
+        },
+        "level": "avanzado"
     },
     {
-      title: "¿Cómo funciona el almacenamiento offline persistente con IndexedDB?",
-      response:
-        "IndexedDB es una base de datos NoSQL transaccional en el navegador capaz de almacenar gigabytes de datos complejos (objetos, blobs). Permite consultas indexadas asíncronas y sincronización en segundo plano con Background Sync API cuando regresa la conexión.",
-      level: "avanzado"
-    },
-    // === EXPERTO ===
-    {
-      title: "¿Qué es Resumability vs Hydration (ej. Qwik)?",
-      response:
-        "A diferencia de la hidratación tradicional que re-ejecuta todo el código de componentes para montar listeners, la 'resumability' serializa el estado y los event handlers en el HTML mismo; el cliente no descarga ni ejecuta JS hasta que el usuario interactúa realmente con el elemento (0kb JS inicial).",
-      level: "experto"
-    },
-    {
-      title: "¿Qué es Edge Rendering y cómo optimiza la latencia global?",
-      response:
-        "Consiste en ejecutar lógica de renderizado y middlewares en nodos CDN distribuidos geográficamente cerca del usuario (Edge Workers con runtime V8 ligero). Permite personalizar contenido SSR con latencias cercanas a archivos estáticos (<50ms).",
-      level: "experto"
-    },
-    {
-      title: "¿Cómo se integra WebAssembly (Wasm) en una WebApp de alto rendimiento?",
-      response:
-        "Compilando código de C++/Rust a bytecode binario Wasm que se ejecuta a velocidades casi nativas dentro del sandbox del navegador. Se comunica con JS vía memoria compartida (SharedArrayBuffer) para tareas intensivas como edición de video, 3D/WebGL o criptografía.",
-      level: "experto"
-    },
-    {
-      title: "¿Cómo diseñar una estrategia de Resiliencia y Offline-First a escala?",
-      response:
-        "Arquitectura con Service Workers usando Stale-While-Revalidate, capa de sincronización bidireccional con colas de mutaciones persistentes en IndexedDB, resolución de conflictos (CRDTs o Last-Write-Wins), y degradación elegante ante caídas de red o microservicios.",
-      level: "experto"
+        "title": "¿Qué diferencia arquitectónica existe entre Edge Rendering basado en V8 Isolates y el SSR tradicional en contenedores Node.js?",
+        "response": "El despliegue de renderizado del lado del servidor ha evolucionado desde servidores monolíticos centralizados hacia arquitecturas de cómputo en el borde (**Edge Computing** con Cloudflare Workers, Vercel Edge Runtime y Deno Deploy).\n\n### 1. SSR Tradicional en Contenedores Node.js:\n* **Infraestructura**: Instancias de Docker corriendo una máquina virtual completa de Node.js en centros de datos regionales centralizados (p. ej. `us-east-1` en Virginia).\n* **Cold Starts (Arranque en frío)**: Levantar un contenedor, iniciar el runtime de Node y cargar las dependencias toma entre **500 ms y varios segundos**.\n* **Consumo de Memoria**: Cada contenedor consume cientos de megabytes de RAM para ejecutar el sistema operativo y el proceso Node.js completo.\n* **Latencia Geográfica**: Si un usuario accede desde Tokio o Madrid, la petición debe cruzar el océano hasta Virginia para renderizar el HTML.\n\n### 2. Edge Rendering con V8 Isolates:\n* **Infraestructura**: Nodos de cómputo distribuidos en cientos de ubicaciones de borde (PoPs) a menos de 50 ms de cualquier usuario en el planeta.\n* **V8 Isolates**: Un Isolate es una instancia de contexto de memoria ultra-ligera del motor V8 de Chrome. Cientos de Isolates corren en paralelo dentro del mismo proceso del sistema operativo de forma completamente segura y aislada.\n* **Cold Starts Instantáneos**: Iniciar un Isolate toma **menos de 5 milisegundos**.\n* **Memoria Mínima**: Cada función consume típicamente entre 5 y 10 MB de RAM.\n\n### 3. Trade-offs y Restricciones Técnicas:\n* Los Edge Runtimes **no son Node.js**: no soportan módulos nativos C++, ni APIs del sistema de archivos local (`fs`, `child_process`), ni sockets TCP crudos directos.\n* Se basan estrictamente en **estándares Web**: `fetch`, `Request`, `Response`, `TransformStream` y `Web Crypto API`.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Edge Worker en TypeScript (Compatible con Cloudflare Workers / Vercel Edge):\nexport default {\n  async fetch(request: Request): Promise<Response> {\n    const url = new URL(request.url);\n    const country = request.headers.get('cf-ipcountry') || 'US';\n    const acceptEncoding = request.headers.get('accept-encoding') || '';\n\n    // Geolocalización y personalización en el borde sin cold-start (<5ms):\n    if (url.pathname === '/api/localize') {\n      const localizedContent = {\n        currency: country === 'ES' ? 'EUR' : 'USD',\n        language: country === 'ES' ? 'es-ES' : 'en-US',\n        edgeRegion: request.headers.get('cf-ray')?.split('-')[1] || 'global'\n      };\n\n      return new Response(JSON.stringify(localizedContent), {\n        status: 200,\n        headers: {\n          'Content-Type': 'application/json',\n          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'\n        }\n      });\n    }\n\n    // Proxy inverso y streaming de respuesta:\n    return fetch(request);\n  }\n};"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-09",
+            "title": "Edge Rendering (V8 Isolates) vs Contenedores Node.js",
+            "caption": "Node.js centralizado con cold starts y memoria pesada frente a Isolates de V8 en el borde con latencia <5ms.",
+            "diagramType": "webapp-edge-rendering-workers"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Explicar las razones de seguridad y eficiencia de los V8 Isolates (compartir proceso con aislamiento de memoria) y reconocer las limitaciones (ausencia de APIs nativas de Node como `fs`).",
+            "commonPitfalls": ["Intentar importar librerías de Node.js dependientes de bindings nativos (como `bcrypt` o `sharp`) dentro de una Edge Function.", "Creer que poner todo en el Edge siempre es más rápido: si el Edge Worker debe consultar una base de datos centralizada en `us-east-1`, la latencia de ida y vuelta puede anular el beneficio del Edge."]
+        },
+        "quiz": {
+            "question": "¿Por qué un Edge Runtime basado en V8 Isolates tiene tiempos de cold-start de menos de 5 ms en comparación con los contenedores Node.js?",
+            "options": ["Porque no utiliza compilación Just-In-Time (JIT)", "Porque múltiples contextos de ejecución aislados comparten el mismo proceso y runtime en memoria sin necesidad de inicializar un nuevo SO o máquina virtual", "Porque únicamente procesa archivos HTML estáticos sin soporte para JavaScript", "Porque reescribe el código en lenguaje Ensamblador antes de cada petición"],
+            "correctIndex": 1,
+            "explanation": "Los Isolates son contextos de memoria ligera creados dentro de un proceso de V8 ya en ejecución. Iniciar un Isolate requiere crear un nuevo espacio de heap, lo cual toma milisegundos a diferencia de arrancar un contenedor Docker completo."
+        },
+        "level": "avanzado"
     },
     {
-      title: "¿Cómo mitigar fugas de memoria y Memory Leaks en SPAs de larga duración?",
-      response:
-        "Limpieza estricta de event listeners, timers y observers (ResizeObserver, IntersectionObserver) en el ciclo de desmontaje, anulación de suscripciones RxJS/TanStack, uso de WeakMap/WeakSet para cachés, y auditoría con Chrome DevTools Memory Heap Snapshots y Allocation Timelines.",
-      level: "experto"
-    }
+        "title": "¿Cómo se estructuran los mecanismos de almacenamiento local en el navegador (IndexedDB vs Cache Storage vs LocalStorage) y cómo gestionar cuotas de disco?",
+        "response": "En arquitecturas de WebApps resilientes y Offline-First, elegir el mecanismo de almacenamiento adecuado es determinante para la estabilidad y el rendimiento del hilo principal:\n\n### 1. Jerarquía de Almacenamiento en el Cliente:\n1. **LocalStorage / SessionStorage**:\n   - **Anti-patrón para aplicaciones complejas**: Es **completamente síncrono y bloquea el hilo principal** de UI durante lecturas/escrituras.\n   - Limitado a ~5 MB por origen; solo almacena cadenas de texto (requiere `JSON.stringify`/`parse`).\n2. **Cache Storage API**:\n   - Diseñado específicamente para almacenar pares de **Request / Response HTTP**.\n   - Asíncrono, basado en promesas; ideal para ficheros multimedia, assets compilados, respuestas JSON de APIs de red.\n3. **IndexedDB**:\n   - Motor de base de datos NoSQL transaccional, indexada y completamente **asíncrona** en el navegador.\n   - Permite almacenar objetos tipados complejos, `Blobs`, `ArrayBuffers` y archivos binarios sin serialización manual.\n\n### 2. Cuotas y Persistencia de Disco (StorageManager API):\n* Por defecto, el almacenamiento del navegador opera en modo **Best-Effort**: si el disco del dispositivo se llena, el navegador puede purgar los datos de IndexedDB sin avisar al usuario.\n* Mediante `navigator.storage.persist()`, la WebApp solicita que el origen pase a modo **Persistent**, impidiendo el borrado automático.\n* La cuota máxima disponible suele equivaler a un porcentaje sustancial del espacio libre en disco (hasta cientos de gigabytes).",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Wrapper tipado de IndexedDB y comprobación de cuota de almacenamiento:\nimport { openDB, DBSchema, IDBPDatabase } from 'idb';\n\ninterface AppDatabaseSchema extends DBSchema {\n  drafts: {\n    key: string;\n    value: { id: string; title: string; content: string; updatedAt: number };\n    indexes: { 'by-date': number };\n  };\n}\n\nclass OfflineStorageService {\n  private dbPromise: Promise<IDBPDatabase<AppDatabaseSchema>>;\n\n  constructor() {\n    this.dbPromise = openDB<AppDatabaseSchema>('enterprise-pwa-db', 1, {\n      upgrade(db) {\n        const store = db.createObjectStore('drafts', { keyPath: 'id' });\n        store.createIndex('by-date', 'updatedAt');\n      }\n    });\n  }\n\n  public async saveDraft(draft: { id: string; title: string; content: string }) {\n    const db = await this.dbPromise;\n    await db.put('drafts', { ...draft, updatedAt: Date.now() });\n  }\n\n  // Inspección y solicitud de cuota persistente:\n  public static async requestPersistentQuota(): Promise<{ granted: boolean; quotaMb: number }> {\n    if (navigator.storage && navigator.storage.persist) {\n      const isPersisted = await navigator.storage.persist();\n      const estimate = await navigator.storage.estimate();\n      const quotaMb = Math.round((estimate.quota || 0) / (1024 * 1024));\n      return { granted: isPersisted, quotaMb };\n    }\n    return { granted: false, quotaMb: 0 };\n  }\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-10",
+            "title": "Jerarquía de Almacenamiento Offline y Cuotas de Disco",
+            "caption": "LocalStorage síncrono vs Cache Storage API para Requests vs IndexedDB asíncrono para objetos complejos y cuotas persistentes.",
+            "diagramType": "webapp-indexeddb-storage-offline"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Justificar por qué nunca se debe almacenar grandes colecciones de datos en `localStorage` (bloqueo del Event Loop) y saber cómo proteger datos locales con `navigator.storage.persist()`.",
+            "commonPitfalls": ["Utilizar la API de bajo nivel de IndexedDB con callbacks antiguos sin usar wrappers modernos basados en promesas como `idb`.", "Olvidar capturar errores de `QuotaExceededError` cuando el dispositivo móvil se queda sin almacenamiento disponible."]
+        },
+        "quiz": {
+            "question": "¿Cuál es la principal desventaja técnica de utilizar LocalStorage para guardar grandes volúmenes de datos en una WebApp?",
+            "options": ["No permite almacenar caracteres numéricos", "Es una API completamente síncrona que bloquea el hilo principal (Main Thread) del navegador durante operaciones I/O de lectura y escritura", "Requiere una conexión WebSocket activa con el servidor", "Solo funciona si el navegador está en modo incógnito"],
+            "correctIndex": 1,
+            "explanation": "LocalStorage ejecuta lecturas y escrituras sincrónicas en disco en el hilo principal de JavaScript. Serializar y parsear megabytes de JSON congela la UI y provoca caídas de frames e interacción degradada (INP)."
+        },
+        "level": "medio"
+    },
+    {
+        "title": "¿Cómo se diseña una arquitectura Offline-First con sincronización en segundo plano y resolución de conflictos (CRDTs vs LWW)?",
+        "response": "Una arquitectura **Offline-First** asume que la ausencia de red no es un error de excepción, sino un estado operacional normal. Los usuarios deben poder crear, editar y consultar datos sin interrupción, garantizando la consistencia una vez recuperada la conectividad.\n\n### 1. Patrón Outbox de Mutaciones Locales:\n1. El usuario realiza una acción (p. ej. editar un documento).\n2. **Mutación Optimista Inmediata**: El estado local en memoria y en IndexedDB se actualiza de forma síncrona visualmente.\n3. **Cola de Salida (Outbox Queue)**: La mutación se encola en una tabla de IndexedDB con un UUID idempotente, timestamp y payload.\n4. **Background Sync API**: Se registra una tarea `sync` en el Service Worker (`registration.sync.register('sync-outbox')`). Si el usuario cierra la pestaña antes de reconectar, el navegador despachará el evento en segundo plano en cuanto detecte conexión.\n\n### 2. Estrategias de Resolución de Conflictos:\nCuando dos clientes editan el mismo registro mientras están desconectados:\n* **Last-Write-Wins (LWW)**:\n  - Resuelve basándose en el timestamp más reciente. Es simple pero peligroso: los cambios del primer usuario se sobrescriben silenciosamente (pérdida de datos por desincronización de relojes).\n* **3-Way Merge con Detección de Versiones**:\n  - Utiliza Vector Clocks o números de versión monótonos. Si la versión base del cliente difiere de la del servidor, se rechaza y se presenta un modal de resolución manual al usuario.\n* **CRDTs (Conflict-free Replicated Data Types - Yjs / Automerge)**:\n  - Estructuras de datos matemáticas diseñadas para converger de forma determinista y conmutativa sin necesidad de un servidor central que decida. Ideal para editores colaborativos en tiempo real (Figma, Notion, Google Docs).",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Implementación de cola Outbox con sincronización idempotente:\ninterface PendingMutation {\n  id: string; // UUID idempotente\n  endpoint: string;\n  payload: Record<string, unknown>;\n  timestamp: number;\n  retries: number;\n}\n\nclass SyncManagerClient {\n  public static async enqueueMutation(endpoint: string, payload: Record<string, unknown>) {\n    const mutation: PendingMutation = {\n      id: crypto.randomUUID(),\n      endpoint,\n      payload,\n      timestamp: Date.now(),\n      retries: 0\n    };\n\n    // 1. Guardar en IndexedDB de mutaciones pendientes:\n    await saveMutationToIDB(mutation);\n\n    // 2. Registrar Background Sync si está disponible en el navegador:\n    if ('serviceWorker' in navigator && 'SyncManager' in window) {\n      const reg = await navigator.serviceWorker.ready;\n      // El Service Worker disparará el evento 'sync' incluso si se cierra la app:\n      await (reg as any).sync.register('process-outbox-mutations');\n    } else {\n      // Fallback para Safari/Firefox: intentar sincronizar de inmediato o en evento 'online':\n      window.addEventListener('online', () => this.flushOutbox(), { once: true });\n    }\n  }\n\n  public static async flushOutbox() {\n    const pending = await getPendingMutationsFromIDB();\n    for (const item of pending) {\n      try {\n        await fetch(item.endpoint, {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json', 'X-Idempotency-Key': item.id },\n          body: JSON.stringify(item.payload)\n        });\n        await removeMutationFromIDB(item.id);\n      } catch (err) {\n        console.warn(`Reintento programado para mutación ${item.id}`);\n        break; // Detiene la cola para preservar orden causal\n      }\n    }\n  }\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-11",
+            "title": "Arquitectura Offline-First y Resolución de Conflictos",
+            "caption": "Flujo de mutación local optimista, cola Outbox en IndexedDB, Background Sync y convergencia determinista con CRDTs.",
+            "diagramType": "webapp-offline-first-conflict-resolution"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar conocimiento del patrón Outbox, claves de idempotencia para evitar duplicados en reintentos de red y explicar las limitaciones de Last-Write-Wins frente a CRDTs.",
+            "commonPitfalls": ["Enviar peticiones en paralelo de la cola sin preservar el orden causal de las mutaciones (p. ej. enviar un 'update' antes del 'create').", "Asumir que el evento 'online' garantiza que la red es funcional (puede haber portales cautivos o conexión sin internet real)."]
+        },
+        "quiz": {
+            "question": "¿Cuál es la ventaja matemática de utilizar CRDTs (Conflict-free Replicated Data Types) en aplicaciones offline colaborativas frente al método Last-Write-Wins?",
+            "options": ["Garantizan que las operaciones converjan al mismo estado final en todos los nodos de forma determinista y sin pérdida silenciosa de datos", "Reducen el tamaño de las peticiones HTTP a 0 bytes", "Permiten que las mutaciones se ejecuten en la GPU del cliente", "Hacen innecesaria la autenticación de usuarios"],
+            "correctIndex": 0,
+            "explanation": "Los CRDTs tienen propiedades conmutativas y asociativas: los cambios de múltiples usuarios desconectados pueden fusionarse en cualquier orden y converger siempre exactamente al mismo estado sin que uno destruya los datos del otro."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cuáles son los patrones de integración en Micro-Frontends (Module Federation vs Single-SPA vs Iframes) y cómo gestionar dependencias compartidas?",
+        "response": "La arquitectura de **Micro-Frontends** extiende el concepto de microservicios al navegador: divide una aplicación web gigantesca en módulos independientes desarrollados, probados y desplegados por equipos autónomos.\n\n### 1. Patrones Principales de Integración:\n1. **Module Federation (Webpack 5 / Vite Plugin)**:\n   - **El estándar de facto moderno**: Los módulos ('Remotes') se compilan de forma autónoma y exponen componentes que la aplicación contenedora ('Host') importa dinámicamente en tiempo de ejecución (`import('remoteApp/Widget')`).\n   - **Compartición Inteligente de Singletons**: Permite declarar dependencias compartidas (`shared: { react: { singleton: true } }`). Si el host ya cargó React 19, el remote no descarga su propia copia.\n2. **Orquestadores en el Cliente (Single-SPA)**:\n   - Un router central monta y desmonta micro-aplicaciones en el DOM según la ruta activa (`/checkout`, `/catalog`).\n   - Requiere adaptar el ciclo de vida de cada app a métodos canónicos: `bootstrap`, `mount`, `unmount`.\n3. **Web Components / Custom Elements**:\n   - Cada micro-frontend se encapsula dentro de un Custom Element del estándar web (`<cart-widget></cart-widget>`).\n   - Proporciona aislamiento de estilos mediante **Shadow DOM**, pero complica el compartir estado y dependencias comunes.\n4. **Sandboxed Iframes**:\n   - Aislamiento absoluto de estilos, variables globales y JavaScript.\n   - Desventajas severas: pésimo rendimiento en memoria, accesibilidad compleja, enlaces y rutas rotas, y dificultad para modales flotantes globales.\n\n### 2. Gestión de Estado Inter-Módulos:\n* Los micro-frontends deben evitar compartir un store global monolítico (antipatrón de acoplamiento).\n* La comunicación debe basarse en **CustomEvents** tipados sobre `window`, librerías ligeras de mensajería (EventBus) o sincronización de parámetros de la URL.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// vite.config.ts / webpack.config.js - Configuración de Module Federation:\nimport federation from '@originjs/vite-plugin-federation';\n\nexport default {\n  plugins: [\n    federation({\n      name: 'host-shell-app',\n      remotes: {\n        // Enlace dinámico al micro-frontend remoto desplegado independientemente:\n        checkoutMicroapp: 'https://checkout.enterprise.com/assets/remoteEntry.js',\n        catalogMicroapp: 'https://catalog.enterprise.com/assets/remoteEntry.js'\n      },\n      shared: {\n        react: { singleton: true, requiredVersion: '^19.0.0' },\n        'react-dom': { singleton: true, requiredVersion: '^19.0.0' },\n        zustand: { singleton: true }\n      }\n    })\n  ]\n};\n\n// Carga perezosa del componente remoto en el Host:\nimport React, { Suspense, lazy } from 'react';\n\nconst RemoteCheckoutCart = lazy(() => import('checkoutMicroapp/CheckoutCart'));\n\nexport function AppShell() {\n  return (\n    <div>\n      <nav>Barra de Navegación del Host</nav>\n      <Suspense fallback={<div>Cargando Micro-frontend de Checkout...</div>}>\n        <RemoteCheckoutCart initialItems={[]} onCheckoutComplete={() => {}} />\n      </Suspense>\n    </div>\n  );\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-12",
+            "title": "Arquitectura de Micro-Frontends y Module Federation",
+            "caption": "Host contenedor consumiendo remotes desplegados de forma autónoma con compartición de singletons.",
+            "diagramType": "webapp-micro-frontends-routing"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Justificar cuándo NO usar micro-frontends (añaden complejidad operacional masiva y riesgo de cascada de dependencias) y explicar cómo funciona la compartición de singletons en Module Federation.",
+            "commonPitfalls": ["Descargar 3 versiones distintas de React o Vue en la misma página por no configurar dependencias compartidas adecuadamente.", "Crear acoplamiento excesivo entre remotes compartiendo un store de Redux o Zustand con mutaciones bidireccionales."]
+        },
+        "quiz": {
+            "question": "¿Cuál es la función principal de la propiedad 'singleton: true' en la configuración de dependencias compartidas de Module Federation?",
+            "options": ["Obliga a que la clase se instancie únicamente en servidores con CPU de un solo núcleo", "Garantiza que solo se cargue una única copia de la librería (como React) en memoria compartida por el Host y todos los Remotes, evitando errores de runtime", "Deshabilita el recolector de basura para esa librería", "Permite que la librería funcione sin conexión a internet"],
+            "correctIndex": 1,
+            "explanation": "Librerías como React dependen de un único contexto interno en memoria. 'singleton: true' asegura que tanto la app host como los micro-frontends remotos compartan la misma instancia en memoria en tiempo de ejecución."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cuáles son las Core Web Vitals (LCP, INP, CLS), qué mide cada una y qué técnicas de ingeniería frontend permiten optimizarlas a nivel Staff?",
+        "response": "Las **Core Web Vitals (CWV)** son el conjunto canónico de métricas de rendimiento estandarizadas por Google para evaluar la experiencia de usuario real en la web:\n\n### 1. Largest Contentful Paint (LCP < 2.5s) - Carga Percibida:\n* **Qué mide**: El tiempo transcurrido desde que se inicia la carga hasta que el elemento de contenido visible más grande (imagen principal, bloque de texto, póster de vídeo) se dibuja en el viewport.\n* **Técnicas de Optimización**:\n  - Eliminar el bloqueo de recursos: `<link rel=\"preload\" fetchpriority=\"high\" as=\"image\" href=\"hero.webp\">`.\n  - Servir imágenes en formatos modernos (**AVIF/WebP**) con compresión adaptativa y `sizes` correctos.\n  - Reducir el **TTFB**: Edge Caching, CDN global y compresión Brotli.\n\n### 2. Interaction to Next Paint (INP < 200ms) - Capacidad de Respuesta:\n* **Qué mide**: Sustituyó a FID. Evalúa la latencia de **todas las interacciones** del usuario (clics, toques, pulsaciones de teclado) a lo largo de toda la sesión, midiendo el peor percentil hasta que el navegador logra presentar el siguiente frame.\n* **Técnicas de Optimización**:\n  - Romper **Long Tasks** (>50 ms) cediendo el control al hilo principal mediante `scheduler.yield()` o micro-pausas con `requestAnimationFrame`.\n  - Evitar hidrataciones masivas y ejecutar cómputos pesados fuera del hilo principal en **Web Workers**.\n\n### 3. Cumulative Layout Shift (CLS < 0.1) - Estabilidad Visual:\n* **Qué mide**: La suma de todas las puntuaciones de cambios de diseño inesperados que ocurren mientras el usuario lee o navega.\n* **Técnicas de Optimización**:\n  - Declarar siempre atributos `width` y `height` o la propiedad CSS `aspect-ratio` en imágenes, vídeos e iframes.\n  - Reservar espacio para banners publicitarios y contenido dinámico inyectado tardíamente.\n  - Usar fuentes web con `font-display: swap` acompañadas de reglas `@font-face` con `size-adjust` para evitar que el cambio de fuente desplace el texto.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Optimización de INP dividiendo Long Tasks mediante scheduler.yield():\nexport async function processHighVolumeTransactions(items: Transaction[]) {\n  for (let i = 0; i < items.length; i++) {\n    // Procesar elemento:\n    computeTransactionMetrics(items[i]);\n\n    // Cada 100 iteraciones, ceder el hilo principal para que el navegador dibuje y atienda clics:\n    if (i % 100 === 0) {\n      await yieldToMainThread();\n    }\n  }\n}\n\n// Implementación moderna con fallback para scheduler.yield:\nfunction yieldToMainThread(): Promise<void> {\n  // scheduler.yield() es el estándar moderno en Chromium:\n  if ('scheduler' in window && 'yield' in (window as any).scheduler) {\n    return (window as any).scheduler.yield();\n  }\n  // Fallback estándar con MessageChannel (más rápido que setTimeout 0):\n  return new Promise((resolve) => {\n    const { port1, port2 } = new MessageChannel();\n    port1.onmessage = () => resolve();\n    port2.postMessage(null);\n  });\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-13",
+            "title": "Core Web Vitals: LCP, INP y CLS",
+            "caption": "Métricas clave de experiencia de usuario: Largest Contentful Paint (<2.5s), Interaction to Next Paint (<200ms) y Cumulative Layout Shift (<0.1).",
+            "diagramType": "webapp-core-web-vitals-metrics"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Explicar por qué INP sustituyó a FID (FID solo medía la primera interacción; INP mide el percentil 98 de todas las interacciones de la sesión) y cómo `scheduler.yield()` desactiva Long Tasks.",
+            "commonPitfalls": ["Usar `setTimeout(fn, 0)` creyendo que es una forma moderna de yield (MessageChannel o `scheduler.yield` son infinitamente superiores y no sufren el throttling de 4ms).", "Olvidar fijar dimensiones en elementos dinámicos que entran por lazy-loading, provocando picos de CLS masivos."]
+        },
+        "quiz": {
+            "question": "¿Por qué Interaction to Next Paint (INP) es una métrica más fiable que la antigua First Input Delay (FID)?",
+            "options": ["Porque mide la velocidad de descarga de la conexión Wi-Fi", "Porque FID solo medía la demora de la primera interacción al cargar la página, mientras que INP evalúa la latencia de todas las interacciones a lo largo de toda la sesión", "Porque INP solo se calcula en ordenadores de sobremesa con tarjetas gráficas dedicadas", "Porque elimina la necesidad de optimizar las imágenes del sitio"],
+            "correctIndex": 1,
+            "explanation": "FID era miope: si una app tardaba en cargar pero el primer clic fue rápido, daba puntuación perfecta aunque luego las siguientes 50 interacciones congelasen la pantalla. INP monitorea toda la sesión y reporta el peor retraso."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cómo se blinda una WebApp moderna contra ataques XSS mediante Content Security Policy (CSP), Nonces dinámicos y Subresource Integrity (SRI)?",
+        "response": "La seguridad en el frontend moderno no se confía a la sanitización de strings en el cliente: se impone a nivel del navegador mediante cabeceras HTTP estrictas.\n\n### 1. Content Security Policy (CSP):\nEs una directiva HTTP que restringe qué orígenes y qué tipos de contenido puede ejecutar el navegador, erradicando la inyección de código malicioso (**XSS**):\n* `default-src 'self'`: Por defecto, solo se permiten recursos originados en el mismo dominio.\n* `script-src 'self' 'nonce-rAnd0m123' 'strict-dynamic'`:\n  - **Rechaza scripts inline no autorizados**: Si un atacante inyecta `<script>stealTokens()</script>`, el navegador lo bloquea al carecer del nonce criptográfico correcto.\n  - `'strict-dynamic'`: Permite que un script confiable con nonce cargue dependencias secundarias legítimas sin tener que autorizar dominios individuales en una lista blanca estática.\n* `frame-ancestors 'none'`: Erradica ataques de **Clickjacking** impidiendo que la app sea incrustada en `<iframe>` externos.\n\n### 2. Generación Dinámica de Nonces:\n* Un **Nonce** (Number used ONCE) debe ser una cadena aleatoria criptográfica generada en el servidor **por cada petición HTTP individual**.\n* Se inyecta tanto en la cabecera `Content-Security-Policy` como en los tags `<script nonce=\"...\">` del HTML resultante. Nunca debe reutilizarse entre peticiones.\n\n### 3. Subresource Integrity (SRI):\n* Garantiza que scripts y hojas de estilo cargados desde CDNs de terceros (como Google Fonts o un CDN público) no han sido manipulados maliciosamente si el CDN es comprometido.\n* Sintaxis: `<script src=\"https://cdn.example/lib.js\" integrity=\"sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC\" crossorigin=\"anonymous\"></script>`.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Middleware de seguridad en Node.js / Edge Runtime con CSP estricto y nonces:\nimport { NextRequest, NextResponse } from 'next/server';\n\nexport function middleware(request: NextRequest) {\n  // 1. Generar un nonce criptográfico de 128 bits codificado en Base64:\n  const nonce = Buffer.from(crypto.randomUUID()).toString('base64');\n\n  // 2. Construir la política CSP estricta:\n  const cspHeader = `\n    default-src 'self';\n    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https: 'unsafe-inline';\n    style-src 'self' 'nonce-${nonce}';\n    img-src 'self' blob: data: https://images.enterprise.com;\n    font-src 'self';\n    object-src 'none';\n    base-uri 'self';\n    form-action 'self';\n    frame-ancestors 'none';\n    upgrade-insecure-requests;\n  `.replace(/\\s{2,}/g, ' ').trim();\n\n  // 3. Pasar el nonce al renderizador y propagar la cabecera en la respuesta:\n  const requestHeaders = new Headers(request.headers);\n  requestHeaders.set('x-nonce', nonce);\n  requestHeaders.set('Content-Security-Policy', cspHeader);\n\n  const response = NextResponse.next({\n    request: { headers: requestHeaders }\n  });\n  response.headers.set('Content-Security-Policy', cspHeader);\n\n  return response;\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-14",
+            "title": "Arquitectura de Seguridad: CSP, Nonces y SRI",
+            "caption": "Generación de Nonce criptográfico por petición para validar scripts autorizados y Subresource Integrity contra CDNs comprometidos.",
+            "diagramType": "webapp-content-security-policy"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar por qué las listas blancas de dominios en CSP (`script-src https://cdn.com`) son vulnerables y por qué el enfoque moderno estándar es el uso de nonces con `'strict-dynamic'`.",
+            "commonPitfalls": ["Usar un nonce estático o cacheado en CDN, lo que anula por completo la protección contra XSS.", "Olvidar `crossorigin=\"anonymous\"` al usar la etiqueta `integrity` en assets de terceros."]
+        },
+        "quiz": {
+            "question": "¿Cuál es la función del atributo 'integrity' (SRI) en una etiqueta <script> al importar una librería desde un CDN externo?",
+            "options": ["Acelera la descarga del archivo comprimiéndolo con gzip en tiempo real", "Permite al navegador verificar mediante un hash criptográfico que el archivo descargado no ha sido modificado o infectado en el CDN", "Evita que el usuario pueda ver el código fuente con las herramientas de desarrollador", "Habilita el renderizado del script en modo de depuración"],
+            "correctIndex": 1,
+            "explanation": "Subresource Integrity (SRI) compara el hash criptográfico del contenido descargado con el valor indicado en el atributo 'integrity'. Si el CDN es hackeado y el script se altera, el navegador bloquea su ejecución inmediatamente."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Por qué almacenar JWTs en LocalStorage es un riesgo crítico de seguridad y cómo se implementa una arquitectura robusta con HttpOnly Cookies y OAuth2 PKCE?",
+        "response": "El almacenamiento de credenciales en el cliente es uno de los vectores más explotados en aplicaciones web:\n\n### 1. El Riesgo de `localStorage` para Tokens de Sesión:\n* `localStorage` y `sessionStorage` son **completamente accesibles por cualquier código JavaScript** que se ejecute en el origen.\n* Si la aplicación sufre la más mínima vulnerabilidad XSS (a través de una dependencia NPM comprometida, un avatar mal sanitizado o un editor de texto enriquecido), el atacante puede ejecutar `localStorage.getItem('token')` y exfiltrar la sesión en un milisegundo.\n\n### 2. La Arquitectura Canónica: HttpOnly Cookies + Tokens en Memoria:\n1. **Access Token (Corta duración: 5 - 15 minutos)**:\n   - Se mantiene **exclusivamente en la memoria volátil de JavaScript** (un closure o variable de módulo). Al cerrar la pestaña o recargar, se destruye.\n2. **Refresh Token (Larga duración: 7 - 30 días)**:\n   - Se almacena en una **Cookie con flags de máxima seguridad**:\n     - `HttpOnly`: Impide terminantemente que cualquier script JS lea la cookie.\n     - `Secure`: Solo se transmite sobre conexiones cifradas HTTPS.\n     - `SameSite=Strict` o `Lax`: Previene ataques de **CSRF (Cross-Site Request Forgery)**.\n3. **Silent Refresh Interceptor**:\n   - Cuando el Access Token en memoria expira (error HTTP 401), un interceptor de Axios o Fetch pausa las peticiones en cola, llama al endpoint `/api/auth/refresh` (que valida la HttpOnly cookie de forma transparente) y reanuda las peticiones pendientes con el nuevo token.\n\n### 3. OAuth 2.0 PKCE (Proof Key for Code Exchange):\n* En SPAs y aplicaciones de cliente público que no pueden almacenar un `client_secret` de forma segura, el flujo PKCE evita la interceptación del código de autorización:\n  - El cliente genera un secreto criptográfico `code_verifier`.\n  - Calcula su hash SHA-256 (`code_challenge`) y lo envía en la solicitud de login.\n  - Al recibir el código de autorización, envía el `code_verifier` original para que el servidor valide que quien solicita los tokens es el mismo cliente que inició el flujo.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Interceptor de Refresh Token Silencioso con cola de peticiones concurrentes:\nlet isRefreshing = false;\nlet failedQueue: Array<{ resolve: (token: string) => void; reject: (err: any) => void }> = [];\n\nconst processQueue = (error: any, token: string | null = null) => {\n  failedQueue.forEach((prom) => (error ? prom.reject(error) : prom.resolve(token!)));\n  failedQueue = [];\n};\n\nexport async function secureFetch(url: string, options: RequestInit = {}): Promise<Response> {\n  let token = AuthState.getAccessToken(); // Token en memoria volátil\n\n  const headers = new Headers(options.headers);\n  if (token) headers.set('Authorization', `Bearer ${token}`);\n\n  let response = await fetch(url, { ...options, headers });\n\n  // Si el access token expiró:\n  if (response.status === 401) {\n    if (isRefreshing) {\n      // Encolar peticiones paralelas mientras se renueva:\n      const newToken = await new Promise<string>((resolve, reject) => failedQueue.push({ resolve, reject }));\n      headers.set('Authorization', `Bearer ${newToken}`);\n      return fetch(url, { ...options, headers });\n    }\n\n    isRefreshing = true;\n    try {\n      // Endpoint que lee la cookie HttpOnly 'refreshToken':\n      const refreshRes = await fetch('/api/auth/refresh', { method: 'POST', credentials: 'include' });\n      if (!refreshRes.ok) throw new Error('Sesión revocada');\n\n      const data = await refreshRes.json();\n      AuthState.setAccessToken(data.accessToken);\n      processQueue(null, data.accessToken);\n\n      headers.set('Authorization', `Bearer ${data.accessToken}`);\n      return fetch(url, { ...options, headers });\n    } catch (refreshErr) {\n      processQueue(refreshErr, null);\n      AuthState.logout();\n      throw refreshErr;\n    } finally {\n      isRefreshing = false;\n    }\n  }\n\n  return response;\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-15",
+            "title": "Arquitectura de Autenticación Segura (HttpOnly y Tokens en Memoria)",
+            "caption": "Access token volátil en memoria y Refresh token protegido en Cookie HttpOnly con Silent Refresh en interceptor.",
+            "diagramType": "webapp-auth-security-tokens"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar por qué el mito de 'guardar JWT en localStorage' es inaceptable en proyectos enterprise y saber explicar la mecánica de refresco silencioso sin provocar bucles infinitos de 401.",
+            "commonPitfalls": ["Creer que una cookie `HttpOnly` previene ataques CSRF por sí sola (se requiere el flag `SameSite` o tokens anti-CSRF).", "No pausar o encolar las peticiones salientes cuando ocurre un 401, provocando que 10 llamadas simultáneas disparen 10 peticiones de refresco concurrentes."]
+        },
+        "quiz": {
+            "question": "¿Por qué es una práctica de seguridad almacenar el Refresh Token en una cookie con flag HttpOnly en lugar del LocalStorage?",
+            "options": ["Porque reduce el consumo de memoria RAM del navegador a la mitad", "Porque la directiva HttpOnly impide terminantemente que código JavaScript malicioso acceda a la cookie en caso de un ataque XSS", "Porque permite enviar la cookie mediante peticiones UDP sin cifrar", "Porque extiende automáticamente la sesión del usuario durante 10 años"],
+            "correctIndex": 1,
+            "explanation": "El flag HttpOnly hace que la cookie sea completamente invisible para document.cookie y cualquier script ejecutado en el navegador, protegiendo las credenciales de sesión incluso si ocurre una inyección de código XSS."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cómo gestiona la memoria el Garbage Collector de V8, qué patrones provocan fugas de memoria (Memory Leaks) y cómo diagnosticarlas con Chrome DevTools?",
+        "response": "El motor V8 de Chromium utiliza un **Garbage Collector Generacional (Orinoco)** con dos áreas principales: **Scavenger (New Space)** para objetos efímeros de vida corta y **Mark-Sweep-Compact (Old Space)** para objetos que sobreviven ciclos de recolección.\n\n### 1. Cuándo Ocurre un Memory Leak:\nUn objeto no puede ser recolectado por el GC si aún es alcanzable a través de una cadena de referencias activa desde una **Raíz del Recolector (GC Root)** (como el objeto global `window`, variables en el ámbito de módulo o elementos montados en el DOM).\n\n### 2. Patrones Típicos de Fugas en WebApps:\n1. **Detached DOM Trees (Árboles DOM Desconectados)**:\n   - Ocurre cuando un elemento HTML es eliminado del documento visible mediante `remove()` o `element.innerHTML = ''`, pero una variable en JavaScript o un closure mantiene una referencia a él. El elemento y todos sus hijos permanecen vivos en el Heap.\n2. **Listeners Globales no Removidos**:\n   - Suscribirse a `window.addEventListener('resize', handler)` o `document.addEventListener('keydown', ...)` en un componente sin desuscribirse al desmontar.\n3. **Temporizadores e Intervalos Huérfanos**:\n   - `setInterval` que referencia variables de componentes desmontados; el closure mantiene todo el contexto vivo indefinidamente.\n4. **Cachés Ilimitadas con Maps Fuertes**:\n   - Usar `new Map()` o `Set()` para cachear peticiones o instancias sin límite de entradas ni expulsión. Se soluciona con `WeakMap` o `WeakSet`.\n\n### 3. Diagnóstico en Chrome DevTools:\n* **Heap Snapshot**: Muestra la distribución exacta de memoria.\n  - **Shallow Size**: Memoria ocupada por el objeto en sí.\n  - **Retained Size**: Memoria que se liberaría si el objeto y sus dependencias exclusivas fuesen recolectados por el GC.\n  - Se toman dos snapshots (antes y después de usar una funcionalidad) y se filtran por objetos 'Detached'.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Demostración de fuga por Detached DOM y su resolución con WeakRef / AbortController:\n\n// ❌ PATRÓN CON FUGA:\nclass LeakyWidget {\n  private cache: any[] = [];\n  public init() {\n    const heavyDiv = document.createElement('div');\n    heavyDiv.textContent = 'Data pesada';\n    document.body.appendChild(heavyDiv);\n\n    // El listener en window y el array retienen heavyDiv aunque se borre del DOM:\n    window.addEventListener('scroll', () => {\n      this.cache.push(heavyDiv); // Retiene la referencia viva al nodo desconectado\n    });\n  }\n}\n\n// ✅ PATRÓN LIMPIO ENTERPRISE CON ABORTCONTROLLER:\nexport class CleanWidget {\n  private abortController = new AbortController();\n\n  public init() {\n    const { signal } = this.abortController;\n\n    // Se asocia el listener a la señal de cancelación:\n    window.addEventListener(\n      'scroll',\n      () => {\n        console.log('Scroll activo');\n      },\n      { signal }\n    );\n  }\n\n  public destroy() {\n    // Cancela todos los event listeners asociados de forma atómica:\n    this.abortController.abort();\n    console.log('Widget destruido y listeners desvinculados sin fuga de memoria');\n  }\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-16",
+            "title": "Fugas de Memoria (Memory Leaks) y Retained Trees en V8",
+            "caption": "Raíces GC reteniendo árboles DOM desconectados (Detached DOM) y closures huérfanos impidiendo la recolección.",
+            "diagramType": "webapp-memory-leaks-devtools"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Distinguir entre Shallow Size y Retained Size en un Heap Snapshot de Chrome DevTools y demostrar el uso de `AbortController` como patrón moderno para limpiar múltiples listeners a la vez.",
+            "commonPitfalls": ["Creer que poner `variable = null` dentro de una función local es necesario (el GC recolecta variables locales automáticamente al salir del scope a menos que haya closures).", "Ignorar los 'Detached HTMLElement' al analizar capturas de memoria en SPAs."]
+        },
+        "quiz": {
+            "question": "En un Heap Snapshot de Chrome DevTools, ¿qué representa el 'Retained Size' de un objeto?",
+            "options": ["El número de caracteres que ocupa su nombre de variable en el código fuente", "La cantidad total de memoria que se liberaría automáticamente si ese objeto fuese destruido y sus objetos hijos dependientes recolectados por el GC", "El espacio reservado en la caché del Service Worker", "La cantidad de datos que se han transmitido por la red"],
+            "correctIndex": 1,
+            "explanation": "El 'Shallow Size' es el tamaño del objeto en sí mismo, mientras que el 'Retained Size' es el tamaño del objeto sumado al de todos los demás objetos que se mantienen vivos únicamente gracias a las referencias de este."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cómo se implementa una arquitectura Multithreading en el navegador utilizando Web Workers, Transferable Objects y Google Comlink?",
+        "response": "El hilo principal del navegador (**Main Thread**) ejecuta JavaScript, procesa eventos de usuario, calcula estilos CSS y realiza el renderizado visual. Si una tarea de computación pesada tarda 100 ms, el hilo se bloquea, congelando la interfaz y arruinando el **INP**.\n\n### 1. Web Workers (Hilos Dedicados):\n* Permiten ejecutar JavaScript en un hilo secundario del sistema operativo en paralelo real.\n* **Restricciones**: No tienen acceso a `window`, `document`, DOM ni `localStorage`. Solo se comunican con el hilo principal mediante paso de mensajes (`postMessage`).\n\n### 2. Paso por Copia vs Transferable Objects (Zero-Copy):\n* Por defecto, los datos enviados por `postMessage()` se clonan mediante el algoritmo de **Structured Clone**, lo que duplica el consumo de memoria y cuesta CPU si el payload pesa 50 MB.\n* **Transferable Objects (`ArrayBuffer`, `ImageBitmap`, `MessagePort`)**:\n  - Transfieren la propiedad del puntero de memoria de un hilo al otro en **0 ms (Zero-Copy)**.\n  - El hilo emisor pierde el acceso al buffer instantáneamente (`byteLength` pasa a 0), eliminando condiciones de carrera y locks.\n\n### 3. Google Comlink (RPC con Proxies de ES6):\n* Escribir `postMessage` y `addEventListener('message')` manual produce código spaguetti difícil de mantener y tipar.\n* **Comlink** envuelve el canal del Worker utilizando Proxies de ES6, permitiendo invocar funciones y clases del worker como si fuesen métodos asíncronos nativos con tipado estricto de TypeScript.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// worker.ts - Hilo secundario expuesto con Comlink:\nimport * as Comlink from 'comlink';\n\nexport class HeavyDataProcessor {\n  public parseAndAggregateLargeCsv(buffer: ArrayBuffer): { rowCount: number; sum: number } {\n    // Procesamiento intensivo de CPU sin congelar la interfaz de usuario:\n    const view = new Uint8Array(buffer);\n    let count = 0;\n    let sum = 0;\n    for (let i = 0; i < view.length; i++) {\n      if (view[i] === 10) count++; // Conteo de saltos de línea\n      sum += view[i];\n    }\n    return { rowCount: count, sum };\n  }\n}\n\nComlink.expose(HeavyDataProcessor);\n\n// -------------------------------------------------------------\n// main.ts - Hilo Principal (Main Thread) consumiendo el worker:\nimport * as Comlink from 'comlink';\n\nasync function executeOffThreadProcessing(file: File) {\n  // Instanciar el worker con Vite:\n  const workerInstance = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });\n  const ProcessorClass = Comlink.wrap<typeof HeavyDataProcessor>(workerInstance);\n\n  const processor = await new ProcessorClass();\n  const fileBuffer = await file.arrayBuffer();\n\n  // Invocación RPC transparente que no bloquea la UI:\n  const result = await processor.parseAndAggregateLargeCsv(Comlink.transfer(fileBuffer, [fileBuffer]));\n\n  console.log(`Filas procesadas: ${result.rowCount}`);\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-17",
+            "title": "Arquitectura Multithreading: Web Workers y Comlink",
+            "caption": "Hilo principal liberado de tareas pesadas delegando cómputo a Web Workers con transferencia Zero-Copy y proxies RPC.",
+            "diagramType": "webapp-web-workers-multithreading"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Demostrar que comprendes la diferencia entre clonación estructurada y Transferable Objects (Zero-Copy) y saber cuándo conviene delegar a un Worker (evitar usar Workers para operaciones triviales por el coste de contexto).",
+            "commonPitfalls": ["Intentar manipular el DOM o acceder a `window` desde el interior de un Web Worker.", "Usar el buffer en el hilo principal después de haberlo transferido con `Comlink.transfer()` (su tamaño pasa a ser 0 bytes)."]
+        },
+        "quiz": {
+            "question": "¿Qué ocurre con un ArrayBuffer cuando es enviado a un Web Worker como un 'Transferable Object'?",
+            "options": ["Se comprime automáticamente en un archivo ZIP", "Se transfiere la propiedad de la memoria directamente al worker en 0 ms y queda inutilizable (desasociado) en el hilo emisor", "Se duplica en memoria para permitir escrituras simultáneas sin locks", "Se convierte automáticamente en un objeto JSON"],
+            "correctIndex": 1,
+            "explanation": "Los Transferable Objects transfieren el puntero de memoria subyacente sin copiar bytes. Por seguridad, el buffer se desacopla inmediatamente del contexto emisor (su byteLength se vuelve 0), garantizando que no existan carreras de datos."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cómo funciona el Protocolo Web Push, cómo se autentica con claves VAPID y cómo se gestionan notificaciones en el Service Worker?",
+        "response": "El sistema de **Web Push Notifications** permite a una WebApp enviar alertas al dispositivo del usuario incluso cuando el navegador y la pestaña están completamente cerrados.\n\n### 1. Los Tres Actores del Ecosistema Web Push:\n1. **Cliente Web (Navegador)**: Solicita permiso al usuario mediante `Notification.requestPermission()`.\n2. **Servicio Push del Navegador (Push Service)**: Servidor gestionado por el fabricante del navegador (Google FCM para Chrome, Mozilla Push para Firefox, Apple WebPush para Safari).\n3. **Servidor de Aplicación (Backend)**: Genera los payloads de notificación y los envía al Push Service mediante peticiones firmadas.\n\n### 2. VAPID (Voluntary Application Server Identification):\n* Para evitar que cualquiera envíe spam a un endpoint push de usuario, el backend utiliza **claves criptográficas asimétricas VAPID** (curva elíptica P-256):\n  - La **clave pública VAPID** se comparte con el navegador al suscribirse (`pushManager.subscribe()`).\n  - La **clave privada VAPID** reside en el backend y firma un token JWT que acompaña a cada notificación enviada al Push Service.\n\n### 3. Ciclo de Eventos en el Service Worker:\n1. El Push Service recibe el mensaje cifrado del backend y despierta al Service Worker en el dispositivo del usuario.\n2. Se dispara el evento `push`. Mediante `event.waitUntil(self.registration.showNotification(...))`, el worker mantiene vivo el proceso hasta mostrar la alerta nativa.\n3. Al pulsar la notificación se dispara `notificationclick`, donde el worker busca pestañas existentes para enfocarlas o abre una nueva ventana mediante `clients.openWindow()`.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// 1. Suscripción en el cliente (main.ts):\nexport async function subscribeUserToPush(): Promise<PushSubscription | null> {\n  const registration = await navigator.serviceWorker.ready;\n\n  // Convertir clave pública VAPID de base64 a Uint8Array:\n  const applicationServerKey = urlBase64ToUint8Array('BF8x...YOUR_VAPID_PUBLIC_KEY');\n\n  const subscription = await registration.pushManager.subscribe({\n    userVisibleOnly: true, // Requisito estricto: cada push debe mostrar notificación visual\n    applicationServerKey\n  });\n\n  // Enviar el objeto de suscripción al backend para persistir en BD:\n  await fetch('/api/push/subscribe', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify(subscription)\n  });\n\n  return subscription;\n}\n\n// 2. Gestión en el Service Worker (sw.ts):\nself.addEventListener('push', (event: PushEvent) => {\n  const data = event.data ? event.data.json() : { title: 'Nueva Alerta', body: 'Contenido nuevo' };\n\n  event.waitUntil(\n    self.registration.showNotification(data.title, {\n      body: data.body,\n      icon: '/icons/icon-192.png',\n      badge: '/icons/badge-72.png',\n      data: { url: data.targetUrl || '/' }\n    })\n  );\n});\n\nself.addEventListener('notificationclick', (event: NotificationEvent) => {\n  event.notification.close();\n  const targetUrl = event.notification.data.url;\n\n  event.waitUntil(\n    self.clients.matchAll({ type: 'window' }).then((windowClients) => {\n      // Enfocar pestaña abierta si ya existe:\n      for (const client of windowClients) {\n        if (client.url === targetUrl && 'focus' in client) {\n          return client.focus();\n        }\n      }\n      // Si no hay pestaña abierta, abrir una nueva:\n      return self.clients.openWindow(targetUrl);\n    })\n  );\n});"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-18",
+            "title": "Protocolo Web Push y Autenticación VAPID",
+            "caption": "Arquitectura de 3 actores: Browser, Push Service (FCM/Apple) y Backend autenticado con firma criptográfica VAPID.",
+            "diagramType": "webapp-push-notifications-webpush"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Explicar por qué el parámetro `userVisibleOnly: true` es obligatorio en Chrome (evita que los sitios usen notificaciones push silenciosas como trackers en segundo plano) y cómo VAPID protege al Push Service.",
+            "commonPitfalls": ["Pedir permisos de notificación inmediatamente al cargar la página sin contexto (los usuarios lo bloquean en un 95% de los casos).", "Olvidar usar `event.waitUntil()` en el evento `push`, provocando que el sistema operativo mate el proceso del Service Worker antes de mostrar la notificación."]
+        },
+        "quiz": {
+            "question": "¿Por qué es obligatorio especificar 'userVisibleOnly: true' al suscribir un cliente al PushManager en navegadores basados en Chromium?",
+            "options": ["Para garantizar que la notificación solo se muestre si la pantalla tiene más de 1080p de resolución", "Para asegurar que cada mensaje push recibido resulte en una notificación visible para el usuario, impidiendo el uso de pushes silenciosos como herramientas espía o minería en segundo plano", "Para impedir que la app funcione cuando el usuario active el modo nocturno", "Para limitar las notificaciones a un máximo de 5 caracteres"],
+            "correctIndex": 1,
+            "explanation": "Google y los estándares web imponen 'userVisibleOnly: true' como medida de privacidad: cada evento push debe desembocar obligatoriamente en un aviso visible en la pantalla del usuario para prevenir abusos y tracking encubierto."
+        },
+        "level": "avanzado"
+    },
+    {
+        "title": "¿Cómo se optimiza el SEO técnico en aplicaciones web complejas mediante Dynamic Rendering, metadatos Open Graph y microdatos JSON-LD?",
+        "response": "El rastreo e indexación de aplicaciones web modernas por motores de búsqueda presenta desafíos técnicos fundamentales derivados del coste computacional del JavaScript:\n\n### 1. El Proceso de Indexación en Dos Fases de Googlebot:\n1. **Primera Fase (Crawl & Indexación Inmediata)**: El crawler descarga el HTML estático inicial, parsea enlaces y procesa el texto. Si la aplicación es una SPA con CSR puro (`<div id=\"root\"></div>`), no indexa contenido alguno en esta pasada.\n2. **Segunda Fase (Web Rendering Service - WRS)**: El documento entra en una **cola de espera de renderizado** hasta que haya recursos de computación disponibles para ejecutar el JavaScript. Esto puede tardar desde horas hasta semanas, perjudicando el posicionamiento de contenidos dinámicos y noticias de última hora.\n\n### 2. Los Crawlers de Redes Sociales no Ejecutan JS:\n* Los bots de WhatsApp, Twitter/X, LinkedIn, Slack o Facebook no cuentan con un motor WRS: descargan únicamente el HTML estático sin evaluar JavaScript. Si los metadatos Open Graph (`og:image`, `og:title`) se inyectan con `useEffect` en el cliente, la vista previa compartida se mostrará completamente vacía.\n\n### 3. Técnicas de Mitigación:\n* **SSR / SSG Nativo**: La solución definitiva: el HTML entregado contiene todos los metadatos y contenidos renderizados desde el primer byte.\n* **Dynamic Rendering**: Si la migración a SSR no es viable, un proxy inverso (Cloudflare / Nginx) detecta cabeceras `User-Agent` de bots conocidos y redirige la petición a un servicio de pre-renderizado sin cabeza (Puppeteer / Rendertron) para servir HTML estático.\n* **Microdatos JSON-LD (Schema.org)**: Inyección de estructuras semánticas tipadas en `<script type=\"application/ld+json\">` para habilitar Rich Snippets en Google (estrellas de valoraciones, precios, migas de pan y preguntas frecuentes).",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Componente reutilizable de SEO semántico con metadatos Open Graph y JSON-LD estructurado:\nimport React from 'react';\n\ninterface SEOProps {\n  title: string;\n  description: string;\n  canonicalUrl: string;\n  imageUrl: string;\n  article?: {\n    publishedTime: string;\n    author: string;\n  };\n}\n\nexport function MetaTagsAndStructuredData({ title, description, canonicalUrl, imageUrl, article }: SEOProps) {\n  // Esquema semántico estructurado según Schema.org:\n  const schemaOrgJsonLd = {\n    '@context': 'https://schema.org',\n    '@type': article ? 'Article' : 'WebPage',\n    headline: title,\n    description: description,\n    image: imageUrl,\n    url: canonicalUrl,\n    ...(article && {\n      datePublished: article.publishedTime,\n      author: { '@type': 'Person', name: article.author }\n    })\n  };\n\n  return (\n    <>\n      {/* 1. Metadatos Estándar y Canónicos */}\n      <title>{title}</title>\n      <meta name=\"description\" content={description} />\n      <link rel=\"canonical\" href={canonicalUrl} />\n\n      {/* 2. Open Graph para Facebook, LinkedIn, WhatsApp */}\n      <meta property=\"og:type\" content={article ? 'article' : 'website'} />\n      <meta property=\"og:title\" content={title} />\n      <meta property=\"og:description\" content={description} />\n      <meta property=\"og:image\" content={imageUrl} />\n      <meta property=\"og:url\" content={canonicalUrl} />\n\n      {/* 3. Twitter Cards */}\n      <meta name=\"twitter:card\" content=\"summary_large_image\" />\n      <meta name=\"twitter:title\" content={title} />\n      <meta name=\"twitter:description\" content={description} />\n      <meta name=\"twitter:image\" content={imageUrl} />\n\n      {/* 4. Rich Snippets Semánticos (JSON-LD) */}\n      <script\n        type=\"application/ld+json\"\n        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgJsonLd) }}\n      />\n    </>\n  );\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-19",
+            "title": "SEO Técnico: Dynamic Rendering y Dos Fases de Indexación",
+            "caption": "Diferenciación entre usuarios y bots para servir HTML pre-renderizado con metadatos Open Graph y JSON-LD.",
+            "diagramType": "webapp-seo-dynamic-rendering"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Explicar la diferencia entre la indexación de Googlebot y los scrapers de redes sociales (que jamás ejecutan JS) y la importancia del schema JSON-LD para los fragmentos enriquecidos (Rich Snippets).",
+            "commonPitfalls": ["Confiar en librerías de cliente como React Helmet en una SPA pura sin SSR esperando que WhatsApp o Twitter generen tarjetas visuales.", "Incurrir en 'Cloaking' (mostrar contenido sustancialmente distinto a los bots que a los usuarios, penado con desindexación por Google)."]
+        },
+        "quiz": {
+            "question": "¿Por qué las vistas previas de enlaces en plataformas como WhatsApp, Slack o Twitter fallan al compartir una SPA basada en Client-Side Rendering puro?",
+            "options": ["Porque esas plataformas bloquean automáticamente el protocolo HTTPS", "Porque sus scrapers de metadatos descargan solo el HTML inicial y no ejecutan motores de JavaScript para evaluar React o Vue en el cliente", "Porque el navegador del usuario bloquea las cookies de terceros", "Porque requieren que el archivo index.html esté comprimido en formato TAR.GZ"],
+            "correctIndex": 1,
+            "explanation": "Los scrapers de redes sociales realizan peticiones HTTP básicas y analizan el HTML recibido sin instanciar un navegador headless con motor de JS. Si los tags og:image o description se inyectan en cliente vía JS, no encontrarán ningún metadato."
+        },
+        "level": "medio"
+    },
+    {
+        "title": "¿Cómo se implementa un sistema de Telemetría y Real User Monitoring (RUM) utilizando la API PerformanceObserver y navigator.sendBeacon?",
+        "response": "Las pruebas sintéticas en laboratorio (Lighthouse o WebPageTest) evalúan entornos ideales bajo condiciones estables. Por el contrario, el **Real User Monitoring (RUM)** captura las métricas de rendimiento reales experimentadas por cientos de miles de usuarios en una enorme diversidad de dispositivos móviles, CPUs estranguladas y redes inestables.\n\n### 1. La API `PerformanceObserver`:\n* Es el mecanismo de bajo nivel más eficiente del navegador para suscribirse a eventos de rendimiento de forma asíncrona sin sobrecargar el hilo principal:\n  - `largest-contentful-paint`: Reporta el elemento LCP y el tiempo exacto.\n  - `layout-shift`: Mide cada cambio de diseño para calcular el CLS acumulativo excluyendo los desencadenados por interacción del usuario (`hadRecentInput`).\n  - `longtask`: Notifica cualquier tarea en el hilo principal que exceda los 50 ms.\n  - `event`: Reporta la latencia y tiempo de presentación para registrar el INP.\n\n### 2. Atribución de Métricas:\n* Saber que el LCP tardó 4.2 segundos no es suficiente. Un sistema enterprise de RUM debe capturar la **atribución**: qué elemento específico del DOM causó el LCP, el selector CSS, la URL del recurso y la sub-fase responsable (TTFB, Load Delay, Render Delay).\n\n### 3. Transmisión Fiable con `navigator.sendBeacon`:\n* Cuando el usuario cierra la pestaña o navega fuera del sitio, una petición `fetch()` asíncrona estándar suele cancelarse por el navegador.\n* `navigator.sendBeacon(url, data)` garantiza que los datos de telemetría se envíen en segundo plano por el sistema operativo de forma no bloqueante sin retrasar la descarga de la página siguiente.",
+        "codeExample": {
+            "language": "typescript",
+            "code": "// Sistema de Telemetría y RUM con PerformanceObserver y sendBeacon:\ninterface MetricPayload {\n  metric: string;\n  value: number;\n  attribution?: string;\n  url: string;\n  timestamp: number;\n}\n\nexport class RealUserMonitoring {\n  private static endpoint = '/api/telemetry/rum';\n\n  public static init() {\n    if (typeof window === 'undefined' || !('PerformanceObserver' in window)) return;\n\n    // 1. Monitoreo de LCP con atribución del elemento causante:\n    const lcpObserver = new PerformanceObserver((entryList) => {\n      const entries = entryList.getEntries();\n      const lastEntry = entries[entries.length - 1] as any;\n      if (lastEntry) {\n        this.send({\n          metric: 'LCP',\n          value: Math.round(lastEntry.startTime),\n          attribution: lastEntry.element ? lastEntry.element.tagName : 'unknown',\n          url: window.location.pathname,\n          timestamp: Date.now()\n        });\n      }\n    });\n    lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });\n\n    // 2. Monitoreo de Long Tasks que bloquean el Event Loop (>50ms):\n    const longTaskObserver = new PerformanceObserver((entryList) => {\n      for (const entry of entryList.getEntries()) {\n        if (entry.duration > 50) {\n          console.warn(`Long task detectada: ${entry.duration.toFixed(2)}ms`);\n        }\n      }\n    });\n    longTaskObserver.observe({ type: 'longtask', buffered: true });\n  }\n\n  private static send(payload: MetricPayload) {\n    const data = JSON.stringify(payload);\n    // sendBeacon garantiza la entrega incluso si la página se está cerrando:\n    if (navigator.sendBeacon) {\n      navigator.sendBeacon(this.endpoint, data);\n    } else {\n      fetch(this.endpoint, { method: 'POST', body: data, keepalive: true });\n    }\n  }\n}"
+        },
+        "visualDiagram": {
+            "id": "diag-wa-20",
+            "title": "Telemetría y Real User Monitoring (RUM)",
+            "caption": "PerformanceObserver recolectando Core Web Vitals y enviando beacons no bloqueantes al descargar la página.",
+            "diagramType": "webapp-telemetry-real-user-monitoring"
+        },
+        "interviewTips": {
+            "whatInterviewersWant": "Justificar por qué `buffered: true` es imprescindible en `PerformanceObserver` (para no perder eventos ocurridos antes de que el script de telemetría inicializara) y por qué `sendBeacon` o `fetch(..., { keepalive: true })` son obligatorios para telemetría.",
+            "commonPitfalls": ["Usar eventos sincrónicos obsoletos como `window.onunload` con llamadas AJAX bloqueantes, lo que degrada la experiencia de cierre y está desaconsejado por los navegadores.", "Enviar cada métrica individualmente saturando la red en lugar de agrupar o enviar beacons ordenados."]
+        },
+        "quiz": {
+            "question": "¿Por qué es fundamental utilizar la opción '{ buffered: true }' al registrar un PerformanceObserver para métricas como LCP?",
+            "options": ["Para almacenar en memoria caché del navegador todas las imágenes de la página", "Para recuperar entradas de rendimiento que ocurrieron en el navegador antes de que el script de monitoreo terminara de registrarse", "Para activar la aceleración por hardware en la tarjeta gráfica", "Para impedir que los usuarios bloqueen la telemetría con adblockers"],
+            "correctIndex": 1,
+            "explanation": "Sin '{ buffered: true }', el observer solo recibiría eventos futuros. Si el elemento LCP o FCP se dibujó antes de que el script de telemetría cargara y se suscribiera, esa métrica crítica se perdería por completo."
+        },
+        "level": "avanzado"
+    },
   ]
 };
 
