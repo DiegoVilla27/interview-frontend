@@ -21,9 +21,6 @@ const LayoutScreen: React.FC<IProps> = ({ children }) => {
               <span className="font-extrabold text-sm sm:text-base tracking-tight block leading-tight text-white">
                 Frontend Interview Pro
               </span>
-              <span className="text-[10px] text-zinc-400 font-mono hidden sm:block">
-                W3C • React 19 • Web Components • Core JS
-              </span>
             </div>
           </div>
 
