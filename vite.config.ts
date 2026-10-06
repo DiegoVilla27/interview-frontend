@@ -37,6 +37,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      onwarn(warning, warn) {
+        // Anotaciones @__PURE__ mal ubicadas dentro de dependencias (p. ej. zod): ruido inofensivo
+        if (warning.code === "INVALID_ANNOTATION" && warning.id?.includes("node_modules")) return;
+        warn(warning);
+      },
       output: {
         chunkFileNames: (chunk) => {
           const moduleFolder = chunk.facadeModuleId?.match(/src\/modules\/([^/]+)\//)?.[1];
