@@ -6,3 +6,7 @@ build/
 .DS_Store
 .env
 .pnpm-store/
+# Tests
+test-results/
+playwright-report/
+coverage/

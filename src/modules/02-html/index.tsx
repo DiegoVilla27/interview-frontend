@@ -47,6 +47,17 @@ export const questionsHTML: ISection = {
           "¿Cómo convierte el navegador el HTML en el DOM?",
           "¿Qué ocurre cuando el navegador encuentra HTML mal formado?"
         ]
+      },
+      quiz: {
+        question: "¿Qué responsabilidad tiene HTML en la arquitectura de una página web?",
+        options: [
+          "Gestionar la lógica y la interactividad",
+          "Definir la apariencia visual",
+          "Definir la estructura y el significado del contenido",
+          "Almacenar datos en el servidor"
+        ],
+        correctIndex: 2,
+        explanation: "HTML define estructura y semántica; CSS se encarga de la presentación y JavaScript del comportamiento. Separar estas capas mejora la accesibilidad y la mantenibilidad."
       }
     },
     {
@@ -85,6 +96,17 @@ export const questionsHTML: ISection = {
           "¿Por qué width y height no afectan a un elemento inline?",
           "¿Cómo cambia este modelo con display: flex o grid?"
         ]
+      },
+      quiz: {
+        question: "¿Por qué width y height no tienen efecto sobre un <span> por defecto?",
+        options: [
+          "Porque necesita el atributo size",
+          "Porque es un elemento inline: su tamaño lo determina su contenido",
+          "Porque solo admite estilos inline",
+          "Porque <span> está obsoleto"
+        ],
+        correctIndex: 1,
+        explanation: "Los elementos inline fluyen dentro de la línea de texto e ignoran width y height. Con display: inline-block o block sí aceptan dimensiones."
       }
     },
     {
@@ -108,6 +130,17 @@ export const questionsHTML: ISection = {
           "¿Qué es el quirks mode y cómo puedes detectarlo con document.compatMode?",
           "¿Por qué el DOCTYPE de HTML5 es tan corto?"
         ]
+      },
+      quiz: {
+        question: "¿Qué ocurre si omites el <!DOCTYPE html> en un documento?",
+        options: [
+          "Se renderiza como texto plano",
+          "No ocurre nada: el DOCTYPE es solo un comentario",
+          "El navegador se niega a renderizarlo",
+          "El navegador entra en quirks mode y emula comportamientos antiguos, como otro box model"
+        ],
+        correctIndex: 3,
+        explanation: "Sin DOCTYPE el navegador activa el quirks mode por compatibilidad con páginas antiguas. Puedes comprobarlo con document.compatMode ('BackCompat' frente a 'CSS1Compat')."
       }
     },
     {
@@ -141,6 +174,17 @@ export const questionsHTML: ISection = {
           "¿Qué problemas de accesibilidad causa un <div> clicable?",
           "¿Qué elementos semánticos sustituirían a los <div> de un layout típico?"
         ]
+      },
+      quiz: {
+        question: "Necesitas un elemento clicable que ejecute una acción en la página. ¿Qué es lo correcto?",
+        options: [
+          "<a href=\"#\">",
+          "<button type=\"button\">",
+          "<div onclick=\"...\">",
+          "<span role=\"button\">"
+        ],
+        correctIndex: 1,
+        explanation: "<button> ofrece de forma nativa foco, activación con Enter y Espacio, y el rol correcto para lectores de pantalla. Un <div> clicable no tiene nada de esto."
       }
     },
     {
@@ -182,6 +226,17 @@ export const questionsHTML: ISection = {
           "¿Qué diferencia hay entre getAttribute('value') y element.value?",
           "¿Cómo funcionan los atributos booleanos como disabled o checked?"
         ]
+      },
+      quiz: {
+        question: "En <input value=\"Ana\">, el usuario escribe 'Luis'. ¿Qué devuelve input.getAttribute('value')?",
+        options: [
+          "null",
+          "'Luis'",
+          "'Ana'",
+          "undefined"
+        ],
+        correctIndex: 2,
+        explanation: "El atributo refleja el valor inicial del HTML. La propiedad input.value refleja el estado vivo ('Luis'). Es la diferencia entre atributos y propiedades del DOM."
       }
     },
     {
@@ -220,6 +275,17 @@ export const questionsHTML: ISection = {
           "¿Qué hace rel='noopener noreferrer' y por qué era necesario?",
           "¿Cuándo usar un <a> y cuándo un <button>?"
         ]
+      },
+      quiz: {
+        question: "¿Qué hace rel=\"noopener\" en un enlace con target=\"_blank\"?",
+        options: [
+          "Indica a los buscadores que no sigan el enlace",
+          "Precarga la página de destino",
+          "Evita que el enlace se abra en una pestaña nueva",
+          "Impide que la página abierta acceda a window.opener de la original"
+        ],
+        correctIndex: 3,
+        explanation: "Sin noopener, la página abierta podía usar window.opener.location para redirigir la pestaña original (tabnabbing). Los navegadores modernos lo aplican por defecto con _blank."
       }
     },
     {
@@ -261,6 +327,17 @@ export const questionsHTML: ISection = {
           "¿Por qué un id duplicado rompe la accesibilidad de formularios?",
           "¿Qué pasa con los ids al renderizar un componente varias veces (useId en React)?"
         ]
+      },
+      quiz: {
+        question: "¿Qué problema causa tener dos elementos con el mismo id?",
+        options: [
+          "Ninguno: el navegador los renombra",
+          "El HTML no se renderiza",
+          "Los estilos dejan de aplicarse a ambos",
+          "Rompe asociaciones como label for, aria-labelledby y las anclas, y getElementById devuelve solo el primero"
+        ],
+        correctIndex: 3,
+        explanation: "El id debe ser único. Los duplicados generan comportamiento impredecible en la accesibilidad, en la navegación por anclas y en las consultas JavaScript."
       }
     },
     // === MEDIO ===
@@ -328,6 +405,17 @@ export const questionsHTML: ISection = {
           "¿Qué diferencia hay entre <section> y <article>?",
           "¿Cómo usa un lector de pantalla los landmarks para navegar?"
         ]
+      },
+      quiz: {
+        question: "¿Cuándo es correcto usar <article>?",
+        options: [
+          "Para cualquier bloque que necesite un estilo",
+          "Para contenido autocontenido que tiene sentido por sí mismo, como un post, un comentario o una tarjeta de producto",
+          "Solo para artículos de prensa",
+          "Como sustituto de <main>"
+        ],
+        correctIndex: 1,
+        explanation: "<article> representa una composición independiente y redistribuible. <section> agrupa contenido temático dentro de un documento y normalmente lleva un encabezado."
       }
     },
     {
@@ -366,6 +454,17 @@ export const questionsHTML: ISection = {
           "¿Cuándo es correcto usar <b> o <i> en HTML5?",
           "¿Cómo anuncian los lectores de pantalla <strong> y <em>?"
         ]
+      },
+      quiz: {
+        question: "¿Qué diferencia hay entre <strong> y <b>?",
+        options: [
+          "<strong> está obsoleto en HTML5",
+          "<b> es más accesible",
+          "Ninguna: son alias",
+          "<strong> indica importancia semántica; <b> solo resalta visualmente sin añadir significado"
+        ],
+        correctIndex: 3,
+        explanation: "<strong> comunica importancia (los lectores de pantalla pueden enfatizarla). <b> sirve para llamar la atención sin importancia extra, por ejemplo palabras clave."
       }
     },
     {
@@ -411,6 +510,17 @@ export const questionsHTML: ISection = {
           "¿Cómo controlarías la vista previa al compartir un enlace en redes sociales?",
           "¿Por qué meta charset debe aparecer en los primeros 1024 bytes?"
         ]
+      },
+      quiz: {
+        question: "¿Qué meta etiqueta es imprescindible para que un diseño responsive se vea bien en móviles?",
+        options: [
+          "<meta name=\"description\">",
+          "<meta name=\"robots\">",
+          "<meta charset=\"UTF-8\">",
+          "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        ],
+        correctIndex: 3,
+        explanation: "Sin la meta viewport, los móviles renderizan la página con un ancho virtual de unos 980px y la reducen, ignorando las media queries pensadas para pantallas pequeñas."
       }
     },
     {
@@ -458,6 +568,17 @@ export const questionsHTML: ISection = {
           "¿Por qué un menú de navegación suele ser una <ul>?",
           "¿Qué atributos tiene <ol> (start, reversed, type)?"
         ]
+      },
+      quiz: {
+        question: "¿Qué lista es la adecuada para un glosario de términos con sus definiciones?",
+        options: [
+          "<ul>",
+          "<ol>",
+          "<dl> con <dt> y <dd>",
+          "<menu>"
+        ],
+        correctIndex: 2,
+        explanation: "<dl> representa pares nombre-valor: <dt> para el término y <dd> para su descripción. También sirve para metadatos clave-valor."
       }
     },
     {
@@ -521,6 +642,17 @@ export const questionsHTML: ISection = {
           "¿Cómo funciona la Constraint Validation API?",
           "¿Qué diferencia hay entre los eventos submit e input?"
         ]
+      },
+      quiz: {
+        question: "¿Por qué no debes usar placeholder como sustituto de <label>?",
+        options: [
+          "Porque placeholder no funciona en Safari",
+          "Porque placeholder solo acepta números",
+          "Porque desaparece al escribir, suele tener bajo contraste y no siempre se anuncia como nombre accesible",
+          "Porque bloquea la validación nativa"
+        ],
+        correctIndex: 2,
+        explanation: "La etiqueta debe estar siempre visible y asociada al campo. El placeholder es solo una pista opcional de formato."
       }
     },
     {
@@ -558,6 +690,17 @@ export const questionsHTML: ISection = {
           "¿De dónde sale el espacio entre elementos inline-block y cómo se elimina?",
           "¿Qué hace display: contents?"
         ]
+      },
+      quiz: {
+        question: "¿Qué combinación ofrece display: inline-block?",
+        options: [
+          "Oculta el elemento sin quitarle espacio",
+          "Ocupa todo el ancho e ignora width",
+          "Fluye en línea con el texto pero acepta width, height y márgenes verticales",
+          "Convierte a los hijos en flex items"
+        ],
+        correctIndex: 2,
+        explanation: "inline-block se coloca en línea como el texto pero se dimensiona como un bloque. Su efecto secundario es el espacio en blanco entre elementos del HTML."
       }
     },
     {
@@ -598,6 +741,17 @@ export const questionsHTML: ISection = {
           "¿Cómo se comportan los <script type='module'> respecto a defer?",
           "¿Cuándo se dispara DOMContentLoaded con scripts defer?"
         ]
+      },
+      quiz: {
+        question: "Tienes tres scripts que dependen uno del otro y deben ejecutarse en orden sin bloquear el parsing. ¿Qué usas?",
+        options: [
+          "async",
+          "defer",
+          "type=\"text/plain\"",
+          "Ninguno: colocarlos en el <head> sin atributos"
+        ],
+        correctIndex: 1,
+        explanation: "defer descarga en paralelo y ejecuta en orden de aparición cuando el HTML termina de parsearse. async ejecuta en cuanto cada script llega, sin garantizar el orden."
       }
     },
     {
@@ -645,6 +799,17 @@ export const questionsHTML: ISection = {
           "¿Cómo se convierte data-user-id a la propiedad dataset correspondiente?",
           "¿Cómo usarías data-* en selectores CSS o en tests E2E?"
         ]
+      },
+      quiz: {
+        question: "¿Cómo accedes desde JavaScript al atributo data-user-id?",
+        options: [
+          "element.dataset.userId",
+          "element.dataset['user-id']",
+          "element.attributes.userId",
+          "element.data.userId"
+        ],
+        correctIndex: 0,
+        explanation: "dataset convierte los nombres kebab-case en camelCase: data-user-id pasa a ser dataset.userId. Los valores siempre son strings."
       }
     },
     // === AVANZADO ===
@@ -693,6 +858,17 @@ export const questionsHTML: ISection = {
           "¿Cómo probarías la accesibilidad de una página solo con el teclado?",
           "¿Qué diferencia hay entre :focus y :focus-visible?"
         ]
+      },
+      quiz: {
+        question: "¿Cuál de estas prácticas rompe la accesibilidad de la navegación por teclado?",
+        options: [
+          "Usar elementos <button> nativos",
+          "Aplicar outline: none sin ofrecer un indicador de foco alternativo",
+          "Mantener el orden del DOM igual al orden visual",
+          "Usar :focus-visible para estilizar el foco"
+        ],
+        correctIndex: 1,
+        explanation: "Sin indicador de foco, quien navega con teclado no sabe dónde está. Puedes personalizar el estilo, pero nunca eliminarlo sin dar una alternativa visible."
       }
     },
     {
@@ -747,6 +923,17 @@ export const questionsHTML: ISection = {
           "¿Cuál es la primera regla de ARIA?",
           "¿Cuándo usar aria-live y qué diferencia hay entre polite y assertive?"
         ]
+      },
+      quiz: {
+        question: "¿Qué dice la primera regla de ARIA?",
+        options: [
+          "Usa aria-label en todos los botones",
+          "Si existe un elemento HTML nativo con la semántica y el comportamiento que necesitas, úsalo en lugar de ARIA",
+          "Añade siempre role a todos los elementos",
+          "ARIA sustituye a las pruebas con lectores de pantalla"
+        ],
+        correctIndex: 1,
+        explanation: "ARIA solo cambia lo que se anuncia, no añade comportamiento. Un <button> nativo es siempre mejor que un <div role=\"button\"> al que hay que programar teclado y foco."
       }
     },
     {
@@ -800,6 +987,17 @@ export const questionsHTML: ISection = {
           "¿Cuándo usar <picture> en lugar de srcset?",
           "¿Cómo servirías AVIF/WebP con fallback a JPEG?"
         ]
+      },
+      quiz: {
+        question: "¿Qué atributo debe acompañar a srcset con descriptores de ancho (w) para que el navegador elija bien la imagen?",
+        options: [
+          "loading",
+          "decoding",
+          "alt",
+          "sizes"
+        ],
+        correctIndex: 3,
+        explanation: "sizes indica qué ancho ocupará la imagen en el layout según el viewport. Sin él, el navegador asume 100vw y puede descargar una imagen demasiado grande."
       }
     },
     {
@@ -838,6 +1036,17 @@ export const questionsHTML: ISection = {
           "¿Cómo se comunica una página con un iframe (postMessage)?",
           "¿Qué hace el atributo sandbox de un iframe?"
         ]
+      },
+      quiz: {
+        question: "¿Cómo se comunica de forma segura una página con un iframe de otro origen?",
+        options: [
+          "Accediendo directamente a iframe.contentWindow.document",
+          "Con window.postMessage, validando event.origin en el receptor",
+          "Mediante cookies de terceros",
+          "Compartiendo variables globales"
+        ],
+        correctIndex: 1,
+        explanation: "La Same-Origin Policy impide el acceso directo al DOM de otro origen. postMessage permite intercambiar mensajes, y el receptor debe verificar el origen."
       }
     },
     {
@@ -879,6 +1088,17 @@ export const questionsHTML: ISection = {
           "¿Qué hace el atributo inert y cuándo es útil?",
           "¿Qué diferencia hay entre tabindex='0' y tabindex='-1'?"
         ]
+      },
+      quiz: {
+        question: "¿Qué hace el atributo inert en un contenedor?",
+        options: [
+          "Hace que el contenido no sea enfocable ni interactivo y lo excluye del árbol de accesibilidad",
+          "Impide que JavaScript lo modifique",
+          "Desactiva sus estilos CSS",
+          "Lo oculta visualmente"
+        ],
+        correctIndex: 0,
+        explanation: "inert es ideal para el contenido de fondo mientras hay un modal abierto: evita que el foco escape hacia él sin tener que gestionar tabindex a mano."
       }
     },
     {
@@ -927,6 +1147,17 @@ export const questionsHTML: ISection = {
           "¿Por qué se usa template.content.cloneNode(true)?",
           "¿Qué evento se dispara cuando cambia el contenido de un slot?"
         ]
+      },
+      quiz: {
+        question: "¿Qué ocurre con un <img> dentro de un <template> al cargar la página?",
+        options: [
+          "Se descarga pero no se muestra",
+          "Se descarga y se muestra oculto",
+          "Nada: el contenido de <template> es inerte, no se renderiza ni descarga recursos hasta que se clona e inserta",
+          "Lanza un error de validación"
+        ],
+        correctIndex: 2,
+        explanation: "El contenido de <template> vive en un DocumentFragment inerte. Solo al clonarlo con template.content.cloneNode(true) e insertarlo en el DOM se activa."
       }
     },
     {
@@ -974,6 +1205,17 @@ export const questionsHTML: ISection = {
           "¿Por qué nunca debes poner lazy a la imagen hero?",
           "¿Qué hace fetchpriority='high'?"
         ]
+      },
+      quiz: {
+        question: "¿A qué imagen NO deberías aplicarle loading=\"lazy\"?",
+        options: [
+          "Los avatares de los comentarios",
+          "La imagen hero que es el elemento LCP",
+          "Las imágenes del footer",
+          "Las miniaturas de una galería larga"
+        ],
+        correctIndex: 1,
+        explanation: "Diferir la imagen LCP retrasa su descarga y empeora la métrica. Para esa imagen conviene cargarla de inmediato e incluso usar fetchpriority=\"high\"."
       }
     },
     // === EXPERTO ===
@@ -1021,6 +1263,17 @@ export const questionsHTML: ISection = {
           "¿Cómo atraviesan el Shadow DOM las CSS Custom Properties?",
           "¿Qué es el Declarative Shadow DOM?"
         ]
+      },
+      quiz: {
+        question: "¿Qué SÍ atraviesa la frontera de un Shadow DOM desde la página principal?",
+        options: [
+          "document.querySelector",
+          "Los estilos de un <style> global aplicados a etiquetas",
+          "Los selectores de clase globales",
+          "Las CSS Custom Properties heredadas"
+        ],
+        correctIndex: 3,
+        explanation: "El Shadow DOM aísla selectores y consultas, pero las propiedades heredables y las variables CSS atraviesan la frontera, lo que permite tematizar componentes."
       }
     },
     {
@@ -1044,6 +1297,17 @@ export const questionsHTML: ISection = {
           "¿Qué determina si un documento se parsea como HTML o XML?",
           "¿Por qué JSX exige cerrar todas las etiquetas como XHTML?"
         ]
+      },
+      quiz: {
+        question: "¿Qué ocurre si un documento servido como application/xhtml+xml tiene una etiqueta sin cerrar?",
+        options: [
+          "El navegador la cierra automáticamente",
+          "Se ignora esa etiqueta",
+          "Se renderiza en quirks mode",
+          "El parser XML muestra un error y no renderiza la página"
+        ],
+        correctIndex: 3,
+        explanation: "El parsing XML es estricto (draconiano): cualquier error de buena formación detiene el renderizado. El parser HTML, en cambio, corrige los errores de forma tolerante."
       }
     },
     {
@@ -1094,6 +1358,17 @@ export const questionsHTML: ISection = {
           "¿Qué son los datos estructurados JSON-LD?",
           "¿Cómo audita Lighthouse la semántica de una página?"
         ]
+      },
+      quiz: {
+        question: "¿Qué elemento identifica el contenido principal de la página para lectores de pantalla y buscadores?",
+        options: [
+          "<article>",
+          "<section>",
+          "<div id=\"content\">",
+          "<main>"
+        ],
+        correctIndex: 3,
+        explanation: "<main> es un landmark único por página. Permite a los lectores de pantalla saltar directamente al contenido principal y ayuda a los buscadores a priorizarlo."
       }
     },
     {
@@ -1147,6 +1422,17 @@ customElements.define('metric-badge', MetricBadge);`,
           "¿Cómo pasarías objetos complejos a un Web Component desde React?",
           "¿Qué callbacks del ciclo de vida ofrecen los Custom Elements?"
         ]
+      },
+      quiz: {
+        question: "¿Qué requisito obligatorio tiene el nombre de un Custom Element?",
+        options: [
+          "Tener un máximo de 8 caracteres",
+          "Empezar con mayúscula",
+          "Contener al menos un guion, por ejemplo <user-card>",
+          "Terminar en -element"
+        ],
+        correctIndex: 2,
+        explanation: "El guion evita colisiones con futuras etiquetas estándar de HTML, que nunca llevarán guion."
       }
     },
     {
@@ -1170,6 +1456,17 @@ customElements.define('metric-badge', MetricBadge);`,
           "¿Por qué un <div> dentro de un <p> provoca errores de hidratación en React?",
           "¿Qué elementos pueden contener contenido interactivo?"
         ]
+      },
+      quiz: {
+        question: "¿Qué hace el parser HTML con <p><div>Hola</div></p>?",
+        options: [
+          "Lo renderiza tal cual",
+          "Cierra el <p> antes del <div>, generando un DOM distinto al escrito",
+          "Elimina el <div>",
+          "Convierte el <div> en <span>"
+        ],
+        correctIndex: 1,
+        explanation: "<p> solo admite contenido phrasing. Al encontrar un <div>, el parser cierra el párrafo implícitamente. En SSR esto provoca errores de hidratación porque el DOM no coincide con el virtual."
       }
     },
     {
@@ -1215,6 +1512,17 @@ customElements.define('metric-badge', MetricBadge);`,
           "¿Cómo detectarías que una página fue prerenderizada (document.prerendering)?",
           "¿Qué diferencia hay con <link rel='prefetch'>?"
         ]
+      },
+      quiz: {
+        question: "¿Qué riesgo tiene prerenderizar con Speculation Rules una URL como /logout?",
+        options: [
+          "Que se ejecuten efectos secundarios del servidor (cerrar sesión) aunque el usuario nunca visite la página",
+          "Que el SEO penalice el sitio",
+          "Que el navegador bloquee la página",
+          "Ninguno: el prerender no ejecuta código"
+        ],
+        correctIndex: 0,
+        explanation: "Prerenderizar hace una petición real y ejecuta la página. Las URLs con efectos secundarios deben excluirse de las reglas de especulación."
       }
     }
   ]

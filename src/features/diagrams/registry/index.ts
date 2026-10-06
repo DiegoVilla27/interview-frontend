@@ -1,7 +1,5 @@
 import { DiagramRegistry, TDiagramType } from "../diagram.types";
 
-export { renderFallbackDiagram } from "./fallback.diagram";
-
 /**
  * Cada grupo vive en `registry/<grupo>.diagrams.tsx` y se descarga como chunk
  * independiente la primera vez que se muestra un diagrama suyo.

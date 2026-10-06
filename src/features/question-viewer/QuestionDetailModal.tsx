@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, use, useMemo, useState } from "react";
 import {
   BookOpen,
   Code2,
@@ -12,7 +12,8 @@ import {
   ArrowRight
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import { IQuestion } from "../../types";
+import { IQuestionRef } from "../../types";
+import { findQuestion, loadModuleContent } from "../../content";
 import { Modal } from "../../components/ui/Modal";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
@@ -20,25 +21,34 @@ import { Tabs, TabItem } from "../../components/ui/Tabs";
 import { CodeBlock } from "../../components/ui/CodeBlock";
 import { DiagramRenderer } from "../diagrams/DiagramRenderer";
 import { useLearningStore } from "../../store/learningStore";
-import {
-  getCoherentDiagram,
-  getCoherentTips,
-  getCoherentQuiz
-} from "../../utils/coherent-resources.utils";
+import { shuffleOptions } from "../../utils/shuffle.utils";
 
 interface QuestionDetailModalProps {
-  question: IQuestion | null;
-  isOpen: boolean;
+  questionRef: IQuestionRef;
   onClose: () => void;
-  moduleTitle?: string;
 }
 
-export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
-  question,
-  isOpen,
-  onClose,
-  moduleTitle = ""
-}) => {
+const LoadingModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <Modal isOpen onClose={onClose} maxWidth="3xl" title="Cargando pregunta…">
+    <div className="space-y-3 animate-pulse" aria-busy="true">
+      <div className="h-8 w-2/3 rounded-lg bg-zinc-800" />
+      <div className="h-40 rounded-xl bg-zinc-800/70" />
+    </div>
+  </Modal>
+);
+
+export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({ questionRef, onClose }) => (
+  <Suspense fallback={<LoadingModal onClose={onClose} />}>
+    <QuestionDetailContent key={questionRef.title} questionRef={questionRef} onClose={onClose} />
+  </Suspense>
+);
+
+const QuestionDetailContent: React.FC<QuestionDetailModalProps> = ({ questionRef, onClose }) => {
+  const section = use(loadModuleContent(questionRef.moduleId));
+  const question = findQuestion(section, questionRef.title);
+  const moduleTitle = section.title;
+
+  // Siempre se abre en la pestaña de teoría (el key del padre resetea el estado por pregunta)
   const [activeTab, setActiveTab] = useState<string>("teoria");
   const [quizSelectedOption, setQuizSelectedOption] = useState<number | null>(null);
   const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
@@ -50,16 +60,17 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
     toggleBookmark
   } = useLearningStore();
 
-  // Requisito 1: Al abrir cualquier pregunta se debe abrir SIEMPRE en la pestaña de teoría
-  useEffect(() => {
-    if (isOpen) {
-      setActiveTab("teoria");
-      setQuizSelectedOption(null);
-      setQuizSubmitted(false);
-    }
-  }, [isOpen, question?.title]);
+  // Opciones barajadas una vez por pregunta para que la posición no delate la respuesta
+  const quiz = useMemo(
+    () =>
+      question && {
+        ...question.quiz,
+        ...shuffleOptions(question.quiz.options, question.quiz.correctIndex)
+      },
+    [question]
+  );
 
-  if (!question) return null;
+  if (!question || !quiz) return null;
 
   const isCompleted = isQuestionCompleted(question.title);
   const isBookmarked = isQuestionBookmarked(question.title);
@@ -75,12 +86,8 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
     toggleQuestionCompleted(question.title);
   };
 
-  // Requisitos 2 y 4:
-  // Obligatorios: Teoría, Diagrama (coherente), Tips, Quiz.
-  // Opcional: Práctica (solo si la pregunta tiene código coherente real).
-  const diagram = getCoherentDiagram(question, moduleTitle);
-  const tips = getCoherentTips(question, moduleTitle);
-  const quiz = getCoherentQuiz(question);
+  // Obligatorios: Teoría, Diagrama, Tips, Quiz. Opcional: Práctica (solo si hay código).
+  const tips = question.interviewTips;
 
   const tabs: TabItem[] = [
     {
@@ -122,7 +129,7 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
 
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen
       onClose={onClose}
       maxWidth="3xl"
       title={
@@ -246,7 +253,7 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
         {/* Tab Diagrama (obligatorio y coherente) */}
         {activeTab === "diagrama" && (
           <div>
-            <DiagramRenderer diagram={diagram} isDark={true} />
+            <DiagramRenderer diagram={question.visualDiagram} />
           </div>
         )}
 

@@ -1,9 +1,9 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import LayoutScreen from "./layout";
-import { sections as sectionsModule } from "./modules";
-import { IQuestion, ISection } from "./types";
-import { saveStorage } from "./utils/storage.utils";
+import { contentIndex, totalQuestions } from "./content";
+import { IQuestionRef, TModuleId } from "./types";
 import { useLearningStore } from "./store/learningStore";
+import { UpdatePrompt } from "./components/ui/UpdatePrompt";
 
 import { DashboardHeader } from "./features/dashboard/DashboardHeader";
 import { CategoryRoadmap } from "./features/dashboard/CategoryRoadmap";
@@ -23,6 +23,15 @@ const QuestionDetailModal = lazy(() =>
     default: m.QuestionDetailModal
   }))
 );
+const PathsView = lazy(() =>
+  import("./features/paths/PathsView").then((m) => ({ default: m.PathsView }))
+);
+const MockInterviewView = lazy(() =>
+  import("./features/interview/MockInterviewView").then((m) => ({ default: m.MockInterviewView }))
+);
+const SettingsModal = lazy(() =>
+  import("./features/settings/SettingsModal").then((m) => ({ default: m.SettingsModal }))
+);
 const QuizModal = lazy(() =>
   import("./features/quiz/QuizModal").then((m) => ({ default: m.QuizModal }))
 );
@@ -32,10 +41,9 @@ const ViewFallback = () => (
 );
 
 export const App = () => {
-  const sections: ISection[] = sectionsModule;
-
   const {
     activeView,
+    setActiveView,
     selectedQuestion,
     setSelectedQuestion,
     activeQuizModule,
@@ -43,22 +51,14 @@ export const App = () => {
   } = useLearningStore();
 
   const [isQuizOpen, setIsQuizOpen] = useState(false);
-  const [activeQuestionModule, setActiveQuestionModule] = useState<string>("");
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [interviewSource, setInterviewSource] = useState("all");
 
-  // Always apply dark theme
-  useEffect(() => {
-    saveStorage(true);
-  }, []);
+  const handleSelectQuestion = (question: IQuestionRef) => setSelectedQuestion(question);
 
-  // Total questions count across all 21 modules
-  const totalQuestions = sections.reduce(
-    (acc, sec) => acc + sec.questions.length,
-    0
-  );
-
-  const handleSelectQuestion = (question: IQuestion, moduleTitle: string) => {
-    setActiveQuestionModule(moduleTitle);
-    setSelectedQuestion(question);
+  const handleStartPathInterview = (pathId: string) => {
+    setInterviewSource(pathId);
+    setActiveView("interview");
   };
 
   const handleLaunchGeneralQuiz = () => {
@@ -66,13 +66,13 @@ export const App = () => {
     setIsQuizOpen(true);
   };
 
-  const handleLaunchModuleQuiz = (moduleTitle: string) => {
-    setActiveQuizModule(moduleTitle);
+  const handleLaunchModuleQuiz = (moduleId: TModuleId) => {
+    setActiveQuizModule(moduleId);
     setIsQuizOpen(true);
   };
 
   return (
-    <LayoutScreen>
+    <LayoutScreen onOpenSettings={() => setIsSettingsOpen(true)}>
       <div className="space-y-6">
         {/* Dashboard Header with Stats, Search, Filters & Quick Actions */}
         <DashboardHeader
@@ -83,26 +83,38 @@ export const App = () => {
         {/* Dynamic View Body */}
         {activeView === "roadmap" && (
           <CategoryRoadmap
-            sections={sections}
+            sections={contentIndex}
             onSelectQuestion={handleSelectQuestion}
             onLaunchModuleQuiz={handleLaunchModuleQuiz}
           />
         )}
 
         <Suspense fallback={<ViewFallback />}>
+          {activeView === "paths" && (
+            <PathsView onSelectQuestion={handleSelectQuestion} onStartInterview={handleStartPathInterview} />
+          )}
+
+          {activeView === "interview" && (
+            <MockInterviewView
+              key={interviewSource}
+              initialSource={interviewSource}
+              onOpenSettings={() => setIsSettingsOpen(true)}
+            />
+          )}
+
           {activeView === "flashcards" && (
-            <FlashcardView sections={sections} />
+            <FlashcardView />
           )}
 
           {activeView === "bookmarks" && (
             <BookmarksView
-              sections={sections}
+              sections={contentIndex}
               onSelectQuestion={handleSelectQuestion}
             />
           )}
 
           {activeView === "stats" && (
-            <StatsView sections={sections} />
+            <StatsView sections={contentIndex} />
           )}
         </Suspense>
       </div>
@@ -111,10 +123,8 @@ export const App = () => {
         {/* Question Detail Modal (Theory, Practice Code, SVG Diagrams, Interview Tips, Mini Quiz) */}
         {selectedQuestion && (
           <QuestionDetailModal
-            question={selectedQuestion}
-            isOpen
+            questionRef={selectedQuestion}
             onClose={() => setSelectedQuestion(null)}
-            moduleTitle={activeQuestionModule}
           />
         )}
 
@@ -126,11 +136,14 @@ export const App = () => {
               setIsQuizOpen(false);
               setActiveQuizModule(null);
             }}
-            sections={sections}
-            initialModuleTitle={activeQuizModule}
+            moduleId={activeQuizModule}
           />
         )}
+
+        {isSettingsOpen && <SettingsModal onClose={() => setIsSettingsOpen(false)} />}
       </Suspense>
+
+      <UpdatePrompt />
     </LayoutScreen>
   );
 };
