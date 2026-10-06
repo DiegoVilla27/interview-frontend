@@ -1158,7 +1158,7 @@ async function accessAuthenticatedCookieStorage() {
     {
       id: "browser-26",
       title: "¿Qué es la Broadcast Channel API y cómo funciona la comunicación entre pestañas?",
-      level: "avanzado",
+      level: "experto",
       tags: ["Broadcast Channel", "Web APIs", "Cross-tab Communication", "Same-Origin", "Pub/Sub", "Multi-tab Sync"],
       response: "La Broadcast Channel API es una interfaz web estandarizada que implementa un modelo de mensajería Publicador/Suscriptor (Pub/Sub) 1-a-N en memoria entre diferentes contextos de navegación que comparten el mismo origen (mismo protocolo, dominio y puerto). Permite que múltiples pestañas abiertas, ventanas auxiliares, iframes y Web Workers envíen y reciban mensajes de forma bidireccional sin necesidad de un servidor backend (WebSockets o SSE) ni la sobrecarga de un Shared Worker. Cuando un contexto invoca channel.postMessage(), el mensaje se clona con el algoritmo Structured Clone y se difunde a todos los oyentes con el mismo nombre de canal, excluyendo automáticamente a la pestaña emisora para evitar bucles. A diferencia de localStorage con eventos de 'storage', opera 100% en memoria sin tocar disco ni bloquear el hilo principal con serializaciones JSON. Para prevenir fugas de memoria, es fundamental cerrar el canal invocando channel.close() cuando se destruye el contexto.",
       codeExample: {
