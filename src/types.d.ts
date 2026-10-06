@@ -130,6 +130,7 @@ export interface IVisualDiagram {
     | "browser-scheduler-priorities"
     | "browser-shared-worker-topology"
     | "browser-storage-access-api"
+    | "browser-broadcast-channel"
     | "wc-standards-pillars"
     | "wc-lifecycle-hooks"
     | "wc-styling-host-slotted-part"

@@ -1154,6 +1154,77 @@ async function accessAuthenticatedCookieStorage() {
         correctIndex: 1,
         explanation: "El navegador exige un User Gesture expl\u00edcito (clic o interacci\u00f3n intencional) para evitar que scripts de rastreo soliciten acceso de forma autom\u00e1tica en segundo plano."
       }
+    },
+    {
+      id: "browser-26",
+      title: "¿Qué es la Broadcast Channel API y cómo funciona la comunicación entre pestañas?",
+      level: "avanzado",
+      tags: ["Broadcast Channel", "Web APIs", "Cross-tab Communication", "Same-Origin", "Pub/Sub", "Multi-tab Sync"],
+      response: "La Broadcast Channel API es una interfaz web estandarizada que implementa un modelo de mensajería Publicador/Suscriptor (Pub/Sub) 1-a-N en memoria entre diferentes contextos de navegación que comparten el mismo origen (mismo protocolo, dominio y puerto). Permite que múltiples pestañas abiertas, ventanas auxiliares, iframes y Web Workers envíen y reciban mensajes de forma bidireccional sin necesidad de un servidor backend (WebSockets o SSE) ni la sobrecarga de un Shared Worker. Cuando un contexto invoca channel.postMessage(), el mensaje se clona con el algoritmo Structured Clone y se difunde a todos los oyentes con el mismo nombre de canal, excluyendo automáticamente a la pestaña emisora para evitar bucles. A diferencia de localStorage con eventos de 'storage', opera 100% en memoria sin tocar disco ni bloquear el hilo principal con serializaciones JSON. Para prevenir fugas de memoria, es fundamental cerrar el canal invocando channel.close() cuando se destruye el contexto.",
+      codeExample: {
+        language: "javascript",
+        code: `// 1. Instanciar o suscribirse al canal con un nombre compartido
+const authChannel = new BroadcastChannel('auth_sync_channel');
+
+// 2. Función para emitir un evento a todas las demás pestañas del mismo origen
+function broadcastLogout(reason = 'Sesión cerrada por el usuario') {
+  authChannel.postMessage({
+    action: 'LOGOUT',
+    timestamp: Date.now(),
+    reason
+  });
+
+  // Limpieza local de la pestaña emisora
+  sessionStorage.removeItem('access_token');
+  window.location.href = '/login';
+}
+
+// 3. Escuchar notificaciones emitidas por OTRAS pestañas
+// (Nota: la pestaña emisora NO recibe su propio mensaje)
+authChannel.onmessage = (event) => {
+  const { action, reason } = event.data;
+  if (action === 'LOGOUT') {
+    console.warn(\`Sincronización multi-pestaña: \${reason}\`);
+    sessionStorage.removeItem('access_token');
+    window.location.href = '/login';
+  }
+};
+
+// 4. Limpieza de recursos al desmontar o cerrar la pestaña
+window.addEventListener('beforeunload', () => {
+  authChannel.close(); // Libera la referencia en el motor del navegador
+});`,
+        explanation: "La Broadcast Channel API permite enviar objetos nativos clonados mediante Structured Clone entre pestañas del mismo origen en memoria viva. Es clave invocar channel.close() para liberar memoria."
+      },
+      visualDiagram: {
+        id: "diag-browser-broadcast-channel",
+        title: "Topología Pub/Sub de Broadcast Channel API",
+        caption: "Difusión 1 a N en memoria: La pestaña emisora transmite al canal 'auth' sin recibir su propio evento; Pestaña 2, Ventana y Worker se sincronizan al instante.",
+        diagramType: "browser-broadcast-channel"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Evaluar el conocimiento de comunicación cross-tab moderna en el navegador (Broadcast Channel vs SharedWorker vs evento 'storage'), comprensión del límite Same-Origin, la exclusión del emisor en los mensajes recibidos y la importancia de liberar recursos con .close().",
+        commonPitfalls: [
+          "Creer que funciona entre diferentes dominios (está restringido por Same-Origin Policy).",
+          "Esperar que la pestaña emisora reciba el evento en su propio onmessage (el emisor no recibe su propio mensaje por diseño).",
+          "Olvidar llamar a channel.close() al desmontar componentes o cerrar ventanas, generando memory leaks."
+        ],
+        followUps: [
+          "¿Por qué es superior Broadcast Channel frente a escuchar window.addEventListener('storage', ...) con localStorage?",
+          "¿En qué escenario seguirías prefiriendo un Shared Worker sobre un Broadcast Channel?"
+        ]
+      },
+      quiz: {
+        question: "¿Cuál de las siguientes afirmaciones describe de manera precisa el comportamiento de la Broadcast Channel API?",
+        options: [
+          "Permite enviar mensajes entre pestañas de diferentes dominios web (cross-origin).",
+          "Difunde mensajes 1-a-N en memoria entre contextos del mismo origen y la pestaña emisora no recibe su propio mensaje.",
+          "Persiste los mensajes enviados en disco de forma similar a una tabla de base de datos.",
+          "Requiere que la pestaña emisora mantenga una referencia directa de objeto ventana (window) con cada pestaña receptora."
+        ],
+        correctIndex: 1,
+        explanation: "Broadcast Channel implementa un bus Pub/Sub en memoria restringido al mismo origen (Same-Origin). Por diseño de la especificación WHATWG, el emisor de postMessage() queda excluido del evento onmessage resultante."
+      }
     }
   ]
 };

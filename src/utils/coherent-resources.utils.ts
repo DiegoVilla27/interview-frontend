@@ -269,6 +269,20 @@ export const getCoherentDiagram = (
     };
   }
 
+  // 25.5 Broadcast Channel API
+  if (
+    qText.includes("broadcast") ||
+    qText.includes("broadcastchannel") ||
+    qText.includes("broadcast channel")
+  ) {
+    return {
+      id: "diag-browser-broadcast",
+      title: "Topología Pub/Sub de Broadcast Channel API",
+      caption: "Difusión 1 a N en memoria entre pestañas del mismo origen excluyendo a la emisora.",
+      diagramType: "browser-broadcast-channel"
+    };
+  }
+
   // 26. Critical Rendering Path
   if (
     qText.includes("browser") ||
