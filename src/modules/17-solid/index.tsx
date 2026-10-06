@@ -36,6 +36,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Recitar las definiciones de memoria como un dogma sin saber dar ejemplos prácticos aplicados a frontend o backend.",
                 "Creer que SOLID solo aplica a lenguajes orientados a objetos como Java o C# (aplica igualmente a TypeScript y programación modular)."
+            ],
+            "followUps": [
+                "¿Qué principio de SOLID consideras más importante en frontend?",
+                "¿Aplica SOLID también a código no orientado a objetos?"
             ]
         },
         "quiz": {
@@ -77,6 +81,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Llevar SRP al extremo absurdo fragmentando cada línea de código en un archivo diferente (crea parálisis y sobre-ingeniería).",
                 "Confundir lo que una clase *hace* con la persona o área que solicita los cambios sobre ella."
+            ],
+            "followUps": [
+                "¿Cómo identificas que un componente tiene demasiadas responsabilidades?",
+                "¿Qué significa 'una única razón para cambiar'?"
             ]
         },
         "quiz": {
@@ -118,6 +126,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Crear jerarquías polimórficas anticipadas para código que nunca va a extenderse (aplicar primero YAGNI/KISS).",
                 "Pensar que OCP prohíbe corregir errores en el código (los bugfixes no son extensiones de feature)."
+            ],
+            "followUps": [
+                "¿Cómo extenderías comportamiento sin modificar código existente?",
+                "¿Qué riesgo tiene aplicar OCP de forma prematura?"
             ]
         },
         "quiz": {
@@ -159,6 +171,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Creer que LSP se cumple solo porque el compilador de TypeScript compila sin errores de tipos.",
                 "Sobrescribir métodos en una subclase dejando el cuerpo vacío (`{}`) o lanzando `throw new Error('No soportado')`."
+            ],
+            "followUps": [
+                "¿Qué son las precondiciones y postcondiciones en LSP?",
+                "¿Cómo detectarías una violación de LSP en un test?"
             ]
         },
         "quiz": {
@@ -200,6 +216,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Crear interfaces de 1 solo método indiscriminadamente cuando los métodos están inherentemente cohesionados.",
                 "Obligar a componentes frontend a recibir el modelo completo de base de datos en sus props."
+            ],
+            "followUps": [
+                "¿Qué síntomas indican una interfaz demasiado amplia?",
+                "¿Cómo se relaciona ISP con las props de un componente?"
             ]
         },
         "quiz": {
@@ -241,6 +261,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Crear una interfaz `SqliteDatabaseInterface` que replica los métodos específicos de SQLite (las abstracciones no deben depender de los detalles).",
                 "Confundir DIP con usar clases singleton estáticas globales."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre módulos de alto y bajo nivel?",
+                "¿Cómo facilita DIP el testing?"
             ]
         },
         "quiz": {
@@ -282,6 +306,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Crear un Custom Hook que devuelve JSX, violando la separación de capas.",
                 "Escribir componentes de más de 300 líneas con llamadas directas a `axios.post` dentro de handlers `onClick`."
+            ],
+            "followUps": [
+                "¿Cómo separarías la lógica de datos de la presentación en React?",
+                "¿Cuándo extraer un custom hook?"
             ]
         },
         "quiz": {
@@ -323,6 +351,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Agregar props booleanas específicas de marca (ej. `isPayPalButton`) dentro de un botón genérico del Design System.",
                 "Modificar el CSS base de un botón central para adaptarlo a una pantalla particular en lugar de componer clases utilitarias."
+            ],
+            "followUps": [
+                "¿Cómo usarías la composición para extender un componente Button?",
+                "¿Qué papel juegan las render props o los slots en OCP?"
             ]
         },
         "quiz": {
@@ -364,6 +396,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Creer que lanzar una advertencia en consola resuelve la violación de LSP.",
                 "Afirmar que un Cuadrado debe heredar de Rectángulo 'porque en matemáticas un cuadrado es un tipo de rectángulo'."
+            ],
+            "followUps": [
+                "¿Cómo corregirías el problema Rectángulo/Cuadrado?",
+                "¿Por qué la herencia es más propensa a violar LSP que la composición?"
             ]
         },
         "quiz": {
@@ -406,6 +442,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Pasar todo el objeto `props={user}` con el operador spread `{...user}`, perdiendo el control de tipos y la encapsulación.",
                 "Crear duplicaciones de interfaces en lugar de derivarlas limpiamente con `Pick<T, K>` o intersections."
+            ],
+            "followUps": [
+                "¿Cómo dividirías una interfaz con muchas props opcionales?",
+                "¿Cómo usarías Pick u Omit para aplicar ISP?"
             ]
         },
         "quiz": {
@@ -447,6 +487,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Decir que DI y DIP son la misma cosa.",
                 "Creer que se necesita una librería pesada de IoC (como NestJS o InversifyJS) para hacer Dependency Injection en frontend (pasar props o Context en React ya es DI)."
+            ],
+            "followUps": [
+                "¿Es lo mismo inyección de dependencias que un contenedor IoC?",
+                "¿Qué framework frontend implementa DI de forma nativa?"
             ]
         },
         "quiz": {
@@ -488,6 +532,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Escribir una Factory que contiene un switch gigante sin registro dinámico (la Factory violaría OCP cada vez que se agregue un tipo).",
                 "Usar Strategy para casos de uso triviales donde solo existe un único algoritmo inmutable."
+            ],
+            "followUps": [
+                "¿Cómo sustituirías un switch creciente por un mapa de estrategias?",
+                "¿Cuándo usarías Factory frente a Strategy?"
             ]
         },
         "quiz": {
@@ -530,6 +578,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Intentar refactorizar un God Component en un solo commit gigantesco sin tests previos, provocando errores en producción.",
                 "Crear 'Mini-God Components' de 800 líneas creyendo que se resolvió el problema."
+            ],
+            "followUps": [
+                "¿Cómo dividirías un componente de 1000 líneas paso a paso?",
+                "¿Qué métricas indican un God Component?"
             ]
         },
         "quiz": {
@@ -572,6 +624,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Llamar a `window.gtag()` o librerías analíticas globales directamente dentro de los componentes.",
                 "Hacer que el Context dependa de la implementación de Google Analytics en lugar de una interfaz genérica."
+            ],
+            "followUps": [
+                "¿Cómo inyectarías un servicio de API mediante Context para facilitar el testing?",
+                "¿Qué limitaciones tiene Context como contenedor IoC?"
             ]
         },
         "quiz": {
@@ -613,6 +669,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Capturar eventos nativos en un componente del Design System y cancelar su propagación (`e.stopPropagation()`) por defecto sin justificación.",
                 "Olvidar pasar la `ref` con `forwardRef`, rompiendo integraciones con librerías de formularios como React Hook Form."
+            ],
+            "followUps": [
+                "¿Cómo garantizarías que todas las variantes de un componente respetan el mismo contrato?",
+                "¿Qué es la prop 'as' en componentes polimórficos?"
             ]
         },
         "quiz": {
@@ -654,6 +714,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Permitir que un archivo del dominio (`domain/`) importe `react`, `axios` o `localStorage`.",
                 "Definir puertos que exponen tipos específicos de la base de datos o DTOs del servidor en lugar de entidades del dominio."
+            ],
+            "followUps": [
+                "¿Qué es un port y qué es un adapter?",
+                "¿Cómo cambiarías de REST a GraphQL sin tocar el dominio?"
             ]
         },
         "quiz": {
@@ -695,6 +759,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Afirmar erróneamente que SOLID 'no aplica' en JavaScript/TypeScript funcional porque 'no usamos clases'.",
                 "Crear cadenas de funciones con efectos secundarios impuros ocultos dentro de clausuras."
+            ],
+            "followUps": [
+                "¿Cómo se traduce DIP a funciones de orden superior?",
+                "¿Qué equivale a OCP en programación funcional?"
             ]
         },
         "quiz": {
@@ -737,6 +805,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Destructurar todo el store: `const { user, cart, theme } = useStore();` (destruye la optimización y re-renderiza con cualquier cambio).",
                 "Escribir efectos secundarios asíncronos mezclados en el cuerpo de los reducers en lugar de usar middlewares o actions."
+            ],
+            "followUps": [
+                "¿Cómo dividirías un store en slices?",
+                "¿Cómo evitarías que los componentes dependan de la forma interna del store?"
             ]
         },
         "quiz": {
@@ -778,6 +850,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Responder que 'SOLID debe aplicarse al 100% en todo el código sin excepciones' (demuestra inmadurez dogmática).",
                 "Usar SOLID como justificación para retrasar entregas críticas de negocio creando código innecesariamente complejo."
+            ],
+            "followUps": [
+                "¿Qué señales indican sobreingeniería?",
+                "¿Cómo equilibras YAGNI con la extensibilidad?"
             ]
         },
         "quiz": {
@@ -820,6 +896,10 @@ export const questionsSOLID: ISection = {
             "commonPitfalls": [
                 "Confiar exclusivamente en code reviews humanos para detectar violaciones de capas arquitectónicas (los humanos se cansan; los linters de CI son implacables).",
                 "Configurar reglas tan severas que paralicen al equipo de desarrollo."
+            ],
+            "followUps": [
+                "¿Qué son las fitness functions arquitectónicas?",
+                "¿Qué herramientas detectan dependencias prohibidas (dependency-cruiser, ESLint boundaries)?"
             ]
         },
         "quiz": {

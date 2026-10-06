@@ -27,7 +27,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Entender si concibes las expresiones regulares como patrones de aut\u00f3matas formales con implicaciones de rendimiento y no solo como 'atajos con caracteres raros'.",
-        commonPitfalls: ["Usar expresiones regulares complejas para tareas triviales que se resuelven m\u00e1s r\u00e1pido con `str.startsWith()` o `str.includes()`.", "Olvidar anclar las expresiones (`^` y `$`), permitiendo que entradas con caracteres inv\u00e1lidos alrededor pasen la validaci\u00f3n.", "Creer que las regex son universales entre todos los lenguajes: JavaScript tiene su propio sabor con soporte ES2024."]
+        commonPitfalls: ["Usar expresiones regulares complejas para tareas triviales que se resuelven m\u00e1s r\u00e1pido con `str.startsWith()` o `str.includes()`.", "Olvidar anclar las expresiones (`^` y `$`), permitiendo que entradas con caracteres inv\u00e1lidos alrededor pasen la validaci\u00f3n.", "Creer que las regex son universales entre todos los lenguajes: JavaScript tiene su propio sabor con soporte ES2024."],
+        followUps: [
+          "¿Qué diferencia hay entre un motor NFA y uno DFA?",
+          "¿Cuándo no deberías usar regex (por ejemplo, para parsear HTML)?"
+        ]
       },
       quiz: {
         question: "\u00bfEn qu\u00e9 tipo de modelo computacional se basan principalmente los motores de RegEx de navegadores como V8?",
@@ -54,7 +58,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que sepas cu\u00e1ndo utilizar cada sintaxis, la regla de doble escape (`\\\\d`) en cadenas, y la necesidad cr\u00edtica de escapar caracteres especiales cuando creas regex con input de usuario.",
-        commonPitfalls: ["No escapar las barras invertidas en el constructor (`new RegExp('\\d')` compila err\u00f3neamente como `/d/`).", "Recrear una regex literal dentro de un bucle caliente o funci\u00f3n de render de React provocando recolecci\u00f3n de basura innecesaria.", "Inyectar entradas de usuario directamente en `new RegExp(userInput)` sin sanitizar, exponiendo la app a ataques ReDoS o excepciones."]
+        commonPitfalls: ["No escapar las barras invertidas en el constructor (`new RegExp('\\d')` compila err\u00f3neamente como `/d/`).", "Recrear una regex literal dentro de un bucle caliente o funci\u00f3n de render de React provocando recolecci\u00f3n de basura innecesaria.", "Inyectar entradas de usuario directamente en `new RegExp(userInput)` sin sanitizar, exponiendo la app a ataques ReDoS o excepciones."],
+        followUps: [
+          "¿Cuándo es necesario usar el constructor RegExp?",
+          "¿Cómo escaparías la entrada del usuario antes de usarla en un RegExp?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 se debe escribir 'new RegExp(\"\\\\d+\")' con dos barras invertidas en lugar de una sola?",
@@ -81,7 +89,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Validar si anclas sistem\u00e1ticamente las expresiones en formularios y comprobaciones de seguridad para evitar falsos positivos por coincidencia de subcadenas.",
-        commonPitfalls: ["Olvidar `^` o `$`, permitiendo que cadenas maliciosas pasen la validaci\u00f3n si contienen el patr\u00f3n en medio.", "Confundir el circunflejo `^` como ancla de inicio con el `[^abc]` dentro de corchetes, donde act\u00faa como negaci\u00f3n de conjunto.", "Desconocer el impacto del flag `/m` (multil\u00ednea), que hace que `^` y `$` coincidan tras cada `\\n`."]
+        commonPitfalls: ["Olvidar `^` o `$`, permitiendo que cadenas maliciosas pasen la validaci\u00f3n si contienen el patr\u00f3n en medio.", "Confundir el circunflejo `^` como ancla de inicio con el `[^abc]` dentro de corchetes, donde act\u00faa como negaci\u00f3n de conjunto.", "Desconocer el impacto del flag `/m` (multil\u00ednea), que hace que `^` y `$` coincidan tras cada `\\n`."],
+        followUps: [
+          "¿Cómo cambia el comportamiento de ^ y $ con el flag m?",
+          "¿Qué hace \\b?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 eval\u00faa la expresi\u00f3n '/^token$/i.test(\"token\\n\")' sin el flag multil\u00ednea '/m'?",
@@ -108,7 +120,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Comprensi\u00f3n precisa de la diferencia entre cero repeticiones permitidas (`*` y `?`) y la obligatoriedad de al menos una repetici\u00f3n (`+`), adem\u00e1s del uso de rangos `{min,max}`.",
-        commonPitfalls: ["Usar `*` en lugar de `+` en validaciones donde un campo vac\u00edo ser\u00eda inv\u00e1lido (`/\\d*/` valida cadenas vac\u00edas).", "No escapar el signo `?` cuando se busca el car\u00e1cter de interrogaci\u00f3n literal (`\\?`).", "Anidar cuantificadores `(a+)+`, lo que expone la aplicaci\u00f3n a retroceso catastr\u00f3fico (ReDoS)."]
+        commonPitfalls: ["Usar `*` en lugar de `+` en validaciones donde un campo vac\u00edo ser\u00eda inv\u00e1lido (`/\\d*/` valida cadenas vac\u00edas).", "No escapar el signo `?` cuando se busca el car\u00e1cter de interrogaci\u00f3n literal (`\\?`).", "Anidar cuantificadores `(a+)+`, lo que expone la aplicaci\u00f3n a retroceso catastr\u00f3fico (ReDoS)."],
+        followUps: [
+          "¿Qué hace {n,m}?",
+          "¿Qué diferencia hay entre * y + al validar un campo obligatorio?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes cadenas NO coincide con el patr\u00f3n '/^go*l$/'?",
@@ -135,7 +151,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si conoces qu\u00e9 caracteres espec\u00edficos componen cada abreviatura (en especial que `\\w` incluye `_` pero excluye tildes o caracteres especiales en JS sin flag unicode).",
-        commonPitfalls: ["Creer que `\\w` valida nombres en espa\u00f1ol: rechaza caracteres como '\u00f1', '\u00e1', '\u00e9' a menos que se use `[\\p{Letter}]` con flag `/u`.", "Confundir `\\s` con un simple espacio de la barra espaciadora (incluye `\\t` y `\\n`).", "Olvidar que el punto `.` no incluye saltos de l\u00ednea por defecto sin el flag dotAll `/s`."]
+        commonPitfalls: ["Creer que `\\w` valida nombres en espa\u00f1ol: rechaza caracteres como '\u00f1', '\u00e1', '\u00e9' a menos que se use `[\\p{Letter}]` con flag `/u`.", "Confundir `\\s` con un simple espacio de la barra espaciadora (incluye `\\t` y `\\n`).", "Olvidar que el punto `.` no incluye saltos de l\u00ednea por defecto sin el flag dotAll `/s`."],
+        followUps: [
+          "¿Qué diferencia hay entre \\w y [a-zA-Z0-9_] con caracteres Unicode?",
+          "¿Qué hace \\p{L} con el flag u?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de los siguientes caracteres es aceptado por la clase '\\w' en JavaScript por defecto?",
@@ -162,7 +182,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar conocimiento profundo del motor: explicar con soltura casos de uso para `s` (dotAll), `m` (multiline) y las trampas del flag `y` (sticky) en compiladores y parsers.",
-        commonPitfalls: ["Olvidar el flag `u` al procesar texto internacional o emojis, provocando que se dividan pares sustitutos UTF-16.", "Usar el flag `g` con `regex.test()` en bucles sin resetear `lastIndex`, causando resultados falsos alternados.", "Confundir el flag `m` (multil\u00ednea) con el flag `s` (dotAll)."]
+        commonPitfalls: ["Olvidar el flag `u` al procesar texto internacional o emojis, provocando que se dividan pares sustitutos UTF-16.", "Usar el flag `g` con `regex.test()` en bucles sin resetear `lastIndex`, causando resultados falsos alternados.", "Confundir el flag `m` (multil\u00ednea) con el flag `s` (dotAll)."],
+        followUps: [
+          "¿Qué hace el flag y (sticky)?",
+          "¿Qué hace el flag d (hasIndices)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 flag de JavaScript permite que el punto '.' coincida tambi\u00e9n con caracteres de salto de l\u00ednea '\\n'?",
@@ -189,7 +213,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Verificar si piensas en la optimizaci\u00f3n del Garbage Collector y la memoria. Usar sistem\u00e1ticamente `(?:...)` cuando no se necesita extraer el dato demuestra nivel Senior.",
-        commonPitfalls: ["Llenar expresiones complejas de par\u00e9ntesis `(...)` innecesarios, creando decenas de grupos de captura que nadie utiliza.", "Desordenar los \u00edndices de grupos capturantes `$1`, `$2` al a\u00f1adir nuevos par\u00e9ntesis de agrupaci\u00f3n sin `?:`.", "Olvidar que `(?:...)` sigue consumiendo caracteres del texto (a diferencia de los lookaheads que son de longitud cero)."]
+        commonPitfalls: ["Llenar expresiones complejas de par\u00e9ntesis `(...)` innecesarios, creando decenas de grupos de captura que nadie utiliza.", "Desordenar los \u00edndices de grupos capturantes `$1`, `$2` al a\u00f1adir nuevos par\u00e9ntesis de agrupaci\u00f3n sin `?:`.", "Olvidar que `(?:...)` sigue consumiendo caracteres del texto (a diferencia de los lookaheads que son de longitud cero)."],
+        followUps: [
+          "¿Por qué los grupos no capturantes mejoran el rendimiento?",
+          "¿Cómo se usan las backreferences (\\1)?"
+        ]
       },
       quiz: {
         question: "En el patr\u00f3n '/(?:https|http):\\/\\/(\\w+)/.exec(\"https://cabuweb\")', \u00bfqu\u00e9 valor contiene el \u00edndice [1] del resultado?",
@@ -216,7 +244,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Comprender por qu\u00e9 un selector greedy puede causar bugs graves al parsear texto delimitado (como HTML, Markdown o cadenas entre comillas) y c\u00f3mo solucionarlo con cuantificadores lazy o clases negadas `[^>]*`.",
-        commonPitfalls: ["Usar `.*` para parsear c\u00f3digo HTML, capturando accidentalmente m\u00faltiples etiquetas consecutivas en una sola coincidencia.", "No saber que una clase negada como `/[^<]+/` suele ser m\u00e1s eficiente que un cuantificador lazy `.*?` porque evita el backtracking continuo.", "Confundir el signo `?` como cuantificador opcional con el `?` como modificador de pereza."]
+        commonPitfalls: ["Usar `.*` para parsear c\u00f3digo HTML, capturando accidentalmente m\u00faltiples etiquetas consecutivas en una sola coincidencia.", "No saber que una clase negada como `/[^<]+/` suele ser m\u00e1s eficiente que un cuantificador lazy `.*?` porque evita el backtracking continuo.", "Confundir el signo `?` como cuantificador opcional con el `?` como modificador de pereza."],
+        followUps: [
+          "¿Cómo extraerías el contenido entre comillas con un cuantificador lazy?",
+          "¿Qué es un cuantificador posesivo y por qué JavaScript no lo soporta?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 coincide '\"foo\" and \"bar\"'.match(/\\\".*?\\\"/)[0]?",
@@ -243,7 +275,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si conoces la limitaci\u00f3n hist\u00f3rica de `match()` con `/g` (que pierde los subgrupos) y c\u00f3mo `matchAll()` introducido en ES2020 resolvi\u00f3 este problema de forma limpia con iteradores.",
-        commonPitfalls: ["Usar `match()` cuando solo se necesita validar existencia booleana (genera basura en memoria innecesariamente en vez de usar `test()`).", "Invocar `matchAll()` sin el flag `/g`, lo que lanza un error `TypeError` en runtime.", "No saber que `matchAll()` devuelve un iterador y no un array directo (debe recorrerse con `for...of` o convertirse con `Array.from()`)."]
+        commonPitfalls: ["Usar `match()` cuando solo se necesita validar existencia booleana (genera basura en memoria innecesariamente en vez de usar `test()`).", "Invocar `matchAll()` sin el flag `/g`, lo que lanza un error `TypeError` en runtime.", "No saber que `matchAll()` devuelve un iterador y no un array directo (debe recorrerse con `for...of` o convertirse con `Array.from()`)."],
+        followUps: [
+          "¿Qué devuelve match con el flag g frente a sin él?",
+          "¿Por qué matchAll exige el flag g?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre si se ejecuta 'str.matchAll(/test/)' con una expresi\u00f3n regular que NO tiene el flag '/g'?",
@@ -270,7 +306,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Esperan una respuesta madura: que expliques que una regex no puede garantizar que un email exista realmente en el servidor de correo, y que en producci\u00f3n se usa un patr\u00f3n est\u00e1ndar HTML5 complementado con confirmaci\u00f3n por token/OTP.",
-        commonPitfalls: ["Rechazar caracteres perfectamente v\u00e1lidos en emails como el signo `+` (usado para alias) o puntos `.` en el usuario.", "Creer que si la regex da `true` el email existe f\u00edsicamente en el mundo real.", "Copiar expresiones gigantescas de Internet que causan retroceso catastr\u00f3fico ante inputs maliciosos."]
+        commonPitfalls: ["Rechazar caracteres perfectamente v\u00e1lidos en emails como el signo `+` (usado para alias) o puntos `.` en el usuario.", "Creer que si la regex da `true` el email existe f\u00edsicamente en el mundo real.", "Copiar expresiones gigantescas de Internet que causan retroceso catastr\u00f3fico ante inputs maliciosos."],
+        followUps: [
+          "¿Por qué no existe una regex perfecta para emails?",
+          "¿Qué validación complementaria usarías (input type='email', verificación por correo)?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 las mejores pr\u00e1cticas de la industria desaconsejan implementar la especificaci\u00f3n RFC 5322 completa en una RegEx?",
@@ -297,7 +337,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si dominas la propiedad de 'longitud cero' y c\u00f3mo encadenar m\u00faltiples lookaheads al inicio `^(?=...)(?=...)` para validar condiciones booleanas AND sin importar el orden.",
-        commonPitfalls: ["Creer que el lookahead consume caracteres (lo que hace que los siguientes patrones fallen si buscan caracteres que cre\u00edan ya procesados).", "Olvidar el comod\u00edn `.*` dentro del lookahead al validar contrase\u00f1as (`(?=[A-Z])` solo mira el primer car\u00e1cter).", "Crear lookaheads excesivamente pesados que degraden el rendimiento de evaluaci\u00f3n."]
+        commonPitfalls: ["Creer que el lookahead consume caracteres (lo que hace que los siguientes patrones fallen si buscan caracteres que cre\u00edan ya procesados).", "Olvidar el comod\u00edn `.*` dentro del lookahead al validar contrase\u00f1as (`(?=[A-Z])` solo mira el primer car\u00e1cter).", "Crear lookaheads excesivamente pesados que degraden el rendimiento de evaluaci\u00f3n."],
+        followUps: [
+          "¿Cómo validarías una contraseña con varios lookaheads?",
+          "¿Consumen caracteres los lookaheads?"
+        ]
       },
       quiz: {
         question: "En la expresi\u00f3n '\"100 USD\".match(/\\d+(?=\\s+USD)/)', \u00bfqu\u00e9 contiene el resultado coincidente?",
@@ -324,7 +368,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si conoces las novedades de ES2018 y si sabes extraer datos eliminando prefijos de forma nativa sin tener que recurrir a grupos de captura y `.slice()` manual.",
-        commonPitfalls: ["Intentar usar lookbehinds en motores de JavaScript muy antiguos (como navegadores legacy o versiones viejas de Safari iOS anteriores a 16.4).", "Olvidar escapar caracteres que son s\u00edmbolos de ancla como `$` dentro del lookbehind (`(?<=\\$)`).", "Escribir patrones de lookbehind de longitud variable extremadamente complejos que aumentan el tiempo de ejecuci\u00f3n."]
+        commonPitfalls: ["Intentar usar lookbehinds en motores de JavaScript muy antiguos (como navegadores legacy o versiones viejas de Safari iOS anteriores a 16.4).", "Olvidar escapar caracteres que son s\u00edmbolos de ancla como `$` dentro del lookbehind (`(?<=\\$)`).", "Escribir patrones de lookbehind de longitud variable extremadamente complejos que aumentan el tiempo de ejecuci\u00f3n."],
+        followUps: [
+          "¿Cómo formatearías números con separadores de miles usando lookbehind?",
+          "¿Qué soporte tienen los lookbehinds en navegadores?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 cadena retorna '\"\u20ac50 y $90\".match(/(?<=\\$)\\d+/)[0]'?",
@@ -351,7 +399,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres c\u00f3mo escribir c\u00f3digo autodocumentado y resiliente, evitando el cl\u00e1sico antipatr\u00f3n de acceder a `match[1]`, `match[2]` que colapsa ante cualquier cambio en la regex.",
-        commonPitfalls: ["No verificar si `match.groups` existe antes de desestructurar (es `undefined` si no hay coincidencia).", "Reutilizar nombres de grupo duplicados dentro de la misma expresi\u00f3n (salvo en ramas alternativas de regex modernas).", "Desconocer la sintaxis de reemplazo `$<nombre>` en `replace()`."]
+        commonPitfalls: ["No verificar si `match.groups` existe antes de desestructurar (es `undefined` si no hay coincidencia).", "Reutilizar nombres de grupo duplicados dentro de la misma expresi\u00f3n (salvo en ramas alternativas de regex modernas).", "Desconocer la sintaxis de reemplazo `$<nombre>` en `replace()`."],
+        followUps: [
+          "¿Cómo accederías a los grupos con nombre en replace()?",
+          "¿Qué ventajas tienen frente a los índices numéricos?"
+        ]
       },
       quiz: {
         question: "\u00bfEn qu\u00e9 propiedad del resultado de 'match()' se almacenan los grupos capturados con nombre?",
@@ -378,7 +430,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Conocimiento de la vanguardia de JavaScript (ES2024). Demostrar que entiendes las limitaciones del flag `/u` con los emojis y c\u00f3mo el flag `/v` permite \u00e1lgebra de conjuntos directa sin inventar regex monstruosas.",
-        commonPitfalls: ["Intentar combinar el flag `/u` y el flag `/v` a la vez (son mutuamente excluyentes; `v` lo reemplaza).", "No usar corchetes dobles `[[A] && [B]]` al aplicar intersecci\u00f3n y sustracci\u00f3n.", "Utilizarlo en entornos legacy sin transpilaci\u00f3n o soporte de runtime moderno."]
+        commonPitfalls: ["Intentar combinar el flag `/u` y el flag `/v` a la vez (son mutuamente excluyentes; `v` lo reemplaza).", "No usar corchetes dobles `[[A] && [B]]` al aplicar intersecci\u00f3n y sustracci\u00f3n.", "Utilizarlo en entornos legacy sin transpilaci\u00f3n o soporte de runtime moderno."],
+        followUps: [
+          "¿Qué operaciones de conjuntos permite el flag v?",
+          "¿Por qué los flags u y v son incompatibles entre sí?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 relaci\u00f3n tienen el flag 'u' y el flag 'v' en ECMAScript 2024?",
@@ -405,7 +461,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Esta es una de las preguntas trampa favoritas en entrevistas senior de JavaScript. Quieren ver si conoces la mutaci\u00f3n de `lastIndex` y sabes diagnosticar por qu\u00e9 un validador falla intermitentemente.",
-        commonPitfalls: ["Poner el flag `/g` en expresiones regulares de validaci\u00f3n de formularios por inercia o descuido.", "No resetear `lastIndex = 0` al reutilizar instancias de regex en bucles `while ((match = regex.exec(str)))`.", "Creer que las instancias de RegExp son inmutables como los Strings o N\u00fameros."]
+        commonPitfalls: ["Poner el flag `/g` en expresiones regulares de validaci\u00f3n de formularios por inercia o descuido.", "No resetear `lastIndex = 0` al reutilizar instancias de regex en bucles `while ((match = regex.exec(str)))`.", "Creer que las instancias de RegExp son inmutables como los Strings o N\u00fameros."],
+        followUps: [
+          "¿Por qué test() alterna entre true y false con el flag g?",
+          "¿Cómo evitarías este bug?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 devolver\u00e1 una segunda llamada consecutiva a '/a/g.test(\"a\")' reutilizando la misma instancia de RegExp?",
@@ -432,7 +492,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Pregunta de Staff/Security Architect. Debes explicar con claridad el concepto de NFA con retroceso, identificar patrones con cuantificadores anidados y argumentar c\u00f3mo puede tumbar el hilo principal de JavaScript.",
-        commonPitfalls: ["Creer que los ataques de Denegaci\u00f3n de Servicio (DoS) son exclusivos del backend: un ReDoS en frontend bloquea la interfaz de usuario por completo.", "Escribir expresiones con grupos anidados como `([a-zA-Z0-9]+)*` para validaciones de texto largo.", "Confiar ciegamente en expresiones regulares copiadas de foros sin analizarlas con analizadores est\u00e1ticos de vulnerabilidad."]
+        commonPitfalls: ["Creer que los ataques de Denegaci\u00f3n de Servicio (DoS) son exclusivos del backend: un ReDoS en frontend bloquea la interfaz de usuario por completo.", "Escribir expresiones con grupos anidados como `([a-zA-Z0-9]+)*` para validaciones de texto largo.", "Confiar ciegamente en expresiones regulares copiadas de foros sin analizarlas con analizadores est\u00e1ticos de vulnerabilidad."],
+        followUps: [
+          "¿Qué patrón causa backtracking exponencial (como (a+)+)?",
+          "¿Cómo detectarías regex vulnerables en tu código?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la complejidad temporal de una RegEx vulnerable a Catastrophic Backtracking ante una entrada casi coincidente?",
@@ -459,7 +523,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres criterio de seguridad de nivel Staff: explicar que no basta con 'tener cuidado', sino que se deben aplicar l\u00edmites de entrada de longitud, herramientas est\u00e1ticas autom\u00e1ticas en CI y aislamiento de hilos.",
-        commonPitfalls: ["Evaluar expresiones introducidas por usuarios en el hilo principal sin l\u00edmite de tiempo ni Worker.", "No tener reglas de ESLint que detecten backtracking s\u00faper-lineal en el c\u00f3digo fuente.", "Permitir que campos de formulario acepten texto ilimitado sin un `maxLength` en el HTML."]
+        commonPitfalls: ["Evaluar expresiones introducidas por usuarios en el hilo principal sin l\u00edmite de tiempo ni Worker.", "No tener reglas de ESLint que detecten backtracking s\u00faper-lineal en el c\u00f3digo fuente.", "Permitir que campos de formulario acepten texto ilimitado sin un `maxLength` en el HTML."],
+        followUps: [
+          "¿Qué ventajas tiene un motor lineal como RE2?",
+          "¿Cómo limitarías el tiempo de ejecución de una regex?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la medida preventiva m\u00e1s r\u00e1pida y efectiva para evitar ataques ReDoS antes de evaluar una RegEx?",
@@ -486,7 +554,11 @@ export const questionsRegularExpresions: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar que sabes combinar expresiones regulares con m\u00e9todos de string nativos ultra-r\u00e1pidos (`includes`, `indexOf`) para crear filtros de dos fases (Fast-Path / Slow-Path) y optimizar el uso de CPU/GC.",
-        commonPitfalls: ["Crear instancias de RegExp dentro de renders de React o bucles `Array.filter()` masivos.", "Usar expresiones regulares para b\u00fasquedas de cadenas literales simples cuando `string.includes()` es 10x m\u00e1s r\u00e1pido.", "Ignorar el coste de asignaci\u00f3n de memoria que provocan los grupos de captura en procesamiento de streaming."]
+        commonPitfalls: ["Crear instancias de RegExp dentro de renders de React o bucles `Array.filter()` masivos.", "Usar expresiones regulares para b\u00fasquedas de cadenas literales simples cuando `string.includes()` es 10x m\u00e1s r\u00e1pido.", "Ignorar el coste de asignaci\u00f3n de memoria que provocan los grupos de captura en procesamiento de streaming."],
+        followUps: [
+          "¿Por qué conviene compilar la regex una sola vez fuera del bucle?",
+          "¿Cuándo un parser manual es más eficiente que una regex?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 es recomendable utilizar 'str.includes(\"needle\")' antes de ejecutar una RegEx compleja en un array de 100,000 elementos?",

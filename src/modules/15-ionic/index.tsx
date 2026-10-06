@@ -37,6 +37,10 @@ export const questionsIonic: ISection = {
                 "Confundir Ionic con Apache Cordova (Cordova es legacy; Capacitor es la herramienta moderna estándar).",
                 "Asumir que Ionic solo funciona con Angular (es agnóstico desde la versión 4 y soporte formal para React y Vue).",
                 "Creer que una WebView no puede alcanzar 60 FPS (con aceleración por hardware y Web Animations API rinde excelentemente)."
+            ],
+            "followUps": [
+                "¿Qué frameworks de UI puede usar Ionic (Angular, React, Vue)?",
+                "¿Cuándo Ionic no es la mejor opción?"
             ]
         },
         "quiz": {
@@ -79,6 +83,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Decir despectivamente que 'Ionic es lento': en smartphones modernos la WebView rinde de sobra para el 95% de aplicaciones comerciales.",
                 "Ignorar el impacto del mantenimiento: mantener React Native o Flutter requiere lidiar con bridges nativos en cada actualización de SO."
+            ],
+            "followUps": [
+                "¿Qué diferencias de rendimiento hay entre WebView y renderizado nativo?",
+                "¿Cómo elegirías entre Ionic, React Native y Flutter para un proyecto?"
             ]
         },
         "quiz": {
@@ -120,6 +128,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Creer que `npx cap sync` borra las personalizaciones hechas en Swift o Kotlin en el proyecto nativo (sólo sincroniza plugins y copia la carpeta web).",
                 "Olvidar compilar la app web (`pnpm run build`) antes de ejecutar `npx cap sync` o `npx cap copy`."
+            ],
+            "followUps": [
+                "¿Por qué Capacitor trata los proyectos nativos como código fuente versionado?",
+                "¿Pueden usarse plugins de Cordova en Capacitor?"
             ]
         },
         "quiz": {
@@ -161,6 +173,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Escribir cientos de líneas de JavaScript para detectar el OS en lugar de apoyarse en las clases automáticas `.ios` y `.md` de Ionic.",
                 "Romper las expectativas de los usuarios forzando Material Design en iOS o iOS Cupertino en Android sin justificación de marca."
+            ],
+            "followUps": [
+                "¿Cómo forzarías el modo iOS en Android?",
+                "¿Qué variables CSS expone Ionic para el theming?"
             ]
         },
         "quiz": {
@@ -202,6 +218,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Usar `!important` en selectores CSS generales intentando forzar estilos en elementos dentro del Shadow DOM.",
                 "Creer que Stencil es un framework pesado en tiempo de ejecución: Stencil desaparece en compilación y deja JavaScript estándar."
+            ],
+            "followUps": [
+                "¿Qué ventajas aporta que los componentes de Ionic sean Web Components?",
+                "¿Cómo se personalizan mediante CSS Shadow Parts?"
             ]
         },
         "quiz": {
@@ -243,6 +263,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Olvidar envolver las pantallas con el componente `<IonPage>`, lo que provoca que los eventos de ciclo de vida no se disparen.",
                 "Crear memory leaks acumulando suscripciones repetidas en `ionViewWillEnter` sin cancelarlas en `ionViewDidLeave`."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre ionViewWillEnter y ngOnInit?",
+                "¿Por qué ngOnInit no se vuelve a llamar al regresar a una página?"
             ]
         },
         "quiz": {
@@ -283,6 +307,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Utilizar directamente el `<Switch>` clásico de React Router en lugar de `<IonRouterOutlet>`, lo que destruye las transiciones y el stack.",
                 "Provocar desincronización de URLs haciendo navegación con `window.location.href` en vez del router de Ionic."
+            ],
+            "followUps": [
+                "¿Cómo mantiene IonRouterOutlet las páginas en el DOM?",
+                "¿Cómo gestiona el botón atrás de Android?"
             ]
         },
         "quiz": {
@@ -325,6 +353,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Intentar convertir imágenes de 48 megapíxeles a Base64 directamente, causando cierres inesperados (OOM Crash de la WebView).",
                 "Olvidar agregar los textos descriptivos de permisos en `Info.plist`, lo que provoca el rechazo automático de la app en la App Store de Apple."
+            ],
+            "followUps": [
+                "¿Cómo gestionarías los permisos denegados por el usuario?",
+                "¿Cómo reducirías el tamaño de la imagen antes de subirla?"
             ]
         },
         "quiz": {
@@ -366,6 +398,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Guardar catálogos relacionales de miles de objetos en `Preferences` serializados como strings JSON gigantes.",
                 "Olvidar inicializar la conexión SQLite antes de ejecutar consultas durante el arranque de la app."
+            ],
+            "followUps": [
+                "¿Cuándo usar Preferences y cuándo SQLite?",
+                "¿Cómo cifrarías los datos almacenados?"
             ]
         },
         "quiz": {
@@ -407,6 +443,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Olvidar incluir el valor `0` en la lista de `breakpoints`, lo que impide cerrar el modal deslizando hacia abajo.",
                 "Colocar scroll views sin scroll elástico dentro del modal, provocando conflictos entre el gesto de scroll y el arrastre del sheet."
+            ],
+            "followUps": [
+                "¿Cómo funcionan los breakpoints de un sheet modal?",
+                "¿Cómo gestionarías la accesibilidad de un modal?"
             ]
         },
         "quiz": {
@@ -448,6 +488,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Animar propiedades de coste pesado como `height`, `margin` o `box-shadow` dinámico con JavaScript en bucle.",
                 "Importar librerías JS pesadas de animación que duplican lo que Ionic ya resuelve de manera óptima y nativa."
+            ],
+            "followUps": [
+                "¿Por qué AnimationController usa la Web Animations API?",
+                "¿Cómo crearías una animación basada en gestos?"
             ]
         },
         "quiz": {
@@ -489,6 +533,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Olvidar llamar a `.complete()` en el evento de InfiniteScroll, provocando que el spinner se quede girando eternamente.",
                 "Renderizar listas de miles de elementos complejos con imágenes pesadas en el DOM plano sin virtualizar."
+            ],
+            "followUps": [
+                "¿Qué alternativas a ion-virtual-scroll existen hoy?",
+                "¿Cómo implementarías infinite scroll con paginación?"
             ]
         },
         "quiz": {
@@ -530,6 +578,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Hardcodear valores fijos de padding (como `paddingTop: '44px'`), lo que romperá el diseño en dispositivos Android o modelos con diferentes tamaños de notch.",
                 "Olvidar llamar a `Capacitor.isNativePlatform()` antes de invocar métodos de StatusBar en desarrollo web."
+            ],
+            "followUps": [
+                "¿Qué son env(safe-area-inset-top) y viewport-fit=cover?",
+                "¿Cómo controlarías la status bar con Capacitor?"
             ]
         },
         "quiz": {
@@ -571,6 +623,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Intentar usar Chrome DevTools para depurar una app de iOS o Safari para Android (WebKit requiere Safari en macOS; Chromium requiere Chrome).",
                 "Olvidar desactivar la depuración web (`setWebContentsDebuggingEnabled(false)`) en compilaciones finales de producción para evitar vulnerabilidades."
+            ],
+            "followUps": [
+                "¿Cómo depurarías el WebView de Android con chrome://inspect?",
+                "¿Cómo depurarías en iOS con el Safari Web Inspector?"
             ]
         },
         "quiz": {
@@ -612,6 +668,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "No desuscribir los listeners al desmontar componentes o añadir listeners duplicados en cada render.",
                 "Intentar probar Push Notifications en el simulador de iOS antiguo (se requiere un dispositivo físico o configuraciones especiales en Xcode moderno)."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre APNs y FCM?",
+                "¿Cómo manejarías una notificación recibida con la app en primer plano?"
             ]
         },
         "quiz": {
@@ -653,6 +713,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Olvidar llamar a `call.resolve()` o `call.reject()`, dejando la promesa de JavaScript colgada indefinidamente en memoria (Memory Leak).",
                 "Bloquear el Main Thread nativo con operaciones de red o I/O lentas en el plugin sin utilizar corrutinas o DispatchQueues en segundo plano."
+            ],
+            "followUps": [
+                "¿Cómo se registra un plugin y se expone a JavaScript?",
+                "¿Cómo tiparías la interfaz del plugin en TypeScript?"
             ]
         },
         "quiz": {
@@ -694,6 +758,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Almacenar el token en `localStorage` o `Preferences` ordinario tras pasar la biometría (cualquier debugger puede extraerlo).",
                 "No manejar el caso donde el usuario cancela voluntariamente el modal de biometría."
+            ],
+            "followUps": [
+                "¿Por qué no basta con validar la biometría en el frontend?",
+                "¿Cómo vincularías la biometría a credenciales del Keychain o Keystore?"
             ]
         },
         "quiz": {
@@ -736,6 +804,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Servir el archivo `apple-app-site-association` con redirecciones HTTP 301/302 (iOS exige respuesta 200 directa y encabezado `content-type: application/json`).",
                 "Olvidar configurar `android:autoVerify=\"true\"`, provocando que Android muestre el diálogo molesto de 'Abrir con el navegador o la aplicación'."
+            ],
+            "followUps": [
+                "¿Qué archivos de verificación requieren Universal Links (apple-app-site-association) y App Links (assetlinks.json)?",
+                "¿Cómo enrutarías un deep link dentro de la app?"
             ]
         },
         "quiz": {
@@ -777,6 +849,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Dejar llaves maestras de API (por ejemplo `AWS_SECRET_KEY` o `STRIPE_SECRET_KEY`) hardcodeadas en variables de entorno del frontend.",
                 "Creer que minificar el código con Terser es suficiente protección contra decompilación profesional."
+            ],
+            "followUps": [
+                "¿Qué es el SSL pinning?",
+                "¿Por qué no debes incluir secretos en el bundle de la app?"
             ]
         },
         "quiz": {
@@ -819,6 +895,10 @@ export const questionsIonic: ISection = {
             "commonPitfalls": [
                 "Intentar agregar un nuevo plugin nativo de Capacitor mediante una actualización OTA sin subir un nuevo binario a las tiendas (causará un crash inmediato).",
                 "Modificar sustancialmente la funcionalidad principal de la app mediante OTA para eludir la revisión de la App Store (motivo de expulsión de la cuenta de Apple)."
+            ],
+            "followUps": [
+                "¿Qué cambios se pueden distribuir por OTA y cuáles requieren pasar por la tienda?",
+                "¿Cómo harías rollback de una actualización OTA defectuosa?"
             ]
         },
         "quiz": {

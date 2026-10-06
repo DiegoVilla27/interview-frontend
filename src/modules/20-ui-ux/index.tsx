@@ -22,6 +22,10 @@ export const questionsUIUX: ISection = {
                 "Reducir UX a 'hacer que la pantalla se vea bonita'.",
                 "Ignorar la arquitectura de información o considerar que la accesibilidad solo le compete a diseño.",
                 "No mencionar métricas cuantificables de UX (SUS score, Task Success Rate, Time on Task)."
+            ],
+            "followUps": [
+                "¿Puede una UI bonita tener una mala UX? Pon un ejemplo.",
+                "¿Cómo colabora un frontend con el equipo de diseño?"
             ]
         },
         "quiz": {
@@ -55,6 +59,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Confundir un Mockup con un Prototipo (el mockup es estático; el prototipo es navegable e interactivo).",
                 "Iniciar directamente en alta fidelidad sin haber validado los requerimientos estructurales en wireframes."
+            ],
+            "followUps": [
+                "¿Qué nivel de fidelidad usarías para validar una idea temprana?",
+                "¿Cómo se relaciona un prototipo con un design system?"
             ]
         },
         "quiz": {
@@ -89,6 +97,10 @@ export const questionsUIUX: ISection = {
                 "Creer que Responsive y Adaptativo son lo mismo.",
                 "Usar decenas de Media Queries con tamaños de fuentes fijos en `px` en lugar de una escala fluida con `rem` y `clamp()`.",
                 "Ignorar que un componente puede estar en un sidebar de 300px dentro de un monitor 4K (justificación de Container Queries)."
+            ],
+            "followUps": [
+                "¿Cuándo es preferible el diseño adaptativo?",
+                "¿Cómo se implementa la tipografía fluida con clamp()?"
             ]
         },
         "quiz": {
@@ -123,6 +135,10 @@ export const questionsUIUX: ISection = {
                 "Creer que `aria-*` soluciona cualquier HTML mal estructurado (Primera regla de ARIA: No uses ARIA si existe un elemento HTML nativo equivalente).",
                 "Quitar el outline del foco (`outline: none`) sin proveer un reemplazo accesible (`focus-visible`).",
                 "No atrapar el foco dentro de modales o no restaurarlo al elemento previo tras cerrarlos."
+            ],
+            "followUps": [
+                "¿Qué significa cada principio de P.O.U.R.?",
+                "¿Qué novedades trae WCAG 2.2 (tamaño mínimo de objetivos, foco no oculto)?"
             ]
         },
         "quiz": {
@@ -157,6 +173,10 @@ export const questionsUIUX: ISection = {
                 "Elegir tamaños de fuente arbitrarios en cada componente (`17px`, `23px`, `31px`).",
                 "Saturar toda la interfaz con texto en negrita y botones llamativos (si todo grita, nada se escucha).",
                 "Apretar los elementos con poco margen por miedo al espacio en blanco."
+            ],
+            "followUps": [
+                "¿Qué es una escala tipográfica modular?",
+                "¿Cómo usarías el whitespace para agrupar información (ley de proximidad)?"
             ]
         },
         "quiz": {
@@ -190,6 +210,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Memorizar las 10 heurísticas como una lista teórica sin saber cómo se audita un componente en código real.",
                 "Mostrar mensajes de error genéricos como 'Error 500: Algo falló' en lugar de guiar constructivamente la resolución (Violación de Heurística #9)."
+            ],
+            "followUps": [
+                "¿Qué heurística se viola con más frecuencia en apps web?",
+                "¿Cómo realizarías una evaluación heurística?"
             ]
         },
         "quiz": {
@@ -223,6 +247,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Diseñar botones táctiles diminutos de 16x16px donde el usuario comete constantes clics erróneos.",
                 "Ubicar acciones principales en las esquinas superiores de smartphones gigantes donde el usuario no llega con una sola mano."
+            ],
+            "followUps": [
+                "¿Qué tamaño mínimo debe tener un objetivo táctil?",
+                "¿Dónde colocarías las acciones principales en móvil?"
             ]
         },
         "quiz": {
@@ -256,6 +284,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Crear formularios de 30 inputs en una sola pantalla sin orden jerárquico.",
                 "Confundir la Ley de Hick con la Ley de Fitts (Hick trata del tiempo para decidir; Fitts del tiempo para ejecutar el movimiento físico del puntero)."
+            ],
+            "followUps": [
+                "¿Qué es Progressive Disclosure?",
+                "¿Cómo reducirías las opciones de un menú complejo?"
             ]
         },
         "quiz": {
@@ -289,6 +321,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Acoplar los nombres de componentes a colores directos (ej. nombrar un token `--color-blue` en lugar de `--color-primary-interactive`).",
                 "Gestionar temas creando dos archivos CSS duplicados en lugar de simplemente redefinir las CSS variables semánticas en el selector `[data-theme='dark']`."
+            ],
+            "followUps": [
+                "¿Qué son los tokens primitivos, semánticos y de componente?",
+                "¿Cómo transformarías los tokens a CSS, iOS y Android (Style Dictionary)?"
             ]
         },
         "quiz": {
@@ -322,6 +358,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Lanzar tests A/B sin tráfico suficiente para alcanzar significancia estadística (muestras muy pequeñas con falsos positivos).",
                 "Asumir que si una variante gana en A/B testing, la experiencia es necesariamente mejor (puede ser un Dark Pattern que aumente clics pero degrade la lealtad a largo plazo)."
+            ],
+            "followUps": [
+                "¿Cuántos usuarios necesitas para un test de usabilidad?",
+                "¿Qué es la significancia estadística en un test A/B?"
             ]
         },
         "quiz": {
@@ -355,6 +395,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Diseñar microinteracciones puramente cosméticas que carecen de feedback útil y retrasan la respuesta del sistema.",
                 "Olvidar la accesibilidad en animaciones (ignorar la preferencia `prefers-reduced-motion`)."
+            ],
+            "followUps": [
+                "¿Qué ejemplo de microinteracción mejora la percepción de rendimiento?",
+                "¿Cómo evitarías que las microinteracciones resulten molestas?"
             ]
         },
         "quiz": {
@@ -388,6 +432,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Creer que la creatividad de un diseñador/frontend consiste en cambiar la ubicación del carrito de compras o del botón de cerrar modal.",
                 "Ignorar los atajos estándar de teclado (`Escape` para cerrar, `Enter` para submit, `Tab` para navegar)."
+            ],
+            "followUps": [
+                "¿Cuándo está justificado romper una convención?",
+                "¿Qué convenciones son intocables en un e-commerce?"
             ]
         },
         "quiz": {
@@ -421,6 +469,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Abusar del efecto de escasez ficticia ('¡Solo quedan 2 habitaciones!' sin datos reales), destruyendo la confianza de marca.",
                 "No saber explicar la diferencia entre el Efecto Zeigarnik y el Efecto Von Restorff."
+            ],
+            "followUps": [
+                "¿Cómo usarías el efecto Zeigarnik en un onboarding?",
+                "¿Dónde está el límite ético frente a los dark patterns?"
             ]
         },
         "quiz": {
@@ -454,6 +506,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Usar `#000000` con `#FFFFFF` asumiendo que 'más contraste siempre es mejor'.",
                 "Saturar colores neón en modo oscuro que provocan vibración cromática y no pasan pruebas de contraste APCA / WCAG."
+            ],
+            "followUps": [
+                "¿Por qué evitar el negro puro en el modo oscuro?",
+                "¿Cómo respetarías prefers-contrast y forced-colors?"
             ]
         },
         "quiz": {
@@ -487,6 +543,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Animar propiedades de Layout como `top`, `left`, `width` o `height` (provoca Reflow masivo y caídas a 15 FPS).",
                 "Hacer esperar al usuario 2 segundos con animaciones de splash o tarjetas lentas."
+            ],
+            "followUps": [
+                "¿Qué duraciones y curvas de easing recomiendas?",
+                "¿Cómo implementarías prefers-reduced-motion?"
             ]
         },
         "quiz": {
@@ -520,6 +580,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Creer que un software empresarial potente debe ser complejo y confuso.",
                 "Ocultar funciones esenciales bajo menús contextuales profundos de 4 niveles en lugar de emplear paletas de comandos (`Cmd+K`)."
+            ],
+            "followUps": [
+                "¿Cómo reducirías la carga extraña en un formulario largo?",
+                "¿Qué es la carga germana?"
             ]
         },
         "quiz": {
@@ -553,6 +617,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Crear una biblioteca entera de componentes por cada marca (duplicando deuda técnica y bugs de accesibilidad).",
                 "Usar CSS-in-JS en runtime con recálculo dinámico masivo que degrade el rendimiento del renderizado en React."
+            ],
+            "followUps": [
+                "¿Cómo implementarías temas por marca con tokens?",
+                "¿Cómo versionarías el design system sin romper a sus consumidores?"
             ]
         },
         "quiz": {
@@ -586,6 +654,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Afirmar que un sitio es accesible solo porque Lighthouse dio 100.",
                 "Colocar `alt='imagen'` o `alt='foto'` en lugar de descripciones contextuales o `alt=''` en imágenes decorativas."
+            ],
+            "followUps": [
+                "¿Qué herramientas usarías en cada fase de la auditoría?",
+                "¿Cómo probarías con VoiceOver o NVDA?"
             ]
         },
         "quiz": {
@@ -619,6 +691,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Diseñar interfaces espaciales como ventanas opacas gigantes que bloquean la visión del mundo real del usuario.",
                 "Requerir que el usuario mantenga los brazos levantados en el aire para presionar botones virtuales."
+            ],
+            "followUps": [
+                "¿Qué principios de profundidad y z-index aplican en XR?",
+                "¿Qué consideraciones de accesibilidad hay en interfaces espaciales?"
             ]
         },
         "quiz": {
@@ -652,6 +728,10 @@ export const questionsUIUX: ISection = {
             "commonPitfalls": [
                 "Dejar pantallas en blanco cuando no hay datos en lugar de proveer un empty state con CTA.",
                 "Usar spinners a pantalla completa que desorientan al usuario y provocan Cumulative Layout Shift (CLS) en lugar de skeletons."
+            ],
+            "followUps": [
+                "¿Cuáles son los 5 estados (ideal, vacío, error, parcial, cargando)?",
+                "¿Cómo diseñarías el estado vacío de un dashboard?"
             ]
         },
         "quiz": {

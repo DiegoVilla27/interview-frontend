@@ -16,6 +16,17 @@ export const questionsInternet: ISection = {
         title: "Malla y Troncal Global de Internet",
         caption: "Jerarquía de interconexión global: Backbone Tier 1, Puntos de Intercambio IXP y última milla.",
         diagramType: "internet-global-mesh"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que describas Internet como una red de redes (Sistemas Autónomos) interconectadas por TCP/IP y BGP, no como 'la web'.",
+        commonPitfalls: [
+          "Confundir Internet (infraestructura de red) con la World Wide Web (servicio sobre HTTP).",
+          "Omitir el papel de los ISPs, IXPs y el enrutamiento entre Sistemas Autónomos."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre Internet y la World Wide Web?",
+          "¿Qué ocurre a nivel de red desde que escribes una URL hasta que ves la página?"
+        ]
       }
     },
     {
@@ -56,6 +67,17 @@ function parsePacketHeader(buffer: DataView): IPPacket {
   };
 }`,
         explanation: "Demuestra cómo los encabezados binarios de red son analizados en capas inferiores para extraer IPs y datos útiles."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques la conmutación de paquetes, el encapsulamiento por capas y por qué los datos se fragmentan.",
+        commonPitfalls: [
+          "Creer que los paquetes de un mismo mensaje siempre siguen la misma ruta.",
+          "No mencionar el TTL ni la reensamblación ordenada en destino (TCP)."
+        ],
+        followUps: [
+          "¿Qué es la MTU y qué ocurre cuando un paquete la supera?",
+          "¿Para qué sirve el campo TTL de la cabecera IP?"
+        ]
       }
     },
     {
@@ -68,6 +90,17 @@ function parsePacketHeader(buffer: DataView): IPPacket {
         title: "Tabla de Enrutamiento del Router",
         caption: "Conmutación de paquetes entre LAN local y WAN externa mediante el salto siguiente (Next-Hop).",
         diagramType: "router-routing-table"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que entiendas que un router opera en Capa 3 y decide el siguiente salto consultando su tabla de enrutamiento.",
+        commonPitfalls: [
+          "Confundir router con switch (Capa 2, direcciones MAC).",
+          "Pensar que el router conoce la ruta completa hasta el destino en lugar de solo el siguiente salto."
+        ],
+        followUps: [
+          "¿Cuál es la diferencia entre un router y un switch?",
+          "¿Cómo elige un router la ruta cuando hay varias coincidencias en su tabla (longest prefix match)?"
+        ]
       }
     },
     {
@@ -103,6 +136,17 @@ export function isPrivateSubnet(ip: string): boolean {
   );
 }`,
         explanation: "Permite validar en frontend o backend el formato y clase de red de una dirección IP."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que distingas direcciones públicas vs privadas, IPv4 vs IPv6 y la relación entre IP, subred y máscara.",
+        commonPitfalls: [
+          "Creer que cada dispositivo doméstico tiene una IP pública propia (normalmente comparte una vía NAT).",
+          "No conocer los rangos privados RFC 1918 (10.x, 172.16-31.x, 192.168.x)."
+        ],
+        followUps: [
+          "¿Qué significa una notación CIDR como 192.168.1.0/24?",
+          "¿Qué diferencia hay entre una IP estática y una dinámica?"
+        ]
       }
     },
     {
@@ -115,6 +159,17 @@ export function isPrivateSubnet(ip: string): boolean {
         title: "Jerarquía de un FQDN",
         caption: "Desglose desde el punto raíz (Root) y TLD (.com) hasta el subdominio y host.",
         diagramType: "domain-fqdn-hierarchy"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas la jerarquía de un dominio (TLD, segundo nivel, subdominio) y cómo se vincula a una IP mediante DNS.",
+        commonPitfalls: [
+          "Confundir el registrador de dominios con el proveedor de hosting o DNS.",
+          "Olvidar que un dominio puede apuntar a múltiples IPs (balanceo, CDN)."
+        ],
+        followUps: [
+          "¿Qué es un FQDN y por qué termina técnicamente en un punto?",
+          "¿Qué diferencia hay entre un registro A, AAAA y CNAME?"
+        ]
       }
     },
     {
@@ -145,6 +200,17 @@ url.searchParams.append('tag', 'typescript');
 console.log(url.toString());
 // 'https://api.cabuweb.com/v1/search?category=frontend&level=experto&tag=react&tag=typescript#resumen'`,
         explanation: "El objeto URL nativo previene vulnerabilidades de inyección y escapa parámetros automáticamente."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que identifiques cada parte de una URL (esquema, host, puerto, path, query, fragmento) y su función.",
+        commonPitfalls: [
+          "Creer que el fragmento (#hash) se envía al servidor.",
+          "Olvidar la codificación percent-encoding de caracteres especiales."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre URL, URI y URN?",
+          "¿Cómo parsearías y modificarías query params de forma segura en JavaScript (URL / URLSearchParams)?"
+        ]
       }
     },
     {
@@ -191,6 +257,17 @@ async function fetchWithTimeout<T>(url: string, options: RequestOptions = {}): P
   }
 }`,
         explanation: "Implementa el ciclo de petición y respuesta HTTP con control de timeouts y cabeceras de autorización."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques HTTP como protocolo stateless de request/response, sus métodos, cabeceras y códigos de estado.",
+        commonPitfalls: [
+          "No mencionar que HTTP es stateless y que el estado se gestiona con cookies o tokens.",
+          "Confundir métodos idempotentes (GET, PUT, DELETE) con seguros (GET, HEAD)."
+        ],
+        followUps: [
+          "¿Qué significa que un método HTTP sea idempotente y cuáles lo son?",
+          "¿Qué diferencia hay entre PUT y PATCH?"
+        ]
       }
     },
     {
@@ -203,6 +280,17 @@ async function fetchWithTimeout<T>(url: string, options: RequestOptions = {}): P
         title: "Inspección de Tráfico en Firewall",
         caption: "Filtrado stateful de puertos, IPs y mitigación de tráfico no autorizado.",
         diagramType: "firewall-inspection"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que distingas firewalls de red (L3/L4) frente a WAF (L7) y el filtrado stateless vs stateful.",
+        commonPitfalls: [
+          "Creer que un firewall de red protege contra XSS o SQL Injection (eso es tarea de un WAF o del código).",
+          "Ignorar el filtrado de tráfico saliente (egress)."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre un firewall stateful y uno stateless?",
+          "¿Qué ataques bloquea un WAF que un firewall de red no puede detectar?"
+        ]
       }
     },
     // === MEDIO ===
@@ -234,6 +322,17 @@ console.log(rootRelative.href); // 'https://cabuweb.com/api/auth'
 const pathRelative = new URL('avatar.png', baseUrl);
 console.log(pathRelative.href); // 'https://cabuweb.com/dashboard/settings/avatar.png'`,
         explanation: "Demuestra cómo el constructor new URL resuelve rutas relativas contra una base determinada."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que sepas cuándo usar cada tipo de URL y cómo se resuelven las relativas respecto a la URL base del documento.",
+        commonPitfalls: [
+          "Confundir rutas relativas al documento (./img.png) con relativas a la raíz (/img.png).",
+          "Olvidar las URLs protocol-relative (//cdn.com) y por qué hoy se desaconsejan."
+        ],
+        followUps: [
+          "¿Cómo afecta la etiqueta <base> a la resolución de URLs relativas?",
+          "¿Por qué las URLs canónicas absolutas son importantes para SEO?"
+        ]
       }
     },
     {
@@ -266,6 +365,17 @@ async function lookupDomainIp(domain: string): Promise<string[]> {
 // Ejemplo de uso:
 // const ips = await lookupDomainIp('cabuweb.com'); // ['104.21.45.2', '172.67.180.1']`,
         explanation: "Permite resolver nombres de dominio a direcciones IP reales desde el navegador usando HTTPS."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que describas la resolución recursiva vs iterativa (resolver, root, TLD, autoritativo) y el papel del caché y TTL.",
+        commonPitfalls: [
+          "Olvidar las capas de caché (navegador, sistema operativo, resolver) y el impacto del TTL.",
+          "No saber que DNS usa UDP 53 por defecto y TCP para respuestas grandes."
+        ],
+        followUps: [
+          "¿Por qué un cambio de DNS puede tardar horas en propagarse?",
+          "¿Qué es dns-prefetch y cómo reduce la latencia en el frontend?"
+        ]
       }
     },
     {
@@ -301,6 +411,17 @@ export function forceHttps(req: Request): Response | null {
   return null;
 }`,
         explanation: "Asegura que el tráfico no viaje en texto plano configurando la cabecera HSTS."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques qué garantiza TLS (confidencialidad, integridad, autenticidad) y el papel de los certificados y las CAs.",
+        commonPitfalls: [
+          "Creer que HTTPS oculta el dominio visitado (el SNI y el DNS pueden exponerlo).",
+          "Pensar que HTTPS hace segura una web frente a XSS o vulnerabilidades de servidor."
+        ],
+        followUps: [
+          "¿Qué es un ataque de mixed content y cómo lo bloquea el navegador?",
+          "¿Qué es HSTS y qué problema resuelve frente al primer acceso por HTTP?"
+        ]
       }
     },
     {
@@ -343,6 +464,17 @@ export async function handleApiResponse<T>(response: Response): Promise<T> {
   }
 }`,
         explanation: "Estructura profesional para gestionar respuestas semánticas del protocolo HTTP en el cliente."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que domines las familias de códigos y uses los correctos en casos reales (201, 204, 301 vs 302, 401 vs 403, 429, 503).",
+        commonPitfalls: [
+          "Confundir 401 (no autenticado) con 403 (autenticado pero sin permiso).",
+          "Devolver 200 con un mensaje de error en el body, rompiendo el manejo semántico de errores."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre 301, 302, 307 y 308?",
+          "¿Cómo debería reaccionar el frontend ante un 429 Too Many Requests?"
+        ]
       }
     },
     {
@@ -374,6 +506,17 @@ function createFastUdpChannel(pc: RTCPeerConnection) {
   return channel;
 }`,
         explanation: "Muestra cómo el navegador emula la semántica de UDP para aplicaciones en tiempo real mediante WebRTC."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques fiabilidad, orden y control de congestión de TCP frente a la latencia mínima de UDP con casos de uso reales.",
+        commonPitfalls: [
+          "Decir que UDP es 'inseguro' cuando lo correcto es 'no fiable' (no garantiza entrega ni orden).",
+          "Olvidar que QUIC/HTTP3 construye fiabilidad sobre UDP."
+        ],
+        followUps: [
+          "¿Cómo funciona el three-way handshake de TCP?",
+          "¿Por qué los videojuegos y la VoIP prefieren UDP?"
+        ]
       }
     },
     {
@@ -386,6 +529,17 @@ function createFastUdpChannel(pc: RTCPeerConnection) {
         title: "Ciclo D.O.R.A de DHCP",
         caption: "Discover, Offer, Request y Acknowledge para concesión dinámica de IP.",
         diagramType: "dhcp-dora"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que describas el proceso DORA y los parámetros que entrega DHCP (IP, máscara, gateway, DNS, lease).",
+        commonPitfalls: [
+          "Olvidar que la IP se concede por un tiempo limitado (lease) y se renueva.",
+          "No mencionar que DISCOVER es un broadcast porque el cliente aún no tiene IP."
+        ],
+        followUps: [
+          "¿Qué ocurre si dos servidores DHCP responden en la misma red?",
+          "¿Qué es un ataque de DHCP spoofing?"
+        ]
       }
     },
     {
@@ -423,6 +577,17 @@ app.use(cors({
   maxAge: 86400 // Cachear preflight durante 24 horas
 }));`,
         explanation: "Configura la validación de orígenes cruzados y el almacenamiento en caché de peticiones preflight OPTIONS."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que entiendas que CORS lo aplica el navegador, cuándo hay preflight y qué cabeceras debe devolver el servidor.",
+        commonPitfalls: [
+          "Intentar 'arreglar' CORS desde el frontend en lugar de configurar el servidor o un proxy.",
+          "Combinar Access-Control-Allow-Origin: * con credenciales (el navegador lo rechaza)."
+        ],
+        followUps: [
+          "¿Qué hace que una petición sea 'simple' y no dispare un preflight OPTIONS?",
+          "¿Por qué Postman o curl no sufren errores de CORS?"
+        ]
       }
     },
     {
@@ -448,6 +613,17 @@ export const cdnCacheHeaders = {
   'Vary': 'Accept-Encoding'
 };`,
         explanation: "Indica a los nodos Edge del CDN y al navegador que el archivo estático con hash nunca cambiará."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques edge caching, invalidación y el impacto de un CDN en latencia, disponibilidad y coste.",
+        commonPitfalls: [
+          "No tener una estrategia de invalidación (purge) o de nombres con hash para los assets.",
+          "Cachear respuestas personalizadas o autenticadas en el edge por error."
+        ],
+        followUps: [
+          "¿Cómo invalidarías el caché de un CDN tras un despliegue?",
+          "¿Qué diferencia hay entre Cache-Control: max-age y s-maxage?"
+        ]
       }
     },
     {
@@ -460,6 +636,17 @@ export const cdnCacheHeaders = {
         title: "Handshake Cifrado TLS 1.3",
         caption: "Negociación en 1-RTT con intercambio de claves efímeras ECDHE y certificados.",
         diagramType: "ssl-tls-handshake"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que describas el handshake TLS 1.3, el intercambio de claves y la cadena de confianza de certificados.",
+        commonPitfalls: [
+          "Hablar de 'SSL' como si siguiera vigente (SSL está obsoleto; hoy se usa TLS 1.2/1.3).",
+          "Creer que todo el tráfico se cifra con criptografía asimétrica (solo el intercambio de claves; los datos usan cifrado simétrico)."
+        ],
+        followUps: [
+          "¿Qué mejoras de rendimiento aporta TLS 1.3 frente a TLS 1.2 (1-RTT, 0-RTT)?",
+          "¿Qué es Perfect Forward Secrecy?"
+        ]
       }
     },
     {
@@ -472,6 +659,17 @@ export const cdnCacheHeaders = {
         title: "Comparativa IPv4 vs IPv6",
         caption: "Espacio de 32 bits agotado frente a 128 bits casi infinitos con autoconfiguración.",
         diagramType: "ip-addressing"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques el agotamiento de IPv4, las ventajas de IPv6 y la convivencia actual (dual stack).",
+        commonPitfalls: [
+          "Pensar que IPv6 solo aporta 'más direcciones' y omitir autoconfiguración (SLAAC) y fin de la dependencia de NAT.",
+          "Olvidar el formato abreviado de IPv6 (::)."
+        ],
+        followUps: [
+          "¿Qué es dual stack y por qué IPv4 sigue dominando?",
+          "¿Cómo se escribe una dirección IPv6 dentro de una URL?"
+        ]
       }
     },
     // === AVANZADO ===
@@ -485,6 +683,17 @@ export const cdnCacheHeaders = {
         title: "Traducción de Direcciones de Red (NAT)",
         caption: "Mapeo de múltiples IPs privadas a una sola IP pública mediante puertos.",
         diagramType: "router-nat"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que entiendas cómo NAT traduce IP:puerto privados a una IP pública y sus efectos en la conectividad entrante.",
+        commonPitfalls: [
+          "Considerar NAT como un mecanismo de seguridad equivalente a un firewall.",
+          "Ignorar los problemas que causa NAT a las conexiones P2P (WebRTC necesita STUN/TURN)."
+        ],
+        followUps: [
+          "¿Por qué WebRTC necesita servidores STUN y TURN?",
+          "¿Qué es el port forwarding?"
+        ]
       }
     },
     {
@@ -537,6 +746,17 @@ export class ReconnectingWebSocket {
   }
 }`,
         explanation: "Patrón de producción esencial en entrevistas para mantener conexiones de tiempo real tolerantes a fallos."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques el upgrade HTTP 101, la conexión persistente full-duplex y cuándo conviene frente a SSE o polling.",
+        commonPitfalls: [
+          "No gestionar reconexión, heartbeats ni backoff exponencial.",
+          "Usar WebSocket cuando Server-Sent Events bastaría para un flujo unidireccional."
+        ],
+        followUps: [
+          "¿Cuándo elegirías Server-Sent Events en lugar de WebSocket?",
+          "¿Cómo escalarías WebSockets horizontalmente con varios servidores?"
+        ]
       }
     },
     {
@@ -569,6 +789,17 @@ export default defineConfig({
   }
 });`,
         explanation: "Permite al cliente frontend comunicarse localmente con /api mientras Vite actúa como Reverse Proxy."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que diferencies forward proxy (protege al cliente) de reverse proxy (protege al servidor) con casos reales.",
+        commonPitfalls: [
+          "Confundir un reverse proxy con un balanceador de carga (un balanceador es un caso particular).",
+          "Olvidar las cabeceras X-Forwarded-For y X-Forwarded-Proto."
+        ],
+        followUps: [
+          "¿Qué ventajas aporta Nginx como reverse proxy delante de una app Node.js?",
+          "¿Cómo configurarías el proxy del dev server de Vite para evitar CORS en desarrollo?"
+        ]
       }
     },
     {
@@ -581,6 +812,17 @@ export default defineConfig({
         title: "Túnel DNS over HTTPS (DoH)",
         caption: "Cifrado de consultas en puerto 443 para impedir espionaje y manipulación de ISP.",
         diagramType: "doh-dns-over-https"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques los problemas de privacidad del DNS en texto plano y el trade-off de DoH con la visibilidad de red corporativa.",
+        commonPitfalls: [
+          "Creer que DoH oculta totalmente qué sitio visitas (el SNI todavía puede revelarlo sin ECH).",
+          "Ignorar el impacto en filtrado corporativo y control parental."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre DoH y DoT (DNS over TLS)?",
+          "¿Qué es Encrypted Client Hello (ECH)?"
+        ]
       }
     },
     {
@@ -593,6 +835,17 @@ export default defineConfig({
         title: "Enrutamiento Anycast Multirregión",
         caption: "Una misma IP anunciada globalmente y enrutada al PoP más cercano por BGP.",
         diagramType: "anycast-routing"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que entiendas cómo BGP enruta hacia el nodo más cercano que anuncia la misma IP y su uso en CDNs y DNS.",
+        commonPitfalls: [
+          "Confundir Anycast con balanceo DNS (GeoDNS).",
+          "Ignorar que un cambio de ruta puede romper conexiones TCP de larga duración."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre Anycast, Unicast, Multicast y Broadcast?",
+          "¿Por qué los root servers DNS usan Anycast?"
+        ]
       }
     },
     {
@@ -632,6 +885,17 @@ export const enterpriseSecurityHeaders = [
   }
 ];`,
         explanation: "Blindaje de cabeceras recomendado por OWASP para prevenir XSS, Clickjacking y degradación de protocolo."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas CSP, HSTS, X-Content-Type-Options, X-Frame-Options/frame-ancestors y Referrer-Policy, y qué ataque mitiga cada una.",
+        commonPitfalls: [
+          "Configurar una CSP con 'unsafe-inline' que anula gran parte de su protección.",
+          "Usar X-Frame-Options sin conocer su reemplazo moderno: CSP frame-ancestors."
+        ],
+        followUps: [
+          "¿Cómo desplegarías una CSP sin romper producción (Content-Security-Policy-Report-Only)?",
+          "¿Qué hace la cabecera Permissions-Policy?"
+        ]
       }
     },
     {
@@ -661,6 +925,17 @@ req1.on('data', (chunk) => console.log('HTML recibido'));
 const req2 = client.request({ ':path': '/main.css' });
 req2.on('data', (chunk) => console.log('CSS recibido'));`,
         explanation: "Demuestra cómo HTTP/2 canaliza múltiples peticiones paralelas sin abrir conexiones TCP adicionales."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques multiplexing binario, HPACK y por qué cambian las optimizaciones heredadas de HTTP/1.1.",
+        commonPitfalls: [
+          "Seguir aplicando domain sharding o concatenación agresiva, que con HTTP/2 pueden ser contraproducentes.",
+          "Creer que HTTP/2 elimina por completo el head-of-line blocking (persiste a nivel TCP)."
+        ],
+        followUps: [
+          "¿Por qué Server Push fue abandonado por los navegadores?",
+          "¿Qué técnicas de HTTP/1.1 son hoy un antipatrón con HTTP/2?"
+        ]
       }
     },
     // === EXPERTO ===
@@ -674,6 +949,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
         title: "Enrutamiento BGP entre Sistemas Autónomos",
         caption: "Propagación y selección de prefijos IP óptimos entre redes de proveedores mundiales.",
         diagramType: "bgp-routing"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que entiendas BGP como el protocolo entre Sistemas Autónomos y los riesgos de su modelo basado en confianza.",
+        commonPitfalls: [
+          "Desconocer incidentes de BGP hijacking o route leaks y su impacto global.",
+          "Confundir BGP (enrutamiento externo) con protocolos internos como OSPF."
+        ],
+        followUps: [
+          "¿Qué es un BGP hijacking y cómo lo mitiga RPKI?",
+          "¿Cómo pudo una mala configuración de BGP dejar fuera de línea a Facebook en 2021?"
+        ]
       }
     },
     {
@@ -686,6 +972,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
         title: "Mitigación de Ataques DDoS",
         caption: "Filtrado en Scrubbing Centers con Anycast y WAF protegiendo al servidor origen.",
         diagramType: "ddos-mitigation"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que distingas ataques volumétricos, de protocolo y de capa 7, y las defensas en capas (Anycast, scrubbing, WAF, rate limiting).",
+        commonPitfalls: [
+          "Creer que el rate limiting en la aplicación basta frente a un ataque volumétrico.",
+          "No contemplar el coste de autoescalar bajo ataque (Denial of Wallet)."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre un ataque DDoS volumétrico y uno de capa 7?",
+          "¿Cómo protegerías un endpoint de login frente a ataques de capa 7?"
+        ]
       }
     },
     {
@@ -698,6 +995,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
         title: "Arquitectura de la Pila QUIC",
         caption: "QUIC sobre UDP con TLS 1.3 integrado en user space y Connection IDs para migración.",
         diagramType: "quic-protocol-stack"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques cómo QUIC integra transporte y TLS 1.3 sobre UDP, eliminando el HOL blocking y permitiendo connection migration.",
+        commonPitfalls: [
+          "Pensar que al usar UDP, QUIC no es fiable (implementa fiabilidad por stream).",
+          "Ignorar que algunos firewalls corporativos bloquean UDP 443 y obligan a hacer fallback a TCP."
+        ],
+        followUps: [
+          "¿Qué es la connection migration de QUIC y por qué beneficia a los móviles?",
+          "¿Qué riesgos de seguridad introduce el 0-RTT (replay attacks)?"
+        ]
       }
     },
     {
@@ -710,6 +1018,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
         title: "Pila de Protocolos HTTP/3",
         caption: "Independencia de streams que elimina el bloqueo de cabeza de línea a nivel transporte.",
         diagramType: "http3-quic"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que relaciones HTTP/3 con QUIC y expliques su descubrimiento mediante Alt-Svc y su beneficio en redes con pérdida de paquetes.",
+        commonPitfalls: [
+          "Creer que HTTP/3 cambia la semántica de HTTP (métodos y cabeceras siguen iguales).",
+          "Asumir mejoras dramáticas en redes estables y de baja latencia."
+        ],
+        followUps: [
+          "¿Cómo sabe el navegador que un servidor soporta HTTP/3 (cabecera Alt-Svc)?",
+          "¿Cómo verificarías en DevTools qué versión de HTTP usa cada recurso?"
+        ]
       }
     },
     {
@@ -741,6 +1060,17 @@ https.get('https://api-finanzas.internal.net/v1/ledger', { agent }, (res) => {
   console.log(\`Autenticado con mTLS. Status: \${res.statusCode}\`);
 });`,
         explanation: "En mTLS, el servidor exige un certificado al cliente antes de responder, garantizando una arquitectura Zero-Trust."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques la autenticación mutua con certificados y su papel en arquitecturas Zero Trust y service meshes.",
+        commonPitfalls: [
+          "Subestimar la complejidad de rotar y revocar certificados de cliente.",
+          "Intentar usar mTLS directamente desde navegadores de usuarios finales sin considerar la UX."
+        ],
+        followUps: [
+          "¿Cómo automatiza un service mesh (Istio, Linkerd) la gestión de mTLS?",
+          "¿Qué diferencia hay entre mTLS y la autenticación con tokens JWT entre servicios?"
+        ]
       }
     }
   ]

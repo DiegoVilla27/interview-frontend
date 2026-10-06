@@ -37,6 +37,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Creer que React Native compila el código JavaScript a código Java/Swift (lo que compila o enlaza son las vistas nativas; el código JS corre en un motor como Hermes).",
                 "Intentar usar etiquetas HTML como <div> o <p> en React Native."
+            ],
+            "followUps": [
+                "¿Qué significa que React Native renderiza componentes nativos y no un WebView?",
+                "¿Qué código puedes compartir entre web y móvil?"
             ]
         },
         "quiz": {
@@ -80,6 +84,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Colocar cadenas de texto directas dentro de un <View> provocando una excepción en tiempo de ejecución.",
                 "Usar ScrollView para renderizar listas con cientos o miles de elementos en lugar de FlatList."
+            ],
+            "followUps": [
+                "¿Por qué todo texto debe ir dentro de <Text>?",
+                "¿Qué diferencia hay entre View y SafeAreaView?"
             ]
         },
         "quiz": {
@@ -122,6 +130,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Escribir unidades con string tipo '16px' en lugar de números enteros 16.",
                 "Pensar que StyleSheet.create recrea los objetos en cada render (crea referencias fijas e IDs numéricos optimizados)."
+            ],
+            "followUps": [
+                "¿Qué diferencias tiene Yoga con el Flexbox web (flexDirection por defecto column)?",
+                "¿Por qué StyleSheet.create aporta beneficios?"
             ]
         },
         "quiz": {
@@ -163,6 +175,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Seguir usando TouchableOpacity por inercia en proyectos modernos.",
                 "No manejar hitSlop para ampliar el área de pulsación en botones pequeños en pantallas táctiles."
+            ],
+            "followUps": [
+                "¿Qué ventajas ofrece Pressable con sus estados pressed y hovered?",
+                "¿Cómo ampliarías el área táctil con hitSlop?"
             ]
         },
         "quiz": {
@@ -205,6 +221,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Creer que en Expo estás atrapado sin poder usar librerías nativas personalizadas (con Config Plugins y Prebuild puedes usar cualquier pod o módulo C++).",
                 "Confundir Expo Go (la app cliente de pruebas) con el framework Expo en sí."
+            ],
+            "followUps": [
+                "¿Qué son EAS Build y EAS Update?",
+                "¿Puedes usar módulos nativos personalizados con Expo (development builds)?"
             ]
         },
         "quiz": {
@@ -245,6 +265,10 @@ export const questionsReactNative: ISection = {
             "whatInterviewersWant": "Explicar Continuous Native Generation (CNG) y por qué mantener carpetas nativas manuales en Git genera deuda técnica en upgrades de React Native.",
             "commonPitfalls": [
                 "Pensar que 'Managed' significa que no puedes escribir código nativo a medida (se hace mediante local config plugins o custom Expo modules)."
+            ],
+            "followUps": [
+                "¿Qué son los config plugins de Expo?",
+                "¿Qué es Continuous Native Generation (prebuild)?"
             ]
         },
         "quiz": {
@@ -288,6 +312,10 @@ export const questionsReactNative: ISection = {
                 "Usar funciones anónimas inline en renderItem provocando re-renders innecesarios.",
                 "No implementar getItemLayout cuando las celdas tienen una altura fija conocida.",
                 "Omitir keyExtractor o usar índices del array como keys."
+            ],
+            "followUps": [
+                "¿Qué hace getItemLayout y por qué mejora el rendimiento?",
+                "¿Qué ventajas ofrece FlashList frente a FlatList?"
             ]
         },
         "quiz": {
@@ -330,6 +358,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "No configurar adecuadamente deep linking en React Navigation tradicional resultando en enlaces rotos desde notificaciones push.",
                 "Intentar usar react-router-dom de la web en React Native."
+            ],
+            "followUps": [
+                "¿Cómo funciona el enrutamiento basado en archivos de Expo Router?",
+                "¿Cómo configurarías deep linking con React Navigation?"
             ]
         },
         "quiz": {
@@ -372,6 +404,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Creer que todas las lecturas a disco deben ser asíncronas por definición (mmap mapea memoria virtual directamente a RAM).",
                 "Guardar datos altamente sensibles sin habilitar cifrado en MMKV."
+            ],
+            "followUps": [
+                "¿Por qué MMKV es síncrono y más rápido?",
+                "¿Dónde guardarías datos sensibles (SecureStore / Keychain)?"
             ]
         },
         "quiz": {
@@ -414,6 +450,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Usar if (Platform.OS === 'ios') dentro de funciones críticas ejecutadas en cada frame.",
                 "Empaquetar código nativo de iOS en bundles de Android al no usar extensiones de archivo."
+            ],
+            "followUps": [
+                "¿Cómo funcionan las extensiones .ios.tsx y .android.tsx?",
+                "¿Cuándo usar Platform.select frente a archivos separados?"
             ]
         },
         "quiz": {
@@ -456,6 +496,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Reducir la Nueva Arquitectura a solo 'Fabric' (olvidando TurboModules y JSI).",
                 "No saber que Fabric opera con un árbol de sombras (Shadow Tree) inmutable en C++."
+            ],
+            "followUps": [
+                "¿Qué problemas del Bridge resuelve la Nueva Arquitectura?",
+                "¿Cómo migrarías una librería a TurboModules?"
             ]
         },
         "quiz": {
@@ -499,6 +543,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Confundir JSI con el motor JS (JSI es la interfaz abstracta que permite a React Native interactuar con cualquier motor como Hermes o V8).",
                 "Creer que las llamadas síncronas por JSI deben usarse para tareas pesadas de disco o red (bloquearían el hilo JS)."
+            ],
+            "followUps": [
+                "¿Cómo permite JSI llamadas síncronas a código nativo?",
+                "¿Qué son los Host Objects?"
             ]
         },
         "quiz": {
@@ -541,6 +589,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Acceder a variables regulares del JS Thread dentro de un worklet sin usar shared values.",
                 "Olvidar instalar y registrar el plugin de Babel de Reanimated en babel.config.js."
+            ],
+            "followUps": [
+                "¿Qué es un worklet y en qué hilo se ejecuta?",
+                "¿Qué diferencia hay entre useSharedValue y useState?"
             ]
         },
         "quiz": {
@@ -583,6 +635,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Tratar a Metro como un bundler web genérico e intentar inyectar plugins de Webpack o Rollup sin adaptadores.",
                 "No configurar watchFolders en entornos monorepo."
+            ],
+            "followUps": [
+                "¿Por qué Metro no usa ESM nativo como Vite?",
+                "¿Cómo configurarías Metro para un monorepo?"
             ]
         },
         "quiz": {
@@ -625,6 +681,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Creer que Codegen se ejecuta en tiempo de ejecución en el teléfono (corre durante el build nativo).",
                 "Usar tipos prohibidos en especificaciones de Codegen (como any o uniones no tipadas)."
+            ],
+            "followUps": [
+                "¿Qué genera Codegen a partir de las specs en TypeScript?",
+                "¿Qué errores detecta Codegen en tiempo de build?"
             ]
         },
         "quiz": {
@@ -667,6 +727,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Pensar que Hermes usa un JIT agresivo (Hermes deliberadamente omite un JIT pesado para priorizar inicio rápido y bajo consumo de memoria).",
                 "No saber que Hermes es el motor por defecto en React Native desde la versión 0.70."
+            ],
+            "followUps": [
+                "¿Cómo mejora Hermes el tiempo de arranque (bytecode precompilado)?",
+                "¿Cómo depurarías Hermes con Chrome DevTools?"
             ]
         },
         "quiz": {
@@ -709,6 +773,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Pensar que JavaScript corre en el UI Thread principal del sistema operativo.",
                 "Bloquear el UI Thread ejecutando cálculos pesados en métodos nativos sin despacharlos a un background thread."
+            ],
+            "followUps": [
+                "¿Qué ocurre si el hilo JS se bloquea?",
+                "¿Qué tareas se ejecutan en el hilo UI y cuáles en el de background?"
             ]
         },
         "quiz": {
@@ -751,6 +819,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Intentar usar bibliotecas antiguas no compatibles con TurboModules en modo Bridgeless sin adaptadores.",
                 "Creer que Bridgeless significa que no hay comunicación con código nativo."
+            ],
+            "followUps": [
+                "¿Qué elimina el modo Bridgeless?",
+                "¿Cómo afecta Bridgeless a las librerías antiguas (capa de interop)?"
             ]
         },
         "quiz": {
@@ -794,6 +866,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Optimizar componentes de React cuando el problema es un overdraw nativo de sombras en Android.",
                 "Usar animaciones sin useNativeDriver o sin Reanimated."
+            ],
+            "followUps": [
+                "¿Cómo usarías el Perf Monitor y Flipper o React Native DevTools?",
+                "¿Qué diferencia hay entre los FPS del hilo JS y del hilo UI?"
             ]
         },
         "quiz": {
@@ -836,6 +912,10 @@ export const questionsReactNative: ISection = {
             "commonPitfalls": [
                 "Creer que todavía es obligatorio escribir wrappers en Java y Objective-C para cualquier funcionalidad nativa.",
                 "No usar Codegen para generar los contratos de tipos en C++."
+            ],
+            "followUps": [
+                "¿Por qué escribir el módulo en C++ permite compartir código entre plataformas?",
+                "¿Cómo distribuirías un TurboModule como paquete npm?"
             ]
         },
         "quiz": {
