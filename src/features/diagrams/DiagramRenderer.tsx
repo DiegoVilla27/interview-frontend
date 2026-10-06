@@ -4708,6 +4708,73 @@ export const DiagramRenderer: React.FC<DiagramRendererProps> = ({
           </svg>
         );
 
+      case "browser-broadcast-channel":
+        return (
+          <svg viewBox="0 0 640 220" className="w-full h-auto max-h-72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="620" height="200" rx="12" fill={isDark ? "#111827" : "#f8fafc"} stroke={border} strokeWidth="1.5" />
+            
+            {/* Same-Origin Boundary Header */}
+            <rect x="25" y="20" width="590" height="22" rx="4" fill={isDark ? "#1e1b4b" : "#ede9fe"} stroke="#6366f1" strokeWidth="1" />
+            <text x="320" y="35" fill="#818cf8" fontSize="10" fontWeight="bold" textAnchor="middle">
+              Límite de Seguridad: Mismo Origen (Same-Origin: https://mi-app.com)
+            </text>
+
+            {/* Sender: Tab 1 */}
+            <rect x="25" y="52" width="160" height="125" rx="8" fill={isDark ? "#1e293b" : "#f1f5f9"} stroke="#38bdf8" strokeWidth="1.5" />
+            <text x="105" y="70" fill="#0284c7" fontWeight="bold" fontSize="10.5" textAnchor="middle">Pestaña 1 (Emisor)</text>
+            <rect x="35" y="78" width="140" height="22" rx="4" fill={isDark ? "#0f172a" : "#e0f2fe"} />
+            <text x="105" y="93" fill="#0369a1" fontSize="7.5" fontFamily="monospace" textAnchor="middle">bc.postMessage(&apos;LOGOUT&apos;)</text>
+            <text x="35" y="118" fill={textColor} fontSize="8">• Despacha el mensaje</text>
+            <text x="35" y="132" fill={textColor} fontSize="8">• En memoria (sin disco)</text>
+            <rect x="35" y="142" width="140" height="22" rx="4" fill={isDark ? "#450a0a" : "#fee2e2"} />
+            <text x="105" y="156" fill="#dc2626" fontSize="7.5" fontWeight="bold" textAnchor="middle">🚫 No recibe su propio evento</text>
+
+            {/* Arrow from Sender to Bus */}
+            <path d="M185 110 L235 110" stroke="#38bdf8" strokeWidth="2" />
+            <polygon points="238,110 231,106 231,114" fill="#38bdf8" />
+            <text x="210" y="103" fill="#0284c7" fontSize="7.5" fontWeight="bold" textAnchor="middle">Emit</text>
+
+            {/* Central Broadcast Channel Bus */}
+            <rect x="240" y="52" width="160" height="125" rx="8" fill={isDark ? "#064e3b" : "#ecfdf5"} stroke="#10b981" strokeWidth="2" />
+            <text x="320" y="70" fill="#047857" fontWeight="bold" fontSize="10.5" textAnchor="middle">BroadcastChannel</text>
+            <rect x="250" y="78" width="140" height="22" rx="4" fill={isDark ? "#065f46" : "#a7f3d0"} />
+            <text x="320" y="93" fill="#064e3b" fontSize="8" fontFamily="monospace" fontWeight="bold" textAnchor="middle">new BroadcastChannel(&apos;auth&apos;)</text>
+            <text x="252" y="118" fill={textColor} fontSize="8">• Patrón Pub/Sub 1-a-N</text>
+            <text x="252" y="132" fill={textColor} fontSize="8">• Algoritmo Structured Clone</text>
+            <text x="252" y="146" fill={textColor} fontSize="8">• Latencia ultra baja (0ms)</text>
+            <text x="320" y="165" fill="#047857" fontSize="7.5" fontWeight="bold" textAnchor="middle">⚡ Bus Bidireccional</text>
+
+            {/* Arrows from Bus to Receivers */}
+            <path d="M400 80 L445 65" stroke="#10b981" strokeWidth="1.5" />
+            <polygon points="448,64 440,63 443,70" fill="#10b981" />
+
+            <path d="M400 115 L445 115" stroke="#10b981" strokeWidth="1.5" />
+            <polygon points="448,115 441,111 441,119" fill="#10b981" />
+
+            <path d="M400 145 L445 160" stroke="#10b981" strokeWidth="1.5" />
+            <polygon points="448,161 443,155 440,162" fill="#10b981" />
+
+            {/* Receivers: Tab 2, Tab 3, Worker/Iframe */}
+            <rect x="450" y="50" width="165" height="36" rx="6" fill={isDark ? "#1e1b4b" : "#ede9fe"} stroke="#6366f1" strokeWidth="1.5" />
+            <text x="460" y="65" fill="#818cf8" fontWeight="bold" fontSize="8.5">Pestaña 2 (Dashboard)</text>
+            <text x="460" y="78" fill="#10b981" fontSize="7.5" fontFamily="monospace">onmessage ➔ Sincroniza estado</text>
+
+            <rect x="450" y="97" width="165" height="36" rx="6" fill={isDark ? "#1e1b4b" : "#ede9fe"} stroke="#6366f1" strokeWidth="1.5" />
+            <text x="460" y="112" fill="#818cf8" fontWeight="bold" fontSize="8.5">Pestaña 3 (Perfil)</text>
+            <text x="460" y="125" fill="#10b981" fontSize="7.5" fontFamily="monospace">onmessage ➔ Cierra sesión</text>
+
+            <rect x="450" y="144" width="165" height="36" rx="6" fill={isDark ? "#1e1b4b" : "#ede9fe"} stroke="#6366f1" strokeWidth="1.5" />
+            <text x="460" y="159" fill="#818cf8" fontWeight="bold" fontSize="8.5">Iframe / Web Worker</text>
+            <text x="460" y="172" fill="#10b981" fontSize="7.5" fontFamily="monospace">onmessage ➔ Actualiza token</text>
+
+            {/* Bottom Footer */}
+            <rect x="25" y="188" width="590" height="18" rx="4" fill={isDark ? "#1f2937" : "#f1f5f9"} />
+            <text x="320" y="200" fill={subtextColor} fontSize="8.5" textAnchor="middle">
+              Difusión 1-a-N en memoria entre contextos del mismo origen. Recuerda invocar channel.close() para liberar memoria.
+            </text>
+          </svg>
+        );
+
       case "wc-standards-pillars":
         return (
           <svg viewBox="0 0 640 220" className="w-full h-auto max-h-72" fill="none" xmlns="http://www.w3.org/2000/svg">
