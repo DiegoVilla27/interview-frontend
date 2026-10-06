@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { IQuestionRef, IQuizResult, QuestionLevel, TActiveView, TModuleId } from "../types";
+import {
+  IReviewState,
+  scheduleReview,
+  TReviewGrade
+} from "../features/flashcards/spaced-repetition";
 
 interface LearningState {
   // Navigation & Views
@@ -24,6 +29,10 @@ interface LearningState {
   bookmarkedQuestionIds: Record<string, boolean>;
   toggleBookmark: (questionTitle: string) => void;
   isQuestionBookmarked: (questionTitle: string) => boolean;
+
+  // Spaced Repetition (flashcards)
+  reviews: Record<string, IReviewState>;
+  reviewQuestion: (questionTitle: string, grade: TReviewGrade) => void;
 
   // Quiz State & History
   quizHistory: IQuizResult[];
@@ -82,6 +91,16 @@ export const useLearningStore = create<LearningState>()(
       isQuestionBookmarked: (questionTitle: string) =>
         !!get().bookmarkedQuestionIds[questionTitle],
 
+      // Spaced Repetition (flashcards)
+      reviews: {},
+      reviewQuestion: (questionTitle, grade) =>
+        set((state) => ({
+          reviews: {
+            ...state.reviews,
+            [questionTitle]: scheduleReview(state.reviews[questionTitle], grade, Date.now())
+          }
+        })),
+
       // Quiz State & History
       quizHistory: [],
       addQuizResult: (result: IQuizResult) =>
@@ -96,14 +115,23 @@ export const useLearningStore = create<LearningState>()(
         set({
           completedQuestionIds: {},
           bookmarkedQuestionIds: {},
+          reviews: {},
           quizHistory: []
         })
     }),
     {
       name: "interview-frontend-storage",
+      version: 1,
+      // v0 guardaba isDark (tema eliminado): se descarta al migrar
+      migrate: (persisted) => {
+        const state = { ...(persisted as Record<string, unknown>) };
+        delete state.isDark;
+        return state as unknown as LearningState;
+      },
       partialize: (state) => ({
         completedQuestionIds: state.completedQuestionIds,
         bookmarkedQuestionIds: state.bookmarkedQuestionIds,
+        reviews: state.reviews,
         quizHistory: state.quizHistory
       })
     }

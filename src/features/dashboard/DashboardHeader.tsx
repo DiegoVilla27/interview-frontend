@@ -32,7 +32,8 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
     setLevelFilter,
     completedQuestionIds,
     bookmarkedQuestionIds,
-    quizHistory
+    quizHistory,
+    reviews
   } = useLearningStore();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -51,6 +52,8 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
 
   const completedCount = Object.keys(completedQuestionIds).length;
   const bookmarkedCount = Object.keys(bookmarkedQuestionIds).length;
+  const now = Date.now();
+  const dueReviewsCount = Object.values(reviews).filter((review) => review.dueAt <= now).length;
   const masteryPercentage =
     totalQuestions > 0 ? Math.round((completedCount / totalQuestions) * 100) : 0;
 
@@ -161,6 +164,14 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span>Flashcards</span>
+            {dueReviewsCount > 0 && (
+              <span
+                className="px-1.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold"
+                title="Tarjetas pendientes de repaso"
+              >
+                {dueReviewsCount}
+              </span>
+            )}
           </button>
 
           <button
