@@ -25,6 +25,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Afirmar erróneamente que Git guarda los archivos como diferencias línea por línea (SVN hace eso; Git almacena árboles de snapshots completos comprimidos).",
                 "No saber explicar qué contiene la carpeta `.git`."
+            ],
+            "followUps": [
+                "¿Por qué Git está migrando de SHA-1 a SHA-256?",
+                "¿Qué son los packfiles y cómo comprime Git los objetos con deltas?"
             ]
         },
         "quiz": {
@@ -58,6 +62,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Creer que `git commit -a` es una buena práctica cotidiana (elimina el beneficio de revisar qué se está subiendo y empaqueta cambios no deseados).",
                 "No distinguir entre `git diff` (compara Working Tree contra Index) y `git diff --staged` (compara Index contra el último commit de HEAD)."
+            ],
+            "followUps": [
+                "¿Qué hace exactamente git add -p y por qué favorece commits atómicos?",
+                "¿Qué diferencia hay entre git restore y git checkout?"
             ]
         },
         "quiz": {
@@ -91,6 +99,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Creer que `git commit --amend` modifica el commit existente (en realidad crea un commit completamente nuevo con otro hash y abandona el anterior a merced del garbage collector).",
                 "Pensar que Git guarda diferencias incrementales (diffs) en lugar de un puntero a un árbol completo de snapshots."
+            ],
+            "followUps": [
+                "¿Qué ocurre con el hash de un commit si cambias solo su mensaje?",
+                "¿Qué diferencia hay entre author y committer?"
             ]
         },
         "quiz": {
@@ -124,6 +136,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Creer que crear una rama duplica los archivos del proyecto (solo crea un puntero de texto de 41 bytes, haciéndolo instantáneo O(1)).",
                 "Entrar en pánico ante un Detached HEAD en lugar de crear una rama a partir de ese estado con `git switch -c <name>`."
+            ],
+            "followUps": [
+                "¿Cómo recuperarías commits hechos en estado Detached HEAD?",
+                "¿Por qué crear una rama en Git es casi instantáneo?"
             ]
         },
         "quiz": {
@@ -157,6 +173,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Añadir un archivo al `.gitignore` DESPUÉS de haberlo commiteado (si ya está en el index, .gitignore no lo ignora; se requiere `git rm --cached <file>`).",
                 "Olvidar configurar `.gitattributes` en equipos con desarrolladores en Windows, rompiendo los chequeos de Prettier/ESLint en pipelines de CI."
+            ],
+            "followUps": [
+                "¿Cómo dejarías de rastrear un archivo que ya se había commiteado?",
+                "¿Cómo normalizarías los finales de línea (CRLF/LF) con .gitattributes?"
             ]
         },
         "quiz": {
@@ -190,6 +210,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Hacer `git pull` a ciegas y resolver conflictos de merge commit sorpresa sin saber qué código entró del remoto.",
                 "Confundir `origin/main` (rama de tracking remota en tu disco) con `main` en el servidor de GitHub."
+            ],
+            "followUps": [
+                "¿Por qué git pull --rebase genera un historial más limpio?",
+                "¿Cómo configurarías pull.rebase de forma global?"
             ]
         },
         "quiz": {
@@ -223,6 +247,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Rebasear ramas públicas compartidas y forzar `push -f` rompiendo el trabajo de los compañeros.",
                 "Usar `git push -f` en lugar del comando más seguro `git push --force-with-lease`."
+            ],
+            "followUps": [
+                "¿Qué ocurre si haces rebase de una rama ya publicada y compartida?",
+                "¿Qué es un fast-forward merge?"
             ]
         },
         "quiz": {
@@ -256,6 +284,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Hacer `git stash` y sorprenderse de que los archivos nuevos creados sigan en el Working Tree (por defecto git stash NO guarda archivos untracked a menos que pases `-u`).",
                 "Acumular 30 stashes sin nombre durante meses y perder el rastro de qué contenía cada uno."
+            ],
+            "followUps": [
+                "¿Cómo guardarías también archivos untracked en un stash?",
+                "¿Cómo crearías una rama a partir de un stash?"
             ]
         },
         "quiz": {
@@ -289,6 +321,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Usar `git reset --hard` para resolver un conflicto en producción y perder cambios no guardados.",
                 "No saber cómo deshacer un commit conservando los cambios preparados (la respuesta correcta es `git reset --soft HEAD~1`)."
+            ],
+            "followUps": [
+                "¿Cuándo usar revert en lugar de reset en una rama compartida?",
+                "¿Cómo recuperarías commits tras un git reset --hard?"
             ]
         },
         "quiz": {
@@ -322,6 +358,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Abrir PRs monstruosos de 3.000 líneas de código que nadie puede revisar eficazmente (los PRs deben ser pequeños y atómicos, menores a 400 líneas).",
                 "Permitir que desarrolladores hagan bypass de las reglas de protección sin auditoría."
+            ],
+            "followUps": [
+                "¿Qué reglas de protección de rama configurarías en main?",
+                "¿Qué hace que un PR sea fácil de revisar?"
             ]
         },
         "quiz": {
@@ -355,6 +395,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Creer que `git push` envía los tags locales al remoto (si no pones `git push origin <tag>` o `--tags`, el tag se queda solo en tu máquina local).",
                 "Usar tags ligeros para releases formales de producción."
+            ],
+            "followUps": [
+                "¿Por qué los tags anotados son preferibles para releases?",
+                "¿Cómo se publican los tags al remoto (git push --tags)?"
             ]
         },
         "quiz": {
@@ -388,6 +432,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Hacer pruebas manuales lentas en vez de automatizar con `git bisect run`.",
                 "Olvidar ejecutar `git bisect reset` al terminar, dejando el repositorio atascado en un commit intermedio en estado Detached HEAD."
+            ],
+            "followUps": [
+                "¿Cómo automatizarías git bisect con un script de test (git bisect run)?",
+                "¿Qué requisito debe cumplir el historial para que bisect sea efectivo?"
             ]
         },
         "quiz": {
@@ -421,6 +469,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Abusar de cherry-pick como sustituto sistemático de una buena estrategia de branching y merges.",
                 "Hacer cherry-pick de 15 commits en fila en lugar de hacer rebase interactivo o merge parcial."
+            ],
+            "followUps": [
+                "¿Qué problemas aparecen al hacer cherry-pick y después merge de la misma rama?",
+                "¿Cómo aplicarías un hotfix a varias ramas de release?"
             ]
         },
         "quiz": {
@@ -454,6 +506,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Confundir `squash` (combina mensajes) con `fixup` (descarta el mensaje secundario).",
                 "Usar `git push --force` a secas (que puede pisar commits ajenos) en vez del seguro `--force-with-lease`."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre squash y fixup?",
+                "¿Qué hacen git commit --fixup y git rebase --autosquash?"
             ]
         },
         "quiz": {
@@ -487,6 +543,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Defender GitFlow como la panacea para startups o SaaS que buscan desplegar 10 veces al día.",
                 "No saber explicar la relación simbiótica entre Trunk-Based Development y las Feature Flags."
+            ],
+            "followUps": [
+                "¿Por qué Trunk-Based Development necesita feature flags?",
+                "¿Cuándo sigue teniendo sentido GitFlow?"
             ]
         },
         "quiz": {
@@ -520,6 +580,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Abusar del flag `--no-verify` (`git commit --no-verify`) para saltarse los hooks locales.",
                 "Creer que los client hooks sustituyen a los CI checks (los hooks locales se pueden saltar; el servidor CI es el verdadero guardián de calidad)."
+            ],
+            "followUps": [
+                "¿Por qué los hooks locales no garantizan calidad y deben replicarse en CI?",
+                "¿Cómo ejecutarías linters solo sobre los archivos modificados (lint-staged)?"
             ]
         },
         "quiz": {
@@ -553,6 +617,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Escribir mensajes vagos e inútiles como 'fixes', 'changes', 'update' o 'WIP'.",
                 "Incrementar números de versión a mano modificando `package.json` en lugar de delegar el versionado semántico al pipeline automatizado."
+            ],
+            "followUps": [
+                "¿Qué tipo de commit provoca un bump major (BREAKING CHANGE)?",
+                "¿Cómo validarías el formato de los mensajes de commit con commitlint?"
             ]
         },
         "quiz": {
@@ -586,6 +654,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Dejar restos de marcadores (`<<<<<<<` o `=======`) en el código y commitearlos a producción.",
                 "Elegir ciegamente 'Accept Current Change' o 'Accept Incoming' sin entender la lógica de ambos lados."
+            ],
+            "followUps": [
+                "¿Qué hace git rerere y cómo se activa?",
+                "¿Cómo usarías git mergetool o diff3 para entender un conflicto?"
             ]
         },
         "quiz": {
@@ -619,6 +691,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Intentar abrir la misma rama en dos worktrees diferentes simultáneamente (Git lo bloquea intencionalmente para evitar corrupción del índice).",
                 "Borrar la carpeta del worktree con `rm -rf` en vez de usar `git worktree remove` (provoca worktrees fantasmas que requieren `git worktree prune`)."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre git worktree y clonar el repositorio otra vez?",
+                "¿Qué limitaciones tiene worktree (misma rama en dos worktrees)?"
             ]
         },
         "quiz": {
@@ -652,6 +728,10 @@ export const questionsVersionControl: ISection = {
             "commonPitfalls": [
                 "Creer que `git log` y `git reflog` son lo mismo (`git log` muestra el historial del DAG de la rama; `git reflog` muestra el historial de movimientos de HEAD en tu máquina local).",
                 "Pensar que el reflog se comparte con el servidor remoto (el reflog es 100% privado y local a tu máquina)."
+            ],
+            "followUps": [
+                "¿Cuánto tiempo conserva Git las entradas del reflog?",
+                "¿Qué diferencia hay entre reflog y git log?"
             ]
         },
         "quiz": {

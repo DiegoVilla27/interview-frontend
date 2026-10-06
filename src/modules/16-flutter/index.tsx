@@ -37,6 +37,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Creer que Flutter compila los widgets a controles nativos de UIKit o Android Views (Flutter dibuja directamente en un canvas propio).",
                 "Ignorar el concepto de Sound Null Safety en Dart moderno (introducido en Dart 2.12+)."
+            ],
+            "followUps": [
+                "¿Por qué Flutter no usa componentes nativos de la plataforma?",
+                "¿Qué ventajas aporta Dart compilado AOT en producción?"
             ]
         },
         "quiz": {
@@ -78,6 +82,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Declarar campos no-final dentro de un StatelessWidget, violando la regla de inmutabilidad.",
                 "Llamar a código asíncrono pesado dentro de la clausura de `setState()` en lugar de mutar solo las variables de estado sincrónicamente."
+            ],
+            "followUps": [
+                "¿Por qué los widgets son inmutables?",
+                "¿Cuándo convertirías un StatelessWidget en StatefulWidget?"
             ]
         },
         "quiz": {
@@ -119,6 +127,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Creer que `final` y `const` son sinónimos.",
                 "Olvidar agregar constructores `const` a widgets personalizados que no dependen de propiedades mutables."
+            ],
+            "followUps": [
+                "¿Cómo ayudan los constructores const a evitar rebuilds?",
+                "¿Qué diferencia hay entre final y late?"
             ]
         },
         "quiz": {
@@ -160,6 +172,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Utilizar `BuildContext` a través de un salto asíncrono (`await`) sin verificar antes `if (context.mounted)`.",
                 "Creer que todos los widgets de una pantalla comparten la misma instancia de BuildContext."
+            ],
+            "followUps": [
+                "¿Por qué falla Theme.of(context) si se usa un context del ancestro equivocado?",
+                "¿Qué problema resuelve el widget Builder?"
             ]
         },
         "quiz": {
@@ -201,6 +217,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Creer que Hot Reload re-ejecuta `initState()`.",
                 "No saber que agregar un nuevo plugin nativo en `pubspec.yaml` requiere detener la app y hacer un `flutter run` completo."
+            ],
+            "followUps": [
+                "¿Por qué Hot Reload no reejecuta initState?",
+                "¿Qué cambios requieren un Hot Restart?"
             ]
         },
         "quiz": {
@@ -242,6 +262,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Olvidar llamar a `super.initState()` o `super.dispose()`.",
                 "Iniciar suscripciones que nunca se cancelan en `dispose()`, acumulando listeners zombis en memoria."
+            ],
+            "followUps": [
+                "¿Cuándo se llama a didUpdateWidget?",
+                "¿Por qué es importante liberar los controllers en dispose?"
             ]
         },
         "quiz": {
@@ -284,6 +308,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Crear una nueva instancia del Future dentro del método `build()` en lugar de almacenarlo en una variable del State; esto provoca que la petición HTTP se re-dispare en cada frame.",
                 "Olvidar cancelar suscripciones manuales a Streams (`StreamSubscription.cancel()`) en el método `dispose()`."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre un single-subscription stream y un broadcast stream?",
+                "¿Cuándo usar FutureBuilder y cuándo StreamBuilder?"
             ]
         },
         "quiz": {
@@ -326,6 +354,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Usar `UniqueKey()` directamente dentro del método `build()`, lo que crea una clave nueva en cada frame destruyendo y recreando el estado innecesariamente.",
                 "Abusar de `GlobalKey` para comunicación entre componentes en lugar de un gestor de estado (BLoC/Riverpod)."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre ValueKey, ObjectKey y GlobalKey?",
+                "¿Por qué abusar de GlobalKey es costoso?"
             ]
         },
         "quiz": {
@@ -367,6 +399,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Confundir `dependOnInheritedWidgetOfExactType` (se suscribe y reconstruye) con `findAncestorWidgetOfExactType` (solo busca el widget sin suscribirse a cambios).",
                 "Crear lógica de mutación pesada dentro del `InheritedWidget` (el InheritedWidget debe ser inmutable; la mutación reside en un State o ChangeNotifier externo)."
+            ],
+            "followUps": [
+                "¿Qué hace updateShouldNotify?",
+                "¿Qué ventajas tiene Riverpod sobre Provider (independencia del BuildContext)?"
             ]
         },
         "quiz": {
@@ -408,6 +444,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Intentar colocar un `ListView` directamente dentro de `CustomScrollView.slivers` sin envolverlo o en lugar de usar `SliverList`.",
                 "Olvidar usar `SliverToBoxAdapter` cuando se desea insertar un widget de caja estándar en el arreglo de slivers."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre SliverList y ListView?",
+                "¿Cómo crearías un header colapsable con SliverAppBar?"
             ]
         },
         "quiz": {
@@ -449,6 +489,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Creer que el Widget Tree es el que se pinta directamente en la pantalla.",
                 "Pensar que al recrear un Widget se destruye su RenderObject asociado."
+            ],
+            "followUps": [
+                "¿Por qué los Elements son de larga vida mientras los Widgets se recrean?",
+                "¿Qué hace un RenderObject durante el layout?"
             ]
         },
         "quiz": {
@@ -491,6 +535,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Creer que Impeller es un nuevo lenguaje de programación (es un motor de renderizado gráfico en C++ que sustituye a Skia).",
                 "Desconocer que Impeller opera sobre Metal en iOS y Vulkan en Android."
+            ],
+            "followUps": [
+                "¿Qué es el shader compilation jank?",
+                "¿Cómo lo resuelve Impeller precompilando shaders?"
             ]
         },
         "quiz": {
@@ -533,6 +581,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Llamar a `Navigator.push()` dentro del método builder de `BlocBuilder` (las acciones de navegación deben ir en un `BlocListener`).",
                 "Emitir el mismo objeto de estado mutado sin crear una nueva instancia (Equatable o freeze es vital para que BLoC detecte el cambio de estado)."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre Bloc y Cubit?",
+                "¿Cómo testearías un Bloc (bloc_test)?"
             ]
         },
         "quiz": {
@@ -575,6 +627,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Retornar siempre `true` en `shouldRepaint()`, saturando la GPU con repintados innecesarios a 60 FPS.",
                 "Instanciar objetos `Paint` o `Path` complejos dentro de `paint()` en cada frame en lugar de reciclarlos o cachearlos."
+            ],
+            "followUps": [
+                "¿Qué hace shouldRepaint?",
+                "¿Cómo aislarías un CustomPaint costoso con RepaintBoundary?"
             ]
         },
         "quiz": {
@@ -617,6 +673,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Creer que un `Future` previene que un bucle `for` de 10 millones de iteraciones congele la interfaz de usuario (el bucle bloquea el Main Thread; se debe usar un Isolate).",
                 "Intentar pasar objetos con referencias a widgets o `BuildContext` a través de un `SendPort` (los Isolates solo pueden intercambiar tipos de datos primitivos o transferibles)."
+            ],
+            "followUps": [
+                "¿Qué hace la función compute()?",
+                "¿Pueden los isolates compartir memoria?"
             ]
         },
         "quiz": {
@@ -659,6 +719,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Bloquear el Main Thread nativo en Swift o Kotlin al responder a un `MethodChannel`, congelando el renderizado de la UI de Flutter.",
                 "Olvidar manejar la excepción `PlatformException` cuando el canal no está implementado en una de las plataformas soportadas."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre MethodChannel y EventChannel?",
+                "¿Cuándo usar FFI en lugar de Platform Channels?"
             ]
         },
         "quiz": {
@@ -700,6 +764,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Llamar a `markNeedsLayout()` cuando solo cambió un color, forzando un recalculo innecesario de layout en todo el subárbol.",
                 "Asignar un `size` en `performLayout()` que no cumpla con las `constraints` recibidas del padre (arroja un assert de runtime)."
+            ],
+            "followUps": [
+                "¿Qué métodos hay que implementar (performLayout, paint)?",
+                "¿Cómo funcionan las constraints (constraints go down, sizes go up)?"
             ]
         },
         "quiz": {
@@ -742,6 +810,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Utilizar los mismos modelos DTO con `fromJson` directamente como entidades del dominio (acopla el negocio al contrato JSON del backend).",
                 "Hacer que los Use Cases dependan de paquetes de presentación o almacenen estado de widgets."
+            ],
+            "followUps": [
+                "¿Qué contiene cada capa (domain, data, presentation)?",
+                "¿Cómo inyectarías dependencias (get_it, Riverpod)?"
             ]
         },
         "quiz": {
@@ -784,6 +856,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Cargar imágenes de 10 megapíxeles directamente en elementos de lista pequeños sin limitar el tamaño de decodificación en memoria.",
                 "Usar el widget `Opacity` en animaciones continuas sobre subárboles enteros en lugar de `AnimatedOpacity` o colorear directamente con el canal alpha en `Paint`."
+            ],
+            "followUps": [
+                "¿Cómo usarías Flutter DevTools para detectar rebuilds excesivos?",
+                "¿Cómo reducirías el consumo de memoria de las imágenes (cacheWidth)?"
             ]
         },
         "quiz": {
@@ -825,6 +901,10 @@ export const questionsFlutter: ISection = {
             "commonPitfalls": [
                 "Cargar glifos de iconos mediante variables numéricas dinámicas que provienen de una base de datos, deshabilitando el Font Tree Shaking en release.",
                 "Confundir la compilación JIT de desarrollo (que incluye todo) con los binarios depurados AOT de release."
+            ],
+            "followUps": [
+                "¿Qué hace el tree shaking de iconos (--tree-shake-icons)?",
+                "¿Cómo analizarías el tamaño de la app (--analyze-size)?"
             ]
         },
         "quiz": {

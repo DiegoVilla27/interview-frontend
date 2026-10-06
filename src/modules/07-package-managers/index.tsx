@@ -25,6 +25,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Publicar a npm la carpeta completa sin definir el campo `files` ni `.npmignore`, filtrando tests, tokens o código confidencial.",
                 "Creer que `scripts` ejecuta directamente Node: en realidad genera un sub-shell del sistema operativo (bash/sh/cmd) con `node_modules/.bin` en el `PATH`."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre los campos main, module y exports?",
+                "¿Para qué sirve el campo files y cómo reduce el tamaño del paquete publicado?"
             ]
         },
         "quiz": {
@@ -58,6 +62,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Creer que pnpm solo es más rápido que npm por paralelismo; su verdadera ventaja es el Content-Addressable Storage y la estructura de enlaces duros.",
                 "Usar Yarn Classic v1 en proyectos nuevos en lugar de pnpm o Yarn Modern v4."
+            ],
+            "followUps": [
+                "¿Por qué pnpm ahorra espacio en disco con su content-addressable store?",
+                "¿Qué ventajas y riesgos tiene adoptar Bun en producción?"
             ]
         },
         "quiz": {
@@ -91,6 +99,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Colocar `react` en `dependencies` al construir una librería de componentes UI, lo que fuerza dos copias de React en la app del consumidor y rompe los hooks (`Invalid hook call`).",
                 "Dejar dependencias de desarrollo en `dependencies`, inflando imágenes Docker de producción."
+            ],
+            "followUps": [
+                "¿Qué ocurre si una peerDependency no está instalada?",
+                "¿Cuándo debería una librería declarar React como peerDependency?"
             ]
         },
         "quiz": {
@@ -124,6 +136,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Creer que `^0.2.1` actualizará automáticamente a `0.3.0` (npm no lo hará porque `0.x.x` no garantiza retrocompatibilidad en cambios minor).",
                 "Asumir que SemVer previene al 100% bugs: una librería puede publicar un breaking change por error en una versión minor."
+            ],
+            "followUps": [
+                "¿Qué rango de versiones permite ^0.2.3 y por qué es especial en las versiones 0.x?",
+                "¿Cómo funcionan las versiones pre-release (1.0.0-beta.1)?"
             ]
         },
         "quiz": {
@@ -157,6 +173,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Agregar el lockfile a `.gitignore` (anti-patrón destructivo en aplicaciones enterprise).",
                 "Resolver conflictos de Git en un lockfile manualmente con un editor de texto en vez de regenerarlo con `pnpm install` o `npm install`."
+            ],
+            "followUps": [
+                "¿Por qué el lockfile debe commitearse siempre en aplicaciones?",
+                "¿Qué protege el campo integrity del lockfile?"
             ]
         },
         "quiz": {
@@ -190,6 +210,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Usar `npm install` en Dockerfiles de producción, arriesgando discrepancias de versiones entre staging y prod.",
                 "Olvidar que `npm ci` borra completamente `node_modules`, por lo que si hay cachés mal configuradas puede costar más I/O."
+            ],
+            "followUps": [
+                "¿Qué ocurre con npm ci si package.json y el lockfile no coinciden?",
+                "¿Por qué npm ci borra node_modules antes de instalar?"
             ]
         },
         "quiz": {
@@ -223,6 +247,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Creer que el hoisting en npm garantiza que siempre se instale la última versión posible (depende del orden de resolución lexicográfico o del lockfile).",
                 "Ignorar el impacto del hoisting en la reproducibilidad de módulos compartidos."
+            ],
+            "followUps": [
+                "¿Qué problemas de duplicación surgen con versiones incompatibles en el árbol?",
+                "¿Por qué el hoisting habilita las phantom dependencies?"
             ]
         },
         "quiz": {
@@ -256,6 +284,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Creer que si TypeScript no marca error de compilación no hay dependencias fantasma (TS buscará tipos en cualquier @types elevado si existe en la raíz).",
                 "Confundir peer dependencies con phantom dependencies."
+            ],
+            "followUps": [
+                "¿Cómo detectarías phantom dependencies en un proyecto existente?",
+                "¿Por qué pnpm las bloquea por defecto?"
             ]
         },
         "quiz": {
@@ -289,6 +321,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Creer que `npx` siempre descarga el paquete de internet: si el paquete ya existe en `./node_modules/.bin`, usa la versión local instantáneamente.",
                 "Usar `npx` para librerías que se ejecutan cientos de veces en un loop de CI sin caching."
+            ],
+            "followUps": [
+                "¿Qué riesgos de seguridad tiene ejecutar npx con un paquete mal escrito?",
+                "¿Qué diferencia hay entre npx, pnpm dlx y npm exec?"
             ]
         },
         "quiz": {
@@ -322,6 +358,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Publicar un paquete a npm con la cadena literal `\"workspace:*\"` sin usar la herramienta de empaquetado del gestor que sustituye el protocolo por versiones numéricas.",
                 "Instalar manualmente dependencias dentro de carpetas individuales en lugar de usar comandos raíz con filtros (`--filter` / `--workspace`)."
+            ],
+            "followUps": [
+                "¿Cómo se referencia un paquete local del workspace (workspace:*)?",
+                "¿Cómo ejecutarías un script solo en los paquetes afectados?"
             ]
         },
         "quiz": {
@@ -355,6 +395,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Seguir recomendando `npm install -g yarn/pnpm` en la documentación interna del equipo en vez de estandarizar con Corepack.",
                 "Ignorar que Corepack viene desactivado por defecto en algunas distribuciones de Node y requiere `corepack enable`."
+            ],
+            "followUps": [
+                "¿Qué hace el campo packageManager en package.json?",
+                "¿Cómo se activa Corepack y qué pasa si alguien usa otro gestor?"
             ]
         },
         "quiz": {
@@ -388,6 +432,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Forzar un cambio de versión MAJOR en una transitiva sin verificar si la API cambió, rompiendo la librería intermedia en runtime.",
                 "Confundir `resolutions` (Yarn) con `overrides` (npm) en proyectos migrados."
+            ],
+            "followUps": [
+                "¿Cuándo es legítimo forzar una dependencia transitiva?",
+                "¿Qué riesgos tiene un override que rompe compatibilidad?"
             ]
         },
         "quiz": {
@@ -421,6 +469,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Publicar paquetes internos de la empresa sin prefijos de scope (`@empresa/`), dejándolos expuestos a Dependency Confusion.",
                 "Creer que `npm audit` es suficiente: solo detecta vulnerabilidades ya catalogadas, no malware de día cero introducido en nuevas versiones."
+            ],
+            "followUps": [
+                "¿Qué es dependency confusion y cómo se previene con scopes?",
+                "¿Qué herramientas usarías para auditar la cadena de suministro (npm audit, Socket, provenance)?"
             ]
         },
         "quiz": {
@@ -454,6 +506,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Commitear un token personal de GitHub o npm en el archivo `.npmrc` en texto plano.",
                 "Redirigir todo el registry global al servidor privado sin configurar proxy inverso hacia npmjs.org, cortando la descarga de librerías abiertas."
+            ],
+            "followUps": [
+                "¿Cómo evitarías commitear tokens en .npmrc?",
+                "¿Cómo autenticarías un registry privado en CI?"
             ]
         },
         "quiz": {
@@ -487,6 +543,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Colocar la condición `\"types\"` al final de la definición de exports (TypeScript requiere que `types` sea siempre la primera clave del objeto condicional).",
                 "Olvidar agregar extensiones completas (`.js`, `.cjs`) en las rutas de exports."
+            ],
+            "followUps": [
+                "¿Qué es el dual package hazard?",
+                "¿Cómo impide exports importar rutas internas de un paquete?"
             ]
         },
         "quiz": {
@@ -520,6 +580,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Intentar usar Semantic Release clásico en monorepos grandes donde múltiples paquetes requieren versiones independientes desacopladas.",
                 "Olvidar commitear el archivo generado en `.changeset/` dentro del PR de la feature."
+            ],
+            "followUps": [
+                "¿Cómo se gestionan las dependencias internas al publicar con Changesets?",
+                "¿Qué diferencia hay entre Changesets y Semantic Release?"
             ]
         },
         "quiz": {
@@ -553,6 +617,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Cachear la carpeta `node_modules` directamente en CI con pnpm (los symlinks se corrompen o pierden referencias al transferirse entre runners).",
                 "Omitir el flag `--frozen-lockfile` en el comando de instalación de CI."
+            ],
+            "followUps": [
+                "¿Qué clave de caché usarías en GitHub Actions para el store de pnpm?",
+                "¿Qué diferencia hay entre cachear node_modules y cachear el store?"
             ]
         },
         "quiz": {
@@ -586,6 +654,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Colocar compilaciones pesadas de TypeScript en `postinstall` en vez de `prepare` o `prepack`.",
                 "Descargar paquetes de orígenes desconocidos sin revisar si contienen scripts de `postinstall` maliciosos."
+            ],
+            "followUps": [
+                "¿Por qué los scripts postinstall son un vector de ataque?",
+                "¿Cómo deshabilitarías los lifecycle scripts (--ignore-scripts)?"
             ]
         },
         "quiz": {
@@ -619,6 +691,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Borrar una dependencia marcada por depcheck sin verificar si era consumida por un script de build en `package.json` o un binario en CI.",
                 "Permitir que dependencias obsoletas sigan en el proyecto consumiendo tiempo de escaneo en security scanners."
+            ],
+            "followUps": [
+                "¿Qué detecta Knip además de dependencias no usadas (exports y archivos muertos)?",
+                "¿Cómo integrarías Knip en CI?"
             ]
         },
         "quiz": {
@@ -652,6 +728,10 @@ export const questionsPackageManager: ISection = {
             "commonPitfalls": [
                 "Intentar usar Yarn PnP en proyectos de React Native sin verificar si Metro y los autolinkings nativos soportan zips.",
                 "Creer que PnP es solo un alias de symlinks; en realidad elimina las carpetas de node_modules y opera sobre archivos comprimidos."
+            ],
+            "followUps": [
+                "¿Qué problemas de compatibilidad tiene PnP con herramientas que leen node_modules?",
+                "¿Qué son los Zero-Installs?"
             ]
         },
         "quiz": {

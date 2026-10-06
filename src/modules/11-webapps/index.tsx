@@ -22,7 +22,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que comprendes que la dicotomía tradicional está superada: las MPAs modernas usan transiciones suaves (View Transitions / Turbo) y las SPAs adoptan SSR/Streaming para mitigar el costo del bundle.",
-            "commonPitfalls": ["Afirmar que las SPAs son inherentemente superiores para cualquier proyecto web sin analizar el coste en Core Web Vitals y dispositivos móviles.", "Ignorar el impacto del Time to Interactive (TTI) cuando un bundle de SPA supera 1 MB en redes 3G/4G."]
+            "commonPitfalls": ["Afirmar que las SPAs son inherentemente superiores para cualquier proyecto web sin analizar el coste en Core Web Vitals y dispositivos móviles.", "Ignorar el impacto del Time to Interactive (TTI) cuando un bundle de SPA supera 1 MB en redes 3G/4G."],
+            "followUps": [
+                "¿Cómo reducen las View Transitions entre documentos la brecha de UX entre MPA y SPA?",
+                "¿Qué problemas de SEO y accesibilidad aparecen en una SPA mal implementada?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la principal ventaja técnica de una MPA moderna (como Astro o con Turbo Drive) sobre una SPA monolítica tradicional basada en CSR?",
@@ -47,7 +51,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar con precisión qué cuello de botella soluciona Streaming SSR respecto a SSR clásico (el bloqueo del TTFB por peticiones lentas) y cómo ISR reduce costes de computación en el servidor.",
-            "commonPitfalls": ["Confundir SSR con SSG asumiendo que ambos requieren un servidor Node.js activo ejecutándose en producción.", "Olvidar que ISR sirve contenido stale al primer visitante que solicita la página tras la expiración del TTL."]
+            "commonPitfalls": ["Confundir SSR con SSG asumiendo que ambos requieren un servidor Node.js activo ejecutándose en producción.", "Olvidar que ISR sirve contenido stale al primer visitante que solicita la página tras la expiración del TTL."],
+            "followUps": [
+                "¿Qué estrategia elegirías para un e-commerce con miles de productos?",
+                "¿Qué diferencia hay entre ISR y Stale-While-Revalidate a nivel HTTP?"
+            ]
         },
         "quiz": {
             "question": "¿Qué problema crítico resuelve el Streaming SSR con Suspense frente al SSR tradicional?",
@@ -72,7 +80,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar conocimiento profundo del coste de la hidratación: explicar el 'uncanny valley', la doble serialización de estado y cómo mitigar 'hydration mismatches'.",
-            "commonPitfalls": ["Creer que SSR hace que la web sea interactiva de inmediato (confundir renderizado visual con interactividad de listeners).", "Usar APIs exclusivas del navegador (`window.innerWidth`, `localStorage`) en el render inicial de componentes SSR sin comprobar hidratación."]
+            "commonPitfalls": ["Creer que SSR hace que la web sea interactiva de inmediato (confundir renderizado visual con interactividad de listeners).", "Usar APIs exclusivas del navegador (`window.innerWidth`, `localStorage`) en el render inicial de componentes SSR sin comprobar hidratación."],
+            "followUps": [
+                "¿Cómo detectarías el 'uncanny valley' con métricas como TTI o INP?",
+                "¿Qué causa un error de hydration mismatch?"
+            ]
         },
         "quiz": {
             "question": "¿A qué se refiere el término 'Uncanny Valley' en el contexto de hidratación de aplicaciones web?",
@@ -97,7 +109,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que conoces el ciclo de vida del evento `beforeinstallprompt`, cómo configurar iconos maskable y cómo manejar la detección cuando la app ya corre en modo standalone (`display-mode: standalone`).",
-            "commonPitfalls": ["Dejar que el navegador dispare el banner de instalación automáticamente en el primer segundo de visita sin contexto de valor para el usuario.", "Olvidar configurar el icono maskable, provocando que Android corte o muestre el icono en un círculo blanco deformado."]
+            "commonPitfalls": ["Dejar que el navegador dispare el banner de instalación automáticamente en el primer segundo de visita sin contexto de valor para el usuario.", "Olvidar configurar el icono maskable, provocando que Android corte o muestre el icono en un círculo blanco deformado."],
+            "followUps": [
+                "¿Qué requisitos debe cumplir una PWA para ser instalable?",
+                "¿Cómo personalizarías el prompt de instalación (beforeinstallprompt)?"
+            ]
         },
         "quiz": {
             "question": "¿Qué evento del navegador permite interceptar el banner nativo de instalación de una PWA para mostrar un botón o modal propio de la UI?",
@@ -122,7 +138,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar con exactitud por qué existe el estado 'waiting' (para prevenir desajustes entre HTML antiguo y bundles nuevos con hash distinto) y cómo orquestar `skipWaiting` de forma controlada.",
-            "commonPitfalls": ["Llamar a `skipWaiting()` incondicionalmente en el evento install sin avisar al usuario, provocando roturas en lazy-loaded chunks de pestañas activas.", "Guardar el Service Worker (`sw.js`) con cabeceras `Cache-Control: max-age=31536000` en el CDN (debe servirse siempre con `max-age=0` o `no-cache`)."]
+            "commonPitfalls": ["Llamar a `skipWaiting()` incondicionalmente en el evento install sin avisar al usuario, provocando roturas en lazy-loaded chunks de pestañas activas.", "Guardar el Service Worker (`sw.js`) con cabeceras `Cache-Control: max-age=31536000` en el CDN (debe servirse siempre con `max-age=0` o `no-cache`)."],
+            "followUps": [
+                "¿Qué hacen skipWaiting() y clients.claim()?",
+                "¿Cómo notificarías al usuario que hay una nueva versión disponible?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué un nuevo Service Worker entra en estado 'waiting' en lugar de activarse inmediatamente cuando ya hay uno activo?",
@@ -147,7 +167,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Justificar la asignación de cada estrategia al tipo de recurso adecuado y saber cómo manejar respuestas opacas (`status: 0`) generadas por CORS al cachear assets de CDNs externos.",
-            "commonPitfalls": ["Aplicar Cache First a documentos HTML, lo que provoca que el usuario quede atrapado indefinidamente en versiones antiguas de la aplicación.", "No configurar políticas de expiración (`maxEntries` / `maxAgeSeconds`), saturando el disco del dispositivo del usuario."]
+            "commonPitfalls": ["Aplicar Cache First a documentos HTML, lo que provoca que el usuario quede atrapado indefinidamente en versiones antiguas de la aplicación.", "No configurar políticas de expiración (`maxEntries` / `maxAgeSeconds`), saturando el disco del dispositivo del usuario."],
+            "followUps": [
+                "¿Qué estrategia usarías para la API y cuál para los assets estáticos?",
+                "¿Cómo limitarías el tamaño del caché (ExpirationPlugin)?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la estrategia de caché más adecuada para fuentes web e imágenes versionadas con hash inmutable en su nombre de archivo?",
@@ -172,7 +196,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Articular la diferencia entre la hidratación monolítica de Next.js/Remix y la hidratación aislada de Astro, destacando el impacto masivo en TBT, INP y el payload de JS inicial.",
-            "commonPitfalls": ["Creer que las islas no pueden compartir estado: se comunican elegantemente mediante Nanostores, eventos custom o URL query params sin sobrecargar la arquitectura.", "Intentar forzar Islands Architecture para aplicaciones tipo Photoshop o Figma en el navegador (donde el 100% de la pantalla es interactiva y una SPA encaja mejor)."]
+            "commonPitfalls": ["Creer que las islas no pueden compartir estado: se comunican elegantemente mediante Nanostores, eventos custom o URL query params sin sobrecargar la arquitectura.", "Intentar forzar Islands Architecture para aplicaciones tipo Photoshop o Figma en el navegador (donde el 100% de la pantalla es interactiva y una SPA encaja mejor)."],
+            "followUps": [
+                "¿Qué directivas de hidratación ofrece Astro (client:load, client:visible)?",
+                "¿Cómo compartirías estado entre islas?"
+            ]
         },
         "quiz": {
             "question": "¿Qué efecto tiene la directiva 'client:visible' en un componente dentro de un framework con Arquitectura de Islas como Astro?",
@@ -197,7 +225,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que entiendes cómo Qwik serializa los closures en atributos HTML y cómo el compilador genera QRLs para diferir la descarga de JS hasta la primera interacción del usuario.",
-            "commonPitfalls": ["Confundir Resumability con Islands Architecture: las islas siguen requiriendo hidratar sus componentes internos; Qwik no hidrata nunca.", "Creer que descargar JS bajo demanda en el primer clic causa lentitud: Qwik utiliza un Service Worker en segundo plano (Partytown/Prefetch) para precachear los chunks invisibles."]
+            "commonPitfalls": ["Confundir Resumability con Islands Architecture: las islas siguen requiriendo hidratar sus componentes internos; Qwik no hidrata nunca.", "Creer que descargar JS bajo demanda en el primer clic causa lentitud: Qwik utiliza un Service Worker en segundo plano (Partytown/Prefetch) para precachear los chunks invisibles."],
+            "followUps": [
+                "¿Qué es la serialización del estado en Qwik?",
+                "¿Qué trade-offs tiene descargar código en la primera interacción?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es el mecanismo técnico principal que permite a Qwik lograr interactividad con 0 KB de ejecución de JavaScript en el arranque?",
@@ -222,7 +254,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar las razones de seguridad y eficiencia de los V8 Isolates (compartir proceso con aislamiento de memoria) y reconocer las limitaciones (ausencia de APIs nativas de Node como `fs`).",
-            "commonPitfalls": ["Intentar importar librerías de Node.js dependientes de bindings nativos (como `bcrypt` o `sharp`) dentro de una Edge Function.", "Creer que poner todo en el Edge siempre es más rápido: si el Edge Worker debe consultar una base de datos centralizada en `us-east-1`, la latencia de ida y vuelta puede anular el beneficio del Edge."]
+            "commonPitfalls": ["Intentar importar librerías de Node.js dependientes de bindings nativos (como `bcrypt` o `sharp`) dentro de una Edge Function.", "Creer que poner todo en el Edge siempre es más rápido: si el Edge Worker debe consultar una base de datos centralizada en `us-east-1`, la latencia de ida y vuelta puede anular el beneficio del Edge."],
+            "followUps": [
+                "¿Qué APIs de Node.js no están disponibles en el edge?",
+                "¿Cuándo el edge rendering empeora la latencia (datos lejos del edge)?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué un Edge Runtime basado en V8 Isolates tiene tiempos de cold-start de menos de 5 ms en comparación con los contenedores Node.js?",
@@ -247,7 +283,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Justificar por qué nunca se debe almacenar grandes colecciones de datos en `localStorage` (bloqueo del Event Loop) y saber cómo proteger datos locales con `navigator.storage.persist()`.",
-            "commonPitfalls": ["Utilizar la API de bajo nivel de IndexedDB con callbacks antiguos sin usar wrappers modernos basados en promesas como `idb`.", "Olvidar capturar errores de `QuotaExceededError` cuando el dispositivo móvil se queda sin almacenamiento disponible."]
+            "commonPitfalls": ["Utilizar la API de bajo nivel de IndexedDB con callbacks antiguos sin usar wrappers modernos basados en promesas como `idb`.", "Olvidar capturar errores de `QuotaExceededError` cuando el dispositivo móvil se queda sin almacenamiento disponible."],
+            "followUps": [
+                "¿Qué hace navigator.storage.persist()?",
+                "¿Cómo consultarías la cuota disponible con navigator.storage.estimate()?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la principal desventaja técnica de utilizar LocalStorage para guardar grandes volúmenes de datos en una WebApp?",
@@ -272,7 +312,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar conocimiento del patrón Outbox, claves de idempotencia para evitar duplicados en reintentos de red y explicar las limitaciones de Last-Write-Wins frente a CRDTs.",
-            "commonPitfalls": ["Enviar peticiones en paralelo de la cola sin preservar el orden causal de las mutaciones (p. ej. enviar un 'update' antes del 'create').", "Asumir que el evento 'online' garantiza que la red es funcional (puede haber portales cautivos o conexión sin internet real)."]
+            "commonPitfalls": ["Enviar peticiones en paralelo de la cola sin preservar el orden causal de las mutaciones (p. ej. enviar un 'update' antes del 'create').", "Asumir que el evento 'online' garantiza que la red es funcional (puede haber portales cautivos o conexión sin internet real)."],
+            "followUps": [
+                "¿Qué es un CRDT y por qué converge sin coordinación?",
+                "¿Cómo funciona la Background Sync API?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la ventaja matemática de utilizar CRDTs (Conflict-free Replicated Data Types) en aplicaciones offline colaborativas frente al método Last-Write-Wins?",
@@ -297,7 +341,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Justificar cuándo NO usar micro-frontends (añaden complejidad operacional masiva y riesgo de cascada de dependencias) y explicar cómo funciona la compartición de singletons en Module Federation.",
-            "commonPitfalls": ["Descargar 3 versiones distintas de React o Vue en la misma página por no configurar dependencias compartidas adecuadamente.", "Crear acoplamiento excesivo entre remotes compartiendo un store de Redux o Zustand con mutaciones bidireccionales."]
+            "commonPitfalls": ["Descargar 3 versiones distintas de React o Vue en la misma página por no configurar dependencias compartidas adecuadamente.", "Crear acoplamiento excesivo entre remotes compartiendo un store de Redux o Zustand con mutaciones bidireccionales."],
+            "followUps": [
+                "¿Cómo compartirías el estado de autenticación entre micro-frontends?",
+                "¿Cómo evitarías conflictos de CSS entre micro-frontends?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la función principal de la propiedad 'singleton: true' en la configuración de dependencias compartidas de Module Federation?",
@@ -322,7 +370,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar por qué INP sustituyó a FID (FID solo medía la primera interacción; INP mide el percentil 98 de todas las interacciones de la sesión) y cómo `scheduler.yield()` desactiva Long Tasks.",
-            "commonPitfalls": ["Usar `setTimeout(fn, 0)` creyendo que es una forma moderna de yield (MessageChannel o `scheduler.yield` son infinitamente superiores y no sufren el throttling de 4ms).", "Olvidar fijar dimensiones en elementos dinámicos que entran por lazy-loading, provocando picos de CLS masivos."]
+            "commonPitfalls": ["Usar `setTimeout(fn, 0)` creyendo que es una forma moderna de yield (MessageChannel o `scheduler.yield` son infinitamente superiores y no sufren el throttling de 4ms).", "Olvidar fijar dimensiones en elementos dinámicos que entran por lazy-loading, provocando picos de CLS masivos."],
+            "followUps": [
+                "¿Por qué INP sustituyó a FID?",
+                "¿Qué técnicas reducen el CLS causado por fuentes web?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué Interaction to Next Paint (INP) es una métrica más fiable que la antigua First Input Delay (FID)?",
@@ -347,7 +399,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar por qué las listas blancas de dominios en CSP (`script-src https://cdn.com`) son vulnerables y por qué el enfoque moderno estándar es el uso de nonces con `'strict-dynamic'`.",
-            "commonPitfalls": ["Usar un nonce estático o cacheado en CDN, lo que anula por completo la protección contra XSS.", "Olvidar `crossorigin=\"anonymous\"` al usar la etiqueta `integrity` en assets de terceros."]
+            "commonPitfalls": ["Usar un nonce estático o cacheado en CDN, lo que anula por completo la protección contra XSS.", "Olvidar `crossorigin=\"anonymous\"` al usar la etiqueta `integrity` en assets de terceros."],
+            "followUps": [
+                "¿Qué ventajas tiene strict-dynamic con nonces?",
+                "¿Cómo protegerías un script cargado desde un CDN de terceros (SRI)?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la función del atributo 'integrity' (SRI) en una etiqueta <script> al importar una librería desde un CDN externo?",
@@ -372,7 +428,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar por qué el mito de 'guardar JWT en localStorage' es inaceptable en proyectos enterprise y saber explicar la mecánica de refresco silencioso sin provocar bucles infinitos de 401.",
-            "commonPitfalls": ["Creer que una cookie `HttpOnly` previene ataques CSRF por sí sola (se requiere el flag `SameSite` o tokens anti-CSRF).", "No pausar o encolar las peticiones salientes cuando ocurre un 401, provocando que 10 llamadas simultáneas disparen 10 peticiones de refresco concurrentes."]
+            "commonPitfalls": ["Creer que una cookie `HttpOnly` previene ataques CSRF por sí sola (se requiere el flag `SameSite` o tokens anti-CSRF).", "No pausar o encolar las peticiones salientes cuando ocurre un 401, provocando que 10 llamadas simultáneas disparen 10 peticiones de refresco concurrentes."],
+            "followUps": [
+                "¿Cómo se protege una cookie HttpOnly contra CSRF?",
+                "¿Por qué PKCE es obligatorio para clientes públicos (SPAs)?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es una práctica de seguridad almacenar el Refresh Token en una cookie con flag HttpOnly en lugar del LocalStorage?",
@@ -397,7 +457,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Distinguir entre Shallow Size y Retained Size en un Heap Snapshot de Chrome DevTools y demostrar el uso de `AbortController` como patrón moderno para limpiar múltiples listeners a la vez.",
-            "commonPitfalls": ["Creer que poner `variable = null` dentro de una función local es necesario (el GC recolecta variables locales automáticamente al salir del scope a menos que haya closures).", "Ignorar los 'Detached HTMLElement' al analizar capturas de memoria en SPAs."]
+            "commonPitfalls": ["Creer que poner `variable = null` dentro de una función local es necesario (el GC recolecta variables locales automáticamente al salir del scope a menos que haya closures).", "Ignorar los 'Detached HTMLElement' al analizar capturas de memoria en SPAs."],
+            "followUps": [
+                "¿Cómo usarías heap snapshots para encontrar detached DOM nodes?",
+                "¿Qué patrones de React provocan memory leaks?"
+            ]
         },
         "quiz": {
             "question": "En un Heap Snapshot de Chrome DevTools, ¿qué representa el 'Retained Size' de un objeto?",
@@ -422,7 +486,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que comprendes la diferencia entre clonación estructurada y Transferable Objects (Zero-Copy) y saber cuándo conviene delegar a un Worker (evitar usar Workers para operaciones triviales por el coste de contexto).",
-            "commonPitfalls": ["Intentar manipular el DOM o acceder a `window` desde el interior de un Web Worker.", "Usar el buffer en el hilo principal después de haberlo transferido con `Comlink.transfer()` (su tamaño pasa a ser 0 bytes)."]
+            "commonPitfalls": ["Intentar manipular el DOM o acceder a `window` desde el interior de un Web Worker.", "Usar el buffer en el hilo principal después de haberlo transferido con `Comlink.transfer()` (su tamaño pasa a ser 0 bytes)."],
+            "followUps": [
+                "¿Cómo simplifica Comlink la comunicación con workers?",
+                "¿Qué es SharedArrayBuffer y qué cabeceras de aislamiento requiere (COOP/COEP)?"
+            ]
         },
         "quiz": {
             "question": "¿Qué ocurre con un ArrayBuffer cuando es enviado a un Web Worker como un 'Transferable Object'?",
@@ -447,7 +515,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar por qué el parámetro `userVisibleOnly: true` es obligatorio en Chrome (evita que los sitios usen notificaciones push silenciosas como trackers en segundo plano) y cómo VAPID protege al Push Service.",
-            "commonPitfalls": ["Pedir permisos de notificación inmediatamente al cargar la página sin contexto (los usuarios lo bloquean en un 95% de los casos).", "Olvidar usar `event.waitUntil()` en el evento `push`, provocando que el sistema operativo mate el proceso del Service Worker antes de mostrar la notificación."]
+            "commonPitfalls": ["Pedir permisos de notificación inmediatamente al cargar la página sin contexto (los usuarios lo bloquean en un 95% de los casos).", "Olvidar usar `event.waitUntil()` en el evento `push`, provocando que el sistema operativo mate el proceso del Service Worker antes de mostrar la notificación."],
+            "followUps": [
+                "¿Qué contiene una PushSubscription?",
+                "¿Qué buenas prácticas de UX aplicarías al pedir permiso de notificaciones?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es obligatorio especificar 'userVisibleOnly: true' al suscribir un cliente al PushManager en navegadores basados en Chromium?",
@@ -472,7 +544,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar la diferencia entre la indexación de Googlebot y los scrapers de redes sociales (que jamás ejecutan JS) y la importancia del schema JSON-LD para los fragmentos enriquecidos (Rich Snippets).",
-            "commonPitfalls": ["Confiar en librerías de cliente como React Helmet en una SPA pura sin SSR esperando que WhatsApp o Twitter generen tarjetas visuales.", "Incurrir en 'Cloaking' (mostrar contenido sustancialmente distinto a los bots que a los usuarios, penado con desindexación por Google)."]
+            "commonPitfalls": ["Confiar en librerías de cliente como React Helmet en una SPA pura sin SSR esperando que WhatsApp o Twitter generen tarjetas visuales.", "Incurrir en 'Cloaking' (mostrar contenido sustancialmente distinto a los bots que a los usuarios, penado con desindexación por Google)."],
+            "followUps": [
+                "¿Ejecuta Googlebot JavaScript y con qué limitaciones?",
+                "¿Por qué Google desaconseja hoy el Dynamic Rendering?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué las vistas previas de enlaces en plataformas como WhatsApp, Slack o Twitter fallan al compartir una SPA basada en Client-Side Rendering puro?",
@@ -497,7 +573,11 @@ export const questionsWebapps: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Justificar por qué `buffered: true` es imprescindible en `PerformanceObserver` (para no perder eventos ocurridos antes de que el script de telemetría inicializara) y por qué `sendBeacon` o `fetch(..., { keepalive: true })` son obligatorios para telemetría.",
-            "commonPitfalls": ["Usar eventos sincrónicos obsoletos como `window.onunload` con llamadas AJAX bloqueantes, lo que degrada la experiencia de cierre y está desaconsejado por los navegadores.", "Enviar cada métrica individualmente saturando la red en lugar de agrupar o enviar beacons ordenados."]
+            "commonPitfalls": ["Usar eventos sincrónicos obsoletos como `window.onunload` con llamadas AJAX bloqueantes, lo que degrada la experiencia de cierre y está desaconsejado por los navegadores.", "Enviar cada métrica individualmente saturando la red en lugar de agrupar o enviar beacons ordenados."],
+            "followUps": [
+                "¿Por qué sendBeacon es más fiable que fetch al cerrar la página?",
+                "¿Cómo atribuirías una regresión de INP a una interacción concreta?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es fundamental utilizar la opción '{ buffered: true }' al registrar un PerformanceObserver para métricas como LCP?",

@@ -36,6 +36,17 @@ export const questionsHTML: ISection = {
 </body>
 </html>`,
         explanation: "Esqueleto mínimo estándar W3C para garantizar renderizado predecible en todos los navegadores."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que entiendas HTML como lenguaje de marcado que define estructura y semántica, separado de presentación (CSS) y comportamiento (JS).",
+        commonPitfalls: [
+          "Llamar a HTML 'lenguaje de programación'.",
+          "Usar HTML para fines de presentación visual en vez de semánticos."
+        ],
+        followUps: [
+          "¿Cómo convierte el navegador el HTML en el DOM?",
+          "¿Qué ocurre cuando el navegador encuentra HTML mal formado?"
+        ]
       }
     },
     {
@@ -63,6 +74,17 @@ export const questionsHTML: ISection = {
 <span style="background: #f59e0b; padding: 4px;">En línea 1 (span)</span>
 <a href="#" style="background: #10b981; color: white; padding: 4px;">En línea 2 (a)</a>`,
         explanation: "Demuestra visualmente la ocupación de ancho y la ruptura de renglón entre ambos modelos."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques el flujo normal del documento y el comportamiento de los elementos bloque e inline.",
+        commonPitfalls: [
+          "Creer que margin y padding vertical funcionan igual en elementos inline.",
+          "Anidar elementos bloque dentro de inline de forma inválida (ej. <div> dentro de <span>)."
+        ],
+        followUps: [
+          "¿Por qué width y height no afectan a un elemento inline?",
+          "¿Cómo cambia este modelo con display: flex o grid?"
+        ]
       }
     },
     {
@@ -75,6 +97,17 @@ export const questionsHTML: ISection = {
         title: "Modos de Renderizado del DOCTYPE",
         caption: "Activa el modo estándar completo (Standards Mode) evitando el modo histórico Quirks de IE5.",
         diagramType: "html-doctype-modes"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques que el DOCTYPE activa el modo estándar frente al quirks mode.",
+        commonPitfalls: [
+          "Creer que el DOCTYPE es una etiqueta HTML.",
+          "Desconocer las consecuencias visuales del quirks mode (box model distinto)."
+        ],
+        followUps: [
+          "¿Qué es el quirks mode y cómo puedes detectarlo con document.compatMode?",
+          "¿Por qué el DOCTYPE de HTML5 es tan corto?"
+        ]
       }
     },
     {
@@ -97,6 +130,17 @@ export const questionsHTML: ISection = {
   <p>Estado actual: <span style="color: #10b981; font-weight: bold;">En línea</span></p>
 </div>`,
         explanation: "El div encapsula la estructura del componente; el span aporta estilo o interactividad a un fragmento de texto."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que sepas que ambos son contenedores genéricos sin semántica y que deben ser el último recurso.",
+        commonPitfalls: [
+          "Abusar de <div> (divitis) cuando existe un elemento semántico adecuado.",
+          "Usar <div onClick> en vez de <button>, perdiendo foco y soporte de teclado."
+        ],
+        followUps: [
+          "¿Qué problemas de accesibilidad causa un <div> clicable?",
+          "¿Qué elementos semánticos sustituirían a los <div> de un layout típico?"
+        ]
       }
     },
     {
@@ -127,6 +171,17 @@ export const questionsHTML: ISection = {
 <!-- Atributo booleano: su presencia activa el estado true -->
 <input type="text" disabled required placeholder="Campo obligatorio">`,
         explanation: "Ilustra atributos estándar de clave-valor y atributos booleanos de presencia."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que distingas atributos globales y específicos, y la diferencia entre atributos HTML y propiedades del DOM.",
+        commonPitfalls: [
+          "Confundir atributos (HTML inicial) con propiedades (estado vivo del DOM), por ejemplo value.",
+          "Olvidar que los atributos booleanos se activan solo por su presencia (disabled='false' sigue deshabilitado)."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre getAttribute('value') y element.value?",
+          "¿Cómo funcionan los atributos booleanos como disabled o checked?"
+        ]
       }
     },
     {
@@ -154,6 +209,17 @@ export const questionsHTML: ISection = {
 <a href="mailto:soporte@cabuweb.com?subject=Consulta">Enviar Correo</a>
 <a href="tel:+34900112233">Llamar a Soporte</a>`,
         explanation: "Cubre navegación externa con mitigación de seguridad, navegación por anclas internas y protocolos nativos."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas href, target, rel, download y las implicaciones de seguridad y accesibilidad de los enlaces.",
+        commonPitfalls: [
+          "Usar <a> sin href como botón, o <button> para navegar.",
+          "Desconocer el riesgo de tabnabbing con target='_blank' en navegadores antiguos sin rel='noopener'."
+        ],
+        followUps: [
+          "¿Qué hace rel='noopener noreferrer' y por qué era necesario?",
+          "¿Cuándo usar un <a> y cuándo un <button>?"
+        ]
       }
     },
     {
@@ -184,6 +250,17 @@ export const questionsHTML: ISection = {
   const actionButtons = document.querySelectorAll('.btn');
 </script>`,
         explanation: "Distingue la unicidad y especificidad del id frente a la modularidad y reutilización de class."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques unicidad del id, reutilización de class y su impacto en especificidad CSS y en JavaScript.",
+        commonPitfalls: [
+          "Usar ids para estilos, creando especificidad difícil de sobrescribir.",
+          "Duplicar ids en la página, rompiendo labels, ARIA y anclas."
+        ],
+        followUps: [
+          "¿Por qué un id duplicado rompe la accesibilidad de formularios?",
+          "¿Qué pasa con los ids al renderizar un componente varias veces (useId en React)?"
+        ]
       }
     },
     // === MEDIO ===
@@ -240,6 +317,17 @@ export const questionsHTML: ISection = {
 </body>
 </html>`,
         explanation: "Evita la 'sopa de divs', permitiendo que los lectores de pantalla y motores de búsqueda comprendan los roles de cada sección."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que relaciones semántica con accesibilidad, SEO y mantenibilidad con ejemplos concretos de landmarks.",
+        commonPitfalls: [
+          "Usar <section> como sustituto genérico de <div>.",
+          "Saltar niveles de encabezado (h1 a h4) por motivos estéticos."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre <section> y <article>?",
+          "¿Cómo usa un lector de pantalla los landmarks para navegar?"
+        ]
       }
     },
     {
@@ -267,6 +355,17 @@ export const questionsHTML: ISection = {
 <!-- i: Términos en otro idioma, nombres científicos o voz técnica -->
 <p>El perro doméstico se clasifica científicamente como <i>Canis lupus familiaris</i>.</p>`,
         explanation: "Los screen readers alteran el tono de voz ante strong y em, pero ignoran b e i tratándolos como texto plano."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que distingas el significado semántico (importancia, énfasis) de la presentación visual.",
+        commonPitfalls: [
+          "Usar <b> o <i> pensando que aportan significado.",
+          "Usar <strong> solo para poner texto en negrita sin intención semántica."
+        ],
+        followUps: [
+          "¿Cuándo es correcto usar <b> o <i> en HTML5?",
+          "¿Cómo anuncian los lectores de pantalla <strong> y <em>?"
+        ]
       }
     },
     {
@@ -301,6 +400,17 @@ export const questionsHTML: ISection = {
   <meta name="twitter:card" content="summary_large_image">
 </head>`,
         explanation: "Configura el renderizado móvil, la indexación en Google y las vistas previas enriquecidas en redes sociales."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas charset, viewport, description, Open Graph y robots, y su impacto en renderizado, SEO y compartición.",
+        commonPitfalls: [
+          "Olvidar el meta viewport, rompiendo el diseño responsive en móviles.",
+          "Usar user-scalable=no o maximum-scale=1, que perjudica la accesibilidad."
+        ],
+        followUps: [
+          "¿Cómo controlarías la vista previa al compartir un enlace en redes sociales?",
+          "¿Por qué meta charset debe aparecer en los primeros 1024 bytes?"
+        ]
       }
     },
     {
@@ -337,6 +447,17 @@ export const questionsHTML: ISection = {
   <dd>Accessibility Object Model: árbol semántico consumido por lectores de pantalla.</dd>
 </dl>`,
         explanation: "dl es semánticamente superior a listas de divs para representar diccionarios, metadatos y glosarios."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que elijas el tipo de lista según la semántica del contenido.",
+        commonPitfalls: [
+          "Usar <br> o <div> para simular listas.",
+          "Eliminar list-style y perder la semántica de lista en Safari/VoiceOver."
+        ],
+        followUps: [
+          "¿Por qué un menú de navegación suele ser una <ul>?",
+          "¿Qué atributos tiene <ol> (start, reversed, type)?"
+        ]
       }
     },
     {
@@ -389,6 +510,17 @@ export const questionsHTML: ISection = {
   </fieldset>
 </form>`,
         explanation: "Utiliza fieldset/legend y atributos aria-describedby para cumplir con las directrices de accesibilidad WCAG 2.2."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas el ciclo de vida del formulario, la validación nativa y la importancia de labels accesibles.",
+        commonPitfalls: [
+          "Usar placeholder en vez de <label>.",
+          "Desactivar la validación nativa sin implementar una alternativa accesible."
+        ],
+        followUps: [
+          "¿Cómo funciona la Constraint Validation API?",
+          "¿Qué diferencia hay entre los eventos submit e input?"
+        ]
       }
     },
     {
@@ -415,6 +547,17 @@ export const questionsHTML: ISection = {
 <div class="box-inline-block">Inline-Block (Caja en línea)</div>
 <div class="box-block">Block (Ocupa fila completa con salto)</div>`,
         explanation: "inline-block permite dimensiones precisas de caja sin romper el flujo horizontal de la fila."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques el comportamiento de cada modo y cuándo inline-block resuelve problemas reales.",
+        commonPitfalls: [
+          "Desconocer el espacio en blanco entre elementos inline-block.",
+          "Usar inline-block para layouts complejos en lugar de Flexbox o Grid."
+        ],
+        followUps: [
+          "¿De dónde sale el espacio entre elementos inline-block y cómo se elimina?",
+          "¿Qué hace display: contents?"
+        ]
       }
     },
     {
@@ -444,6 +587,17 @@ export const questionsHTML: ISection = {
 <script src="vendor.js" defer></script>
 <script src="app.js" defer></script>`,
         explanation: "defer es el estándar recomendado para apps modernas porque no bloquea el First Contentful Paint (FCP)."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques cómo cada uno afecta al parsing del HTML, el orden de ejecución y cuándo usar cada uno.",
+        commonPitfalls: [
+          "Usar async en scripts que dependen entre sí.",
+          "No saber que los type='module' son defer por defecto."
+        ],
+        followUps: [
+          "¿Cómo se comportan los <script type='module'> respecto a defer?",
+          "¿Cuándo se dispara DOMContentLoaded con scripts defer?"
+        ]
       }
     },
     {
@@ -480,6 +634,17 @@ export const questionsHTML: ISection = {
   article.dataset.isPremium = 'false';
 </script>`,
         explanation: "Permite enlazar metadata del DOM con scripts o selectores CSS (ej. [data-is-premium='true'])."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que sepas acceder a ellos con dataset y cuándo son apropiados frente a estado en JavaScript.",
+        commonPitfalls: [
+          "Guardar datos sensibles en data-* (son visibles en el HTML).",
+          "Usar data-* como fuente de verdad del estado de la aplicación."
+        ],
+        followUps: [
+          "¿Cómo se convierte data-user-id a la propiedad dataset correspondiente?",
+          "¿Cómo usarías data-* en selectores CSS o en tests E2E?"
+        ]
       }
     },
     // === AVANZADO ===
@@ -517,6 +682,17 @@ export const questionsHTML: ISection = {
   <h1>Arquitectura Accesible</h1>
 </main>`,
         explanation: "Garantiza navegación completa por teclado, compatibilidad con screen readers y evitación de trampas de foco."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que demuestres conocimiento práctico: semántica, teclado, foco, contraste, alternativas textuales y ARIA solo cuando haga falta.",
+        commonPitfalls: [
+          "Pensar que añadir ARIA soluciona la accesibilidad por sí solo.",
+          "Eliminar outline de :focus sin proporcionar una alternativa visible."
+        ],
+        followUps: [
+          "¿Cómo probarías la accesibilidad de una página solo con el teclado?",
+          "¿Qué diferencia hay entre :focus y :focus-visible?"
+        ]
       }
     },
     {
@@ -560,6 +736,17 @@ export const questionsHTML: ISection = {
   </div>
 </div>`,
         explanation: "aria-modal='true' confina el foco y lector de pantalla al diálogo sin que interactúe con el fondo inactivo."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas roles, estados y propiedades ARIA y la primera regla de ARIA.",
+        commonPitfalls: [
+          "Usar role='button' en un <div> sin manejar teclado ni foco.",
+          "Abusar de aria-label sobre contenido que ya tiene texto visible."
+        ],
+        followUps: [
+          "¿Cuál es la primera regla de ARIA?",
+          "¿Cuándo usar aria-live y qué diferencia hay entre polite y assertive?"
+        ]
       }
     },
     {
@@ -602,6 +789,17 @@ export const questionsHTML: ISection = {
   >
 </picture>`,
         explanation: "Optimiza drásticamente la métrica Core Web Vital LCP al servir solo los bytes necesarios según pantalla y densidad."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques los descriptores w y x junto con sizes y cómo el navegador elige la imagen.",
+        commonPitfalls: [
+          "Usar descriptores w sin el atributo sizes.",
+          "Confundir srcset (resolución) con <picture> (dirección de arte o formatos)."
+        ],
+        followUps: [
+          "¿Cuándo usar <picture> en lugar de srcset?",
+          "¿Cómo servirías AVIF/WebP con fallback a JPEG?"
+        ]
       }
     },
     {
@@ -629,6 +827,17 @@ export const questionsHTML: ISection = {
 <!-- 2. Web Component: Elemento nativo rápido en el mismo hilo de ejecución -->
 <user-profile-badge user-id="42" theme="dark"></user-profile-badge>`,
         explanation: "El iframe genera un documento separado con su propio event loop; el Web Component ejecuta nativamente en el mismo documento con Shadow DOM."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que compares aislamiento total (iframe) frente a encapsulación de componentes (Web Components) y sus costes.",
+        commonPitfalls: [
+          "Usar iframes para componentes de UI, con el coste de memoria y comunicación que implican.",
+          "Creer que el Shadow DOM aísla JavaScript igual que un iframe."
+        ],
+        followUps: [
+          "¿Cómo se comunica una página con un iframe (postMessage)?",
+          "¿Qué hace el atributo sandbox de un iframe?"
+        ]
       }
     },
     {
@@ -659,6 +868,17 @@ export const questionsHTML: ISection = {
   Operación completada con éxito.
 </div>`,
         explanation: "Permite enriquecer la interactividad nativa del navegador sin depender de librerías externas de UI."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas el comportamiento de hidden, contenteditable, tabindex e inert y sus implicaciones de accesibilidad.",
+        commonPitfalls: [
+          "Usar tabindex positivos, que rompen el orden natural de navegación.",
+          "Creer que hidden equivale a visibility: hidden."
+        ],
+        followUps: [
+          "¿Qué hace el atributo inert y cuándo es útil?",
+          "¿Qué diferencia hay entre tabindex='0' y tabindex='-1'?"
+        ]
       }
     },
     {
@@ -696,6 +916,17 @@ export const questionsHTML: ISection = {
   container.appendChild(clone);
 </script>`,
         explanation: "El contenido de <template> se almacena en un DocumentFragment inerte, sin coste de renderizado inicial."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques que <template> es contenido inerte clonable y que <slot> proyecta el Light DOM en el Shadow DOM.",
+        commonPitfalls: [
+          "Creer que el contenido de <template> se ejecuta o carga recursos al parsearse.",
+          "Confundir slots nombrados con slots por defecto."
+        ],
+        followUps: [
+          "¿Por qué se usa template.content.cloneNode(true)?",
+          "¿Qué evento se dispara cuando cambia el contenido de un slot?"
+        ]
       }
     },
     {
@@ -732,6 +963,17 @@ export const questionsHTML: ISection = {
   style="aspect-ratio: 600 / 300;"
 >`,
         explanation: "loading='lazy' delega al navegador la activación de la descarga cuando el usuario se acerca mediante scroll."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que sepas cuándo aplicar lazy loading y cuándo perjudica el rendimiento.",
+        commonPitfalls: [
+          "Aplicar loading='lazy' a la imagen LCP, empeorando el LCP.",
+          "Olvidar width y height, provocando CLS."
+        ],
+        followUps: [
+          "¿Por qué nunca debes poner lazy a la imagen hero?",
+          "¿Qué hace fetchpriority='high'?"
+        ]
       }
     },
     // === EXPERTO ===
@@ -768,6 +1010,17 @@ export const questionsHTML: ISection = {
   \`;
 </script>`,
         explanation: "El Shadow DOM garantiza encapsulación de estilos real sin recurrir a BEM, CSS Modules o scoping artificial."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques la encapsulación de DOM y estilos y cómo se compone con el Light DOM mediante slots.",
+        commonPitfalls: [
+          "Pensar que mode: 'closed' es una medida de seguridad.",
+          "Ignorar el impacto de la encapsulación en tests y en estilos globales."
+        ],
+        followUps: [
+          "¿Cómo atraviesan el Shadow DOM las CSS Custom Properties?",
+          "¿Qué es el Declarative Shadow DOM?"
+        ]
       }
     },
     {
@@ -780,6 +1033,17 @@ export const questionsHTML: ISection = {
         title: "Tolerancia de Parsing: HTML5 vs XHTML",
         caption: "Parser permisivo resiliente de HTML5 vs analizador XML estricto de ruptura fatal.",
         diagramType: "html-vs-xhtml-parsing"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas las diferencias de parsing (HTML tolerante vs XML estricto) y por qué HTML5 se impuso.",
+        commonPitfalls: [
+          "Creer que cerrar etiquetas vacías (<br />) convierte un documento en XHTML.",
+          "Desconocer que XHTML servido como application/xhtml+xml falla ante cualquier error."
+        ],
+        followUps: [
+          "¿Qué determina si un documento se parsea como HTML o XML?",
+          "¿Por qué JSX exige cerrar todas las etiquetas como XHTML?"
+        ]
       }
     },
     {
@@ -819,6 +1083,17 @@ export const questionsHTML: ISection = {
 }
 </script>`,
         explanation: "Combina semántica estructural para el parseo del contenido con JSON-LD para enriquecer la tarjeta en Google SERP."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que relaciones landmarks, encabezados y datos estructurados con el SEO y con la navegación asistida.",
+        commonPitfalls: [
+          "Creer que el SEO solo depende de meta tags.",
+          "Usar varios <main> visibles o ninguno."
+        ],
+        followUps: [
+          "¿Qué son los datos estructurados JSON-LD?",
+          "¿Cómo audita Lighthouse la semántica de una página?"
+        ]
       }
     },
     {
@@ -861,6 +1136,17 @@ class MetricBadge extends HTMLElement {
 
 customElements.define('metric-badge', MetricBadge);`,
         explanation: "Encapsula marcado, estilos con el selector :host y lógica en una etiqueta personalizada reutilizable en cualquier framework."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que conozcas Custom Elements, Shadow DOM y templates, y su interoperabilidad con frameworks.",
+        commonPitfalls: [
+          "Olvidar el guion obligatorio en el nombre del custom element.",
+          "Ignorar los problemas de SSR sin Declarative Shadow DOM."
+        ],
+        followUps: [
+          "¿Cómo pasarías objetos complejos a un Web Component desde React?",
+          "¿Qué callbacks del ciclo de vida ofrecen los Custom Elements?"
+        ]
       }
     },
     {
@@ -873,6 +1159,17 @@ customElements.define('metric-badge', MetricBadge);`,
         title: "Content Models y Reglas de Anidamiento HTML5",
         caption: "Categorías formales (Flow, Phrasing, Sectioning, Interactive) y restricciones gramaticales.",
         diagramType: "html-content-models"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques las categorías de contenido y cómo el parser corrige anidamientos inválidos.",
+        commonPitfalls: [
+          "Anidar un <div> dentro de un <p>, lo que hace que el parser cierre el <p> automáticamente.",
+          "Ignorar los errores de hidratación causados por HTML inválido en SSR."
+        ],
+        followUps: [
+          "¿Por qué un <div> dentro de un <p> provoca errores de hidratación en React?",
+          "¿Qué elementos pueden contener contenido interactivo?"
+        ]
       }
     },
     {
@@ -907,6 +1204,17 @@ customElements.define('metric-badge', MetricBadge);`,
 }
 </script>`,
         explanation: "El motor del navegador descarga y prerenderiza páginas completas en memoria en segundo plano para transiciones instantáneas."
+      },
+      interviewTips: {
+        whatInterviewersWant: "Que expliques prefetch frente a prerender, el formato JSON de reglas y los riesgos de prerenderizar.",
+        commonPitfalls: [
+          "Prerenderizar URLs con efectos secundarios (logout, añadir al carrito).",
+          "No considerar el coste en datos y analítica de prerenderizados no visitados."
+        ],
+        followUps: [
+          "¿Cómo detectarías que una página fue prerenderizada (document.prerendering)?",
+          "¿Qué diferencia hay con <link rel='prefetch'>?"
+        ]
       }
     }
   ]

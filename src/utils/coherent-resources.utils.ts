@@ -388,8 +388,15 @@ export const getCoherentTips = (
   question: IQuestion,
   moduleTitle = ""
 ): IInterviewTips => {
+  const genericFollowUps = [
+    "¿Cuáles son las principales limitaciones o trade-offs de esta solución frente a alternativas modernas?",
+    "¿Cómo medirías o depurarías este comportamiento en una aplicación en producción?"
+  ];
+
   if (question.interviewTips) {
-    return question.interviewTips;
+    return question.interviewTips.followUps?.length
+      ? question.interviewTips
+      : { ...question.interviewTips, followUps: genericFollowUps };
   }
 
   const scope = moduleTitle ? `en el contexto de ${moduleTitle}` : "en desarrollo frontend";
@@ -400,10 +407,7 @@ export const getCoherentTips = (
       "Dar una respuesta teórica sin explicar el impacto real en rendimiento, seguridad o mantenibilidad.",
       "Confundir la sintaxis o comportamiento de librerías externas con los estándares oficiales del navegador."
     ],
-    followUps: [
-      "¿Cuáles son las principales limitaciones o trade-offs de esta solución frente a alternativas modernas?",
-      "¿Cómo medirías o depurarías este comportamiento en una aplicación en producción?"
-    ]
+    followUps: genericFollowUps
   };
 };
 

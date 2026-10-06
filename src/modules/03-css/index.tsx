@@ -51,7 +51,11 @@ body {
       },
       interviewTips: {
         whatInterviewersWant: "Comprender la diferencia entre sintaxis CSS y cómo el motor del navegador (Blink, Gecko, WebKit) procesa el CSSOM y el Render Tree.",
-        commonPitfalls: ["Creer que CSS solo 'decora' sin entender el costo computacional de Layout y Paint en el hilo principal."]
+        commonPitfalls: ["Creer que CSS solo 'decora' sin entender el costo computacional de Layout y Paint en el hilo principal."],
+        followUps: [
+          "¿Qué significa la 'C' de Cascade y qué factores determinan qué regla gana?",
+          "¿Cómo convierte el navegador el CSS en el CSSOM?"
+        ]
       },
       quiz: {
         question: "¿Qué dos estructuras del navegador se combinan para construir el Render Tree?",
@@ -94,7 +98,11 @@ body {
       },
       interviewTips: {
         whatInterviewersWant: "Evaluar tu comprensión sobre rendimiento de red (HTTP Caching, CDNs) y especificidad arquitectónica.",
-        commonPitfalls: ["No justificar cuándo los estilos internos (<style>) sí son recomendables (CSS Crítico para Web Vitals)."]
+        commonPitfalls: ["No justificar cuándo los estilos internos (<style>) sí son recomendables (CSS Crítico para Web Vitals)."],
+        followUps: [
+          "¿Por qué el CSS externo es render-blocking y cómo se mitiga con Critical CSS?",
+          "¿Cuándo tiene sentido usar estilos inline en una aplicación moderna?"
+        ]
       },
       quiz: {
         question: "¿Por qué los estilos externos (<link>) son la mejor práctica para aplicaciones web en producción?",
@@ -142,7 +150,11 @@ body {
       },
       interviewTips: {
         whatInterviewersWant: "Verificar si comprendes la diferencia crucial entre 'content-box' (default histórico) y 'border-box' (estándar moderno).",
-        commonPitfalls: ["Olvidar que los márgenes verticales colapsan (margin collapsing) en elementos en bloque normales."]
+        commonPitfalls: ["Olvidar que los márgenes verticales colapsan (margin collapsing) en elementos en bloque normales."],
+        followUps: [
+          "¿Cómo se comportan los márgenes colapsados (margin collapsing)?",
+          "¿El padding afecta al área de clic de un elemento?"
+        ]
       },
       quiz: {
         question: "Si un elemento tiene width: 200px, padding: 20px, border: 5px y box-sizing: border-box, ¿cuál es su ancho total en pantalla?",
@@ -197,7 +209,11 @@ body {
       },
       interviewTips: {
         whatInterviewersWant: "Evaluar si conoces el impacto en accesibilidad (Screen Readers) y en el ciclo de renderizado (Reflow vs Repaint).",
-        commonPitfalls: ["Olvidar que 'opacity: 0' permite que los usuarios hagan clic en el elemento invisible si no se desactiva con 'pointer-events: none'."]
+        commonPitfalls: ["Olvidar que 'opacity: 0' permite que los usuarios hagan clic en el elemento invisible si no se desactiva con 'pointer-events: none'."],
+        followUps: [
+          "¿Cómo afecta cada opción a la accesibilidad y a los lectores de pantalla?",
+          "¿Qué diferencia hay con opacity: 0 o content-visibility: hidden?"
+        ]
       },
       quiz: {
         question: "¿Qué ocurre con el espacio que ocupa un elemento en la pantalla cuando se le aplica 'visibility: hidden'?",
@@ -248,7 +264,11 @@ p  { font-size: 1rem; } /* 16px exactos */
       },
       interviewTips: {
         whatInterviewersWant: "Identificar si construyes interfaces accesibles y si sabes prevenir el 'font compounding' de la unidad em.",
-        commonPitfalls: ["Fijar font-size en px en el elemento html, anulando las preferencias de zoom de texto de personas con baja visión."]
+        commonPitfalls: ["Fijar font-size en px en el elemento html, anulando las preferencias de zoom de texto de personas con baja visión."],
+        followUps: [
+          "¿Por qué rem respeta mejor el tamaño de fuente configurado por el usuario?",
+          "¿Qué problema de composición tienen las unidades em anidadas?"
+        ]
       },
       quiz: {
         question: "Si el elemento :root tiene 16px y un contenedor tiene font-size: 2em, ¿cuánto medirá font-size: 1.5rem en un hijo de ese contenedor?",
@@ -302,7 +322,11 @@ p  { font-size: 1rem; } /* 16px exactos */
       },
       interviewTips: {
         whatInterviewersWant: "Comprobar que dominas los cálculos geométricos de CSS y aplicas el reset universal de forma natural.",
-        commonPitfalls: ["Olvidar incluir los pseudo-elementos (*::before, *::after) en el reset de box-sizing."]
+        commonPitfalls: ["Olvidar incluir los pseudo-elementos (*::before, *::after) en el reset de box-sizing."],
+        followUps: [
+          "¿Por qué se recomienda aplicar box-sizing: border-box globalmente?",
+          "¿Cómo calcula el navegador el ancho total con content-box?"
+        ]
       },
       quiz: {
         question: "¿Por qué toda la industria adopta box-sizing: border-box como estándar universal?",
@@ -355,7 +379,11 @@ p  { font-size: 1rem; } /* 16px exactos */
       },
       interviewTips: {
         whatInterviewersWant: "Diferenciar variables CSS dinámicas de variables de Sass/SCSS y explicar patrones de theming.",
-        commonPitfalls: ["No saber que las variables CSS pueden leerse y mutarse desde JavaScript de manera instantánea."]
+        commonPitfalls: ["No saber que las variables CSS pueden leerse y mutarse desde JavaScript de manera instantánea."],
+        followUps: [
+          "¿Qué diferencia hay entre las Custom Properties y las variables de Sass?",
+          "¿Cómo implementarías un theme switcher (dark mode) con variables CSS?"
+        ]
       },
       quiz: {
         question: "¿Cuál es la principal ventaja de las CSS Custom Properties sobre las variables de SASS?",
@@ -415,7 +443,11 @@ p  { font-size: 1rem; } /* 16px exactos */
       },
       interviewTips: {
         whatInterviewersWant: "Asegurarse de que aplicas Mobile-First en vez de Desktop-First con max-width y conoces media features de a11y.",
-        commonPitfalls: ["Definir decenas de breakpoints arbitrarios en lugar de basarse en el contenido o en escalas universales."]
+        commonPitfalls: ["Definir decenas de breakpoints arbitrarios en lugar de basarse en el contenido o en escalas universales."],
+        followUps: [
+          "¿Por qué se recomienda un enfoque mobile-first con min-width?",
+          "¿Qué otras media features existen además del ancho (prefers-color-scheme, hover, pointer)?"
+        ]
       },
       quiz: {
         question: "¿Por qué se prefiere el enfoque 'Mobile-First' con 'min-width' en arquitecturas CSS modernas?",
@@ -462,7 +494,11 @@ p  { font-size: 1rem; } /* 16px exactos */
       },
       interviewTips: {
         whatInterviewersWant: "Evitar respuestas simplistas; demostrar que sabes cuándo usar cada uno en una arquitectura de UI real.",
-        commonPitfalls: ["Intentar construir una grilla compleja 2D con flex-wrap y hacks de porcentajes en lugar de CSS Grid."]
+        commonPitfalls: ["Intentar construir una grilla compleja 2D con flex-wrap y hacks de porcentajes en lugar de CSS Grid."],
+        followUps: [
+          "¿Cuándo combinarías Flexbox y Grid en el mismo layout?",
+          "¿Qué es subgrid y qué problema resuelve?"
+        ]
       },
       quiz: {
         question: "¿Cuál es la mejor combinación arquitectónica recomendada en frontend moderno?",
@@ -509,7 +545,11 @@ p                       { /* (0, 0, 0, 1) Elemento */ }
       },
       interviewTips: {
         whatInterviewersWant: "Explicar el cálculo como una tupla (a,b,c,d) y saber cómo usar :where() para crear librerías de UI limpias.",
-        commonPitfalls: ["Creer que 10 o 100 clases juntas pueden superar a un ID (las columnas del vector nunca se desbordan a la izquierda)."]
+        commonPitfalls: ["Creer que 10 o 100 clases juntas pueden superar a un ID (las columnas del vector nunca se desbordan a la izquierda)."],
+        followUps: [
+          "¿Cómo se calcula la especificidad de un selector como #nav .item a:hover?",
+          "¿Cómo reducen :where() y @layer los problemas de especificidad?"
+        ]
       },
       quiz: {
         question: "¿Cuál selector tiene mayor especificidad entre '#menu' y '.nav .list .item .link'?",
@@ -563,7 +603,11 @@ p                       { /* (0, 0, 0, 1) Elemento */ }
       },
       interviewTips: {
         whatInterviewersWant: "Comprobar si utilizas la sintaxis moderna W3C (:: para pseudo-elementos y : para pseudo-clases) y conoces :focus-visible.",
-        commonPitfalls: ["Olvidar la propiedad 'content: \\\"\\\"' al crear ::before o ::after, lo que provoca que no se rendericen."]
+        commonPitfalls: ["Olvidar la propiedad 'content: \\\"\\\"' al crear ::before o ::after, lo que provoca que no se rendericen."],
+        followUps: [
+          "¿Por qué los pseudo-elementos ::before y ::after necesitan la propiedad content?",
+          "¿Qué diferencia hay entre :focus y :focus-visible?"
+        ]
       },
       quiz: {
         question: "¿Cuál es la diferencia sintáctica estandarizada por CSS3 entre pseudo-clases y pseudo-elementos?",
@@ -617,7 +661,11 @@ p                       { /* (0, 0, 0, 1) Elemento */ }
       },
       interviewTips: {
         whatInterviewersWant: "Saber cuándo position: sticky deja de funcionar (problema común de overflow en padres) y cómo se anclan los absolutos.",
-        commonPitfalls: ["Olvidar que 'position: absolute' buscará hasta la etiqueta <html> si ningún ancestro tiene 'position: relative'."]
+        commonPitfalls: ["Olvidar que 'position: absolute' buscará hasta la etiqueta <html> si ningún ancestro tiene 'position: relative'."],
+        followUps: [
+          "¿Por qué position: sticky a veces no funciona (overflow en un ancestro)?",
+          "¿Respecto a qué elemento se posiciona un elemento absolute?"
+        ]
       },
       quiz: {
         question: "¿Qué ocurre si un elemento tiene 'position: sticky; top: 0;' pero uno de sus ancestros tiene 'overflow: hidden'?",
@@ -667,7 +715,11 @@ p                       { /* (0, 0, 0, 1) Elemento */ }
       },
       interviewTips: {
         whatInterviewersWant: "Verificar si sabes por qué z-index: 999999 a veces no funciona y cómo resolverlo profesionalmente con 'isolation: isolate'.",
-        commonPitfalls: ["Subir infinitamente el z-index en lugar de investigar qué ancestro creó un Stacking Context prematuro."]
+        commonPitfalls: ["Subir infinitamente el z-index en lugar de investigar qué ancestro creó un Stacking Context prematuro."],
+        followUps: [
+          "¿Qué propiedades crean un nuevo stacking context además de z-index?",
+          "¿Por qué un z-index: 9999 puede quedar detrás de otro elemento?"
+        ]
       },
       quiz: {
         question: "¿Por qué un modal con z-index: 9999 puede quedar oculto detrás de una barra lateral con z-index: 2?",
@@ -724,7 +776,11 @@ $primary-color: #6366f1;
       },
       interviewTips: {
         whatInterviewersWant: "Saber qué características de Sass ya existen en CSS nativo (CSS Variables, Native Nesting) y cuáles siguen justificando Sass (@use, mixins).",
-        commonPitfalls: ["Anidar más de 3 niveles con el selector '&', lo que genera selectores CSS pesados y difíciles de sobreescribir."]
+        commonPitfalls: ["Anidar más de 3 niveles con el selector '&', lo que genera selectores CSS pesados y difíciles de sobreescribir."],
+        followUps: [
+          "¿Siguen siendo necesarios los preprocesadores con CSS nativo moderno (nesting, variables)?",
+          "¿Qué diferencia hay entre @use y el obsoleto @import en Sass?"
+        ]
       },
       quiz: {
         question: "¿Cuál es la regla de oro para evitar un mal uso de la anidación en SCSS?",
@@ -767,7 +823,11 @@ $primary-color: #6366f1;
       },
       interviewTips: {
         whatInterviewersWant: "Reconocer cómo BEM resuelve problemas de cascada descontrolada y facilita el trabajo colaborativo en código legacy y moderno.",
-        commonPitfalls: ["Crear elementos anidados con sintaxis incorrecta como '.card__header__title' (BEM solo permite un nivel de Element: '.card__title')."]
+        commonPitfalls: ["Crear elementos anidados con sintaxis incorrecta como '.card__header__title' (BEM solo permite un nivel de Element: '.card__title')."],
+        followUps: [
+          "¿Cómo se compara BEM con CSS Modules o Tailwind?",
+          "¿Qué problemas de escalabilidad resuelve BEM en equipos grandes?"
+        ]
       },
       quiz: {
         question: "¿Por qué en BEM es un error escribir '.card__header__title'?",
@@ -821,7 +881,11 @@ $primary-color: #6366f1;
       },
       interviewTips: {
         whatInterviewersWant: "Evaluar tu entendimiento de los hilos del navegador (Main Thread vs Compositor Thread) y optimización de render.",
-        commonPitfalls: ["Usar 'will-change' en cientos de elementos simultáneamente, lo que agota la memoria VRAM de la tarjeta gráfica."]
+        commonPitfalls: ["Usar 'will-change' en cientos de elementos simultáneamente, lo que agota la memoria VRAM de la tarjeta gráfica."],
+        followUps: [
+          "¿Por qué animar transform y opacity es más barato que animar width o top?",
+          "¿Cuándo usarías will-change y qué riesgos tiene abusar de él?"
+        ]
       },
       quiz: {
         question: "¿Cuáles son las dos únicas propiedades CSS que el navegador puede animar exclusivamente en el hilo del Compositor (GPU)?",
@@ -882,7 +946,11 @@ $primary-color: #6366f1;
       },
       interviewTips: {
         whatInterviewersWant: "Dominio de fr units, auto-fit/auto-fill, y la capacidad de orquestar plantillas completas con grid-template-areas.",
-        commonPitfalls: ["No saber cómo dejar una celda vacía en grid-template-areas (se utiliza el carácter de punto '.')."]
+        commonPitfalls: ["No saber cómo dejar una celda vacía en grid-template-areas (se utiliza el carácter de punto '.')."],
+        followUps: [
+          "¿Cómo funcionan grid-template-areas y las líneas con nombre?",
+          "¿Qué diferencia hay entre auto-fill y auto-fit en repeat()?"
+        ]
       },
       quiz: {
         question: "¿Cómo se deja una celda vacía en una fila definida con grid-template-areas?",
@@ -933,7 +1001,11 @@ $primary-color: #6366f1;
       },
       interviewTips: {
         whatInterviewersWant: "Explicar cómo Container Queries habilita la verdadera modularidad de componentes de UI en Design Systems modernos.",
-        commonPitfalls: ["Olvidar declarar 'container-type: inline-size' en el elemento ancestro, lo que hace que @container no responda."]
+        commonPitfalls: ["Olvidar declarar 'container-type: inline-size' en el elemento ancestro, lo que hace que @container no responda."],
+        followUps: [
+          "¿Qué es container-type y por qué es obligatorio para consultar un contenedor?",
+          "¿Qué unidades de container queries existen (cqi, cqw)?"
+        ]
       },
       quiz: {
         question: "¿Qué propiedad es obligatoria en el contenedor padre para que sus hijos respondan a @container?",
@@ -973,7 +1045,11 @@ h1.hero-title {
       },
       interviewTips: {
         whatInterviewersWant: "Evaluar el uso de funciones matemáticas modernas (min, max, clamp, calc) para simplificar hojas de estilos responsivas.",
-        commonPitfalls: ["Usar solo unidades 'vw' en la tipografía (como 4vw) sin clamp(), lo que hace que el texto sea ilegible en móviles muy pequeños."]
+        commonPitfalls: ["Usar solo unidades 'vw' en la tipografía (como 4vw) sin clamp(), lo que hace que el texto sea ilegible en móviles muy pequeños."],
+        followUps: [
+          "¿Cómo garantizas que la tipografía fluida respete el zoom del usuario (WCAG)?",
+          "¿Cómo calcularías el valor preferido en vw para un clamp()?"
+        ]
       },
       quiz: {
         question: "Si font-size es clamp(1rem, 5vw, 2rem) y la pantalla mide 320px (donde 5vw = 16px), ¿cuál será el font-size final?",
@@ -1022,7 +1098,11 @@ h1.hero-title {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar conocimiento de CSS moderno avanzado para gestionar sistemas de diseño y librerías de terceros.",
-        commonPitfalls: ["Desconocer que los estilos fuera de cualquier capa (unlayered styles) tienen mayor prioridad que cualquier estilo dentro de @layer."]
+        commonPitfalls: ["Desconocer que los estilos fuera de cualquier capa (unlayered styles) tienen mayor prioridad que cualquier estilo dentro de @layer."],
+        followUps: [
+          "¿Cómo interactúan las capas con !important?",
+          "¿Cómo integrarías estilos de terceros dentro de una capa de baja prioridad?"
+        ]
       },
       quiz: {
         question: "Entre un estilo dentro de '@layer components' con selector '#id .class' y un estilo fuera de cualquier @layer con selector 'p', ¿cuál gana?",
@@ -1066,7 +1146,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar cómo :has() elimina código JavaScript innecesario y su limitación de no poder anidar un :has() dentro de otro :has().",
-        commonPitfalls: ["Intentar anidar ':has(:has(...))', lo cual es inválido por especificación para evitar loops de evaluación infinitos."]
+        commonPitfalls: ["Intentar anidar ':has(:has(...))', lo cual es inválido por especificación para evitar loops de evaluación infinitos."],
+        followUps: [
+          "¿Qué implicaciones de rendimiento tiene :has() en selectores complejos?",
+          "¿Cómo usarías :has() para estilizar un formulario según la validez de sus campos?"
+        ]
       },
       quiz: {
         question: "¿Qué permite hacer la pseudo-clase :has() que antes era imposible en CSS puro?",
@@ -1112,7 +1196,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Conocimiento de Core Web Vitals, el costo de las cascadas de red (@import) y APIs modernas de renderizado como content-visibility.",
-        commonPitfalls: ["Usar content-visibility: auto sin contain-intrinsic-size, lo que provoca que el scrollbar salte de forma errática."]
+        commonPitfalls: ["Usar content-visibility: auto sin contain-intrinsic-size, lo que provoca que el scrollbar salte de forma errática."],
+        followUps: [
+          "¿Qué es el Critical CSS y cómo se extrae?",
+          "¿Cómo detectarías y eliminarías CSS no utilizado en producción?"
+        ]
       },
       quiz: {
         question: "¿Qué hace la propiedad 'content-visibility: auto' en elementos fuera del viewport?",
@@ -1161,7 +1249,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Entender el funcionamiento del motor de renderizado en aplicaciones a escala y cómo evitar reflows globales en el DOM.",
-        commonPitfalls: ["Confundir 'contain' con 'container-type' (el primero aísla render; el segundo habilita Container Queries)."]
+        commonPitfalls: ["Confundir 'contain' con 'container-type' (el primero aísla render; el segundo habilita Container Queries)."],
+        followUps: [
+          "¿Qué diferencia hay entre contain: layout, paint, size y content?",
+          "¿Cómo mejora content-visibility: auto el renderizado de páginas largas?"
+        ]
       },
       quiz: {
         question: "¿Qué beneficio de rendimiento aporta aplicar 'contain: layout' a un componente complejo?",
@@ -1223,7 +1315,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Dominar los nuevos estándares de animación web (Scroll-driven y View Transitions) para sustituir librerías pesadas de parallax.",
-        commonPitfalls: ["No especificar animation-range en animation-timeline: view(), lo que hace que la animación empiece y termine en los límites por defecto."]
+        commonPitfalls: ["No especificar animation-range en animation-timeline: view(), lo que hace que la animación empiece y termine en los límites por defecto."],
+        followUps: [
+          "¿Qué diferencia hay entre scroll() y view() timelines?",
+          "¿Cómo garantizas un fallback para navegadores sin soporte (@supports)?"
+        ]
       },
       quiz: {
         question: "¿Por qué las Scroll-driven Animations nativas en CSS superan a las implementaciones clásicas con listeners en JavaScript?",
@@ -1275,7 +1371,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Conocer las soluciones nativas modernas de encapsulación frente a herramientas externas como CSS Modules, BEM o Shadow DOM.",
-        commonPitfalls: ["Confundir el límite de exclusión con un selector descendiente normal (to () define dónde deja de aplicarse el estilo)."]
+        commonPitfalls: ["Confundir el límite de exclusión con un selector descendiente normal (to () define dónde deja de aplicarse el estilo)."],
+        followUps: [
+          "¿Qué diferencia hay entre @scope y el aislamiento del Shadow DOM?",
+          "¿Qué es el 'donut scoping' y para qué sirve?"
+        ]
       },
       quiz: {
         question: "¿Qué es el concepto de 'Donut Scoping' que habilita la directiva @scope?",
@@ -1326,7 +1426,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar cómo desacoplar la lógica de animación de las librerías de enrutamiento y cómo los navegadores manejan las capturas en memoria.",
-        commonPitfalls: ["Asignar el mismo 'view-transition-name' a múltiples elementos simultáneamente en la misma pantalla (deben ser nombres únicos)."]
+        commonPitfalls: ["Asignar el mismo 'view-transition-name' a múltiples elementos simultáneamente en la misma pantalla (deben ser nombres únicos)."],
+        followUps: [
+          "¿Cómo funcionan las transiciones entre documentos (cross-document) en MPAs?",
+          "¿Cómo respetarías prefers-reduced-motion en una View Transition?"
+        ]
       },
       quiz: {
         question: "¿Qué requisito es indispensable para la propiedad 'view-transition-name' en una vista activa?",
@@ -1386,7 +1490,11 @@ form:has(input:invalid) button[type="submit"] {
       },
       interviewTips: {
         whatInterviewersWant: "Comprobar si posees visión de Principal Frontend Architect para diseñar sistemas de diseño robustos sin sobredependencia de herramientas externas.",
-        commonPitfalls: ["No estructurar un orden claro de capas al inicio del archivo o dispersar variables en múltiples selectores arbitrarios."]
+        commonPitfalls: ["No estructurar un orden claro de capas al inicio del archivo o dispersar variables en múltiples selectores arbitrarios."],
+        followUps: [
+          "¿Cómo versionarías y distribuirías los design tokens a varios equipos?",
+          "¿Cómo evitarías que los consumidores del design system sobrescriban estilos internos?"
+        ]
       },
       quiz: {
         question: "¿Cuál es la principal ventaja de estructurar un Design System con @layer sobre un enfoque clásico con BEM y SCSS?",

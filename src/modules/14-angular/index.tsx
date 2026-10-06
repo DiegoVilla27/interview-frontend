@@ -37,6 +37,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Confundir el selector CSS del componente con una directiva.",
                 "No saber que ViewEncapsulation.Emulated añade atributos únicos (como _ngcontent) al DOM para aislar CSS."
+            ],
+            "followUps": [
+                "¿Qué hace el selector de un componente?",
+                "¿Qué diferencia hay entre templateUrl y template inline?"
             ]
         },
         "quiz": {
@@ -79,6 +83,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Confundir atributos HTML (strings estáticos) con propiedades del DOM (valores tipados en Property Binding).",
                 "Olvidar importar FormsModule al utilizar [(ngModel)]."
+            ],
+            "followUps": [
+                "¿Qué es banana-in-a-box [( )]?",
+                "¿Qué diferencia hay entre property binding y attribute binding?"
             ]
         },
         "quiz": {
@@ -122,6 +130,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Intentar usar la sintaxis legacy *ngFor en proyectos Angular 17+.",
                 "Usar track $index sin necesidad en colecciones mutables."
+            ],
+            "followUps": [
+                "¿Por qué @for requiere track?",
+                "¿Qué ventajas de rendimiento tiene el control flow frente a *ngIf y *ngFor?"
             ]
         },
         "quiz": {
@@ -164,6 +176,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Intentar poner más de una directiva estructural con asterisco (*) en un mismo elemento DOM.",
                 "Manipular el DOM directamente con ElementRef.nativeElement en lugar de usar Renderer2 o HostBinding."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre directivas estructurales y de atributo?",
+                "¿Cómo crearías una directiva personalizada con HostListener?"
             ]
         },
         "quiz": {
@@ -206,6 +222,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Crear pipes impuros para filtrar arrays grandes provocando caídas de 60 FPS.",
                 "Mutar un array in-place (.push) esperando que un pipe puro se ejecute."
+            ],
+            "followUps": [
+                "¿Por qué los pipes impuros pueden afectar al rendimiento?",
+                "¿Cuándo un pipe es preferible a un método en la plantilla?"
             ]
         },
         "quiz": {
@@ -248,6 +268,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Realizar llamadas HTTP pesadas en el constructor.",
                 "Intentar leer valores de @Input() dentro del constructor."
+            ],
+            "followUps": [
+                "¿Por qué los inputs no están disponibles en el constructor?",
+                "¿Qué hace la función inject() frente a la inyección por constructor?"
             ]
         },
         "quiz": {
@@ -290,6 +314,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Olvidar importar directivas o componentes hijos en el array imports del Standalone Component.",
                 "Seguir creando módulos NgModule en aplicaciones nuevas."
+            ],
+            "followUps": [
+                "¿Cómo se configura el bootstrap con bootstrapApplication?",
+                "¿Cómo migrarías un proyecto de NgModules a standalone?"
             ]
         },
         "quiz": {
@@ -333,6 +361,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Escribir en un signal dentro de un computed() (viola la pureza).",
                 "Usar effect() para sincronizar estados en lugar de usar computed()."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre computed y effect?",
+                "¿Cómo convertirías un Observable en Signal (toSignal)?"
             ]
         },
         "quiz": {
@@ -375,6 +407,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Mezclar [(ngModel)] con formControlName en el mismo input (antipatrón desaconsejado por Angular).",
                 "No tipar los controles de Reactive Forms en TypeScript."
+            ],
+            "followUps": [
+                "¿Qué ventajas de tipado tienen los Reactive Forms tipados?",
+                "¿Cómo crearías un validador asíncrono?"
             ]
         },
         "quiz": {
@@ -417,6 +453,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Usar múltiples pipes async sobre el mismo observable disparando múltiples peticiones HTTP duplicadas (solución: usar @if (... | async as data)).",
                 "Suscribirse manualmente en el .ts y guardar el valor en una variable local cuando un async pipe era suficiente."
+            ],
+            "followUps": [
+                "¿Cómo evita el async pipe las fugas de memoria?",
+                "¿Cómo combinarías varios observables en la plantilla?"
             ]
         },
         "quiz": {
@@ -459,6 +499,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Abusar de .getValue() en BehaviorSubject rompiendo el flujo reactivo.",
                 "Olvidar liberar memoria en ReplaySubject con buffers infinitos."
+            ],
+            "followUps": [
+                "¿Qué subject usarías para el estado del usuario actual?",
+                "¿Qué diferencia hay con AsyncSubject?"
             ]
         },
         "quiz": {
@@ -501,6 +545,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Seguir implementando clases con la interfaz CanActivate deprecated.",
                 "Retornar false sin redirigir al usuario (debe retornarse un UrlTree hacia /login)."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre canActivate y canMatch?",
+                "¿Cómo protegerías rutas lazy?"
             ]
         },
         "quiz": {
@@ -543,6 +591,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Intentar mutar directamente el objeto req (lanza error, es inmutable).",
                 "Provocar bucles infinitos al refrescar tokens 401 sin control de reintento."
+            ],
+            "followUps": [
+                "¿Cómo implementarías un refresh token con interceptores?",
+                "¿En qué orden se ejecutan varios interceptores?"
             ]
         },
         "quiz": {
@@ -585,6 +637,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Mutar un objeto o array in-place en OnPush impidiendo que la vista se actualice.",
                 "Pensar que un setTimeout dentro de un OnPush actualizará la vista automáticamente sin llamar a markForCheck()."
+            ],
+            "followUps": [
+                "¿Qué dispara change detection en un componente OnPush?",
+                "¿Qué hace markForCheck()?"
             ]
         },
         "quiz": {
@@ -627,6 +683,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Usar componentes no-standalone dentro de @defer (los componentes diferidos deben ser Standalone obligatoriamente).",
                 "Olvidar especificar @placeholder dejando un espacio en blanco durante la carga."
+            ],
+            "followUps": [
+                "¿Qué triggers ofrece @defer (on viewport, on idle, on interaction)?",
+                "¿Qué hacen los bloques @placeholder y @loading?"
             ]
         },
         "quiz": {
@@ -668,6 +728,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Declarar un servicio en providers de un componente creyendo que será singleton global (crea una instancia nueva en cada componente).",
                 "Confundir EnvironmentInjector con ElementInjector."
+            ],
+            "followUps": [
+                "¿Qué hacen los modificadores @Optional, @Self, @SkipSelf y @Host?",
+                "¿Qué diferencia hay entre providedIn: 'root' y declarar el provider en un componente?"
             ]
         },
         "quiz": {
@@ -710,6 +774,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Dejar scroll listeners pesados corriendo dentro de NgZone provocando caídas de FPS.",
                 "No saber que Zone.js añade una sobrecarga de ~35KB y retraso en microtareas que Angular moderno elimina con Zoneless."
+            ],
+            "followUps": [
+                "¿Cómo ejecutarías código fuera de la zona (runOutsideAngular)?",
+                "¿Qué APIs parchea Zone.js?"
             ]
         },
         "quiz": {
@@ -752,6 +820,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Intentar escribir en un input() ordinario (es de solo lectura; para mutación bidireccional se debe usar model()).",
                 "Seguir usando decoradores @Input y @Output en código nuevo."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre input() y @Input()?",
+                "¿Cómo funciona model() para el two-way binding?"
             ]
         },
         "quiz": {
@@ -794,6 +866,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Intentar usar Zoneless en componentes con mutaciones imperativas sin Signals ni OnPush (la vista no se actualizará).",
                 "Creer que Zoneless no soporta RxJS (funciona perfectamente con el async pipe o convertidores toSignal)."
+            ],
+            "followUps": [
+                "¿Qué hace provideZonelessChangeDetection?",
+                "¿Qué librerías pueden dejar de funcionar sin Zone.js?"
             ]
         },
         "quiz": {
@@ -836,6 +912,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Manipular el DOM directamente con window o document rompiendo la hidratación en el servidor.",
                 "No usar isPlatformBrowser() para proteger código dependiente de APIs de navegador."
+            ],
+            "followUps": [
+                "¿Qué problema de parpadeo resuelve la hidratación no destructiva?",
+                "¿Qué es la event replay en la hidratación de Angular?"
             ]
         },
         "quiz": {
@@ -879,6 +959,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Mutar el estado directamente sin patchState().",
                 "Crear stores monolíticos gigantes en lugar de stores pequeños y desacoplados por feature."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre withState, withComputed y withMethods?",
+                "¿Cuándo preferirías el NgRx Store clásico?"
             ]
         },
         "quiz": {
@@ -921,6 +1005,10 @@ export const questionsAngular: ISection = {
             "commonPitfalls": [
                 "Permitir dependencias cruzadas entre features en un monorepo sin reglas de linting.",
                 "No configurar dependencias compartidas como singletons en Module Federation provocando múltiples instancias de Angular en runtime."
+            ],
+            "followUps": [
+                "¿Cómo forzarías límites entre librerías con las tags de Nx?",
+                "¿Cómo compartirías dependencias en Module Federation?"
             ]
         },
         "quiz": {
