@@ -7,12 +7,23 @@ import {
   Layers,
   Flame,
   BarChart3,
-  BookOpen
+  BookOpen,
+  Mic,
+  Route
 } from "lucide-react";
-import { QuestionLevel } from "../../types";
+import { QuestionLevel, TActiveView } from "../../types";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { Button } from "../../components/ui/Button";
 import { useLearningStore } from "../../store/learningStore";
+
+const VIEW_TABS: { view: TActiveView; label: string; Icon: typeof Layers }[] = [
+  { view: "roadmap", label: "Roadmap & Módulos", Icon: Layers },
+  { view: "paths", label: "Rutas", Icon: Route },
+  { view: "interview", label: "Entrevista", Icon: Mic },
+  { view: "flashcards", label: "Flashcards", Icon: BookOpen },
+  { view: "bookmarks", label: "Guardadas", Icon: Bookmark },
+  { view: "stats", label: "Estadísticas", Icon: BarChart3 }
+];
 
 interface DashboardHeaderProps {
   totalQuestions: number;
@@ -118,7 +129,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-1.5 text-xs text-indigo-300 font-semibold">
               <Flame className="w-4 h-4 text-indigo-400" />
-              <span>Simulador de Entrevista</span>
+              <span>Quiz tipo test</span>
             </div>
             {quizHistory.length > 0 && (
               <span className="text-xs font-mono font-bold text-emerald-400">
@@ -133,7 +144,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             icon={<Sparkles className="w-4 h-4" />}
             className="w-full"
           >
-            Iniciar Mock Interview
+            Quiz rápido (20 preguntas)
           </Button>
         </div>
       </div>
@@ -142,61 +153,27 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
         {/* View Switcher Tabs */}
         <div className="flex space-x-1 p-1 rounded-xl bg-zinc-900 border border-zinc-800 w-full sm:w-auto overflow-x-auto custom-scrollbar">
-          <button
-            onClick={() => setActiveView("roadmap")}
-            className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
-              activeView === "roadmap"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-zinc-400 hover:text-white"
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Roadmap & Módulos</span>
-          </button>
-
-          <button
-            onClick={() => setActiveView("flashcards")}
-            className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
-              activeView === "flashcards"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-zinc-400 hover:text-white"
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Flashcards</span>
-            {dueReviewsCount > 0 && (
-              <span
-                className="px-1.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold"
-                title="Tarjetas pendientes de repaso"
-              >
-                {dueReviewsCount}
-              </span>
-            )}
-          </button>
-
-          <button
-            onClick={() => setActiveView("bookmarks")}
-            className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
-              activeView === "bookmarks"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-zinc-400 hover:text-white"
-            }`}
-          >
-            <Bookmark className="w-3.5 h-3.5" />
-            <span>Guardadas ({bookmarkedCount})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveView("stats")}
-            className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
-              activeView === "stats"
-                ? "bg-indigo-600 text-white shadow"
-                : "text-zinc-400 hover:text-white"
-            }`}
-          >
-            <BarChart3 className="w-3.5 h-3.5" />
-            <span>Estadísticas</span>
-          </button>
+          {VIEW_TABS.map(({ view, label, Icon }) => (
+            <button
+              key={view}
+              onClick={() => setActiveView(view)}
+              aria-current={activeView === view ? "page" : undefined}
+              className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
+                activeView === view ? "bg-indigo-600 text-white shadow" : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Icon className="w-3.5 h-3.5" />
+              <span>{view === "bookmarks" ? `${label} (${bookmarkedCount})` : label}</span>
+              {view === "flashcards" && dueReviewsCount > 0 && (
+                <span
+                  className="px-1.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold"
+                  title="Tarjetas pendientes de repaso"
+                >
+                  {dueReviewsCount}
+                </span>
+              )}
+            </button>
+          ))}
         </div>
 
         {/* Global Search Bar with keyboard shortcut */}

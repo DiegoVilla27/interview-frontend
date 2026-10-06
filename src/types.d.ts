@@ -519,7 +519,8 @@ export interface ISection {
 
 export type TActiveView =
   | "roadmap"
-  | "quiz"
+  | "paths"
+  | "interview"
   | "flashcards"
   | "bookmarks"
   | "stats";
@@ -578,4 +579,14 @@ export interface ISectionSummary {
 export interface IQuestionRef {
   moduleId: TModuleId;
   title: string;
+}
+
+export interface IInterviewResult {
+  date: string;
+  source: string;
+  totalQuestions: number;
+  /** Media de la autoevaluación (0-100). */
+  selfScore: number;
+  /** Media de la nota de la IA (0-10), si se evaluó alguna respuesta. */
+  aiScore?: number;
 }

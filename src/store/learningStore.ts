@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IQuestionRef, IQuizResult, QuestionLevel, TActiveView, TModuleId } from "../types";
+import { IInterviewResult, IQuestionRef, IQuizResult, QuestionLevel, TActiveView, TModuleId } from "../types";
 import {
   IReviewState,
   scheduleReview,
@@ -30,9 +30,17 @@ interface LearningState {
   toggleBookmark: (questionTitle: string) => void;
   isQuestionBookmarked: (questionTitle: string) => boolean;
 
+  // Learning Paths
+  activePathId: string | null;
+  setActivePathId: (pathId: string | null) => void;
+
   // Spaced Repetition (flashcards)
   reviews: Record<string, IReviewState>;
   reviewQuestion: (questionTitle: string, grade: TReviewGrade) => void;
+
+  // Mock Interview History
+  interviewHistory: IInterviewResult[];
+  addInterviewResult: (result: IInterviewResult) => void;
 
   // Quiz State & History
   quizHistory: IQuizResult[];
@@ -91,6 +99,10 @@ export const useLearningStore = create<LearningState>()(
       isQuestionBookmarked: (questionTitle: string) =>
         !!get().bookmarkedQuestionIds[questionTitle],
 
+      // Learning Paths
+      activePathId: null,
+      setActivePathId: (activePathId) => set({ activePathId }),
+
       // Spaced Repetition (flashcards)
       reviews: {},
       reviewQuestion: (questionTitle, grade) =>
@@ -99,6 +111,13 @@ export const useLearningStore = create<LearningState>()(
             ...state.reviews,
             [questionTitle]: scheduleReview(state.reviews[questionTitle], grade, Date.now())
           }
+        })),
+
+      // Mock Interview History
+      interviewHistory: [],
+      addInterviewResult: (result) =>
+        set((state) => ({
+          interviewHistory: [result, ...state.interviewHistory.slice(0, 19)]
         })),
 
       // Quiz State & History
@@ -116,6 +135,7 @@ export const useLearningStore = create<LearningState>()(
           completedQuestionIds: {},
           bookmarkedQuestionIds: {},
           reviews: {},
+          interviewHistory: [],
           quizHistory: []
         })
     }),
@@ -132,6 +152,8 @@ export const useLearningStore = create<LearningState>()(
         completedQuestionIds: state.completedQuestionIds,
         bookmarkedQuestionIds: state.bookmarkedQuestionIds,
         reviews: state.reviews,
+        activePathId: state.activePathId,
+        interviewHistory: state.interviewHistory,
         quizHistory: state.quizHistory
       })
     }

@@ -22,6 +22,15 @@ const QuestionDetailModal = lazy(() =>
     default: m.QuestionDetailModal
   }))
 );
+const PathsView = lazy(() =>
+  import("./features/paths/PathsView").then((m) => ({ default: m.PathsView }))
+);
+const MockInterviewView = lazy(() =>
+  import("./features/interview/MockInterviewView").then((m) => ({ default: m.MockInterviewView }))
+);
+const SettingsModal = lazy(() =>
+  import("./features/settings/SettingsModal").then((m) => ({ default: m.SettingsModal }))
+);
 const QuizModal = lazy(() =>
   import("./features/quiz/QuizModal").then((m) => ({ default: m.QuizModal }))
 );
@@ -33,6 +42,7 @@ const ViewFallback = () => (
 export const App = () => {
   const {
     activeView,
+    setActiveView,
     selectedQuestion,
     setSelectedQuestion,
     activeQuizModule,
@@ -40,8 +50,15 @@ export const App = () => {
   } = useLearningStore();
 
   const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [interviewSource, setInterviewSource] = useState("all");
 
   const handleSelectQuestion = (question: IQuestionRef) => setSelectedQuestion(question);
+
+  const handleStartPathInterview = (pathId: string) => {
+    setInterviewSource(pathId);
+    setActiveView("interview");
+  };
 
   const handleLaunchGeneralQuiz = () => {
     setActiveQuizModule(null);
@@ -54,7 +71,7 @@ export const App = () => {
   };
 
   return (
-    <LayoutScreen>
+    <LayoutScreen onOpenSettings={() => setIsSettingsOpen(true)}>
       <div className="space-y-6">
         {/* Dashboard Header with Stats, Search, Filters & Quick Actions */}
         <DashboardHeader
@@ -72,6 +89,18 @@ export const App = () => {
         )}
 
         <Suspense fallback={<ViewFallback />}>
+          {activeView === "paths" && (
+            <PathsView onSelectQuestion={handleSelectQuestion} onStartInterview={handleStartPathInterview} />
+          )}
+
+          {activeView === "interview" && (
+            <MockInterviewView
+              key={interviewSource}
+              initialSource={interviewSource}
+              onOpenSettings={() => setIsSettingsOpen(true)}
+            />
+          )}
+
           {activeView === "flashcards" && (
             <FlashcardView />
           )}
@@ -109,6 +138,8 @@ export const App = () => {
             moduleId={activeQuizModule}
           />
         )}
+
+        {isSettingsOpen && <SettingsModal onClose={() => setIsSettingsOpen(false)} />}
       </Suspense>
     </LayoutScreen>
   );
