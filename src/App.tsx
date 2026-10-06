@@ -3,6 +3,7 @@ import LayoutScreen from "./layout";
 import { contentIndex, totalQuestions } from "./content";
 import { IQuestionRef, TModuleId } from "./types";
 import { useLearningStore } from "./store/learningStore";
+import { UpdatePrompt } from "./components/ui/UpdatePrompt";
 
 import { DashboardHeader } from "./features/dashboard/DashboardHeader";
 import { CategoryRoadmap } from "./features/dashboard/CategoryRoadmap";
@@ -141,6 +142,8 @@ export const App = () => {
 
         {isSettingsOpen && <SettingsModal onClose={() => setIsSettingsOpen(false)} />}
       </Suspense>
+
+      <UpdatePrompt />
     </LayoutScreen>
   );
 };

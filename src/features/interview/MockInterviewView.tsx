@@ -24,7 +24,7 @@ import { useSettingsStore } from "../../store/settingsStore";
 import { shuffle } from "../../utils/shuffle.utils";
 import { getLearningPath, getPathQuestions, learningPaths } from "../paths/learning-paths";
 import { TReviewGrade } from "../flashcards/spaced-repetition";
-import { describeEvaluationError, evaluateAnswer, IAnswerEvaluation } from "./ai-evaluation";
+import type { IAnswerEvaluation } from "./ai-evaluation";
 import { useSpeechDictation } from "./useSpeechDictation";
 
 export const ALL_TOPICS = "all";
@@ -403,6 +403,8 @@ const RevealPanel: React.FC<{
   const handleEvaluate = async () => {
     setIsEvaluating(true);
     setEvaluationError(null);
+    // Zod y el SDK de Anthropic solo se descargan si el usuario pide una evaluación
+    const { evaluateAnswer, describeEvaluationError } = await import("./ai-evaluation");
     try {
       setEvaluation(
         await evaluateAnswer({
