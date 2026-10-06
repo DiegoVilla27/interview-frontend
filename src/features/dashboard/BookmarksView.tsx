@@ -1,13 +1,13 @@
 import React from "react";
 import { Bookmark, BookOpen } from "lucide-react";
-import { IQuestion, ISection } from "../../types";
+import { IQuestionRef, IQuestionSummary, ISectionSummary, TModuleId } from "../../types";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
 import { useLearningStore } from "../../store/learningStore";
 
 interface BookmarksViewProps {
-  sections: ISection[];
-  onSelectQuestion: (question: IQuestion, moduleTitle: string) => void;
+  sections: ISectionSummary[];
+  onSelectQuestion: (question: IQuestionRef) => void;
 }
 
 export const BookmarksView: React.FC<BookmarksViewProps> = ({
@@ -16,11 +16,11 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
 }) => {
   const { bookmarkedQuestionIds, setActiveView } = useLearningStore();
 
-  const bookmarkedList: { question: IQuestion; moduleTitle: string }[] = [];
+  const bookmarkedList: { question: IQuestionSummary; moduleId: TModuleId; moduleTitle: string }[] = [];
   sections.forEach((sec) => {
     sec.questions.forEach((q) => {
       if (bookmarkedQuestionIds[q.title]) {
-        bookmarkedList.push({ question: q, moduleTitle: sec.title });
+        bookmarkedList.push({ question: q, moduleId: sec.id, moduleTitle: sec.title });
       }
     });
   });
@@ -64,10 +64,10 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
       </div>
 
       <div className="divide-y divide-zinc-800 rounded-2xl border border-zinc-800 bg-zinc-900/60 overflow-hidden shadow-lg">
-        {bookmarkedList.map(({ question, moduleTitle }) => (
+        {bookmarkedList.map(({ question, moduleId, moduleTitle }) => (
           <div
             key={question.title}
-            onClick={() => onSelectQuestion(question, moduleTitle)}
+            onClick={() => onSelectQuestion({ moduleId, title: question.title })}
             className="p-4 hover:bg-zinc-800/40 transition cursor-pointer flex items-center justify-between gap-3 text-sm group"
           >
             <div className="space-y-1 flex-1">

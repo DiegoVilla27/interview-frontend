@@ -531,3 +531,51 @@ export interface IQuizResult {
   totalQuestions: number;
   percentage: number;
 }
+
+/** Identificador estable de un módulo: nombre de su carpeta en src/modules. */
+export type TModuleId =
+  | "01-internet"
+  | "02-html"
+  | "03-css"
+  | "04-javascript"
+  | "05-browser"
+  | "06-version-control"
+  | "07-package-managers"
+  | "08-build-tools"
+  | "09-testing"
+  | "10-typescript"
+  | "11-webapps"
+  | "12-react"
+  | "13-react-native"
+  | "14-angular"
+  | "15-ionic"
+  | "16-flutter"
+  | "17-solid"
+  | "18-cicd"
+  | "19-regular-expresions"
+  | "20-ui-ux"
+  | "21-web-components";
+
+/** Datos ligeros de una pregunta, disponibles sin cargar su contenido. */
+export interface IQuestionSummary {
+  title: string;
+  level: QuestionLevel;
+  tags: string[];
+  hasCode: boolean;
+}
+
+/** Datos ligeros de un módulo para roadmap, marcadores y estadísticas. */
+export interface ISectionSummary {
+  id: TModuleId;
+  title: string;
+  icon: string;
+  category: TCategory;
+  description: string;
+  questions: IQuestionSummary[];
+}
+
+/** Referencia a una pregunta: el título es la clave estable del progreso guardado. */
+export interface IQuestionRef {
+  moduleId: TModuleId;
+  title: string;
+}

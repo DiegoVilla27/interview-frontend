@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IQuestion, IQuizResult, QuestionLevel, TActiveView } from "../types";
+import { IQuestionRef, IQuizResult, QuestionLevel, TActiveView, TModuleId } from "../types";
 
 interface LearningState {
   // Theme
@@ -13,8 +13,8 @@ interface LearningState {
   setActiveView: (view: TActiveView) => void;
   selectedModuleId: string | null;
   setSelectedModuleId: (id: string | null) => void;
-  selectedQuestion: IQuestion | null;
-  setSelectedQuestion: (question: IQuestion | null) => void;
+  selectedQuestion: IQuestionRef | null;
+  setSelectedQuestion: (question: IQuestionRef | null) => void;
 
   // Filter & Search
   searchQuery: string;
@@ -35,8 +35,8 @@ interface LearningState {
   // Quiz State & History
   quizHistory: IQuizResult[];
   addQuizResult: (result: IQuizResult) => void;
-  activeQuizModule: string | null;
-  setActiveQuizModule: (moduleTitle: string | null) => void;
+  activeQuizModule: TModuleId | null;
+  setActiveQuizModule: (moduleId: TModuleId | null) => void;
 
   // Reset Progress
   resetProgress: () => void;

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import LayoutScreen from "./layout";
-import { sections as sectionsModule } from "./modules";
-import { IQuestion, ISection } from "./types";
+import { contentIndex, totalQuestions } from "./content";
+import { IQuestionRef, TModuleId } from "./types";
 import { saveStorage } from "./utils/storage.utils";
 import { useLearningStore } from "./store/learningStore";
 
@@ -32,8 +32,6 @@ const ViewFallback = () => (
 );
 
 export const App = () => {
-  const sections: ISection[] = sectionsModule;
-
   const {
     activeView,
     selectedQuestion,
@@ -43,31 +41,21 @@ export const App = () => {
   } = useLearningStore();
 
   const [isQuizOpen, setIsQuizOpen] = useState(false);
-  const [activeQuestionModule, setActiveQuestionModule] = useState<string>("");
 
   // Always apply dark theme
   useEffect(() => {
     saveStorage(true);
   }, []);
 
-  // Total questions count across all 21 modules
-  const totalQuestions = sections.reduce(
-    (acc, sec) => acc + sec.questions.length,
-    0
-  );
-
-  const handleSelectQuestion = (question: IQuestion, moduleTitle: string) => {
-    setActiveQuestionModule(moduleTitle);
-    setSelectedQuestion(question);
-  };
+  const handleSelectQuestion = (question: IQuestionRef) => setSelectedQuestion(question);
 
   const handleLaunchGeneralQuiz = () => {
     setActiveQuizModule(null);
     setIsQuizOpen(true);
   };
 
-  const handleLaunchModuleQuiz = (moduleTitle: string) => {
-    setActiveQuizModule(moduleTitle);
+  const handleLaunchModuleQuiz = (moduleId: TModuleId) => {
+    setActiveQuizModule(moduleId);
     setIsQuizOpen(true);
   };
 
@@ -83,7 +71,7 @@ export const App = () => {
         {/* Dynamic View Body */}
         {activeView === "roadmap" && (
           <CategoryRoadmap
-            sections={sections}
+            sections={contentIndex}
             onSelectQuestion={handleSelectQuestion}
             onLaunchModuleQuiz={handleLaunchModuleQuiz}
           />
@@ -91,18 +79,18 @@ export const App = () => {
 
         <Suspense fallback={<ViewFallback />}>
           {activeView === "flashcards" && (
-            <FlashcardView sections={sections} />
+            <FlashcardView />
           )}
 
           {activeView === "bookmarks" && (
             <BookmarksView
-              sections={sections}
+              sections={contentIndex}
               onSelectQuestion={handleSelectQuestion}
             />
           )}
 
           {activeView === "stats" && (
-            <StatsView sections={sections} />
+            <StatsView sections={contentIndex} />
           )}
         </Suspense>
       </div>
@@ -111,10 +99,8 @@ export const App = () => {
         {/* Question Detail Modal (Theory, Practice Code, SVG Diagrams, Interview Tips, Mini Quiz) */}
         {selectedQuestion && (
           <QuestionDetailModal
-            question={selectedQuestion}
-            isOpen
+            questionRef={selectedQuestion}
             onClose={() => setSelectedQuestion(null)}
-            moduleTitle={activeQuestionModule}
           />
         )}
 
@@ -126,8 +112,7 @@ export const App = () => {
               setIsQuizOpen(false);
               setActiveQuizModule(null);
             }}
-            sections={sections}
-            initialModuleTitle={activeQuizModule}
+            moduleId={activeQuizModule}
           />
         )}
       </Suspense>

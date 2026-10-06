@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "content:index": "tsx scripts/generate-content-index.ts"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
@@ -20,6 +21,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -32,7 +34,9 @@
     "postcss": "^8.5.28",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.4.19",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3",
-    "vite": "^7.3.7"
+    "vite": "^7.3.7",
+    "zod": "^4.6.5"
   }
 }

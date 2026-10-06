@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, use, useState, useEffect } from "react";
 import {
   Trophy,
   CheckCircle2,
@@ -11,7 +11,8 @@ import {
   Award
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import { ISection } from "../../types";
+import { ISection, TModuleId } from "../../types";
+import { loadAllContent, loadModuleContent } from "../../content";
 import { Modal } from "../../components/ui/Modal";
 import { Button } from "../../components/ui/Button";
 import { ProgressBar } from "../../components/ui/ProgressBar";
@@ -22,9 +23,37 @@ import { shuffle, shuffleOptions } from "../../utils/shuffle.utils";
 interface QuizModalProps {
   isOpen: boolean;
   onClose: () => void;
-  sections: ISection[];
-  initialModuleTitle?: string | null;
+  /** Módulo a evaluar; null para el simulador general con todos los módulos. */
+  moduleId: TModuleId | null;
 }
+
+interface QuizContentProps extends Omit<QuizModalProps, "moduleId"> {
+  sections: ISection[];
+  initialModuleTitle: string | null;
+}
+
+const QuizLoading: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <Modal isOpen onClose={onClose} maxWidth="2xl" title="Preparando el quiz…">
+    <div className="h-48 rounded-xl bg-zinc-800/70 animate-pulse" aria-busy="true" />
+  </Modal>
+);
+
+export const QuizModal: React.FC<QuizModalProps> = (props) => (
+  <Suspense fallback={<QuizLoading onClose={props.onClose} />}>
+    <QuizModalContent {...props} />
+  </Suspense>
+);
+
+const QuizModalContent: React.FC<QuizModalProps> = ({ moduleId, ...props }) => {
+  const sections = moduleId ? [use(loadModuleContent(moduleId))] : use(loadAllContent());
+  return (
+    <QuizSession
+      {...props}
+      sections={sections}
+      initialModuleTitle={moduleId ? sections[0].title : null}
+    />
+  );
+};
 
 interface QuizQuestionItem {
   id: string;
@@ -36,7 +65,7 @@ interface QuizQuestionItem {
   level: string;
 }
 
-export const QuizModal: React.FC<QuizModalProps> = ({
+const QuizSession: React.FC<QuizContentProps> = ({
   isOpen,
   onClose,
   sections,

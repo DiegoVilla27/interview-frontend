@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { Suspense, use, useMemo, useState } from "react";
 import {
   BookOpen,
   Code2,
@@ -12,7 +12,8 @@ import {
   ArrowRight
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import { IQuestion } from "../../types";
+import { IQuestionRef } from "../../types";
+import { findQuestion, loadModuleContent } from "../../content";
 import { Modal } from "../../components/ui/Modal";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
@@ -23,18 +24,31 @@ import { useLearningStore } from "../../store/learningStore";
 import { shuffleOptions } from "../../utils/shuffle.utils";
 
 interface QuestionDetailModalProps {
-  question: IQuestion | null;
-  isOpen: boolean;
+  questionRef: IQuestionRef;
   onClose: () => void;
-  moduleTitle?: string;
 }
 
-export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
-  question,
-  isOpen,
-  onClose,
-  moduleTitle = ""
-}) => {
+const LoadingModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <Modal isOpen onClose={onClose} maxWidth="3xl" title="Cargando pregunta…">
+    <div className="space-y-3 animate-pulse" aria-busy="true">
+      <div className="h-8 w-2/3 rounded-lg bg-zinc-800" />
+      <div className="h-40 rounded-xl bg-zinc-800/70" />
+    </div>
+  </Modal>
+);
+
+export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({ questionRef, onClose }) => (
+  <Suspense fallback={<LoadingModal onClose={onClose} />}>
+    <QuestionDetailContent key={questionRef.title} questionRef={questionRef} onClose={onClose} />
+  </Suspense>
+);
+
+const QuestionDetailContent: React.FC<QuestionDetailModalProps> = ({ questionRef, onClose }) => {
+  const section = use(loadModuleContent(questionRef.moduleId));
+  const question = findQuestion(section, questionRef.title);
+  const moduleTitle = section.title;
+
+  // Siempre se abre en la pestaña de teoría (el key del padre resetea el estado por pregunta)
   const [activeTab, setActiveTab] = useState<string>("teoria");
   const [quizSelectedOption, setQuizSelectedOption] = useState<number | null>(null);
   const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
@@ -45,15 +59,6 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
     isQuestionBookmarked,
     toggleBookmark
   } = useLearningStore();
-
-  // Requisito 1: Al abrir cualquier pregunta se debe abrir SIEMPRE en la pestaña de teoría
-  useEffect(() => {
-    if (isOpen) {
-      setActiveTab("teoria");
-      setQuizSelectedOption(null);
-      setQuizSubmitted(false);
-    }
-  }, [isOpen, question?.title]);
 
   // Opciones barajadas una vez por pregunta para que la posición no delate la respuesta
   const quiz = useMemo(
@@ -124,7 +129,7 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
 
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen
       onClose={onClose}
       maxWidth="3xl"
       title={

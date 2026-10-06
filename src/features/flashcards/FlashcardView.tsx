@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Sparkles,
   RotateCw,
@@ -9,17 +9,15 @@ import {
   Shuffle
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import { IQuestion, ISection } from "../../types";
+import { IQuestion } from "../../types";
+import { loadAllContent } from "../../content";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
 import { useLearningStore } from "../../store/learningStore";
 import { shuffle } from "../../utils/shuffle.utils";
 
-interface FlashcardViewProps {
-  sections: ISection[];
-}
-
-export const FlashcardView: React.FC<FlashcardViewProps> = ({ sections }) => {
+export const FlashcardView: React.FC = () => {
+  const sections = use(loadAllContent());
   const {
     isQuestionCompleted,
     toggleQuestionCompleted,
