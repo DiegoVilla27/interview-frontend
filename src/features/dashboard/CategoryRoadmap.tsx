@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -10,15 +10,16 @@ import {
   BookOpen,
   Image as ImageIcon
 } from "lucide-react";
-import { IQuestion, ISection, TCategory } from "../../types";
+import { IQuestionRef, IQuestionSummary, ISectionSummary, TCategory, TModuleId } from "../../types";
+import { findQuestion, loadAllContent, useLoadedContent } from "../../content";
 import { Badge } from "../../components/ui/Badge";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { useLearningStore } from "../../store/learningStore";
 
 interface CategoryRoadmapProps {
-  sections: ISection[];
-  onSelectQuestion: (question: IQuestion, moduleTitle: string) => void;
-  onLaunchModuleQuiz: (moduleTitle: string) => void;
+  sections: ISectionSummary[];
+  onSelectQuestion: (question: IQuestionRef) => void;
+  onLaunchModuleQuiz: (moduleId: TModuleId) => void;
 }
 
 const CATEGORY_METADATA: Record<TCategory, { title: string; subtitle: string; icon: string }> = {
@@ -73,14 +74,24 @@ export const CategoryRoadmap: React.FC<CategoryRoadmapProps> = ({
     "arquitectura-ops"
   ];
 
-  // Helper to filter questions based on user search and difficulty level
-  const filterQuestion = (q: IQuestion) => {
+  const loadedSections = useLoadedContent((state) => state.sections);
+  const query = searchQuery.trim().toLowerCase();
+
+  // Al buscar, se descarga el contenido completo en segundo plano para buscar también en las respuestas
+  useEffect(() => {
+    if (query) void loadAllContent();
+  }, [query]);
+
+  // Filtra por nivel y por texto (título y tags al instante; respuesta cuando el módulo está cargado)
+  const filterQuestion = (moduleId: TModuleId) => (q: IQuestionSummary) => {
     if (levelFilter !== "todos" && q.level !== levelFilter) {
       return false;
     }
-    if (searchQuery.trim() !== "") {
-      const qText = `${q.title} ${q.response} ${q.tags?.join(" ") || ""}`.toLowerCase();
-      if (!qText.includes(searchQuery.toLowerCase())) {
+    if (query) {
+      const loaded = loadedSections[moduleId];
+      const response = loaded ? findQuestion(loaded, q.title)?.response ?? "" : "";
+      const qText = `${q.title} ${q.tags.join(" ")} ${response}`.toLowerCase();
+      if (!qText.includes(query)) {
         return false;
       }
     }
@@ -113,7 +124,7 @@ export const CategoryRoadmap: React.FC<CategoryRoadmapProps> = ({
             {/* Modules Grid */}
             <div className="grid grid-cols-1 gap-4">
               {categorySections.map((section) => {
-                const filteredQuestions = section.questions.filter(filterQuestion);
+                const filteredQuestions = section.questions.filter(filterQuestion(section.id));
                 if (
                   (searchQuery.trim() !== "" || levelFilter !== "todos") &&
                   filteredQuestions.length === 0
@@ -188,7 +199,7 @@ export const CategoryRoadmap: React.FC<CategoryRoadmapProps> = ({
                         </div>
 
                         <button
-                          onClick={() => onLaunchModuleQuiz(section.title)}
+                          onClick={() => onLaunchModuleQuiz(section.id)}
                           className="flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600/40 transition cursor-pointer shrink-0"
                           title="Iniciar Quiz de este módulo"
                         >
@@ -220,7 +231,7 @@ export const CategoryRoadmap: React.FC<CategoryRoadmapProps> = ({
                           return (
                             <div
                               key={question.title}
-                              onClick={() => onSelectQuestion(question, section.title)}
+                              onClick={() => onSelectQuestion({ moduleId: section.id, title: question.title })}
                               className="p-3.5 sm:p-4 hover:bg-zinc-800/40 transition cursor-pointer flex items-center justify-between gap-3 text-xs sm:text-sm group"
                             >
                               <div className="flex items-start space-x-3 flex-1 min-w-0">
@@ -244,7 +255,7 @@ export const CategoryRoadmap: React.FC<CategoryRoadmapProps> = ({
                                       <span title="Teoría conceptual">
                                         <BookOpen className="w-3.5 h-3.5 text-sky-400/90" />
                                       </span>
-                                      {question.codeExample && (
+                                      {question.hasCode && (
                                         <span title="Ejemplo de código práctico">
                                           <Code2 className="w-3.5 h-3.5 text-indigo-400/90" />
                                         </span>

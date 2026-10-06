@@ -25,6 +25,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Intentar alcanzar 100% de cobertura únicamente con pruebas unitarias sobre componentes vacíos mockeando todos sus hooks hijos.",
                 "Abusar de pruebas E2E lentas para validar validaciones de formularios que se resuelven en milisegundos con tests de integración."
+            ],
+            "followUps": [
+                "¿Qué tipo de test priorizarías en un proyecto legacy sin tests?",
+                "¿Cómo medirías la confianza real que aporta tu suite?"
             ]
         },
         "quiz": {
@@ -58,6 +62,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Llamar 'mock' a cualquier función simulada en la entrevista sin saber qué la distingue de un stub o spy.",
                 "Usar Mocks para todo en vez de Fakes o Stubs, lo que acopla la prueba al detalle de cómo se invoca una función interna en lugar del resultado producido."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre un stub y un mock?",
+                "¿Qué riesgos tiene abusar de los mocks?"
             ]
         },
         "quiz": {
@@ -91,6 +99,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Usar `fireEvent` en vez de `@testing-library/user-event` (`fireEvent` solo dispara un evento sintético plano sin simular el foco, hover ni la secuencia completa del navegador).",
                 "Intentar inspeccionar el estado de un hook o props dentro de un test de RTL."
+            ],
+            "followUps": [
+                "¿Por qué testear el estado interno de un componente es frágil?",
+                "¿Cómo testearías un componente sin conocer su implementación?"
             ]
         },
         "quiz": {
@@ -124,6 +136,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Usar `screen.getByTestId` para todo por pereza, perdiendo la verificación de accesibilidad que provee `getByRole`.",
                 "Escribir `await waitFor(() => screen.getByText('x'))` en vez de usar directamente `await screen.findByText('x')` (findBy ya envuelve waitFor internamente)."
+            ],
+            "followUps": [
+                "¿Por qué getByRole es la query preferida?",
+                "¿Cuándo es legítimo usar data-testid?"
             ]
         },
         "quiz": {
@@ -157,6 +173,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Creer que migrar de Jest a Vitest requiere reescribir todos los tests (la API de `describe`, `it`, `expect` y `vi` es prácticamente idéntica a Jest con compatibilidad de mocks).",
                 "Olvidar configurar el entorno `jsdom` o `happy-dom` en Vitest para tests de componentes React que necesitan la API del DOM."
+            ],
+            "followUps": [
+                "¿Cómo migrarías una suite de Jest a Vitest?",
+                "¿Qué diferencia hay entre los entornos jsdom y happy-dom?"
             ]
         },
         "quiz": {
@@ -190,6 +210,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Olvidar llamar a `server.resetHandlers()` en el hook `afterEach`, provocando que mocks temporales de un test contaminen tests posteriores.",
                 "Usar la sintaxis legacy de MSW v1 (`rest.get` en vez de `http.get` y `res(ctx.json)` en vez de `HttpResponse.json`)."
+            ],
+            "followUps": [
+                "¿Cómo compartirías los handlers de MSW entre tests, Storybook y desarrollo?",
+                "¿Cómo simularías un error de red o una respuesta lenta con MSW?"
             ]
         },
         "quiz": {
@@ -223,6 +247,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Escribir `page.waitForTimeout(5000)` en Playwright (anti-patrón: Playwright tiene auto-waiting nativo para todas las acciones).",
                 "Creer que Cypress y Playwright son iguales en capacidades multi-ventana."
+            ],
+            "followUps": [
+                "¿Cómo funciona el auto-waiting de Playwright?",
+                "¿Qué ventajas aportan los BrowserContexts para el paralelismo?"
             ]
         },
         "quiz": {
@@ -256,6 +284,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Saltarse la fase RED (si nunca viste fallar el test, no tienes garantía de que no pase siempre por error en la aserción).",
                 "Intentar refactorizar mientras el test está en rojo (solo se refactoriza cuando el test está en verde)."
+            ],
+            "followUps": [
+                "¿Cuándo no compensa aplicar TDD estricto?",
+                "¿Cómo aplicarías TDD a un componente de UI?"
             ]
         },
         "quiz": {
@@ -289,6 +321,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Guardar `const count = result.current.count` al inicio del test (es una variable primitiva inmutable por copia; siempre debe leerse directamente como `result.current.count`).",
                 "Usar `await new Promise(r => setTimeout(r, 500))` en vez de `vi.useFakeTimers()` (hace que los tests de CI sean lentos e inestables)."
+            ],
+            "followUps": [
+                "¿Por qué se necesita act() y cuándo lo envuelve RTL automáticamente?",
+                "¿Cómo testearías un hook que usa timers (vi.useFakeTimers)?"
             ]
         },
         "quiz": {
@@ -322,6 +358,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Intentar correr Stryker en cada commit en CI sin límites (es muy intensivo en CPU al ejecutar los tests cientos de veces; se suele correr en nightly builds o sobre PRs en modo incremental).",
                 "Confundir cobertura de código con cobertura de casos borde."
+            ],
+            "followUps": [
+                "¿Qué es un mutante superviviente?",
+                "¿Cómo limitarías el coste computacional del mutation testing en CI?"
             ]
         },
         "quiz": {
@@ -355,6 +395,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Tomar screenshots en macOS en local y compararlos contra Ubuntu en CI (las fuentes se renderizan de forma diferente entre SOs y fallarán el 100% de las veces).",
                 "No deshabilitar animaciones CSS antes de tomar la captura."
+            ],
+            "followUps": [
+                "¿Cómo estabilizarías screenshots con fuentes y animaciones?",
+                "¿Dónde guardarías las imágenes baseline?"
             ]
         },
         "quiz": {
@@ -388,6 +432,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Creer que Contract Testing valida lógica funcional del backend (solo valida la estructura del esquema, serialización y compatibilidad del contrato de comunicación).",
                 "Escribir contratos en el backend hacia el frontend en vez de Consumer-Driven (el frontend solo debe especificar los campos que realmente consume)."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre contract testing y tests de integración end-to-end?",
+                "¿Qué es el Pact Broker y can-i-deploy?"
             ]
         },
         "quiz": {
@@ -421,6 +469,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Reimplementar la lógica de la función dentro del assertion de la propiedad en vez de asertar invariantes de alto nivel.",
                 "Usar property-based testing para pruebas de componentes visuales (es ideal para lógica de negocio, parsers, validadores y transformadores de datos)."
+            ],
+            "followUps": [
+                "¿Qué es el shrinking en property-based testing?",
+                "¿Qué propiedades (invariantes) testearías en una función de ordenación?"
             ]
         },
         "quiz": {
@@ -454,6 +506,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Creer que si `axe-core` pasa con 0 violaciones el sitio es 100% accesible (un botón con `aria-label=\"asdf\"` pasa las reglas sintácticas pero es inútil para un usuario invidente).",
                 "Usar `aria-hidden=\"true\"` indiscriminadamente para silenciar errores de accesibilidad."
+            ],
+            "followUps": [
+                "¿Qué porcentaje de problemas de accesibilidad detecta axe automáticamente?",
+                "¿Cómo complementarías axe con tests manuales?"
             ]
         },
         "quiz": {
@@ -487,6 +543,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Configurar `retries: 3` en CI y considerarlo una solución (los retries ocultan la deuda técnica y ralentizan la ejecución del pipeline al triple).",
                 "Usar `Date.now()` en assertions sin mockear el reloj del sistema."
+            ],
+            "followUps": [
+                "¿Cómo detectarías tests flaky de forma sistemática?",
+                "¿Qué es una cuarentena de tests y qué riesgos tiene?"
             ]
         },
         "quiz": {
@@ -520,6 +580,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Dejar `retry: 3` activo en el QueryClient de tests (hace que un test que espera un error 500 tarde varios segundos en reintentar).",
                 "Reutilizar el mismo singleton de store global entre tests concurrentes."
+            ],
+            "followUps": [
+                "¿Cómo resetearías un store de Zustand entre tests?",
+                "¿Cómo testearías componentes que usan TanStack Query?"
             ]
         },
         "quiz": {
@@ -553,6 +617,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Presumir de alta cobertura porque todo el proyecto tiene un solo `expect(container).toMatchSnapshot()` por componente.",
                 "Hacer commit de archivos `.snap` sin revisarlos línea por línea en el diff del PR."
+            ],
+            "followUps": [
+                "¿Cuándo son útiles los inline snapshots?",
+                "¿Por qué los snapshots grandes se aprueban sin revisarse?"
             ]
         },
         "quiz": {
@@ -586,6 +654,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Poner aserciones (`expect`) dentro de los métodos del Page Object en vez de mantenerlas en el test spec (los POMs representan la página y sus acciones; los tests evalúan las expectativas).",
                 "Crear clases POM gigantescas de 2,000 líneas en lugar de dividir en Component Objects (ej. `HeaderComponent`, `PaginationComponent`)."
+            ],
+            "followUps": [
+                "¿Qué ventajas tienen las fixtures de Playwright frente a beforeEach?",
+                "¿Cuándo el POM se convierte en sobreingeniería?"
             ]
         },
         "quiz": {
@@ -619,6 +691,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Fijar metas de 100% Line Coverage ignorando el Branch Coverage (lo que fomenta tests superficiales que no cubren ramas de error).",
                 "Incluir archivos de configuración (`vite.config.ts`, `.eslintrc`) en las métricas de cobertura."
+            ],
+            "followUps": [
+                "¿Por qué el branch coverage es más exigente que el line coverage?",
+                "¿Qué umbrales de cobertura establecerías en CI?"
             ]
         },
         "quiz": {
@@ -652,6 +728,10 @@ export const questionsTesting: ISection = {
             "commonPitfalls": [
                 "Correr Lighthouse sobre el servidor de desarrollo en lugar de la versión compilada y minificada de producción.",
                 "Fijar umbrales irreales de 100/100 en runners de CI compartidos sin considerar la variabilidad de red y CPU."
+            ],
+            "followUps": [
+                "¿Cómo reducirías la variabilidad de Lighthouse entre ejecuciones?",
+                "¿Qué diferencia hay entre datos de laboratorio y datos de campo (RUM)?"
             ]
         },
         "quiz": {

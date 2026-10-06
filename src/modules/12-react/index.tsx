@@ -27,7 +27,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que expliques React como una biblioteca declarativa centrada en 'UI = f(state)' con flujo unidireccional, en contraste con el enlace bidireccional (two-way binding) de frameworks tradicionales.",
-        commonPitfalls: ["Llamar a React un 'framework completo' (es una biblioteca de UI que se combina con routing y state management).", "Pensar que los datos pueden fluir directamente entre componentes hermanos sin elevar el estado al padre com\u00fan o usar un store.", "Creer que manipular el DOM directamente con document.getElementById es aceptable dentro del ciclo de render de React."]
+        commonPitfalls: ["Llamar a React un 'framework completo' (es una biblioteca de UI que se combina con routing y state management).", "Pensar que los datos pueden fluir directamente entre componentes hermanos sin elevar el estado al padre com\u00fan o usar un store.", "Creer que manipular el DOM directamente con document.getElementById es aceptable dentro del ciclo de render de React."],
+        followUps: [
+          "¿Qué significa que React sea declarativo?",
+          "¿Por qué React es una librería y no un framework?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la principal ventaja del flujo de datos unidireccional en React?",
@@ -54,7 +58,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si entiendes qu\u00e9 es JSX por debajo (objetos planos en memoria creados por el compilador) y conocer la existencia de `$$typeof: Symbol.for('react.element')` como mecanismo de seguridad contra inyecciones XSS de JSON malicioso.",
-        commonPitfalls: ["Creer que JSX es una plantilla HTML interpretada por el navegador en tiempo de ejecuci\u00f3n.", "Asumir que se debe importar `import React from 'react'` en cada archivo (en el nuevo JSX Transform de React 17+ ya no es necesario).", "Confundir un componente (una funci\u00f3n) con un elemento (el objeto retornado al invocar `<Component />`)."]
+        commonPitfalls: ["Creer que JSX es una plantilla HTML interpretada por el navegador en tiempo de ejecuci\u00f3n.", "Asumir que se debe importar `import React from 'react'` en cada archivo (en el nuevo JSX Transform de React 17+ ya no es necesario).", "Confundir un componente (una funci\u00f3n) con un elemento (el objeto retornado al invocar `<Component />`)."],
+        followUps: [
+          "¿En qué se transforma JSX con el nuevo JSX transform?",
+          "¿Por qué los componentes deben empezar con mayúscula?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 prop\u00f3sito tiene la propiedad interna '$$typeof: Symbol.for(\"react.element\")' en los elementos de React?",
@@ -81,7 +89,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que destaques la inmutabilidad de los props y el car\u00e1cter reactivo del state, explicando por qu\u00e9 no se debe mutar `props` directamente ni duplicar props en el state salvo para inicializaciones deliberadas.",
-        commonPitfalls: ["Copiar props en el state (`useState(props.val)`) creyendo que el state se sincronizar\u00e1 autom\u00e1ticamente cuando la prop cambie (crea desincronizaciones de datos).", "Intentar mutar un prop directamente (`props.user.name = 'nuevo'`), violando la pureza de React.", "No usar la forma funcional de actualizaci\u00f3n `setCount(prev => prev + 1)` cuando el nuevo estado depende del anterior."]
+        commonPitfalls: ["Copiar props en el state (`useState(props.val)`) creyendo que el state se sincronizar\u00e1 autom\u00e1ticamente cuando la prop cambie (crea desincronizaciones de datos).", "Intentar mutar un prop directamente (`props.user.name = 'nuevo'`), violando la pureza de React.", "No usar la forma funcional de actualizaci\u00f3n `setCount(prev => prev + 1)` cuando el nuevo estado depende del anterior."],
+        followUps: [
+          "¿Qué ocurre si mutas el state directamente?",
+          "¿Cuándo conviene elevar el estado (lifting state up)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre si un componente intenta mutar directamente una de sus propiedades: 'props.title = \"Nuevo\"'?",
@@ -108,7 +120,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar c\u00f3mo utilizar `children` para componer layouts limpios y evitar pasar datos a trav\u00e9s de 4 componentes intermediarios innecesarios (anti-prop-drilling).",
-        commonPitfalls: ["Tipar `children` como `JSX.Element` en vez de `ReactNode` (rechazar\u00eda primitivos v\u00e1lidos como strings, n\u00fameros o fragmentos).", "Manipular directamente el array de `children` con m\u00e9todos est\u00e1ndar de Array sin usar utilidades seguras como `Children.map`.", "Crear componentes hiper-parametrizados con 20 props cuando una composici\u00f3n limpia con `children` resolver\u00eda la necesidad."]
+        commonPitfalls: ["Tipar `children` como `JSX.Element` en vez de `ReactNode` (rechazar\u00eda primitivos v\u00e1lidos como strings, n\u00fameros o fragmentos).", "Manipular directamente el array de `children` con m\u00e9todos est\u00e1ndar de Array sin usar utilidades seguras como `Children.map`.", "Crear componentes hiper-parametrizados con 20 props cuando una composici\u00f3n limpia con `children` resolver\u00eda la necesidad."],
+        followUps: [
+          "¿Qué es el patrón render props frente a children?",
+          "¿Cómo pasarías varias zonas de contenido a un componente (slots por props)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 tipo de TypeScript es el est\u00e1ndar recomendado para tipar la prop 'children' en componentes funcionales modernos?",
@@ -135,7 +151,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "La justificaci\u00f3n t\u00e9cnica de bajo nivel: que expliques la lista enlazada de hooks en el Fiber Node y por qu\u00e9 un `if` provocar\u00eda que el estado del hook 2 se le asigne por error al hook 3.",
-        commonPitfalls: ["Creer que React asocia los hooks con variables m\u00e1gicas o por su nombre.", "Desactivar la regla de ESLint `react-hooks/rules-of-hooks` para parchar un c\u00f3digo incorrecto.", "Llamar a un hook dentro de un controlador de eventos (`onClick`) en lugar de en el cuerpo del componente."]
+        commonPitfalls: ["Creer que React asocia los hooks con variables m\u00e1gicas o por su nombre.", "Desactivar la regla de ESLint `react-hooks/rules-of-hooks` para parchar un c\u00f3digo incorrecto.", "Llamar a un hook dentro de un controlador de eventos (`onClick`) en lugar de en el cuerpo del componente."],
+        followUps: [
+          "¿Por qué los hooks no pueden llamarse dentro de condicionales?",
+          "¿Cómo se crea un custom hook?"
+        ]
       },
       quiz: {
         question: "\u00bfC\u00f3mo almacena internamente React el estado de m\u00faltiples hooks dentro de un componente?",
@@ -162,7 +182,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber que comprendes los pros y contras de rendimiento: un formulario de 50 inputs controlados con `useState` genera re-renders masivos innecesarios, motivo por el cual librer\u00edas modernas como React Hook Form usan componentes no controlados con suscripciones aisladas.",
-        commonPitfalls: ["Pasar de no controlado a controlado por inicializar un input con `undefined` y luego asignar un string (provoca warning de React).", "Usar 20 hooks `useState` en formularios largos en lugar de utilizar React Hook Form con Zod.", "Intentar controlar un input de archivo `<input type=\"file\" />` (el navegador proh\u00edbe asignar su valor por motivos de seguridad)."]
+        commonPitfalls: ["Pasar de no controlado a controlado por inicializar un input con `undefined` y luego asignar un string (provoca warning de React).", "Usar 20 hooks `useState` en formularios largos en lugar de utilizar React Hook Form con Zod.", "Intentar controlar un input de archivo `<input type=\"file\" />` (el navegador proh\u00edbe asignar su valor por motivos de seguridad)."],
+        followUps: [
+          "¿Cómo integrarías un input no controlado con React Hook Form?",
+          "¿Por qué aparece el warning 'changing an uncontrolled input to be controlled'?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 un campo '<input type=\"file\" />' debe ser implementado obligatoriamente como un componente no controlado en React?",
@@ -189,7 +213,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que expliques con exactitud qu\u00e9 ocurre cuando se usa `key={index}` al insertar un elemento al inicio de la lista: mutaciones en cascada y bugs de preservaci\u00f3n de estado en componentes con inputs internos.",
-        commonPitfalls: ["Usar `key={index}` como soluci\u00f3n r\u00e1pida para silenciar la advertencia de la consola.", "Generar keys aleatorias en cada render (`key={Math.random()}`), provocando la destrucci\u00f3n y remontado continuo del 100% de la lista en cada frame.", "Usar identificadores duplicados, lo que confunde al algoritmo de reconciliaci\u00f3n de Fiber."]
+        commonPitfalls: ["Usar `key={index}` como soluci\u00f3n r\u00e1pida para silenciar la advertencia de la consola.", "Generar keys aleatorias en cada render (`key={Math.random()}`), provocando la destrucci\u00f3n y remontado continuo del 100% de la lista en cada frame.", "Usar identificadores duplicados, lo que confunde al algoritmo de reconciliaci\u00f3n de Fiber."],
+        followUps: [
+          "¿Por qué usar el índice como key es problemático?",
+          "¿Cómo usarías una key para resetear el estado de un componente?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 consecuencia cr\u00edtica ocurre al renderizar una lista con 'key={Math.random()}'?",
@@ -216,7 +244,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber que Fiber introdujo dos fases (Render y Commit) y que el Virtual DOM no es solo diffing, sino scheduling de prioridades concurrentes.",
-        commonPitfalls: ["Creer que la reconciliaci\u00f3n entera bloquea el hilo principal (en React 18/19 la Render Phase es interrumpible con concurrent features).", "Confundir la Render Phase (c\u00e1lculo) con la Commit Phase (escritura en pantalla).", "Asumir que el Virtual DOM es inherentemente m\u00e1s r\u00e1pido que el DOM directo; su ventaja es la programaci\u00f3n declarativa con mutaciones m\u00ednimas calculadas."]
+        commonPitfalls: ["Creer que la reconciliaci\u00f3n entera bloquea el hilo principal (en React 18/19 la Render Phase es interrumpible con concurrent features).", "Confundir la Render Phase (c\u00e1lculo) con la Commit Phase (escritura en pantalla).", "Asumir que el Virtual DOM es inherentemente m\u00e1s r\u00e1pido que el DOM directo; su ventaja es la programaci\u00f3n declarativa con mutaciones m\u00ednimas calculadas."],
+        followUps: [
+          "¿Qué heurísticas usa el algoritmo de diffing?",
+          "¿Es el Virtual DOM siempre más rápido que manipular el DOM directamente?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las dos fases del motor Fiber de React es s\u00edncrona e ininterrumpible para garantizar que no haya parpadeos en el DOM?",
@@ -243,7 +275,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar alineaci\u00f3n con el protocolo de arquitectura oficial de React: separar claramente el Server State del Client State y argumentar las race conditions con abort controllers.",
-        commonPitfalls: ["Almacenar datos de APIs en `useState` o Redux manualmente.", "No limpiar peticiones pendientes en `useEffect` con `AbortController` si se fuerza el uso de efectos.", "Ignorar los beneficios del patr\u00f3n Stale-While-Revalidate en la percepci\u00f3n de velocidad del usuario."]
+        commonPitfalls: ["Almacenar datos de APIs en `useState` o Redux manualmente.", "No limpiar peticiones pendientes en `useEffect` con `AbortController` si se fuerza el uso de efectos.", "Ignorar los beneficios del patr\u00f3n Stale-While-Revalidate en la percepci\u00f3n de velocidad del usuario."],
+        followUps: [
+          "¿Qué race conditions aparecen al hacer fetch en useEffect?",
+          "¿Qué te aporta TanStack Query (caché, deduplicación, reintentos)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 problema grave ocurre cuando un useEffect hace fetching basado en un id din\u00e1mico sin control de cancelaci\u00f3n?",
@@ -270,7 +306,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que expliques la interdependencia: `useCallback` solo cobra verdadero sentido cuando se pasa a componentes optimizados con `React.memo` o arrays de dependencias de otros hooks, y que abusar de ellos a\u00f1ade coste de memoria innecesario.",
-        commonPitfalls: ["Envolver cada funci\u00f3n en `useCallback` por defecto sin medir si existe un problema de rendimiento real.", "Pasar una funci\u00f3n sin `useCallback` a un componente con `React.memo` (la nueva referencia rompe la memoizaci\u00f3n siempre).", "Olvidar dependencias cr\u00edticas en el array `[deps]`, produciendo cierres l\u00e9xicos obsoletos (stale closures)."]
+        commonPitfalls: ["Envolver cada funci\u00f3n en `useCallback` por defecto sin medir si existe un problema de rendimiento real.", "Pasar una funci\u00f3n sin `useCallback` a un componente con `React.memo` (la nueva referencia rompe la memoizaci\u00f3n siempre).", "Olvidar dependencias cr\u00edticas en el array `[deps]`, produciendo cierres l\u00e9xicos obsoletos (stale closures)."],
+        followUps: [
+          "¿Cuándo es contraproducente memoizar?",
+          "¿Cómo cambia este panorama con el React Compiler?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la relaci\u00f3n t\u00e9cnica exacta entre 'useCallback(fn, deps)' y 'useMemo'?",
@@ -297,7 +337,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres criterio t\u00e9cnico: descartar Redux por exceso de boilerplate en proyectos nuevos, argumentar el problema de re-render en cascada de Context API y elegir Zustand para estado global cliente.",
-        commonPitfalls: ["Usar React Context como store global de alta frecuencia (ej. animaciones o inputs de texto), degradando dr\u00e1sticamente el rendimiento.", "Envolver la aplicaci\u00f3n entera en 15 Context Providers anidados (el infame 'Provider Hell').", "Consumir todo el store de Zustand sin selectores (`const store = useStore()`), perdiendo la optimizaci\u00f3n at\u00f3mica."]
+        commonPitfalls: ["Usar React Context como store global de alta frecuencia (ej. animaciones o inputs de texto), degradando dr\u00e1sticamente el rendimiento.", "Envolver la aplicaci\u00f3n entera en 15 Context Providers anidados (el infame 'Provider Hell').", "Consumir todo el store de Zustand sin selectores (`const store = useStore()`), perdiendo la optimizaci\u00f3n at\u00f3mica."],
+        followUps: [
+          "¿Por qué un cambio de valor en Context re-renderiza a todos sus consumidores?",
+          "¿Cómo evitan los selectores de Zustand re-renders innecesarios?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 React Context no es adecuado para gestionar estados globales de alta frecuencia de actualizaci\u00f3n?",
@@ -324,7 +368,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber qu\u00e9 errores NO captura un Error Boundary: NO captura errores en controladores de eventos (onClick), c\u00f3digo as\u00edncrono (setTimeout, promises de fetch) ni errores del propio Error Boundary.",
-        commonPitfalls: ["Creer que un Error Boundary captura errores dentro de un `onClick={() => { throw new Error(); }}` (esos se manejan con try/catch est\u00e1ndar).", "Colocar un \u00fanico Error Boundary en la ra\u00edz absoluta de la app: si falla un widget secundario, se oculta toda la aplicaci\u00f3n.", "No implementar mecanismos de reintento o telemetr\u00eda para notificar a observabilidad."]
+        commonPitfalls: ["Creer que un Error Boundary captura errores dentro de un `onClick={() => { throw new Error(); }}` (esos se manejan con try/catch est\u00e1ndar).", "Colocar un \u00fanico Error Boundary en la ra\u00edz absoluta de la app: si falla un widget secundario, se oculta toda la aplicaci\u00f3n.", "No implementar mecanismos de reintento o telemetr\u00eda para notificar a observabilidad."],
+        followUps: [
+          "¿Qué errores no captura un Error Boundary?",
+          "¿Cómo reportarías errores capturados a Sentry?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de los siguientes errores NO es capturado por un Error Boundary de React?",
@@ -351,7 +399,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Entender si usas Code Splitting en rutas y componentes pesados (gr\u00e1ficos, editores enriquecidos, modales) para reducir el First Contentful Paint (FCP) y el bundle size inicial.",
-        commonPitfalls: ["Usar `React.lazy` sin envolverlo en un `<Suspense>`, lo que lanza un error fatal en tiempo de render.", "Hacer code-splitting excesivo y granular en componentes microsc\u00f3picos de 20 l\u00edneas (genera demasiadas peticiones HTTP peque\u00f1as innecesarias).", "Olvidar que `React.lazy` requiere exportaciones por defecto (`export default`)."]
+        commonPitfalls: ["Usar `React.lazy` sin envolverlo en un `<Suspense>`, lo que lanza un error fatal en tiempo de render.", "Hacer code-splitting excesivo y granular en componentes microsc\u00f3picos de 20 l\u00edneas (genera demasiadas peticiones HTTP peque\u00f1as innecesarias).", "Olvidar que `React.lazy` requiere exportaciones por defecto (`export default`)."],
+        followUps: [
+          "¿Cómo evitarías los spinners en cascada (waterfalls) con varios Suspense?",
+          "¿Cómo precargarías un componente lazy antes de que se necesite?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 requisito sint\u00e1ctico debe cumplir un componente para poder ser cargado mediante 'React.lazy()'?",
@@ -378,7 +430,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber que comprendes que la doble ejecuci\u00f3n no es un 'bug de React' sino una feature de diagn\u00f3stico vital para preparar la app para caracter\u00edsticas concurrentes y navegaci\u00f3n r\u00e1pida sin memory leaks.",
-        commonPitfalls: ["Intentar hackear el doble montaje con un `useRef(false)` para silenciar la segunda ejecuci\u00f3n en vez de escribir la funci\u00f3n de limpieza correcta.", "Creer que la doble ejecuci\u00f3n ocurre en producci\u00f3n (en modo producci\u00f3n solo se ejecuta una \u00fanica vez).", "Olvidar limpiar `addEventListener`, timers `setInterval`, o suscripciones a observables en el return del efecto."]
+        commonPitfalls: ["Intentar hackear el doble montaje con un `useRef(false)` para silenciar la segunda ejecuci\u00f3n en vez de escribir la funci\u00f3n de limpieza correcta.", "Creer que la doble ejecuci\u00f3n ocurre en producci\u00f3n (en modo producci\u00f3n solo se ejecuta una \u00fanica vez).", "Olvidar limpiar `addEventListener`, timers `setInterval`, o suscripciones a observables en el return del efecto."],
+        followUps: [
+          "¿Qué bugs ayuda a detectar el doble montaje en desarrollo?",
+          "¿Afecta Strict Mode a producción?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 React.StrictMode monta, desmonta y remonta componentes dos veces en modo de desarrollo?",
@@ -405,7 +461,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Conocimiento de la vanguardia de React 19: explicar que la memoizaci\u00f3n manual es un parche del pasado y que el futuro es escribir JavaScript idiom\u00e1tico siguiendo estrictamente las reglas de pureza para que el compilador optimice.",
-        commonPitfalls: ["Pensar que el compilador permite mutar variables directamente: el compilador exige estricta inmutabilidad y componentes puros.", "Seguir saturando componentes nuevos de `useCallback` sin motivo cuando el compilador ya est\u00e1 activo.", "No utilizar el linter oficial `eslint-plugin-react-compiler` para verificar la conformidad del c\u00f3digo."]
+        commonPitfalls: ["Pensar que el compilador permite mutar variables directamente: el compilador exige estricta inmutabilidad y componentes puros.", "Seguir saturando componentes nuevos de `useCallback` sin motivo cuando el compilador ya est\u00e1 activo.", "No utilizar el linter oficial `eslint-plugin-react-compiler` para verificar la conformidad del c\u00f3digo."],
+        followUps: [
+          "¿Qué reglas debe cumplir el código para que el compilador lo optimice?",
+          "¿Sigue siendo necesario useMemo con el React Compiler?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el objetivo primordial del nuevo React Compiler introducido con React 19?",
@@ -432,7 +492,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber que conoces las dos grandes novedades de `use()`: la posibilidad de ser llamado condicionalmente y su integraci\u00f3n directa con Suspense para Promises y Context.",
-        commonPitfalls: ["Crear una nueva Promise dentro de la funci\u00f3n del componente en cada render (`use(fetch())`), lo que generar\u00eda un bucle infinito de re-fetch (la promesa debe originarse en un Server Component, librer\u00eda o cach\u00e9).", "Pensar que `use()` sustituye a `useState` para mutaciones locales interactivas.", "Olvidar envolver el componente en un `<Suspense>` padre cuando se leen promesas con `use()`."]
+        commonPitfalls: ["Crear una nueva Promise dentro de la funci\u00f3n del componente en cada render (`use(fetch())`), lo que generar\u00eda un bucle infinito de re-fetch (la promesa debe originarse en un Server Component, librer\u00eda o cach\u00e9).", "Pensar que `use()` sustituye a `useState` para mutaciones locales interactivas.", "Olvidar envolver el componente en un `<Suspense>` padre cuando se leen promesas con `use()`."],
+        followUps: [
+          "¿Por qué use() sí puede llamarse condicionalmente?",
+          "¿Qué problema aparece si creas la promesa dentro del render?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 regla tradicional de los hooks de React rompe de forma intencional el nuevo hook 'use()' en React 19?",
@@ -459,7 +523,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres c\u00f3mo React 19 reduce la complejidad de los formularios aline\u00e1ndose con los est\u00e1ndares web nativos (`<form action>`) y delegando los estados de pending en `useActionState`.",
-        commonPitfalls: ["Llamar a `useFormStatus` en el mismo componente que declara el `<form>` (debe llamarse en un componente HIJO dentro del form).", "Seguir implementando handlers `onSubmit` manuales con 4 `useState` para `isSubmitting`, `error` y `data`.", "Olvidar asignar la prop `name` en los inputs del formulario para que viajen en el `FormData`."]
+        commonPitfalls: ["Llamar a `useFormStatus` en el mismo componente que declara el `<form>` (debe llamarse en un componente HIJO dentro del form).", "Seguir implementando handlers `onSubmit` manuales con 4 `useState` para `isSubmitting`, `error` y `data`.", "Olvidar asignar la prop `name` en los inputs del formulario para que viajen en el `FormData`."],
+        followUps: [
+          "¿Cómo se gestiona el estado pendiente de un formulario con useFormStatus?",
+          "¿Cómo encajan las Server Actions con useActionState?"
+        ]
       },
       quiz: {
         question: "\u00bfD\u00f3nde debe ser invocado el hook 'useFormStatus()' para acceder al estado 'pending' del formulario?",
@@ -486,7 +554,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres c\u00f3mo brindar una experiencia de usuario de nivel 'Apple/Stripe' con latencia cero, explicando c\u00f3mo React 19 abstrae el dolor de cabeza de gestionar manualmente estados previos para hacer rollback.",
-        commonPitfalls: ["Creer que se necesita un `try/catch` para revertir el estado optimista (React lo hace solo cuando la acci\u00f3n termina o falla).", "No proveer pistas visuales sutiles (como opacidad reducida o spinner) para avisar que el dato a\u00fan est\u00e1 confirm\u00e1ndose en red.", "Usar `useOptimistic` fuera de transiciones concurrentes o form actions de React 19."]
+        commonPitfalls: ["Creer que se necesita un `try/catch` para revertir el estado optimista (React lo hace solo cuando la acci\u00f3n termina o falla).", "No proveer pistas visuales sutiles (como opacidad reducida o spinner) para avisar que el dato a\u00fan est\u00e1 confirm\u00e1ndose en red.", "Usar `useOptimistic` fuera de transiciones concurrentes o form actions de React 19."],
+        followUps: [
+          "¿Qué ocurre con la actualización optimista si la petición falla?",
+          "¿Cómo gestionarías varias actualizaciones optimistas concurrentes?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre autom\u00e1ticamente en 'useOptimistic' si la acci\u00f3n as\u00edncrona de fondo es rechazada con un error?",
@@ -513,7 +585,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres c\u00f3mo mantener interfaces a 60 FPS sin recurrir a 'debounces' arbitrarios de tiempo (`setTimeout`), aprovechando la planificaci\u00f3n de prioridades colaborativa nativa de React.",
-        commonPitfalls: ["Envolver la actualizaci\u00f3n del propio input de texto dentro de `startTransition` (har\u00eda que el cursor y las letras tecleadas sufran retardo).", "Usar `useTransition` para tareas triviales que no causan lentitud en pantalla.", "No utilizar el indicador `isPending` para brindar retroalimentaci\u00f3n visual al usuario durante el c\u00e1lculo."]
+        commonPitfalls: ["Envolver la actualizaci\u00f3n del propio input de texto dentro de `startTransition` (har\u00eda que el cursor y las letras tecleadas sufran retardo).", "Usar `useTransition` para tareas triviales que no causan lentitud en pantalla.", "No utilizar el indicador `isPending` para brindar retroalimentaci\u00f3n visual al usuario durante el c\u00e1lculo."],
+        followUps: [
+          "¿Qué diferencia hay entre useTransition y debounce?",
+          "¿Cuándo usarías useDeferredValue en lugar de useTransition?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 sucede si el usuario sigue tecleando mientras React est\u00e1 calculando una actualizaci\u00f3n envuelta en 'startTransition'?",
@@ -540,7 +616,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres c\u00f3mo dise\u00f1ar sistemas de dise\u00f1o (Design Systems) escalables con APIs declarativas tipo `<Accordion>`, `<Tabs>` o `<Menu>` usando subcomponentes est\u00e1ticos.",
-        commonPitfalls: ["No comprobar si el contexto es `null` en los subcomponentes, lo que provocar\u00eda errores cr\u00edpticos si alguien los usa fuera del padre.", "Usar props monol\u00edticas r\u00edgidas como `options={[{label, value}]}` que impiden personalizar el markup individual de cada \u00edtem.", "Exponer el Context de forma p\u00fablica, rompiendo la encapsulaci\u00f3n del componente."]
+        commonPitfalls: ["No comprobar si el contexto es `null` en los subcomponentes, lo que provocar\u00eda errores cr\u00edpticos si alguien los usa fuera del padre.", "Usar props monol\u00edticas r\u00edgidas como `options={[{label, value}]}` que impiden personalizar el markup individual de cada \u00edtem.", "Exponer el Context de forma p\u00fablica, rompiendo la encapsulaci\u00f3n del componente."],
+        followUps: [
+          "¿Cómo comparten estado los subcomponentes de un compound component?",
+          "¿Qué ventajas de API ofrece frente a pasar muchas props?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la principal ventaja de utilizar Compound Components en librer\u00edas de dise\u00f1o de interfaz?",
@@ -567,7 +647,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber que conoces el problema del stacking context CSS (`overflow: hidden` y `z-index`) y que entiendes que la propagaci\u00f3n de eventos sint\u00e9ticos de React sigue el \u00e1rbol de componentes de React y no el \u00e1rbol del DOM real.",
-        commonPitfalls: ["Intentar acceder a `document.getElementById('portal-root')` en Server-Side Rendering (SSR) antes de que el componente monte en cliente.", "Creer que los eventos no subir\u00e1n al componente padre de React porque el nodo est\u00e1 f\u00edsicamente en `<body>`.", "Olvidar gestionar la accesibilidad (Focus Trap y teclado Escape) dentro del modal montado en el portal."]
+        commonPitfalls: ["Intentar acceder a `document.getElementById('portal-root')` en Server-Side Rendering (SSR) antes de que el componente monte en cliente.", "Creer que los eventos no subir\u00e1n al componente padre de React porque el nodo est\u00e1 f\u00edsicamente en `<body>`.", "Olvidar gestionar la accesibilidad (Focus Trap y teclado Escape) dentro del modal montado en el portal."],
+        followUps: [
+          "¿Cómo se propagan los eventos desde un portal?",
+          "¿Qué consideraciones de accesibilidad tiene un modal con portal (focus trap)?"
+        ]
       },
       quiz: {
         question: "\u00bfC\u00f3mo se comporta la propagaci\u00f3n (bubbling) de un evento 'onClick' originado dentro de un React Portal?",
@@ -594,7 +678,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Pregunta imprescindible de Staff/Architect. Aclara que RSC no es lo mismo que el SSR cl\u00e1sico: SSR genera HTML est\u00e1tico que luego requiere hidratar todo el JS; RSC nunca hidrata los componentes servidor ni descarga su JS.",
-        commonPitfalls: ["Confundir RSC con SSR (Server-Side Rendering cl\u00e1sico): RSC no es un reemplazo de SSR, trabajan juntos.", "Poner `'use client'` en todos los archivos por inercia (rompe todas las ventajas de 0kb bundle de RSC).", "Intentar usar hooks de ciclo de vida (`useState`, `useEffect`) o eventos (`onClick`) dentro de un Server Component (provoca error de compilaci\u00f3n)."]
+        commonPitfalls: ["Confundir RSC con SSR (Server-Side Rendering cl\u00e1sico): RSC no es un reemplazo de SSR, trabajan juntos.", "Poner `'use client'` en todos los archivos por inercia (rompe todas las ventajas de 0kb bundle de RSC).", "Intentar usar hooks de ciclo de vida (`useState`, `useEffect`) o eventos (`onClick`) dentro de un Server Component (provoca error de compilaci\u00f3n)."],
+        followUps: [
+          "¿Qué diferencia hay entre RSC y SSR?",
+          "¿Qué no puede hacer un Server Component (hooks de estado, eventos)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la diferencia fundamental entre React Server Components (RSC) y el SSR tradicional de React?",
@@ -621,7 +709,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Entrevista de Staff/Principal Engineer. Demuestra que comprendes la transici\u00f3n del Stack Reconciler a Fiber, el mecanismo `shouldYieldToHost` (MessageChannel en navegador) y c\u00f3mo las m\u00e1scaras de bits `Lanes` gestionan prioridades.",
-        commonPitfalls: ["Creer que Fiber es un hilo de Web Worker separado (corre en el hilo principal cooperativamente mediante time-slicing).", "Desconocer el patr\u00f3n 'Double Buffering': React mantiene dos \u00e1rboles Fiber en memoria simult\u00e1neamente (`current` y `workInProgress`).", "Confundir la fase de render (interrumpible) con la fase de commit (at\u00f3mica y s\u00edncrona)."]
+        commonPitfalls: ["Creer que Fiber es un hilo de Web Worker separado (corre en el hilo principal cooperativamente mediante time-slicing).", "Desconocer el patr\u00f3n 'Double Buffering': React mantiene dos \u00e1rboles Fiber en memoria simult\u00e1neamente (`current` y `workInProgress`).", "Confundir la fase de render (interrumpible) con la fase de commit (at\u00f3mica y s\u00edncrona)."],
+        followUps: [
+          "¿Qué son los lanes de prioridad en Fiber?",
+          "¿Qué diferencia hay entre la fase de render y la fase de commit?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 la arquitectura de Fiber organiza los componentes en una lista enlazada (child, sibling, return) en lugar de un \u00e1rbol recursivo convencional?",
@@ -648,7 +740,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar que no solo sabes usar `useQuery`, sino que dominas el dise\u00f1o a gran escala: query key factories tipadas, invalidaciones jer\u00e1rquicas y patrones robustos de optimistic updates con rollback.",
-        commonPitfalls: ["Dejar `staleTime: 0` por defecto en toda la aplicaci\u00f3n, provocando r\u00e1fagas masivas de refetch en cada cambio de ventana.", "Confundir `staleTime` (validez del dato) con `gcTime` (persistencia en memoria inactiva).", "No cancelar queries en curso (`cancelQueries`) antes de aplicar mutaciones optimistas, provocando race conditions en la cach\u00e9."]
+        commonPitfalls: ["Dejar `staleTime: 0` por defecto en toda la aplicaci\u00f3n, provocando r\u00e1fagas masivas de refetch en cada cambio de ventana.", "Confundir `staleTime` (validez del dato) con `gcTime` (persistencia en memoria inactiva).", "No cancelar queries en curso (`cancelQueries`) antes de aplicar mutaciones optimistas, provocando race conditions en la cach\u00e9."],
+        followUps: [
+          "¿Qué diferencia hay entre staleTime y gcTime?",
+          "¿Cómo estructurarías las query keys en una aplicación grande?"
+        ]
       },
       quiz: {
         question: "En TanStack Query v5, \u00bfcu\u00e1l es la diferencia exacta entre 'staleTime' y 'gcTime'?",
@@ -675,7 +771,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que expliques c\u00f3mo React elimin\u00f3 el cuello de botella 'todo o nada' del SSR tradicional y c\u00f3mo Selective Hydration garantiza interactividad instant\u00e1nea en conexiones m\u00f3viles lentas.",
-        commonPitfalls: ["Pensar que Streaming SSR requiere WebSockets (funciona sobre conexiones est\u00e1ndar HTTP/1.1 o HTTP/2 en streaming).", "Creer que si una consulta de datos lenta falla en streaming la p\u00e1gina entera se rompe (Suspense permite degradar a cliente).", "No utilizar `<Suspense>` en los puntos cr\u00edticos de lentitud de la interfaz en SSR."]
+        commonPitfalls: ["Pensar que Streaming SSR requiere WebSockets (funciona sobre conexiones est\u00e1ndar HTTP/1.1 o HTTP/2 en streaming).", "Creer que si una consulta de datos lenta falla en streaming la p\u00e1gina entera se rompe (Suspense permite degradar a cliente).", "No utilizar `<Suspense>` en los puntos cr\u00edticos de lentitud de la interfaz en SSR."],
+        followUps: [
+          "¿Cómo prioriza React la hidratación de la zona con la que interactúa el usuario?",
+          "¿Qué diferencia hay entre renderToPipeableStream y renderToString?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre durante la Selective Hydration de React si un usuario hace click en un bot\u00f3n cuya secci\u00f3n a\u00fan no ha terminado de hidratarse?",
@@ -702,7 +802,11 @@ export const questionsReact: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Pregunta de Principal Architect. Argumenta c\u00f3mo este dise\u00f1o permite a m\u00faltiples equipos trabajar simult\u00e1neamente sin conflictos de merge en Git, facilita micro-frontends y hace que eliminar una feature sea tan simple como borrar su carpeta.",
-        commonPitfalls: ["Permitir que las features crucen importaciones de archivos internos de otros dominios sin pasar por el `index.ts` p\u00fablico.", "Crear una carpeta `shared/` o `common/` masiva que se convierte en un basurero de c\u00f3digo no modularizado.", "Mezclar llamadas de red y l\u00f3gica de negocio directamente dentro de los componentes de presentaci\u00f3n JSX."]
+        commonPitfalls: ["Permitir que las features crucen importaciones de archivos internos de otros dominios sin pasar por el `index.ts` p\u00fablico.", "Crear una carpeta `shared/` o `common/` masiva que se convierte en un basurero de c\u00f3digo no modularizado.", "Mezclar llamadas de red y l\u00f3gica de negocio directamente dentro de los componentes de presentaci\u00f3n JSX."],
+        followUps: [
+          "¿Cómo evitarías dependencias circulares entre features?",
+          "¿Cómo forzarías los límites entre módulos con ESLint?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la regla fundamental de frontera entre m\u00f3dulos en una arquitectura Feature-First?",

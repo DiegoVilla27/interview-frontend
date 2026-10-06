@@ -41,7 +41,11 @@ async function loadWasmModule() {
       },
       interviewTips: {
         whatInterviewersWant: "Verificar si reconoces WebAssembly como la cuarta tecnolog\u00eda nativa del navegador adem\u00e1s de HTML, CSS y JS, y entender que TypeScript o Sass requieren compilaci\u00f3n previa.",
-        commonPitfalls: ["Decir que TypeScript o Sass son interpretados directamente por el navegador.", "Ignorar el papel de WebAssembly en el desarrollo web moderno."]
+        commonPitfalls: ["Decir que TypeScript o Sass son interpretados directamente por el navegador.", "Ignorar el papel de WebAssembly en el desarrollo web moderno."],
+        followUps: [
+          "¿Qué es WebAssembly y cómo convive con JavaScript?",
+          "¿Cómo procesa el navegador cada uno de estos lenguajes?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes tecnolog\u00edas es ejecutada NATIVAMENTE por los navegadores modernos sin transpilaci\u00f3n previa?",
@@ -52,7 +56,7 @@ async function loadWasmModule() {
     },
     {
       id: "browser-02",
-      title: "\u00bfQu\u00e9 es el DOM?",
+      title: "¿Qué es el DOM y cómo lo construye el navegador a partir del HTML?",
       level: "basico",
       tags: ["DOM", "Document Object Model", "Nodos", "Tree", "JavaScript"],
       response: "El DOM (Document Object Model) es una interfaz de programaci\u00f3n de aplicaciones orientada a objetos que representa la estructura jer\u00e1rquica de un documento HTML o XML como un \u00e1rbol de nodos (Tree of Nodes). Cuando el motor del navegador analiza los bytes de un archivo HTML, realiza tokenizaci\u00f3n, construcci\u00f3n de nodos y ensambla este \u00e1rbol en memoria viva. Cada elemento, atributo y fragmento de texto se convierte en un nodo programable (interfaces Node, Element, HTMLElement, Text) que JavaScript puede consultar, agregar, modificar o eliminar din\u00e1micamente en tiempo de ejecuci\u00f3n, desencadenando la actualizaci\u00f3n del renderizado.",
@@ -86,7 +90,11 @@ document.querySelector('#user-container')?.replaceChildren(card);`,
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar conocimiento de que el DOM no es el archivo HTML original, sino una representaci\u00f3n en memoria viva de objetos creada tras el parseo del HTML.",
-        commonPitfalls: ["Confundir el DOM con el c\u00f3digo fuente HTML original visto en 'Ver c\u00f3digo fuente'.", "Ignorar que los nodos de texto y comentarios tambi\u00e9n forman parte del DOM."]
+        commonPitfalls: ["Confundir el DOM con el c\u00f3digo fuente HTML original visto en 'Ver c\u00f3digo fuente'.", "Ignorar que los nodos de texto y comentarios tambi\u00e9n forman parte del DOM."],
+        followUps: [
+          "¿Qué diferencia hay entre el DOM y el HTML fuente?",
+          "¿Qué es un DocumentFragment y por qué mejora el rendimiento?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 diferencia principal existe entre el c\u00f3digo fuente HTML original y el DOM?",
@@ -130,7 +138,11 @@ console.log('Resolución de pantalla: ' + screen.width + 'x' + screen.height);`,
       },
       interviewTips: {
         whatInterviewersWant: "Saber distinguir con precisi\u00f3n el \u00e1mbito del documento (DOM) frente al \u00e1mbito del cliente/ventana del navegador (BOM).",
-        commonPitfalls: ["Creer que 'document' est\u00e1 fuera de 'window' cuando en realidad 'window.document' es la ra\u00edz del DOM.", "Asumir que el BOM solo sirve para alertas y modales antiguos."]
+        commonPitfalls: ["Creer que 'document' est\u00e1 fuera de 'window' cuando en realidad 'window.document' es la ra\u00edz del DOM.", "Asumir que el BOM solo sirve para alertas y modales antiguos."],
+        followUps: [
+          "¿Qué objetos componen el BOM (window, navigator, location, history, screen)?",
+          "¿Por qué el BOM no estuvo estandarizado durante años?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de los siguientes objetos NO pertenece al BOM (Browser Object Model)?",
@@ -181,7 +193,11 @@ export class SafeStorage {
       },
       interviewTips: {
         whatInterviewersWant: "Mencionar el l\u00edmite de cuota (~5MB), la naturaleza s\u00edncrona/bloqueante del hilo principal, la serializaci\u00f3n string y la vulnerabilidad XSS si se guardan tokens sensibles.",
-        commonPitfalls: ["Almacenar JWTs o datos sensibles en localStorage sin reconocer el riesgo de robo mediante Cross-Site Scripting (XSS).", "Olvidar que las claves y valores solo aceptan strings."]
+        commonPitfalls: ["Almacenar JWTs o datos sensibles en localStorage sin reconocer el riesgo de robo mediante Cross-Site Scripting (XSS).", "Olvidar que las claves y valores solo aceptan strings."],
+        followUps: [
+          "¿Por qué localStorage es síncrono y qué impacto tiene en el rendimiento?",
+          "¿Por qué no deberías guardar tokens de autenticación en localStorage?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el comportamiento de persistencia de localStorage al cerrar el navegador?",
@@ -227,7 +243,11 @@ document.querySelector('#checkout-form')?.addEventListener('input', (e) => {
       },
       interviewTips: {
         whatInterviewersWant: "Asegurar que entiendes que duplicar una pesta\u00f1a (cmd+click o click derecho) puede copiar el estado inicial, pero modificar una no afectar\u00e1 a la otra.",
-        commonPitfalls: ["Creer que sessionStorage se comparte entre pesta\u00f1as del mismo dominio como lo hace localStorage."]
+        commonPitfalls: ["Creer que sessionStorage se comparte entre pesta\u00f1as del mismo dominio como lo hace localStorage."],
+        followUps: [
+          "¿sessionStorage se comparte entre pestañas del mismo origen?",
+          "¿Qué ocurre con sessionStorage al duplicar una pestaña?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre con los datos de sessionStorage si el usuario abre una nueva pesta\u00f1a con la misma URL?",
@@ -271,7 +291,11 @@ function getCookie(name) {
       },
       interviewTips: {
         whatInterviewersWant: "Distinguir de inmediato HttpOnly, Secure y SameSite (Lax, Strict, None) y explicar por qu\u00e9 los tokens de sesi\u00f3n sensibles NUNCA deben dejarse expuestos en document.cookie.",
-        commonPitfalls: ["Olvidar que las cookies viajan en la cabecera de CADA petici\u00f3n HTTP, aumentando el payload de red si se almacenan datos innecesarios."]
+        commonPitfalls: ["Olvidar que las cookies viajan en la cabecera de CADA petici\u00f3n HTTP, aumentando el payload de red si se almacenan datos innecesarios."],
+        followUps: [
+          "¿Qué hacen los atributos HttpOnly, Secure y SameSite?",
+          "¿Qué diferencia hay entre SameSite=Strict, Lax y None?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 atributo de una cookie impide de manera efectiva que JavaScript acceda a ella v\u00eda document.cookie?",
@@ -314,7 +338,11 @@ async function fetchAssetWithPolicy(url) {
       },
       interviewTips: {
         whatInterviewersWant: "Comprender la diferencia exacta entre 'no-store' (nunca guardar nada) y 'no-cache' (guardar pero revalidar siempre antes de usar con ETag).",
-        commonPitfalls: ["Creer que 'no-cache' significa 'no almacenar'. Para no guardar jam\u00e1s se debe usar estrictamente 'Cache-Control: no-store'."]
+        commonPitfalls: ["Creer que 'no-cache' significa 'no almacenar'. Para no guardar jam\u00e1s se debe usar estrictamente 'Cache-Control: no-store'."],
+        followUps: [
+          "¿Qué diferencia hay entre Cache-Control: no-cache y no-store?",
+          "¿Cómo funcionan las validaciones con ETag y Last-Modified?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 cabecera Cache-Control impide por completo que el navegador guarde el recurso en cualquier tipo de cach\u00e9?",
@@ -354,7 +382,11 @@ window.scrollTo({ top: 0, behavior: 'smooth' });`,
       },
       interviewTips: {
         whatInterviewersWant: "Escuchar que 'window.document' conecta ambos mundos y que el DOM se centra en el \u00e1rbol HTML mientras el BOM se enfoca en el cliente/navegador.",
-        commonPitfalls: ["Afirmar que son APIs independientes y desconectadas sin advertir que 'document' cuelga directamente de 'window'."]
+        commonPitfalls: ["Afirmar que son APIs independientes y desconectadas sin advertir que 'document' cuelga directamente de 'window'."],
+        followUps: [
+          "¿window.document forma parte del BOM o del DOM?",
+          "¿Qué APIs del BOM se usan en una SPA para el enrutamiento (History API)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes afirmaciones describe con exactitud la relaci\u00f3n entre window y document?",
@@ -397,7 +429,11 @@ requestAnimationFrame(() => {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar el orden estricto de precedencia: Call Stack s\u00edncrono -> Todas las Microtasks -> Render/rAF -> Una Macrotask.",
-        commonPitfalls: ["Pensar que setTimeout(fn, 0) se ejecuta de inmediato sin ceder el turno a las microtareas y al renderizado."]
+        commonPitfalls: ["Pensar que setTimeout(fn, 0) se ejecuta de inmediato sin ceder el turno a las microtareas y al renderizado."],
+        followUps: [
+          "¿Dónde encaja el renderizado del navegador dentro del event loop?",
+          "¿Cómo detectarías tareas largas (Long Tasks) en producción?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 cola se drena completamente antes de procesar la siguiente macrotarea (como setTimeout)?",
@@ -408,7 +444,7 @@ requestAnimationFrame(() => {
     },
     {
       id: "browser-10",
-      title: "\u00bfQu\u00e9 son los Web Workers?",
+      title: "¿Qué son los Web Workers y cómo evitan bloquear el hilo principal del navegador?",
       level: "medio",
       tags: ["Web Workers", "Hilos", "Multithreading", "postMessage", "Main Thread"],
       response: "Los Web Workers son hilos de ejecuci\u00f3n en segundo plano (Background Threads) que corren en paralelo al hilo principal (Main Thread) del navegador. Permiten ejecutar c\u00e1lculos matem\u00e1ticos pesados, procesamiento de im\u00e1genes o parsing masivo sin congelar la interfaz gr\u00e1fica ni degradar la tasa de cuadros (60/120 FPS). Operan en un contexto global aislado ('self' o DedicatedWorkerGlobalScope) y NO tienen acceso al DOM, a 'window' ni a 'document'. La comunicaci\u00f3n entre el hilo principal y el Worker es as\u00edncrona y basada en paso de mensajes mediante 'postMessage()' y el evento 'onmessage', utilizando Structured Clone Algorithm o transferencia de memoria directa de objetos ArrayBuffer (Transferable Objects) con costo de copia cero.",
@@ -442,7 +478,11 @@ self.onmessage = (event) => {
       },
       interviewTips: {
         whatInterviewersWant: "Mencionar que no tienen acceso al DOM, que evitan el jank en la UI y explicar el uso de Transferable Objects para no clonar buffers gigantes.",
-        commonPitfalls: ["Intentar manipular 'document' o 'window' dentro de un Web Worker.", "Olvidar que el paso de objetos pesados no transferidos por postMessage implica un clonado con costo de serializaci\u00f3n."]
+        commonPitfalls: ["Intentar manipular 'document' o 'window' dentro de un Web Worker.", "Olvidar que el paso de objetos pesados no transferidos por postMessage implica un clonado con costo de serializaci\u00f3n."],
+        followUps: [
+          "¿Cómo se comunican el hilo principal y un worker?",
+          "¿Cuándo no compensa usar un Web Worker por el coste de serialización?"
+        ]
       },
       quiz: {
         question: "\u00bfA cu\u00e1l de los siguientes elementos TIENE acceso directo un Dedicated Web Worker?",
@@ -487,7 +527,11 @@ async function makeAuthorizedApiCall() {
       },
       interviewTips: {
         whatInterviewersWant: "Resaltar que CORS es una restricci\u00f3n impuesta por el NAVEGADOR para proteger al usuario, no un firewall del servidor. Herramientas como curl o Postman no ejecutan validaciones CORS.",
-        commonPitfalls: ["Creer que la petici\u00f3n nunca lleg\u00f3 al servidor; con peticiones simples o sin preflight el servidor s\u00ed recibe y procesa la solicitud, pero el navegador oculta la respuesta."]
+        commonPitfalls: ["Creer que la petici\u00f3n nunca lleg\u00f3 al servidor; con peticiones simples o sin preflight el servidor s\u00ed recibe y procesa la solicitud, pero el navegador oculta la respuesta."],
+        followUps: [
+          "¿Qué cabeceras intervienen en una petición con credenciales?",
+          "¿Por qué CORS protege al usuario y no al servidor?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 Postman o curl pueden realizar una petici\u00f3n a una API sin recibir errores de CORS, pero un navegador la bloquea?",
@@ -528,7 +572,11 @@ window.addEventListener('message', (event) => {
       },
       interviewTips: {
         whatInterviewersWant: "Citar de memoria los tres componentes del origen (Protocolo + Host + Puerto) y explicar c\u00f3mo relajarlo leg\u00edtimamente (CORS, postMessage con validaci\u00f3n de origen).",
-        commonPitfalls: ["Creer que cambiar solo de subdominio (app.com a api.app.com) califica como mismo origen."]
+        commonPitfalls: ["Creer que cambiar solo de subdominio (app.com a api.app.com) califica como mismo origen."],
+        followUps: [
+          "¿Qué define exactamente un mismo origen (esquema, host, puerto)?",
+          "¿Qué mecanismos permiten comunicación cross-origin de forma controlada?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes URLs comparte el MISMO origen con 'https://tienda.com:443/productos'?",
@@ -569,7 +617,11 @@ export const appStorage: StorageStrategies = {
       },
       interviewTips: {
         whatInterviewersWant: "Evaluar tu criterio arquitect\u00f3nico: saber qu\u00e9 almacenar en cada lugar y enfatizar el peligro de guardar tokens JWT de sesi\u00f3n en localStorage por riesgos de XSS.",
-        commonPitfalls: ["Recomendar localStorage para guardar JWTs de autenticaci\u00f3n sin mencionar el riesgo de XSS."]
+        commonPitfalls: ["Recomendar localStorage para guardar JWTs de autenticaci\u00f3n sin mencionar el riesgo de XSS."],
+        followUps: [
+          "¿Qué almacenamiento elegirías para un token de sesión y por qué?",
+          "¿Qué límites de tamaño tiene cada mecanismo?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 mecanismo de almacenamiento se transmite AUTOM\u00c1TICAMENTE en cada solicitud HTTP hacia el servidor?",
@@ -610,7 +662,11 @@ elB.style.visibility = 'hidden';
       },
       interviewTips: {
         whatInterviewersWant: "Distinguir n\u00edtidamente por qu\u00e9 'display: none' no entra al Render Tree mientras 'visibility: hidden' s\u00ed entra, y se\u00f1alar que los pseudo-elementos existen en el Render Tree sin estar en el DOM.",
-        commonPitfalls: ["Creer que el Render Tree es un clon exacto del DOM con colores asignados."]
+        commonPitfalls: ["Creer que el Render Tree es un clon exacto del DOM con colores asignados."],
+        followUps: [
+          "¿Qué elementos se excluyen del render tree?",
+          "¿Cómo afecta el CSS bloqueante a la construcción del render tree?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de los siguientes elementos S\u00cd se incluye como nodo dentro del Render Tree?",
@@ -659,7 +715,11 @@ function goodResizeElements(elements) {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar c\u00f3mo priorizar propiedades que solo activan Composite (transform, opacity) para delegar animaciones directamente a la GPU a 60/120 FPS sin tocar Reflow ni Repaint.",
-        commonPitfalls: ["Animar propiedades como 'left', 'top', 'width' o 'height' que disparan Reflow constante en cada frame en lugar de usar 'transform'."]
+        commonPitfalls: ["Animar propiedades como 'left', 'top', 'width' o 'height' que disparan Reflow constante en cada frame en lugar de usar 'transform'."],
+        followUps: [
+          "¿Qué es el layout thrashing y cómo se evita?",
+          "¿Qué propiedades disparan solo composite sin layout ni paint?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes propiedades CSS se anima exclusivamente en la GPU sin desencadenar Reflow ni Repaint?",
@@ -703,7 +763,11 @@ function goodResizeElements(elements) {
       },
       interviewTips: {
         whatInterviewersWant: "Entender el impacto de recursos 'render-blocking' (CSS est\u00e1ndar) y 'parser-blocking' (scripts sincr\u00f3nicos sin defer/async) en las m\u00e9tricas First Contentful Paint (FCP) y Largest Contentful Paint (LCP).",
-        commonPitfalls: ["Ignorar que el CSS es render-blocking por dise\u00f1o para evitar el parpadeo de contenido sin estilo (FOUC)."]
+        commonPitfalls: ["Ignorar que el CSS es render-blocking por dise\u00f1o para evitar el parpadeo de contenido sin estilo (FOUC)."],
+        followUps: [
+          "¿Cómo medirías el CRP en una página real?",
+          "¿Qué técnicas reducen los recursos críticos?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 el navegador bloquea el renderizado de la p\u00e1gina mientras descarga y procesa hojas de estilo CSS externas?",
@@ -750,7 +814,11 @@ self.addEventListener('fetch', (event) => {
       },
       interviewTips: {
         whatInterviewersWant: "Conocer las tres fases del ciclo de vida: Registration, Installation (pre-caching), Activation (limpieza de cach\u00e9s viejas con skipWaiting/clients.claim) y explicar las estrategias de Cache API.",
-        commonPitfalls: ["Confundir Service Workers con Web Workers ordinarios (los Service Workers act\u00faan como proxy de red y retienen estado de cach\u00e9 fuera de pesta\u00f1as activas)."]
+        commonPitfalls: ["Confundir Service Workers con Web Workers ordinarios (los Service Workers act\u00faan como proxy de red y retienen estado de cach\u00e9 fuera de pesta\u00f1as activas)."],
+        followUps: [
+          "¿Cómo actualizarías un Service Worker sin romper sesiones activas?",
+          "¿Qué estrategias de caché implementarías con un Service Worker?"
+        ]
       },
       quiz: {
         question: "\u00bfEn qu\u00e9 evento del Service Worker se suelen depurar y eliminar versiones obsoletas de cach\u00e9s previas?",
@@ -797,7 +865,11 @@ document.querySelector('#btn-checkout')?.addEventListener('pointerenter', () => 
       },
       interviewTips: {
         whatInterviewersWant: "Diferenciar con claridad el alcance temporal: Preload es para la vista presente que se est\u00e1 cargando; Prefetch es para vistas futuras anticipadas.",
-        commonPitfalls: ["Usar 'preload' excesivamente para recursos no cr\u00edticos, saturando el ancho de banda y compitiendo con activos verdaderamente cr\u00edticos de la p\u00e1gina actual."]
+        commonPitfalls: ["Usar 'preload' excesivamente para recursos no cr\u00edticos, saturando el ancho de banda y compitiendo con activos verdaderamente cr\u00edticos de la p\u00e1gina actual."],
+        followUps: [
+          "¿Qué diferencia hay entre preload, prefetch y preconnect?",
+          "¿Qué riesgo tiene abusar de preload?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la directiva correcta para cargar con ALTA prioridad una fuente web cr\u00edtica para la p\u00e1gina que se est\u00e1 renderizando?",
@@ -846,7 +918,11 @@ export function throttle<T extends (...args: any[]) => void>(fn: T, limitMs: num
       },
       interviewTips: {
         whatInterviewersWant: "Poder codificar o razonar ambas funciones en vivo y dar ejemplos de uso concretos: Debounce para inputs de autocompletado y Throttle para scroll/resize continuo.",
-        commonPitfalls: ["Confundirlos entre s\u00ed o no limpiar los temporizadores (clearTimeout) al desmontar componentes en React/Vue."]
+        commonPitfalls: ["Confundirlos entre s\u00ed o no limpiar los temporizadores (clearTimeout) al desmontar componentes en React/Vue."],
+        followUps: [
+          "¿Qué técnica usarías para un buscador con autocompletado y cuál para el evento scroll?",
+          "¿Cómo implementarías un debounce con cancelación?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 t\u00e9cnica es m\u00e1s apropiada para implementar un buscador con autocompletado que consulta una API seg\u00fan lo que escribe el usuario?",
@@ -899,7 +975,11 @@ function saveArticleOffline(article) {
       },
       interviewTips: {
         whatInterviewersWant: "Resaltar su naturaleza transaccional as\u00edncrona, su alta capacidad basada en cuota de disco y la habilidad de guardar objetos binarios sin necesidad de serializarlos a string.",
-        commonPitfalls: ["Usar la API cruda basada en callbacks antiguos en proyectos grandes sin librer\u00edas de envoltorio basadas en Promesas como 'idb'."]
+        commonPitfalls: ["Usar la API cruda basada en callbacks antiguos en proyectos grandes sin librer\u00edas de envoltorio basadas en Promesas como 'idb'."],
+        followUps: [
+          "¿Cómo manejarías las migraciones de esquema en IndexedDB?",
+          "¿Qué librerías simplifican la API de IndexedDB (idb, Dexie)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes afirmaciones sobre IndexedDB es VERDADERA?",
@@ -950,7 +1030,11 @@ async function generateAuditReport(url) {
       },
       interviewTips: {
         whatInterviewersWant: "Mencionar el Chrome DevTools Protocol (CDP) o WebDriver BiDi y explicar por qu\u00e9 superan a herramientas basadas en emulaciones falsas del DOM como JSDOM para pruebas de layout real.",
-        commonPitfalls: ["Creer que JSDOM es un navegador headless; JSDOM solo emula un subconjunto de APIs de DOM en Node.js sin un motor real de layout o rasterizado."]
+        commonPitfalls: ["Creer que JSDOM es un navegador headless; JSDOM solo emula un subconjunto de APIs de DOM en Node.js sin un motor real de layout o rasterizado."],
+        followUps: [
+          "¿Qué es el Chrome DevTools Protocol?",
+          "¿Cómo se usan los navegadores headless en testing E2E y en SSR/scraping?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 protocolo de bajo nivel utilizan herramientas como Puppeteer para comunicarse directamente con instancias de Chromium headless?",
@@ -1002,7 +1086,11 @@ async function decompressPayload(compressedBlob) {
       },
       interviewTips: {
         whatInterviewersWant: "Destacar el modelo de Streams (TransformStream) y la ventaja de eliminar bundles de terceros para compresi\u00f3n en el cliente.",
-        commonPitfalls: ["Intentar usarla en navegadores muy antiguos sin comprobar previamente la existencia global de 'window.CompressionStream'."]
+        commonPitfalls: ["Intentar usarla en navegadores muy antiguos sin comprobar previamente la existencia global de 'window.CompressionStream'."],
+        followUps: [
+          "¿Cuándo comprimirías datos en el cliente antes de subirlos?",
+          "¿Qué formatos soporta CompressionStream (gzip, deflate)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 interfaces nativas provee la Compression Streams API para codificar y decodificar datos en el cliente?",
@@ -1046,7 +1134,11 @@ window.scheduler?.postTask(() => sendTelemetryBatch(), { signal: controller.sign
       },
       interviewTips: {
         whatInterviewersWant: "Vincular el Scheduler API directamente con la optimizaci\u00f3n de la m\u00e9trica Core Web Vital INP (Interaction to Next Paint) y el concepto de 'yielding to the main thread'.",
-        commonPitfalls: ["Confundirlo con Web Workers; el Scheduler API programa tareas en el MISMO hilo principal, organizando su cola con precisi\u00f3n."]
+        commonPitfalls: ["Confundirlo con Web Workers; el Scheduler API programa tareas en el MISMO hilo principal, organizando su cola con precisi\u00f3n."],
+        followUps: [
+          "¿Qué prioridades ofrece scheduler.postTask?",
+          "¿Qué hace scheduler.yield() y cómo mejora el INP?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de los siguientes niveles de prioridad en scheduler.postTask tiene la mayor urgencia para no degradar el INP?",
@@ -1097,7 +1189,11 @@ self.onconnect = (event) => {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar el ciclo de vida multi-pesta\u00f1a, la conexi\u00f3n a trav\u00e9s de 'MessagePort' en el evento 'onconnect' y casos reales (como una \u00fanica conexi\u00f3n SSE/WebSocket compartida entre 5 pesta\u00f1as).",
-        commonPitfalls: ["Olvidar llamar a 'port.start()' si se utiliza addEventListener en lugar de port.onmessage.", "Asumir compatibilidad universal (Safari hist\u00f3ricamente tuvo soporte limitado o deshabilitado para Shared Workers)."]
+        commonPitfalls: ["Olvidar llamar a 'port.start()' si se utiliza addEventListener en lugar de port.onmessage.", "Asumir compatibilidad universal (Safari hist\u00f3ricamente tuvo soporte limitado o deshabilitado para Shared Workers)."],
+        followUps: [
+          "¿Qué soporte tienen los Shared Workers en navegadores móviles?",
+          "¿Cómo se comunica un Shared Worker con varias pestañas mediante MessagePort?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 evento fundamental debe escuchar un Shared Worker para aceptar conexiones entrantes de nuevas pesta\u00f1as?",
@@ -1146,13 +1242,88 @@ async function accessAuthenticatedCookieStorage() {
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar conocimiento del fin de las third-party cookies, Apple Intelligent Tracking Prevention (ITP) y c\u00f3mo la Storage Access API reconcilia la privacidad con casos leg\u00edtimos de autenticaci\u00f3n e integraci\u00f3n.",
-        commonPitfalls: ["Llamar a 'document.requestStorageAccess()' sin una interacci\u00f3n previa del usuario (User Gesture), lo cual causar\u00e1 el rechazo inmediato de la promesa."]
+        commonPitfalls: ["Llamar a 'document.requestStorageAccess()' sin una interacci\u00f3n previa del usuario (User Gesture), lo cual causar\u00e1 el rechazo inmediato de la promesa."],
+        followUps: [
+          "¿Qué problemas causa el bloqueo de cookies de terceros en iframes embebidos?",
+          "¿Qué diferencia hay entre Storage Access API y CHIPS (cookies particionadas)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el requisito indispensable del navegador para que document.requestStorageAccess() sea evaluado positivamente?",
         options: ["Que el iframe se cargue en modo sandbox sin permisos.", "Que la solicitud se ejecute en respuesta directa a un gesto de interacci\u00f3n del usuario (User Gesture como un clic).", "Que la conexi\u00f3n no utilice HTTPS.", "Que el servidor responda con 'Access-Control-Allow-Origin: *'."],
         correctIndex: 1,
         explanation: "El navegador exige un User Gesture expl\u00edcito (clic o interacci\u00f3n intencional) para evitar que scripts de rastreo soliciten acceso de forma autom\u00e1tica en segundo plano."
+      }
+    },
+    {
+      id: "browser-26",
+      title: "¿Qué es la Broadcast Channel API y cómo funciona la comunicación entre pestañas?",
+      level: "experto",
+      tags: ["Broadcast Channel", "Web APIs", "Cross-tab Communication", "Same-Origin", "Pub/Sub", "Multi-tab Sync"],
+      response: "La Broadcast Channel API es una interfaz web estandarizada que implementa un modelo de mensajería Publicador/Suscriptor (Pub/Sub) 1-a-N en memoria entre diferentes contextos de navegación que comparten el mismo origen (mismo protocolo, dominio y puerto). Permite que múltiples pestañas abiertas, ventanas auxiliares, iframes y Web Workers envíen y reciban mensajes de forma bidireccional sin necesidad de un servidor backend (WebSockets o SSE) ni la sobrecarga de un Shared Worker. Cuando un contexto invoca channel.postMessage(), el mensaje se clona con el algoritmo Structured Clone y se difunde a todos los oyentes con el mismo nombre de canal, excluyendo automáticamente a la pestaña emisora para evitar bucles. A diferencia de localStorage con eventos de 'storage', opera 100% en memoria sin tocar disco ni bloquear el hilo principal con serializaciones JSON. Para prevenir fugas de memoria, es fundamental cerrar el canal invocando channel.close() cuando se destruye el contexto.",
+      codeExample: {
+        language: "javascript",
+        code: `// 1. Instanciar o suscribirse al canal con un nombre compartido
+const authChannel = new BroadcastChannel('auth_sync_channel');
+
+// 2. Función para emitir un evento a todas las demás pestañas del mismo origen
+function broadcastLogout(reason = 'Sesión cerrada por el usuario') {
+  authChannel.postMessage({
+    action: 'LOGOUT',
+    timestamp: Date.now(),
+    reason
+  });
+
+  // Limpieza local de la pestaña emisora
+  sessionStorage.removeItem('access_token');
+  window.location.href = '/login';
+}
+
+// 3. Escuchar notificaciones emitidas por OTRAS pestañas
+// (Nota: la pestaña emisora NO recibe su propio mensaje)
+authChannel.onmessage = (event) => {
+  const { action, reason } = event.data;
+  if (action === 'LOGOUT') {
+    console.warn(\`Sincronización multi-pestaña: \${reason}\`);
+    sessionStorage.removeItem('access_token');
+    window.location.href = '/login';
+  }
+};
+
+// 4. Limpieza de recursos al desmontar o cerrar la pestaña
+window.addEventListener('beforeunload', () => {
+  authChannel.close(); // Libera la referencia en el motor del navegador
+});`,
+        explanation: "La Broadcast Channel API permite enviar objetos nativos clonados mediante Structured Clone entre pestañas del mismo origen en memoria viva. Es clave invocar channel.close() para liberar memoria."
+      },
+      visualDiagram: {
+        id: "diag-browser-broadcast-channel",
+        title: "Topología Pub/Sub de Broadcast Channel API",
+        caption: "Difusión 1 a N en memoria: La pestaña emisora transmite al canal 'auth' sin recibir su propio evento; Pestaña 2, Ventana y Worker se sincronizan al instante.",
+        diagramType: "browser-broadcast-channel"
+      },
+      interviewTips: {
+        whatInterviewersWant: "Evaluar el conocimiento de comunicación cross-tab moderna en el navegador (Broadcast Channel vs SharedWorker vs evento 'storage'), comprensión del límite Same-Origin, la exclusión del emisor en los mensajes recibidos y la importancia de liberar recursos con .close().",
+        commonPitfalls: [
+          "Creer que funciona entre diferentes dominios (está restringido por Same-Origin Policy).",
+          "Esperar que la pestaña emisora reciba el evento en su propio onmessage (el emisor no recibe su propio mensaje por diseño).",
+          "Olvidar llamar a channel.close() al desmontar componentes o cerrar ventanas, generando memory leaks."
+        ],
+        followUps: [
+          "¿Por qué es superior Broadcast Channel frente a escuchar window.addEventListener('storage', ...) con localStorage?",
+          "¿En qué escenario seguirías prefiriendo un Shared Worker sobre un Broadcast Channel?"
+        ]
+      },
+      quiz: {
+        question: "¿Cuál de las siguientes afirmaciones describe de manera precisa el comportamiento de la Broadcast Channel API?",
+        options: [
+          "Permite enviar mensajes entre pestañas de diferentes dominios web (cross-origin).",
+          "Difunde mensajes 1-a-N en memoria entre contextos del mismo origen y la pestaña emisora no recibe su propio mensaje.",
+          "Persiste los mensajes enviados en disco de forma similar a una tabla de base de datos.",
+          "Requiere que la pestaña emisora mantenga una referencia directa de objeto ventana (window) con cada pestaña receptora."
+        ],
+        correctIndex: 1,
+        explanation: "Broadcast Channel implementa un bus Pub/Sub en memoria restringido al mismo origen (Same-Origin). Por diseño de la especificación WHATWG, el emisor de postMessage() queda excluido del evento onmessage resultante."
       }
     }
   ]

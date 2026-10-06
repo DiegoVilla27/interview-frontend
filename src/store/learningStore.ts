@@ -1,20 +1,18 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { IQuestion, IQuizResult, QuestionLevel, TActiveView } from "../types";
+import { IInterviewResult, IQuestionRef, IQuizResult, QuestionLevel, TActiveView, TModuleId } from "../types";
+import {
+  IReviewState,
+  scheduleReview,
+  TReviewGrade
+} from "../features/flashcards/spaced-repetition";
 
 interface LearningState {
-  // Theme
-  isDark: boolean;
-  toggleTheme: () => void;
-  setTheme: (isDark: boolean) => void;
-
   // Navigation & Views
   activeView: TActiveView;
   setActiveView: (view: TActiveView) => void;
-  selectedModuleId: string | null;
-  setSelectedModuleId: (id: string | null) => void;
-  selectedQuestion: IQuestion | null;
-  setSelectedQuestion: (question: IQuestion | null) => void;
+  selectedQuestion: IQuestionRef | null;
+  setSelectedQuestion: (question: IQuestionRef | null) => void;
 
   // Filter & Search
   searchQuery: string;
@@ -32,11 +30,23 @@ interface LearningState {
   toggleBookmark: (questionTitle: string) => void;
   isQuestionBookmarked: (questionTitle: string) => boolean;
 
+  // Learning Paths
+  activePathId: string | null;
+  setActivePathId: (pathId: string | null) => void;
+
+  // Spaced Repetition (flashcards)
+  reviews: Record<string, IReviewState>;
+  reviewQuestion: (questionTitle: string, grade: TReviewGrade) => void;
+
+  // Mock Interview History
+  interviewHistory: IInterviewResult[];
+  addInterviewResult: (result: IInterviewResult) => void;
+
   // Quiz State & History
   quizHistory: IQuizResult[];
   addQuizResult: (result: IQuizResult) => void;
-  activeQuizModule: string | null;
-  setActiveQuizModule: (moduleTitle: string | null) => void;
+  activeQuizModule: TModuleId | null;
+  setActiveQuizModule: (moduleId: TModuleId | null) => void;
 
   // Reset Progress
   resetProgress: () => void;
@@ -45,16 +55,9 @@ interface LearningState {
 export const useLearningStore = create<LearningState>()(
   persist(
     (set, get) => ({
-      // Theme
-      isDark: true,
-      toggleTheme: () => set((state) => ({ isDark: !state.isDark })),
-      setTheme: (isDark: boolean) => set({ isDark }),
-
       // Navigation & Views
       activeView: "roadmap",
       setActiveView: (activeView) => set({ activeView }),
-      selectedModuleId: null,
-      setSelectedModuleId: (selectedModuleId) => set({ selectedModuleId }),
       selectedQuestion: null,
       setSelectedQuestion: (selectedQuestion) => set({ selectedQuestion }),
 
@@ -96,6 +99,27 @@ export const useLearningStore = create<LearningState>()(
       isQuestionBookmarked: (questionTitle: string) =>
         !!get().bookmarkedQuestionIds[questionTitle],
 
+      // Learning Paths
+      activePathId: null,
+      setActivePathId: (activePathId) => set({ activePathId }),
+
+      // Spaced Repetition (flashcards)
+      reviews: {},
+      reviewQuestion: (questionTitle, grade) =>
+        set((state) => ({
+          reviews: {
+            ...state.reviews,
+            [questionTitle]: scheduleReview(state.reviews[questionTitle], grade, Date.now())
+          }
+        })),
+
+      // Mock Interview History
+      interviewHistory: [],
+      addInterviewResult: (result) =>
+        set((state) => ({
+          interviewHistory: [result, ...state.interviewHistory.slice(0, 19)]
+        })),
+
       // Quiz State & History
       quizHistory: [],
       addQuizResult: (result: IQuizResult) =>
@@ -110,15 +134,26 @@ export const useLearningStore = create<LearningState>()(
         set({
           completedQuestionIds: {},
           bookmarkedQuestionIds: {},
+          reviews: {},
+          interviewHistory: [],
           quizHistory: []
         })
     }),
     {
       name: "interview-frontend-storage",
+      version: 1,
+      // v0 guardaba isDark (tema eliminado): se descarta al migrar
+      migrate: (persisted) => {
+        const state = { ...(persisted as Record<string, unknown>) };
+        delete state.isDark;
+        return state as unknown as LearningState;
+      },
       partialize: (state) => ({
-        isDark: state.isDark,
         completedQuestionIds: state.completedQuestionIds,
         bookmarkedQuestionIds: state.bookmarkedQuestionIds,
+        reviews: state.reviews,
+        activePathId: state.activePathId,
+        interviewHistory: state.interviewHistory,
         quizHistory: state.quizHistory
       })
     }

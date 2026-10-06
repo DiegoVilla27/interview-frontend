@@ -187,6 +187,10 @@ customElements.define('counter-badge', CounterBadge);`,
         commonPitfalls: [
           "Inspeccionar o manipular atributos o hijos en constructor() (el elemento aún no está en el DOM).",
           "Olvidar registrar observedAttributes al usar attributeChangedCallback."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre connectedCallback y el constructor?",
+          "¿Por qué hay que declarar observedAttributes para que funcione attributeChangedCallback?"
         ]
       },
       quiz: {
@@ -252,6 +256,10 @@ custom-card::part(confirm-button) {
         commonPitfalls: [
           "Intentar aplicar ::slotted a elementos descendientes anidados (::slotted solo selecciona el nodo raíz proyectado).",
           "Pensar que las variables CSS (--my-var) no atraviesan el Shadow DOM (las custom properties SÍ penetran)."
+        ],
+        followUps: [
+          "¿Qué diferencia hay entre ::part y las CSS Custom Properties para personalizar un componente?",
+          "¿Por qué ::slotted solo selecciona hijos directos?"
         ]
       },
       quiz: {
@@ -320,6 +328,10 @@ export class SimpleGreeting extends LitElement {
           "Explicar por qué Lit supera a React en peso de bundle y velocidad para Design Systems y micro-frontends.",
         commonPitfalls: [
           "Confundir lit-html con JSX (lit-html utiliza tagged templates nativos de JavaScript sin necesidad de compilación forzada)."
+        ],
+        followUps: [
+          "¿Cómo gestiona Lit las actualizaciones de forma asíncrona y por lotes?",
+          "¿Qué diferencia hay entre properties y state en Lit?"
         ]
       },
       quiz: {
@@ -383,6 +395,10 @@ export class EnterpriseButton {
           "Saber cuándo recomendar Stencil frente a Lit: Stencil es ideal cuando una empresa necesita un único Design System que funcione de forma nativa en equipos de React, Angular y Vue con soporte TypeScript estricto.",
         commonPitfalls: [
           "Creer que Stencil es un framework que corre en el cliente; es un compilador que genera componentes web puros."
+        ],
+        followUps: [
+          "¿Cómo genera Stencil wrappers para React o Angular?",
+          "¿Qué ventajas aporta el lazy loading de componentes en Stencil?"
         ]
       },
       quiz: {
@@ -442,6 +458,10 @@ customElements.define('react-widget', ReactWidgetElement);`,
           "Aclarar inmediatamente que NO son alternativas excluyentes: uno es un estándar de encapsulación del navegador y el otro es una técnica de optimización de render en JS.",
         commonPitfalls: [
           "Afirmar que Shadow DOM hace que las páginas sean más rápidas por hacer 'diffing' (Shadow DOM no hace ningún diffing)."
+        ],
+        followUps: [
+          "¿Pueden coexistir Shadow DOM y Virtual DOM en una misma aplicación?",
+          "¿Qué problemas de rendimiento resuelve cada uno?"
         ]
       },
       quiz: {
@@ -501,6 +521,10 @@ customElements.define('react-widget', ReactWidgetElement);`,
         commonPitfalls: [
           "Mencionar la sintaxis antigua 'shadowroot' en lugar de la actual 'shadowrootmode'.",
           "No saber por qué SSR y Web Components eran antes incompatibles sin JS."
+        ],
+        followUps: [
+          "¿Cómo se serializa un shadow root para SSR?",
+          "¿Qué atributo usa el elemento <template> para declarar un shadow root (shadowrootmode)?"
         ]
       },
       quiz: {
@@ -560,6 +584,10 @@ this.dispatchEvent(new CustomEvent('modal-closed', {
           "Explicar por qué existe el retargeting (privacidad y no acoplamiento) y cómo composed: true permite que los eventos crucen el shadow boundary.",
         commonPitfalls: [
           "Crear CustomEvents con { bubbles: true } pero olvidar { composed: true }, haciendo que nunca lleguen a listeners externos."
+        ],
+        followUps: [
+          "¿Qué devuelve event.composedPath()?",
+          "¿Qué hace la opción composed: true en un CustomEvent?"
         ]
       },
       quiz: {
@@ -623,6 +651,10 @@ customElements.define('form-rating', FormRating);`,
           "Demostrar experiencia construyendo inputs de formulario de calidad empresarial con validación nativa y FormData.",
         commonPitfalls: [
           "No declarar static formAssociated = true antes de llamar a attachInternals()."
+        ],
+        followUps: [
+          "¿Qué hace static formAssociated = true?",
+          "¿Cómo reporta un componente su validez al formulario (setValidity)?"
         ]
       },
       quiz: {

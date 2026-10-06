@@ -8,13 +8,13 @@ import {
   Target,
   Award
 } from "lucide-react";
-import { ISection, TCategory } from "../../types";
+import { ISectionSummary, TCategory } from "../../types";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { Button } from "../../components/ui/Button";
 import { useLearningStore } from "../../store/learningStore";
 
 interface StatsViewProps {
-  sections: ISection[];
+  sections: ISectionSummary[];
 }
 
 export const StatsView: React.FC<StatsViewProps> = ({ sections }) => {
@@ -34,7 +34,7 @@ export const StatsView: React.FC<StatsViewProps> = ({ sections }) => {
   };
 
   sections.forEach((sec) => {
-    const cat = sec.category || "fundamentos";
+    const cat = sec.category;
     sec.questions.forEach((q) => {
       totalQuestions++;
       categoryStats[cat].total++;

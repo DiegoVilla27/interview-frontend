@@ -22,7 +22,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Diferenciar con precisión Delivery (paquete listo pero gate manual a producción) de Deployment (100% automatizado directo a usuarios finales) y explicar qué requisitos de ingeniería son indispensables para este último.",
-            "commonPitfalls": ["Creer que Continuous Deployment es viable sin suites de pruebas automatizadas E2E y sin observabilidad en tiempo real.", "Confundir un script de despliegue básico con una arquitectura de CI/CD resiliente."]
+            "commonPitfalls": ["Creer que Continuous Deployment es viable sin suites de pruebas automatizadas E2E y sin observabilidad en tiempo real.", "Confundir un script de despliegue básico con una arquitectura de CI/CD resiliente."],
+            "followUps": [
+                "¿Qué requisitos debe cumplir un equipo para hacer Continuous Deployment?",
+                "¿Qué métricas DORA conoces?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la diferencia fundamental entre Continuous Delivery y Continuous Deployment?",
@@ -47,7 +51,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que entiendes que los Jobs corren en máquinas separadas y no comparten disco entre sí (requiriendo artefactos o caché), mientras que los Steps comparten el disco del mismo runner.",
-            "commonPitfalls": ["Creer que una variable exportada en un Step mediante `export FOO=1` estará disponible automáticamente en el siguiente Step (se debe escribir en `$GITHUB_ENV`).", "Olvidar usar `actions/upload-artifact` y esperar que los archivos generados en un job existan mágicamente en otro job posterior."]
+            "commonPitfalls": ["Creer que una variable exportada en un Step mediante `export FOO=1` estará disponible automáticamente en el siguiente Step (se debe escribir en `$GITHUB_ENV`).", "Olvidar usar `actions/upload-artifact` y esperar que los archivos generados en un job existan mágicamente en otro job posterior."],
+            "followUps": [
+                "¿Cómo paralelizarías jobs independientes?",
+                "¿Qué hace la directiva needs en GitHub Actions?"
+            ]
         },
         "quiz": {
             "question": "En GitHub Actions, ¿cuál es la diferencia clave entre un 'Job' y un 'Step'?",
@@ -72,7 +80,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Advertir el grave riesgo de seguridad de ejecutar Self-Hosted Runners no efímeros en repositorios públicos y explicar cómo ARC en Kubernetes resuelve el aislamiento destruyendo los pods tras cada ejecución.",
-            "commonPitfalls": ["Configurar runners auto-hospedados compartidos donde un job deja archivos temporales o procesos en segundo plano que alteran el resultado del siguiente job.", "Dar permisos de `sudo` sin contraseña en self-hosted runners permitiendo que scripts de dependencias NPM comprometan el servidor host."]
+            "commonPitfalls": ["Configurar runners auto-hospedados compartidos donde un job deja archivos temporales o procesos en segundo plano que alteran el resultado del siguiente job.", "Dar permisos de `sudo` sin contraseña en self-hosted runners permitiendo que scripts de dependencias NPM comprometan el servidor host."],
+            "followUps": [
+                "¿Por qué los self-hosted runners son peligrosos en repositorios públicos?",
+                "¿Cómo escalarías runners efímeros en Kubernetes?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es peligroso utilizar un Self-Hosted Runner tradicional persistente para procesar Pull Requests provenientes de bifurcaciones (forks) públicas?",
@@ -97,7 +109,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar el flujo de intercambio entre el JWT de GitHub y el servicio STS/Workload Identity de la nube, destacando cómo los claims (`sub`, `repository`, `ref`) impiden que otros repositorios usen tu rol de IAM.",
-            "commonPitfalls": ["Configurar la política de confianza del rol IAM de AWS aceptando cualquier repositorio de GitHub (`*`) en lugar de restringir estrictamente al repositorio exacto (`repo:mi-org/mi-repo:*`).", "Olvidar declarar `permissions: id-token: write` en el archivo del workflow, causando un fallo silencioso de autenticación."]
+            "commonPitfalls": ["Configurar la política de confianza del rol IAM de AWS aceptando cualquier repositorio de GitHub (`*`) en lugar de restringir estrictamente al repositorio exacto (`repo:mi-org/mi-repo:*`).", "Olvidar declarar `permissions: id-token: write` en el archivo del workflow, causando un fallo silencioso de autenticación."],
+            "followUps": [
+                "¿Cómo funciona el token OIDC entre GitHub y AWS?",
+                "¿Cómo limitarías el rol a una rama concreta?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la principal ventaja de seguridad de utilizar OIDC frente a guardar Access Keys de AWS en los Secrets de GitHub?",
@@ -122,7 +138,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar cómo Turborepo/Nx modelan las tareas como grafos dirigidos y cómo el hashing de inputs garantiza que una compilación cacheada sea determinista e idéntica a ejecutarla en frío.",
-            "commonPitfalls": ["Invalidar el caché accidentalmente al incluir timestamps dinámicos o números de versión autoincrementales dentro del código fuente compilado.", "No configurar `--frozen-lockfile` en CI, permitiendo que `pnpm` o `npm` actualicen dependencias sutilmente y generen builds no reproducibles."]
+            "commonPitfalls": ["Invalidar el caché accidentalmente al incluir timestamps dinámicos o números de versión autoincrementales dentro del código fuente compilado.", "No configurar `--frozen-lockfile` en CI, permitiendo que `pnpm` o `npm` actualicen dependencias sutilmente y generen builds no reproducibles."],
+            "followUps": [
+                "¿Qué clave de caché usarías para node_modules?",
+                "¿Qué riesgos tiene el cache poisoning?"
+            ]
         },
         "quiz": {
             "question": "¿Qué ocurre cuando una tarea de compilación en Turborepo produce un 'Remote Cache Hit' en el pipeline de CI?",
@@ -147,7 +167,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar cómo evitar costes excesivos en runners usando `fail-fast: true` en PRs ordinarios y cómo usar `continue-on-error` en combinación con la matriz para probar versiones canary/beta de Node sin romper el pipeline principal.",
-            "commonPitfalls": ["Lanzar matrices masivas innecesarias (p. ej. 5 OS x 6 versiones de Node = 30 jobs) en cada commit individual, consumiendo la cuota mensual de CI en un par de días.", "Olvidar que los runners de macOS en GitHub Actions consumen hasta 10 veces más minutos de facturación que los de Linux."]
+            "commonPitfalls": ["Lanzar matrices masivas innecesarias (p. ej. 5 OS x 6 versiones de Node = 30 jobs) en cada commit individual, consumiendo la cuota mensual de CI en un par de días.", "Olvidar que los runners de macOS en GitHub Actions consumen hasta 10 veces más minutos de facturación que los de Linux."],
+            "followUps": [
+                "¿Qué hace fail-fast: false?",
+                "¿Cómo excluirías combinaciones de la matriz?"
+            ]
         },
         "quiz": {
             "question": "En una estrategia de matrices en GitHub Actions, ¿qué efecto tiene la propiedad 'fail-fast: true'?",
@@ -172,7 +196,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Enfatizar la necesidad de automatizar la destrucción de entornos efímeros (teardown) para evitar explosión de costes de almacenamiento e infraestructura huérfana en la nube.",
-            "commonPitfalls": ["No proteger los preview deployments contra acceso no autorizado (deben requerir autenticación básica o SSO corporativo para no indexarse en Google ni exponer datos confidenciales).", "Conectar los preview deployments a la base de datos de producción en lugar de utilizar réplicas o mocks aislados."]
+            "commonPitfalls": ["No proteger los preview deployments contra acceso no autorizado (deben requerir autenticación básica o SSO corporativo para no indexarse en Google ni exponer datos confidenciales).", "Conectar los preview deployments a la base de datos de producción en lugar de utilizar réplicas o mocks aislados."],
+            "followUps": [
+                "¿Cómo gestionarías datos y secretos en entornos efímeros?",
+                "¿Cómo limpiarías los entornos al cerrar el PR?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es una buena práctica configurar un job de 'teardown' vinculado al evento 'pull_request: closed' en entornos efímeros?",
@@ -197,7 +225,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Justificar por qué medir únicamente 'line coverage' es una métrica vanidosa y explicar la importancia de fijar umbrales en 'branch coverage' para asegurar que los caminos lógicos condicionales (if/else/switch) estén probados.",
-            "commonPitfalls": ["Permitir que administradores de repositorio tengan habilitado el botón de 'Bypass branch protections', permitiendo merges de código en rojo.", "Fijar umbrales de cobertura al 100% irrealistas que fomentan tests inútiles sin aserciones reales solo para pasar el gate."]
+            "commonPitfalls": ["Permitir que administradores de repositorio tengan habilitado el botón de 'Bypass branch protections', permitiendo merges de código en rojo.", "Fijar umbrales de cobertura al 100% irrealistas que fomentan tests inútiles sin aserciones reales solo para pasar el gate."],
+            "followUps": [
+                "¿Qué checks harías obligatorios para hacer merge?",
+                "¿Cómo evitarías que la cobertura baje en cada PR?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es fundamental auditar la métrica 'Branch Coverage' además del simple 'Line Coverage' en un Quality Gate?",
@@ -222,7 +254,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar por qué es indispensable ejecutar múltiples pasadas (mínimo 3) en LHCI para calcular medianas y descartar fluctuaciones de CPU/red en los runners de GitHub.",
-            "commonPitfalls": ["Ejecutar Lighthouse CI contra el servidor de desarrollo (`pnpm dev`) en lugar del build de producción minificado (`pnpm preview`), obteniendo métricas falsamente pésimas.", "Auditar únicamente la página de inicio e ignorar rutas críticas de negocio (como el catálogo o el checkout)."]
+            "commonPitfalls": ["Ejecutar Lighthouse CI contra el servidor de desarrollo (`pnpm dev`) en lugar del build de producción minificado (`pnpm preview`), obteniendo métricas falsamente pésimas.", "Auditar únicamente la página de inicio e ignorar rutas críticas de negocio (como el catálogo o el checkout)."],
+            "followUps": [
+                "¿Cómo definirías los presupuestos de rendimiento?",
+                "¿Cómo reducirías la variabilidad entre ejecuciones de Lighthouse?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué Lighthouse CI recomienda configurar 'numberOfRuns: 3' en su archivo de configuración?",
@@ -247,7 +283,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Justificar la elección entre Blue-Green y Canary basándose en costes de infraestructura y tolerancia al riesgo, y destacar que durante un Rolling deployment ambas versiones deben convivir sin romper sesiones.",
-            "commonPitfalls": ["Creer que Canary deployment se puede hacer sin un sistema robusto de métricas y observabilidad automatizada en tiempo real.", "Olvidar la retrocompatibilidad en APIs y cookies cuando usuarios saltan entre instancias v1 y v2 durante un despliegue progresivo."]
+            "commonPitfalls": ["Creer que Canary deployment se puede hacer sin un sistema robusto de métricas y observabilidad automatizada en tiempo real.", "Olvidar la retrocompatibilidad en APIs y cookies cuando usuarios saltan entre instancias v1 y v2 durante un despliegue progresivo."],
+            "followUps": [
+                "¿Cómo gestionarías las migraciones de base de datos en un Blue-Green?",
+                "¿Qué métricas observarías durante un Canary?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la principal ventaja técnica de una estrategia de despliegue Canary frente a un despliegue Blue-Green tradicional?",
@@ -272,7 +312,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que comprendes por qué nunca se debe usar `--delete` a ciegas en el directorio de assets con hash y cómo configurar adecuadamente las cabeceras `Cache-Control` (`immutable` en chunks vs `no-cache` en `index.html`).",
-            "commonPitfalls": ["Configurar `Cache-Control: max-age=31536000` en el archivo `index.html`, impidiendo que los usuarios reciban actualizaciones hasta que purguen la caché del navegador manualmente.", "Borrar chunks anteriores inmediatamente, provocando caídas de usuarios activos con sesiones de larga duración."]
+            "commonPitfalls": ["Configurar `Cache-Control: max-age=31536000` en el archivo `index.html`, impidiendo que los usuarios reciban actualizaciones hasta que purguen la caché del navegador manualmente.", "Borrar chunks anteriores inmediatamente, provocando caídas de usuarios activos con sesiones de larga duración."],
+            "followUps": [
+                "¿Por qué deben subirse primero los assets y después el index.html?",
+                "¿Cómo manejarías el error de chunk 404 en el cliente?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué es fundamental NO utilizar la bandera '--delete' al sincronizar los chunks de JavaScript con hash en un bucket de S3/CDN durante un despliegue de frontend?",
@@ -297,7 +341,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Diferenciar con claridad SAST (código fuente estático sin ejecutar) de DAST (caja negra atacando la aplicación viva) y explicar para qué sirve un SBOM en auditorías de seguridad corporativas.",
-            "commonPitfalls": ["Ignorar las alertas de dependencias transitivas (`pnpm audit`) hasta acumular cientos de vulnerabilidades inmanejables.", "Ejecutar herramientas DAST destructivas directamente contra la base de datos de producción."]
+            "commonPitfalls": ["Ignorar las alertas de dependencias transitivas (`pnpm audit`) hasta acumular cientos de vulnerabilidades inmanejables.", "Ejecutar herramientas DAST destructivas directamente contra la base de datos de producción."],
+            "followUps": [
+                "¿Qué diferencia hay entre SAST y DAST?",
+                "¿Para qué sirve un SBOM ante una vulnerabilidad como Log4Shell?"
+            ]
         },
         "quiz": {
             "question": "¿En qué etapa del pipeline de CI/CD opera una herramienta SAST como CodeQL o SonarQube?",
@@ -322,7 +370,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar el concepto de 'Keyless Signing' con OIDC y Fulcio, y cómo el registro de transparencia Rekor impide que atacantes inyecten binarios no auditados en producción.",
-            "commonPitfalls": ["Creer que usar Docker tags como `:latest` o `:v1.0` es suficiente (los tags son mutables; solo los digests sha256 garantizan inmutabilidad estricta).", "Descargar scripts externos no verificados en el runner mediante `curl | bash` en medio del pipeline."]
+            "commonPitfalls": ["Creer que usar Docker tags como `:latest` o `:v1.0` es suficiente (los tags son mutables; solo los digests sha256 garantizan inmutabilidad estricta).", "Descargar scripts externos no verificados en el runner mediante `curl | bash` en medio del pipeline."],
+            "followUps": [
+                "¿Qué niveles define SLSA?",
+                "¿Qué es el keyless signing de Sigstore?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la función principal de Cosign y Sigstore en la seguridad de pipelines de CI/CD?",
@@ -347,7 +399,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Articular con claridad que los Feature Flags permiten Trunk-Based Development al evitar ramas de larga duración y enfatizar la importancia de tener un proceso de limpieza de deuda técnica para retirar flags obsoletos.",
-            "commonPitfalls": ["Dejar feature flags activos indefinidamente en el código fuente, generando una maraña de condicionales espagueti imposibles de testear (*Flag Debt*).", "Evaluar feature flags mediante llamadas síncronas bloqueantes a la red en cada render del componente."]
+            "commonPitfalls": ["Dejar feature flags activos indefinidamente en el código fuente, generando una maraña de condicionales espagueti imposibles de testear (*Flag Debt*).", "Evaluar feature flags mediante llamadas síncronas bloqueantes a la red en cada render del componente."],
+            "followUps": [
+                "¿Cómo evitarías la deuda técnica de flags olvidados?",
+                "¿Qué diferencia hay entre release flags y ops flags?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la función principal de un 'Kill-Switch' implementado mediante Feature Flags en una aplicación web?",
@@ -372,7 +428,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar la diferencia entre CI empujando cambios a ciegas (Push CD) y GitOps tirando cambios desde adentro del clúster (Pull CD), y cómo el 'Self-Healing' erradica los cambios manuales no auditados.",
-            "commonPitfalls": ["Confundir guardar el código de la aplicación con guardar el repositorio de configuración de infraestructura (se recomienda separar el código de la app del repositorio de manifiestos de despliegue).", "Permitir que desarrolladores apliquen `kubectl edit` manual en producción rompiendo la filosofía GitOps."]
+            "commonPitfalls": ["Confundir guardar el código de la aplicación con guardar el repositorio de configuración de infraestructura (se recomienda separar el código de la app del repositorio de manifiestos de despliegue).", "Permitir que desarrolladores apliquen `kubectl edit` manual en producción rompiendo la filosofía GitOps."],
+            "followUps": [
+                "¿Qué diferencia hay entre el modelo push y el modelo pull en despliegues?",
+                "¿Cómo detecta ArgoCD el drift?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es una ventaja crítica de seguridad del modelo GitOps (Pull-based) frente a los pipelines de despliegue tradicionales (Push-based)?",
@@ -397,7 +457,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar que entiendes que un despliegue sin telemetría es ciego: vincular el éxito del despliegue a métricas reales de usuario (SLOs de error rate y excepciones) en lugar de simplemente verificar que el contenedor inició.",
-            "commonPitfalls": ["Definir ventanas de análisis demasiado cortas (p. ej. 30 segundos) que no permiten acumular suficiente volumen de tráfico para que la métrica sea estadísticamente relevante.", "No alertar al equipo tras un rollback automático, dejando el repositorio en un estado inconsistente sin investigar la causa raíz."]
+            "commonPitfalls": ["Definir ventanas de análisis demasiado cortas (p. ej. 30 segundos) que no permiten acumular suficiente volumen de tráfico para que la métrica sea estadísticamente relevante.", "No alertar al equipo tras un rollback automático, dejando el repositorio en un estado inconsistente sin investigar la causa raíz."],
+            "followUps": [
+                "¿Qué umbrales dispararían un rollback automático?",
+                "¿Cómo harías rollback del frontend sin redeploy?"
+            ]
         },
         "quiz": {
             "question": "¿Qué condición provoca un Rollback Automático en un despliegue Canary gestionado con herramientas como Argo Rollouts o Flagger?",
@@ -422,7 +486,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar cómo la combinación de `commitlint` en pre-commit hooks con Semantic Release en CI erradica el debate humano sobre qué versión toca publicar y garantiza changelogs limpios y trazables.",
-            "commonPitfalls": ["Olvidar incluir `[skip ci]` en el mensaje del commit generado por Semantic Release, provocando un bucle infinito donde el release se vuelve a detonar a sí mismo.", "Escribir mensajes de commit genéricos como `fix: changes` que ensucian el historial y las notas de release públicas."]
+            "commonPitfalls": ["Olvidar incluir `[skip ci]` en el mensaje del commit generado por Semantic Release, provocando un bucle infinito donde el release se vuelve a detonar a sí mismo.", "Escribir mensajes de commit genéricos como `fix: changes` que ensucian el historial y las notas de release públicas."],
+            "followUps": [
+                "¿Cómo determina Semantic Release la siguiente versión?",
+                "¿Cómo gestionarías releases pre-release (beta)?"
+            ]
         },
         "quiz": {
             "question": "¿Qué incremento de versión de SemVer producirá Semantic Release al detectar un commit con el mensaje 'feat!: rediseñar API pública de autenticación'?",
@@ -447,7 +515,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Explicar cómo funciona `--shard=x/y` y la consolidación con `merge-reports`, destacando la diferencia entre paralelismo multi-hilo local en una máquina (`workers`) y sharding distribuido en múltiples máquinas de CI.",
-            "commonPitfalls": ["Confundir `workers: 4` (hilos en una sola VM) con `shard: 1/4` (múltiples VMs completas en paralelo).", "No descargar todos los artefactos de reportes blob con `if: always()` impidiendo generar el reporte consolidado si un test falla."]
+            "commonPitfalls": ["Confundir `workers: 4` (hilos en una sola VM) con `shard: 1/4` (múltiples VMs completas en paralelo).", "No descargar todos los artefactos de reportes blob con `if: always()` impidiendo generar el reporte consolidado si un test falla."],
+            "followUps": [
+                "¿Cómo fusionarías los reportes de varios shards?",
+                "¿Cómo balancearías los shards según la duración de los tests?"
+            ]
         },
         "quiz": {
             "question": "¿Cuál es la principal ventaja técnica de utilizar Playwright Sharding (--shard=1/4) en pipelines de integración continua?",
@@ -472,7 +544,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Defender el principio 'Build Once' explicando cómo desacoplar la configuración de entorno del bundle compilado mediante inyección en runtime, y definir las métricas RTO (Recovery Time Objective) y RPO (Recovery Point Objective).",
-            "commonPitfalls": ["Compilar bundles separados para staging y producción usando variables de build diferentes, invalidando la validez de los tests de staging.", "Confiar en una sola región de nube sin tener automatizada la replicación de DNS ni el failover."]
+            "commonPitfalls": ["Compilar bundles separados para staging y producción usando variables de build diferentes, invalidando la validez de los tests de staging.", "Confiar en una sola región de nube sin tener automatizada la replicación de DNS ni el failover."],
+            "followUps": [
+                "¿Cómo inyectarías configuración por entorno sin recompilar?",
+                "¿Qué RTO y RPO definirías para un frontend?"
+            ]
         },
         "quiz": {
             "question": "¿Por qué la práctica de recompilar el código frontend con diferentes variables ('npm run build:staging' y 'npm run build:prod') es considerada un antipatrón en arquitectura enterprise?",
@@ -497,7 +573,11 @@ export const questionsCICD: ISection = {
         },
         "interviewTips": {
             "whatInterviewersWant": "Demostrar conciencia de costes empresariales: cómo la directiva `concurrency: cancel-in-progress` y los timeouts defensivos protegen el presupuesto operativo y mejoran la latencia de feedback del equipo.",
-            "commonPitfalls": ["Dejar jobs sin `timeout-minutes`, arriesgando facturas astronómicas si un test se cuelga indefinidamente.", "No configurar `paths-ignore` para cambios de documentación, disparando suites de testing pesado innecesariamente."]
+            "commonPitfalls": ["Dejar jobs sin `timeout-minutes`, arriesgando facturas astronómicas si un test se cuelga indefinidamente.", "No configurar `paths-ignore` para cambios de documentación, disparando suites de testing pesado innecesariamente."],
+            "followUps": [
+                "¿Qué hace concurrency con cancel-in-progress?",
+                "¿Cómo medirías el coste por pipeline?"
+            ]
         },
         "quiz": {
             "question": "¿Qué problema resuelve la configuración 'concurrency: cancel-in-progress: true' en un workflow de GitHub Actions para Pull Requests?",

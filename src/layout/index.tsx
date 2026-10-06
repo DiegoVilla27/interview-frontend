@@ -1,13 +1,12 @@
 import React, { ReactNode } from "react";
-import { ExternalLink, Code2 } from "lucide-react";
+import { ExternalLink, Code2, Settings } from "lucide-react";
 
 interface IProps {
-  theme?: boolean;
-  setTheme?: (theme: boolean) => void;
   children: ReactNode;
+  onOpenSettings: () => void;
 }
 
-const LayoutScreen: React.FC<IProps> = ({ children }) => {
+const LayoutScreen: React.FC<IProps> = ({ children, onOpenSettings }) => {
   return (
     <div className="min-h-screen flex flex-col bg-[#0f0f12] text-zinc-100 selection:bg-indigo-500/30 selection:text-indigo-200">
       {/* Top Glassmorphic Navigation Bar */}
@@ -25,6 +24,15 @@ const LayoutScreen: React.FC<IProps> = ({ children }) => {
           </div>
 
           <div className="flex items-center space-x-3">
+            <button
+              onClick={onOpenSettings}
+              className="p-2 rounded-xl border border-zinc-700/60 bg-zinc-800/40 hover:bg-zinc-800 text-zinc-300 hover:text-white transition cursor-pointer"
+              aria-label="Ajustes"
+              title="Ajustes"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+
             {/* Cabuweb Portfolio Link */}
             <a
               href="https://cabuweb.com"

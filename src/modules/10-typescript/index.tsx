@@ -27,7 +27,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Quieren comprobar que entiendes la naturaleza de TypeScript como herramienta de desarrollo en tiempo de compilaci\u00f3n y que tienes claro el concepto de 'Type Erasure' (los tipos no existen en runtime en el bundle JS final).",
-        commonPitfalls: ["Creer err\u00f3neamente que las interfaces o tipos a\u00f1aden validaci\u00f3n autom\u00e1tica a los payloads de red en runtime.", "Confundir TypeScript con un lenguaje compilado a binario: siempre se convierte a JavaScript ECMAScript.", "Pensar que usar TypeScript introduce sobrecarga (overhead) de c\u00f3mputo en la ejecuci\u00f3n del navegador."]
+        commonPitfalls: ["Creer err\u00f3neamente que las interfaces o tipos a\u00f1aden validaci\u00f3n autom\u00e1tica a los payloads de red en runtime.", "Confundir TypeScript con un lenguaje compilado a binario: siempre se convierte a JavaScript ECMAScript.", "Pensar que usar TypeScript introduce sobrecarga (overhead) de c\u00f3mputo en la ejecuci\u00f3n del navegador."],
+        followUps: [
+          "¿Qué ocurre con los tipos en tiempo de ejecución?",
+          "¿Qué hace el flag strict en tsconfig?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1ndo eval\u00faa TypeScript las interfaces y anotaciones de tipos?",
@@ -54,7 +58,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Verificar que conoces los primitivos reales, la sintaxis de tuplas con etiquetas descriptivas, y que no utilizas los constructores envoltorio con may\u00fascula (String/Number).",
-        commonPitfalls: ["Declarar `let x: Number` en vez de `let x: number`, causando errores sutiles de asignaci\u00f3n.", "Confundir una tupla `[string, number]` con un array regular `(string | number)[]`.", "Anotar tipos innecesarios donde la inferencia directa de TypeScript ya es 100% precisa."]
+        commonPitfalls: ["Declarar `let x: Number` en vez de `let x: number`, causando errores sutiles de asignaci\u00f3n.", "Confundir una tupla `[string, number]` con un array regular `(string | number)[]`.", "Anotar tipos innecesarios donde la inferencia directa de TypeScript ya es 100% precisa."],
+        followUps: [
+          "¿Cuándo es preferible anotar explícitamente y cuándo dejar inferir?",
+          "¿Qué diferencia hay entre los tipos object, Object y {}?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 se debe evitar anotar variables con 'String' o 'Number' con inicial may\u00fascula?",
@@ -81,7 +89,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Conocer tu dominio sobre contratos de objetos, herencia con `extends`, y que comprendes el mecanismo de Declaration Merging (especialmente \u00fatil para declarar plugins en librer\u00edas).",
-        commonPitfalls: ["Creer que una interfaz puede definir uniones directas de tipos primitivos (eso solo lo permite `type`).", "Olvidar marcar propiedades como opcionales (`?`) o de solo lectura (`readonly`).", "Desconocer que dos interfaces con el mismo nombre se combinan en vez de lanzar error de identificador duplicado."]
+        commonPitfalls: ["Creer que una interfaz puede definir uniones directas de tipos primitivos (eso solo lo permite `type`).", "Olvidar marcar propiedades como opcionales (`?`) o de solo lectura (`readonly`).", "Desconocer que dos interfaces con el mismo nombre se combinan en vez de lanzar error de identificador duplicado."],
+        followUps: [
+          "¿Qué es el declaration merging en interfaces?",
+          "¿Cómo extenderías la interfaz Window de forma global?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre en TypeScript si defines dos interfaces con el nombre 'Car' en el mismo scope?",
@@ -108,7 +120,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Evaluar tu compromiso con la seguridad de tipos. Responder que evitas `any` en favor de `unknown` demuestra madurez profesional en TypeScript.",
-        commonPitfalls: ["Usar `any` como atajo para silenciar errores del compilador en lugar de modelar los tipos correctamente.", "No saber c\u00f3mo hacer narrowing de una variable `unknown` antes de interactuar con sus campos.", "Creer que `unknown` es id\u00e9ntico a `never` (never es el bottom type que no acepta ning\u00fan valor)."]
+        commonPitfalls: ["Usar `any` como atajo para silenciar errores del compilador en lugar de modelar los tipos correctamente.", "No saber c\u00f3mo hacer narrowing de una variable `unknown` antes de interactuar con sus campos.", "Creer que `unknown` es id\u00e9ntico a `never` (never es el bottom type que no acepta ning\u00fan valor)."],
+        followUps: [
+          "¿Cómo estrecharías un valor unknown recibido de una API?",
+          "¿Por qué any contamina la inferencia de tipos?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 'unknown' es superior a 'any' al tipar respuestas de APIs o entradas desconocidas?",
@@ -135,7 +151,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que expliques c\u00f3mo los tipos literales potencian el autocompletado y eliminan 'magic strings', adem\u00e1s de saber explicar la diferencia de inferencia entre `const` y `let` (Type Widening).",
-        commonPitfalls: ["Pasar variables mutables (`let`) a funciones que esperan literales sin aplicar narrowing o `as const`.", "Crear uniones de literales redundantes mezcladas con su tipo general (`'a' | 'b' | string`), lo que elimina el chequeo estricto.", "No aprovechar comprobaciones exhaustivas con `never` en sentencias `switch`."]
+        commonPitfalls: ["Pasar variables mutables (`let`) a funciones que esperan literales sin aplicar narrowing o `as const`.", "Crear uniones de literales redundantes mezcladas con su tipo general (`'a' | 'b' | string`), lo que elimina el chequeo estricto.", "No aprovechar comprobaciones exhaustivas con `never` en sentencias `switch`."],
+        followUps: [
+          "¿Cómo se combinan los tipos literales en uniones discriminadas?",
+          "¿Por qué let amplía (widening) el tipo literal y const no?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 tipo infiere TypeScript para 'const mode = \"dark\"' frente a 'let mode = \"dark\"'?",
@@ -162,7 +182,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres comprensi\u00f3n de `strictNullChecks`, la sem\u00e1ntica entre no inicializado (`undefined`) y vaciado intencional (`null`), y el uso de `?.` y `??`.",
-        commonPitfalls: ["Usar el operador `||` en vez de `??`, provocando bugs con valores falsy leg\u00edtimos como `0` o `\"\"`.", "Desactivar `strictNullChecks`, reintroduciendo 'el error del bill\u00f3n de d\u00f3lares' de referencias nulas no detectadas.", "Usar aserciones no nulas compulsivas (`!`) para evadir el type-checker en lugar de manejar la condici\u00f3n."]
+        commonPitfalls: ["Usar el operador `||` en vez de `??`, provocando bugs con valores falsy leg\u00edtimos como `0` o `\"\"`.", "Desactivar `strictNullChecks`, reintroduciendo 'el error del bill\u00f3n de d\u00f3lares' de referencias nulas no detectadas.", "Usar aserciones no nulas compulsivas (`!`) para evadir el type-checker en lugar de manejar la condici\u00f3n."],
+        followUps: [
+          "¿Qué hace strictNullChecks?",
+          "¿Qué diferencia hay entre una propiedad opcional y una de tipo T | undefined (exactOptionalPropertyTypes)?"
+        ]
       },
       quiz: {
         question: "Con 'strictNullChecks: true', \u00bfse puede asignar 'null' a una variable de tipo 'string'?",
@@ -189,7 +213,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Pregunta cl\u00e1sica de Staff/Senior. Quieren escuchar las diferencias reales (Declaration Merging, soporte de uniones directas, rendimiento de cach\u00e9 del compilador) y cu\u00e1ndo elegir cada uno.",
-        commonPitfalls: ["Decir 'son pr\u00e1cticamente lo mismo y es cuesti\u00f3n de gusto personal' sin argumentar las diferencias t\u00e9cnicas.", "Desconocer que los types no soportan Declaration Merging.", "No saber que las uniones `type A = B | C` son imposibles de modelar directamente con interfaces."]
+        commonPitfalls: ["Decir 'son pr\u00e1cticamente lo mismo y es cuesti\u00f3n de gusto personal' sin argumentar las diferencias t\u00e9cnicas.", "Desconocer que los types no soportan Declaration Merging.", "No saber que las uniones `type A = B | C` son imposibles de modelar directamente con interfaces."],
+        followUps: [
+          "¿Cuándo es obligatorio usar type (uniones, mapped types)?",
+          "¿Qué diferencias de rendimiento en el compilador tienen ambos?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes operaciones es EXCLUSIVA de 'type' y no puede realizarse con 'interface'?",
@@ -216,7 +244,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Capacidad para dise\u00f1ar APIs flexibles y robustas. Demostrar el uso de restricciones (`T extends ...`) y evitar gen\u00e9ricos innecesarios cuando no existe correlaci\u00f3n de tipos.",
-        commonPitfalls: ["Usar gen\u00e9ricos superfluos donde un tipo concreto o uni\u00f3n bastar\u00eda (ej. `function log<T>(msg: T)` sin reutilizar T).", "No aplicar `extends` para restringir propiedades requeridas (`T.length` sin `T extends { length: number }`).", "Caer en anidaciones gen\u00e9ricas incomprensibles que perjudican la legibilidad del equipo."]
+        commonPitfalls: ["Usar gen\u00e9ricos superfluos donde un tipo concreto o uni\u00f3n bastar\u00eda (ej. `function log<T>(msg: T)` sin reutilizar T).", "No aplicar `extends` para restringir propiedades requeridas (`T.length` sin `T extends { length: number }`).", "Caer en anidaciones gen\u00e9ricas incomprensibles que perjudican la legibilidad del equipo."],
+        followUps: [
+          "¿Cómo se restringe un genérico con extends?",
+          "¿Qué son los parámetros genéricos por defecto?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 utilidad tiene la sintaxis '<T extends { id: string }>' en una funci\u00f3n gen\u00e9rica?",
@@ -243,7 +275,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si entiendes cu\u00e1ndo confiar en la inferencia frente a cu\u00e1ndo anotar expl\u00edcitamente (sobre-anotar todo es un code-smell junior que a\u00f1ade ruido visual).",
-        commonPitfalls: ["Anotar redundancias obvias como `const x: number = 5` o `const s: string = 'hello'`. ", "No anotar los retornos de funciones de APIs p\u00fablicas cr\u00edticas (lo que previene roturas accidentales de contrato).", "Desconocer que arrays vac\u00edos sin inicializar infieren `any[]` si no se tipan."]
+        commonPitfalls: ["Anotar redundancias obvias como `const x: number = 5` o `const s: string = 'hello'`. ", "No anotar los retornos de funciones de APIs p\u00fablicas cr\u00edticas (lo que previene roturas accidentales de contrato).", "Desconocer que arrays vac\u00edos sin inicializar infieren `any[]` si no se tipan."],
+        followUps: [
+          "¿Qué es el control flow analysis?",
+          "¿Por qué TypeScript infiere string[] para un array vacío al que se le van añadiendo elementos?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 es el 'Contextual Typing' en TypeScript?",
@@ -270,7 +306,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que demuestres agilidad en el modelado de datos en arquitecturas limpias, evitando la duplicaci\u00f3n de interfaces para DTOs de creaci\u00f3n, actualizaci\u00f3n y consulta.",
-        commonPitfalls: ["Duplicar manualmente modelos enteros para crear DTOs de creaci\u00f3n y actualizaci\u00f3n.", "Confundir `Pick` (seleccionar) con `Omit` (descartar).", "Olvidar que `Partial<T>` es 'shallow' por defecto (no hace opcionales los objetos anidados)."]
+        commonPitfalls: ["Duplicar manualmente modelos enteros para crear DTOs de creaci\u00f3n y actualizaci\u00f3n.", "Confundir `Pick` (seleccionar) con `Omit` (descartar).", "Olvidar que `Partial<T>` es 'shallow' por defecto (no hace opcionales los objetos anidados)."],
+        followUps: [
+          "¿Cómo implementarías Partial<T> desde cero?",
+          "¿Qué diferencia hay entre Pick y Omit?"
+        ]
       },
       quiz: {
         question: "\u00bfC\u00f3mo est\u00e1 implementado internamente el tipo 'Partial<T>' en TypeScript?",
@@ -297,7 +337,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Entender si distingues entre inmutabilidad en tiempo de compilaci\u00f3n (`readonly`) e inmutabilidad en runtime (`Object.freeze()`), y si eres consciente del comportamiento shallow por defecto.",
-        commonPitfalls: ["Asumir que `readonly` congela el objeto en tiempo de ejecuci\u00f3n (no emite ning\u00fan c\u00f3digo de runtime).", "Ignorar que los objetos anidados dentro de `Readonly<T>` siguen siendo mutables.", "No saber c\u00f3mo hacer un array de solo lectura con `readonly T[]`."]
+        commonPitfalls: ["Asumir que `readonly` congela el objeto en tiempo de ejecuci\u00f3n (no emite ning\u00fan c\u00f3digo de runtime).", "Ignorar que los objetos anidados dentro de `Readonly<T>` siguen siendo mutables.", "No saber c\u00f3mo hacer un array de solo lectura con `readonly T[]`."],
+        followUps: [
+          "¿Readonly<T> es profundo o superficial?",
+          "¿Qué diferencia hay entre readonly y Object.freeze?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 efecto tiene 'Readonly<T>' sobre las propiedades de objetos anidados de segundo nivel?",
@@ -324,7 +368,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si conoces las trampas de los enums num\u00e9ricos y por qu\u00e9 el ecosistema moderno (Vite, esbuild, Babel) prefiere objetos `as const` con uniones extra\u00eddas.",
-        commonPitfalls: ["No saber que `const enum` falla catastr\u00f3ficamente con `--isolatedModules` si no se compila con tsc puro.", "Desconocer el mapeo inverso que a\u00f1ade peso innecesario al bundle en los enums num\u00e9ricos.", "Confiar ciegamente en enums num\u00e9ricos donde un valor num\u00e9rico cualquiera puede ser asignado sin que TS proteste."]
+        commonPitfalls: ["No saber que `const enum` falla catastr\u00f3ficamente con `--isolatedModules` si no se compila con tsc puro.", "Desconocer el mapeo inverso que a\u00f1ade peso innecesario al bundle en los enums num\u00e9ricos.", "Confiar ciegamente en enums num\u00e9ricos donde un valor num\u00e9rico cualquiera puede ser asignado sin que TS proteste."],
+        followUps: [
+          "¿Por qué muchos equipos prefieren objetos as const sobre enums?",
+          "¿Qué código JavaScript genera un enum numérico?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 muchas empresas prefieren 'const Roles = { Admin: \"ADMIN\" } as const' sobre 'enum Roles'?",
@@ -351,7 +399,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Quieren que expliques la regla de distributividad sobre uniones y c\u00f3mo la combinaci\u00f3n con el tipo `never` permite filtrar elementos en el sistema de tipos.",
-        commonPitfalls: ["Olvidar que las uniones se distribuyen autom\u00e1ticamente si el gen\u00e9rico no est\u00e1 envuelto en corchetes `[T] extends [U]`.", "No comprender por qu\u00e9 `never` desaparece de las uniones (`string | never` se simplifica a `string`).", "Crear condicionales profundamente anidados que colapsen el rendimiento del compilador (TS2589)."]
+        commonPitfalls: ["Olvidar que las uniones se distribuyen autom\u00e1ticamente si el gen\u00e9rico no est\u00e1 envuelto en corchetes `[T] extends [U]`.", "No comprender por qu\u00e9 `never` desaparece de las uniones (`string | never` se simplifica a `string`).", "Crear condicionales profundamente anidados que colapsen el rendimiento del compilador (TS2589)."],
+        followUps: [
+          "¿Qué son los tipos condicionales distributivos?",
+          "¿Cómo evitarías la distributividad envolviendo en [T]?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 resultado produce 'type Res = (\"a\" | \"b\" | \"c\") extends \"b\" ? true : false' en un tipo condicional distributivo gen\u00e9rico?",
@@ -378,7 +430,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Capacidad para crear abstracciones de tipos avanzadas sin duplicidad. Quieren escuchar sobre la cl\u00e1usula `as` (Key Remapping) y los modificadores `+` y `-`.",
-        commonPitfalls: ["Desconocer que se pueden eliminar signos de interrogaci\u00f3n con `-?` para forzar requeridos.", "Olvidar limitar la clave a string (`string & K`) al usar `Capitalize` en el remapeo de claves.", "Intentar aplicar mapped types directamente dentro de una declaraci\u00f3n `interface` (solo se permiten en `type`)."]
+        commonPitfalls: ["Desconocer que se pueden eliminar signos de interrogaci\u00f3n con `-?` para forzar requeridos.", "Olvidar limitar la clave a string (`string & K`) al usar `Capitalize` en el remapeo de claves.", "Intentar aplicar mapped types directamente dentro de una declaraci\u00f3n `interface` (solo se permiten en `type`)."],
+        followUps: [
+          "¿Cómo se usan los modificadores +/- readonly y ?",
+          "¿Qué es el key remapping con as en mapped types?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 efecto tiene el modificador '-?' en la declaraci\u00f3n de un Mapped Type '{ [K in keyof T]-?: T[K] }'?",
@@ -405,7 +461,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Ver si entiendes la frontera entre el Value Space y el Type Space, y si sabes utilizar este patr\u00f3n para evitar desincronizaciones entre constantes de configuraci\u00f3n y contratos de tipos.",
-        commonPitfalls: ["Confundir el operador `typeof` de JavaScript en runtime con el operador `typeof` de TypeScript en el espacio de tipos.", "Olvidar `as const` en el objeto fuente, lo que provocar\u00eda que las propiedades infieran `string` en vez de sus valores literales exactos.", "Declarar tipos manuales paralelos que requieren ser actualizados cada vez que cambia el objeto de configuraci\u00f3n."]
+        commonPitfalls: ["Confundir el operador `typeof` de JavaScript en runtime con el operador `typeof` de TypeScript en el espacio de tipos.", "Olvidar `as const` en el objeto fuente, lo que provocar\u00eda que las propiedades infieran `string` en vez de sus valores literales exactos.", "Declarar tipos manuales paralelos que requieren ser actualizados cada vez que cambia el objeto de configuraci\u00f3n."],
+        followUps: [
+          "¿Qué devuelve keyof typeof obj?",
+          "¿Cómo obtendrías el tipo de los valores de un objeto?"
+        ]
       },
       quiz: {
         question: "Dado 'const config = { host: \"localhost\", port: 8080 };', \u00bfqu\u00e9 tipo genera 'keyof typeof config'?",
@@ -432,7 +492,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Comprobar si conoces la diferencia entre una funci\u00f3n que retorna un simple `boolean` y una funci\u00f3n con predicado de tipo `x is T`. El compilador solo estrecha con la segunda.",
-        commonPitfalls: ["Retornar `boolean` en lugar de `x is MyType`, perdiendo el estrechamiento autom\u00e1tico del compilador.", "Hacer aserciones inseguras dentro del type guard sin validar las propiedades reales.", "Abusar de `(data as any)` en vez de implementar un type guard exhaustivo para validar entradas externas."]
+        commonPitfalls: ["Retornar `boolean` en lugar de `x is MyType`, perdiendo el estrechamiento autom\u00e1tico del compilador.", "Hacer aserciones inseguras dentro del type guard sin validar las propiedades reales.", "Abusar de `(data as any)` en vez de implementar un type guard exhaustivo para validar entradas externas."],
+        followUps: [
+          "¿Qué diferencia hay entre un type predicate (x is T) y una assertion function (asserts x is T)?",
+          "¿Cómo funciona el narrowing con el operador in?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 firma de retorno es indispensable para que una funci\u00f3n personalizada estreche un tipo en TypeScript?",
@@ -459,7 +523,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Verificar si est\u00e1s al d\u00eda con las capacidades modernas de TypeScript (TS 4.1+) para tipar APIs de estilo CSS, eventos tipados o parsers de rutas sin incurrir en combinaciones manuales.",
-        commonPitfalls: ["Crear productos cartesianos desmesurados (ej. interpolar 4 uniones de 10 elementos = 10,000 tipos literales) que degraden el rendimiento del compilador.", "Desconocer utilidades intr\u00ednsecas como `Capitalize` o `Uppercase`.", "Intentar aplicar operaciones complejas de expresiones regulares (regex) en template literal types donde no est\u00e1 soportado."]
+        commonPitfalls: ["Crear productos cartesianos desmesurados (ej. interpolar 4 uniones de 10 elementos = 10,000 tipos literales) que degraden el rendimiento del compilador.", "Desconocer utilidades intr\u00ednsecas como `Capitalize` o `Uppercase`.", "Intentar aplicar operaciones complejas de expresiones regulares (regex) en template literal types donde no est\u00e1 soportado."],
+        followUps: [
+          "¿Cómo tiparías rutas de eventos como 'user:created'?",
+          "¿Qué utilidades intrínsecas existen (Uppercase, Capitalize)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 tipo resulta de la expresi\u00f3n: type Align = `${'top' | 'bottom'}-${'left' | 'right'}`?",
@@ -486,7 +554,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Comprobar si conoces la diferencia entre los decoradores legacy/experimentales (usados en Angular cl\u00e1sico o NestJS) y la especificaci\u00f3n nativa moderna de ECMAScript introducida en TS 5.0.",
-        commonPitfalls: ["Asumir que se requiere activar `experimentalDecorators` y usar `reflect-metadata` para escribir decoradores en TS 5.0+.", "Confundir la firma moderna `(target, context)` con la firma legacy `(target, propertyKey, descriptor)`.", "Utilizar decoradores para l\u00f3gica de negocio en lugar de aspectos transversales (logging, telemetr\u00eda, caching)."]
+        commonPitfalls: ["Asumir que se requiere activar `experimentalDecorators` y usar `reflect-metadata` para escribir decoradores en TS 5.0+.", "Confundir la firma moderna `(target, context)` con la firma legacy `(target, propertyKey, descriptor)`.", "Utilizar decoradores para l\u00f3gica de negocio en lugar de aspectos transversales (logging, telemetr\u00eda, caching)."],
+        followUps: [
+          "¿Qué diferencia hay entre los decoradores Stage 3 y experimentalDecorators?",
+          "¿En qué orden se ejecutan varios decoradores?"
+        ]
       },
       quiz: {
         question: "En los decoradores de ECMAScript Stage 3 (TS 5.0+), \u00bfqu\u00e9 informaci\u00f3n aporta el segundo par\u00e1metro 'context'?",
@@ -513,7 +585,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Saber si comprendes el patr\u00f3n de 'desempaquetado' en tipos avanzados. Explica con claridad c\u00f3mo `infer R` vincula una variable temporal que extrae el tipo interno.",
-        commonPitfalls: ["Intentar usar `infer` fuera de una expresi\u00f3n `extends` en un tipo condicional (provoca error de sintaxis).", "Intentar acceder a la variable inferida en la rama falsa (`else`) del ternario.", "No contemplar llamadas as\u00edncronas anidadas o funciones sobrecargadas al inferir retornos."]
+        commonPitfalls: ["Intentar usar `infer` fuera de una expresi\u00f3n `extends` en un tipo condicional (provoca error de sintaxis).", "Intentar acceder a la variable inferida en la rama falsa (`else`) del ternario.", "No contemplar llamadas as\u00edncronas anidadas o funciones sobrecargadas al inferir retornos."],
+        followUps: [
+          "¿Cómo extraerías el tipo de retorno de una función con infer?",
+          "¿Cómo inferirías el tipo resuelto de una Promise?"
+        ]
       },
       quiz: {
         question: "\u00bfD\u00f3nde est\u00e1 permitido utilizar la palabra clave 'infer' en TypeScript?",
@@ -540,7 +616,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Pregunta de nivel Staff/Architect. Demuestra solidez en teor\u00eda de tipos: explica por qu\u00e9 los par\u00e1metros deben ser contravariantes para prevenir llamadas inv\u00e1lidas y por qu\u00e9 los m\u00e9todos en interfaces son bivariantes por razones pragm\u00e1ticas.",
-        commonPitfalls: ["Confundir la direcci\u00f3n: pensar que los par\u00e1metros de funci\u00f3n son covariantes.", "Desconocer la bandera `strictFunctionTypes` de tsconfig.", "No saber por qu\u00e9 la sintaxis de propiedad (`fn: (x: T) => void`) es m\u00e1s segura que la sintaxis de m\u00e9todo (`fn(x: T): void`)."]
+        commonPitfalls: ["Confundir la direcci\u00f3n: pensar que los par\u00e1metros de funci\u00f3n son covariantes.", "Desconocer la bandera `strictFunctionTypes` de tsconfig.", "No saber por qu\u00e9 la sintaxis de propiedad (`fn: (x: T) => void`) es m\u00e1s segura que la sintaxis de m\u00e9todo (`fn(x: T): void`)."],
+        followUps: [
+          "¿Por qué los parámetros de función son contravariantes?",
+          "¿Qué hace strictFunctionTypes y por qué los métodos son bivariantes?"
+        ]
       },
       quiz: {
         question: "Con 'strictFunctionTypes: true', \u00bfc\u00f3mo se comportan los tipos en los par\u00e1metros de entrada de las funciones?",
@@ -567,7 +647,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Ver c\u00f3mo resuelves un reto de ingenier\u00eda de tipos real. Es fundamental que menciones los casos base (`Primitive`, `Function`, `Date`) para no degradar el rendimiento del compilador ni transformar funciones en objetos vac\u00edos.",
-        commonPitfalls: ["Hacer que la recursi\u00f3n convierta m\u00e9todos/funciones en objetos vac\u00edos `{}` por no tratarlos como primitivos.", "Provocar el error 'Type instantiation is excessively deep' por falta de condiciones de escape.", "Olvidar manejar arrays y colecciones especiales como `Map` o `Set`."]
+        commonPitfalls: ["Hacer que la recursi\u00f3n convierta m\u00e9todos/funciones en objetos vac\u00edos `{}` por no tratarlos como primitivos.", "Provocar el error 'Type instantiation is excessively deep' por falta de condiciones de escape.", "Olvidar manejar arrays y colecciones especiales como `Map` o `Set`."],
+        followUps: [
+          "¿Cómo implementarías DeepPartial<T>?",
+          "¿Cómo evitarías el error 'Type instantiation is excessively deep'?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 un tipo utilitario recursivo debe identificar primitivos y funciones como casos base?",
@@ -594,7 +678,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Conocimiento moderno de TS 4.9+. Explicar con precisi\u00f3n la p\u00e9rdida de tipo por 'widening' al anotar frente a la preservaci\u00f3n del tipo espec\u00edfico que logra `satisfies`.",
-        commonPitfalls: ["Confundir `satisfies` con una aserci\u00f3n de tipo forzada (`as`). `satisfies` rechaza datos inv\u00e1lidos en tiempo de compilaci\u00f3n; `as` los enmascara.", "Seguir utilizando `: Record<string, ...>` para objetos de configuraci\u00f3n cuando `satisfies` ofrece una experiencia infinitamente superior.", "Desconocer que `satisfies` tambi\u00e9n previene erratas tipogr\u00e1ficas en nombres de propiedades."]
+        commonPitfalls: ["Confundir `satisfies` con una aserci\u00f3n de tipo forzada (`as`). `satisfies` rechaza datos inv\u00e1lidos en tiempo de compilaci\u00f3n; `as` los enmascara.", "Seguir utilizando `: Record<string, ...>` para objetos de configuraci\u00f3n cuando `satisfies` ofrece una experiencia infinitamente superior.", "Desconocer que `satisfies` tambi\u00e9n previene erratas tipogr\u00e1ficas en nombres de propiedades."],
+        followUps: [
+          "¿Qué diferencia hay entre satisfies y una anotación de tipo?",
+          "¿Qué diferencia hay entre satisfies y as?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la principal ventaja de 'satisfies' frente a una anotaci\u00f3n de tipo directa (const x: Tipo = ...)?",
@@ -621,7 +709,11 @@ export const questionsTypescript: ISection = {
       },
       interviewTips: {
         whatInterviewersWant: "Que expliques c\u00f3mo `as const` evita el Type Widening, su uso conjunto con `typeof array[number]` para generar tipos uni\u00f3n, y por qu\u00e9 es el pilar de los cat\u00e1logos de constantes modernos.",
-        commonPitfalls: ["Olvidar que `as const` solo act\u00faa en tiempo de compilaci\u00f3n y no aplica `Object.freeze()` nativo en tiempo de ejecuci\u00f3n.", "Intentar mutar un array `as const` con `.push()` o reasignar una clave.", "No saber c\u00f3mo extraer los tipos de los valores de un objeto `as const` usando `(typeof obj)[keyof typeof obj]`."]
+        commonPitfalls: ["Olvidar que `as const` solo act\u00faa en tiempo de compilaci\u00f3n y no aplica `Object.freeze()` nativo en tiempo de ejecuci\u00f3n.", "Intentar mutar un array `as const` con `.push()` o reasignar una clave.", "No saber c\u00f3mo extraer los tipos de los valores de un objeto `as const` usando `(typeof obj)[keyof typeof obj]`."],
+        followUps: [
+          "¿Cómo combinarías as const con satisfies?",
+          "¿Cómo derivarías un tipo unión desde un array declarado as const?"
+        ]
       },
       quiz: {
         question: "Dado 'const statuses = [\"active\", \"inactive\"] as const;', \u00bfqu\u00e9 tipo produce '(typeof statuses)[number]'?",

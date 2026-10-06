@@ -34,7 +34,11 @@ console.log('Precio final:', operations[0](100, 0.2)); // 80`,
       },
       interviewTips: {
         whatInterviewersWant: "Mencionar que es single-threaded, no bloqueante (Event Loop), multiparadigma y gobernado por el est\u00e1ndar ECMAScript (TC39).",
-        commonPitfalls: ["Confundir JavaScript con Java o decir que es 'puramente interpretado' sin mencionar los compiladores JIT modernos."]
+        commonPitfalls: ["Confundir JavaScript con Java o decir que es 'puramente interpretado' sin mencionar los compiladores JIT modernos."],
+        followUps: [
+          "¿Qué diferencia hay entre el lenguaje (ECMAScript) y el entorno de ejecución (navegador, Node.js)?",
+          "¿Cómo compila un motor como V8 el código JavaScript (JIT)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 comit\u00e9 oficial de est\u00e1ndares se encarga de evolucionar la especificaci\u00f3n de ECMAScript / JavaScript?",
@@ -73,7 +77,11 @@ user.name = 'Diego Villa'; // Válido (mutación interna)
       },
       interviewTips: {
         whatInterviewersWant: "Aclarar que const no hace el objeto inmutable (solo el enlace) y se\u00f1alar el peligro de fugas de memoria y sobreescrituras accidentales de 'var'.",
-        commonPitfalls: ["Creer que 'const' crea objetos inmutables sin usar Object.freeze()."]
+        commonPitfalls: ["Creer que 'const' crea objetos inmutables sin usar Object.freeze()."],
+        followUps: [
+          "¿Qué es la Temporal Dead Zone?",
+          "¿Un objeto declarado con const es inmutable?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre si se intenta reasignar una variable declarada con const?",
@@ -112,7 +120,11 @@ console.log(NaN === NaN);   // false (usar Number.isNaN u Object.is)`,
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar que comprendes c\u00f3mo opera la coerci\u00f3n de tipos (ToNumber / ToPrimitive) y citar que NaN !== NaN por est\u00e1ndar IEEE 754.",
-        commonPitfalls: ["Pensar que '==' es m\u00e1s r\u00e1pido que '===' (en realidad '===' es m\u00e1s r\u00e1pido al evitar la rama de conversi\u00f3n de tipos)."]
+        commonPitfalls: ["Pensar que '==' es m\u00e1s r\u00e1pido que '===' (en realidad '===' es m\u00e1s r\u00e1pido al evitar la rama de conversi\u00f3n de tipos)."],
+        followUps: [
+          "¿Qué devuelve [] == ![] y por qué?",
+          "¿Qué diferencia hay entre === y Object.is()?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el resultado de evaluar: [] == false en JavaScript?",
@@ -153,7 +165,11 @@ const big = 9007199254740991n + 2n;`,
       },
       interviewTips: {
         whatInterviewersWant: "Enumerar los 7 tipos primitivos de memoria (recordando symbol y bigint) y explicar la diferencia entre copia por valor vs referencia.",
-        commonPitfalls: ["Olvidar que 'null' y 'undefined' son primitivos, o clasificar 'function' como primitivo."]
+        commonPitfalls: ["Olvidar que 'null' y 'undefined' son primitivos, o clasificar 'function' como primitivo."],
+        followUps: [
+          "¿Por qué typeof null devuelve 'object'?",
+          "¿Qué son los wrapper objects y por qué 'hola'.length funciona en un primitivo?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de los siguientes NO es un tipo primitivo en JavaScript?",
@@ -193,7 +209,11 @@ console.log(Number.isNaN(NaN));    // true`,
       },
       interviewTips: {
         whatInterviewersWant: "Se\u00f1alar la trampa de 'typeof NaN === number' y explicar la diferencia cr\u00edtica entre el 'isNaN()' global (inseguro) y 'Number.isNaN()' de ES6.",
-        commonPitfalls: ["Intentar validar con 'if (x === NaN)' (siempre evaluar\u00e1 a false)."]
+        commonPitfalls: ["Intentar validar con 'if (x === NaN)' (siempre evaluar\u00e1 a false)."],
+        followUps: [
+          "¿Por qué NaN !== NaN?",
+          "¿Qué diferencia hay entre isNaN() y Number.isNaN()?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el resultado de evaluar typeof NaN en JavaScript?",
@@ -235,7 +255,11 @@ const score = null ?? 100; // 100 (aplica a null o undefined)`,
       },
       interviewTips: {
         whatInterviewersWant: "Explicar el matiz conceptual (intencional vs no asignado), mencionar 'typeof null === object' como error hist\u00f3rico y el uso del operador ??.",
-        commonPitfalls: ["Tratarlos como intercambiables o usar '||' en lugar de '??' cuando 0 o false son valores v\u00e1lidos."]
+        commonPitfalls: ["Tratarlos como intercambiables o usar '||' en lugar de '??' cuando 0 o false son valores v\u00e1lidos."],
+        followUps: [
+          "¿Qué diferencia hay entre los operadores ?? y ||?",
+          "¿Cómo trata JSON.stringify a las propiedades con valor undefined?"
+        ]
       },
       quiz: {
         question: "\u00bfPor qu\u00e9 la expresi\u00f3n typeof null devuelve 'object' en JavaScript?",
@@ -276,7 +300,11 @@ document.body.appendChild(button);`,
       },
       interviewTips: {
         whatInterviewersWant: "Aclarar que el DOM es una API provista por el entorno hu\u00e9sped (el navegador), no una caracter\u00edstica central de ECMAScript.",
-        commonPitfalls: ["Creer que el DOM existe nativamente dentro de Node.js sin emuladores como JSDOM."]
+        commonPitfalls: ["Creer que el DOM existe nativamente dentro de Node.js sin emuladores como JSDOM."],
+        followUps: [
+          "¿Qué diferencia hay entre innerHTML, textContent e innerText?",
+          "¿Por qué manipular el DOM en bucles puede ser costoso y cómo lo optimizarías?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la especificaci\u00f3n oficial que define el est\u00e1ndar del DOM actual?",
@@ -317,7 +345,11 @@ console.log(parsedObj.name); // 'Diego'`,
       },
       interviewTips: {
         whatInterviewersWant: "Recordar que JSON no soporta funciones, Dates (las convierte a string ISO), undefined, ni referencias circulares (lanza TypeError).",
-        commonPitfalls: ["Intentar clonar objetos con m\u00e9todos usando JSON.parse(JSON.stringify()) en lugar de structuredClone()."]
+        commonPitfalls: ["Intentar clonar objetos con m\u00e9todos usando JSON.parse(JSON.stringify()) en lugar de structuredClone()."],
+        followUps: [
+          "¿Qué tipos de datos se pierden con JSON.stringify (Date, Map, undefined, funciones)?",
+          "¿Para qué sirven los parámetros replacer y reviver?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre al serializar con JSON.stringify un objeto que contiene una propiedad con valor undefined?",
@@ -358,7 +390,11 @@ console.log(checkThis()); // undefined (en modo normal sería window)`,
       },
       interviewTips: {
         whatInterviewersWant: "Explicar que ES Modules y clases operan en 'use strict' por defecto sin necesidad de declararlo expresamente.",
-        commonPitfalls: ["Creer que en JavaScript moderno hay que escribir 'use strict' manualmente en cada archivo modular."]
+        commonPitfalls: ["Creer que en JavaScript moderno hay que escribir 'use strict' manualmente en cada archivo modular."],
+        followUps: [
+          "¿Qué errores silenciosos convierte strict mode en excepciones?",
+          "¿Por qué los módulos ES y las clases están en strict mode por defecto?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el valor de 'this' dentro de una funci\u00f3n regular suelta invocada bajo 'use strict'?",
@@ -402,7 +438,11 @@ let myLet = "Modern JS";`,
       },
       interviewTips: {
         whatInterviewersWant: "Demostrar que sabes que let y const S\u00cd son elevados, pero protegidos por la Temporal Dead Zone (TDZ).",
-        commonPitfalls: ["Decir err\u00f3neamente que let y const 'no tienen hoisting'. S\u00ed lo tienen, pero est\u00e1n en TDZ."]
+        commonPitfalls: ["Decir err\u00f3neamente que let y const 'no tienen hoisting'. S\u00ed lo tienen, pero est\u00e1n en TDZ."],
+        followUps: [
+          "¿Qué diferencia hay entre el hoisting de declaraciones de función y el de expresiones de función?",
+          "¿Por qué let y const también hacen hoisting pero lanzan ReferenceError?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre al ejecutar: console.log(a); let a = 5; ?",
@@ -445,7 +485,11 @@ fetchDataWithCallback('/api', (err, res) => {
       },
       interviewTips: {
         whatInterviewersWant: "Distinguir con exactitud callbacks s\u00edncronos de as\u00edncronos y explicar la convenci\u00f3n de Node.js 'Error-First Callback' (err, data).",
-        commonPitfalls: ["Asumir que toda funci\u00f3n que recibe un callback es autom\u00e1ticamente as\u00edncrona (ej. Array.map es 100% s\u00edncrono)."]
+        commonPitfalls: ["Asumir que toda funci\u00f3n que recibe un callback es autom\u00e1ticamente as\u00edncrona (ej. Array.map es 100% s\u00edncrono)."],
+        followUps: [
+          "¿Qué es el callback hell y cómo se resuelve?",
+          "¿Qué es la inversión de control en los callbacks?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes operaciones ejecuta su callback de forma S\u00cdNCRONA?",
@@ -491,7 +535,11 @@ fetchUserProfile(42)
       },
       interviewTips: {
         whatInterviewersWant: "Explicar m\u00e9todos est\u00e1ticos clave de concurrencia: Promise.all (falla r\u00e1pido), Promise.allSettled (espera a todas), Promise.race y Promise.any.",
-        commonPitfalls: ["Olvidar retornar la promesa interior dentro de un .then(), rompiendo la cadena de resoluci\u00f3n as\u00edncrona."]
+        commonPitfalls: ["Olvidar retornar la promesa interior dentro de un .then(), rompiendo la cadena de resoluci\u00f3n as\u00edncrona."],
+        followUps: [
+          "¿Qué diferencia hay entre Promise.all, allSettled, race y any?",
+          "¿Qué ocurre con una promesa rechazada que nadie captura?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 m\u00e9todo est\u00e1tico de Promise espera a que TODAS las promesas finalicen sin importar si fueron resueltas o rechazadas?",
@@ -533,7 +581,11 @@ async function loadDashboardData(userId) {
       },
       interviewTips: {
         whatInterviewersWant: "Advertir contra el antipatr\u00f3n de encadenar 'await' secuenciales innecesarios para operaciones independientes; usar Promise.all([p1, p2]).",
-        commonPitfalls: ["Ejecutar await en un bucle forEach (forEach ignora promesas; se debe usar for...of o Promise.all con map)."]
+        commonPitfalls: ["Ejecutar await en un bucle forEach (forEach ignora promesas; se debe usar for...of o Promise.all con map)."],
+        followUps: [
+          "¿Cómo ejecutarías varias llamadas async en paralelo en lugar de en serie?",
+          "¿Cómo manejas errores con async/await sin llenar el código de try/catch?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre si ejecutas: [1, 2].forEach(async (id) => { await deleteItem(id); });?",
@@ -579,7 +631,11 @@ const sumAll = (...numbers) => numbers.reduce((acc, curr) => acc + curr, 0);`,
       },
       interviewTips: {
         whatInterviewersWant: "Saber cu\u00e1ndo NO usar arrow functions: como m\u00e9todos de objetos literales (pierden el objeto como this) y como constructores.",
-        commonPitfalls: ["Usar una arrow function como m\u00e9todo de un objeto literal y esperar que 'this' apunte al objeto."]
+        commonPitfalls: ["Usar una arrow function como m\u00e9todo de un objeto literal y esperar que 'this' apunte al objeto."],
+        followUps: [
+          "¿Por qué las arrow functions no deben usarse como métodos de un objeto?",
+          "¿Qué no tienen las arrow functions (this, arguments, prototype, new)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el comportamiento de 'this' dentro de una funci\u00f3n flecha?",
@@ -619,7 +675,11 @@ function renderHeader({ title, user: { name } }) {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar que los valores por defecto solo se activan si la propiedad es estrictamente 'undefined' (no aplica para null, 0 o false).",
-        commonPitfalls: ["Esperar que un default value reemplace a un valor 'null' (null es un valor primitivo v\u00e1lido, por lo que no activa el fallback)."]
+        commonPitfalls: ["Esperar que un default value reemplace a un valor 'null' (null es un valor primitivo v\u00e1lido, por lo que no activa el fallback)."],
+        followUps: [
+          "¿Cómo asignas valores por defecto y renombras propiedades al desestructurar?",
+          "¿El spread operator hace una copia profunda o superficial?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1ndo se activa el valor por defecto en una desestructuraci\u00f3n: const { role = 'User' } = obj;?",
@@ -660,7 +720,11 @@ async function loadAnalytics() {
       },
       interviewTips: {
         whatInterviewersWant: "Comparar ESM y CJS: ESM es as\u00edncrono y est\u00e1tico; CJS es s\u00edncrono y din\u00e1mico. Citar que los scripts de tipo module difieren su ejecuci\u00f3n por defecto.",
-        commonPitfalls: ["Intentar usar 'require()' en un entorno ESM puro sin configurar paquetes adecuadamente."]
+        commonPitfalls: ["Intentar usar 'require()' en un entorno ESM puro sin configurar paquetes adecuadamente."],
+        followUps: [
+          "¿Qué diferencia hay entre ESM y CommonJS en carga, live bindings y tree shaking?",
+          "¿Qué es el top-level await?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la principal ventaja de ES Modules frente a CommonJS para aplicaciones frontend modernas?",
@@ -709,7 +773,11 @@ console.log(account.balance); // 700
       },
       interviewTips: {
         whatInterviewersWant: "Aclarar que 'typeof MyClass === function' y que las clases no sufren hoisting accesible (permanecen en TDZ como let).",
-        commonPitfalls: ["Creer que JavaScript implement\u00f3 clases cl\u00e1sicas en C++ (el runtime sigue siendo protot\u00edpico)."]
+        commonPitfalls: ["Creer que JavaScript implement\u00f3 clases cl\u00e1sicas en C++ (el runtime sigue siendo protot\u00edpico)."],
+        followUps: [
+          "¿Qué son los campos privados (#) y en qué se diferencian de la convención _?",
+          "¿Por qué se dice que las clases son azúcar sintáctico sobre prototipos?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 sintaxis nativa de ES2022 declara un campo privado real en una clase de JavaScript?",
@@ -753,7 +821,11 @@ boundGreet(); // 'Hola, soy Arquitecto'`,
       },
       interviewTips: {
         whatInterviewersWant: "Memorizar las 4 reglas y explicar la p\u00e9rdida de contexto al pasar m\u00e9todos de objeto como callbacks en React o listeners.",
-        commonPitfalls: ["Intentar re-vincular una funci\u00f3n flecha usando bind/call/apply (las arrow functions son inmunes al binding din\u00e1mico)."]
+        commonPitfalls: ["Intentar re-vincular una funci\u00f3n flecha usando bind/call/apply (las arrow functions son inmunes al binding din\u00e1mico)."],
+        followUps: [
+          "¿Cuáles son las reglas de prioridad del binding de this (new, explícito, implícito, por defecto)?",
+          "¿Qué diferencia hay entre call, apply y bind?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 valor toma 'this' al invocar: const fn = user.greet; fn(); bajo 'use strict'?",
@@ -792,7 +864,11 @@ console.log(original.user.name); // 'Diego' (Intacto)`,
       },
       interviewTips: {
         whatInterviewersWant: "Explicar la diferencia entre Object.freeze() (congelamiento superficial) y structuredClone() (copia profunda nativa).",
-        commonPitfalls: ["Creer que el operador spread `{ ...obj }` realiza una copia profunda (solo clona el primer nivel; los objetos anidados se copian por referencia)."]
+        commonPitfalls: ["Creer que el operador spread `{ ...obj }` realiza una copia profunda (solo clona el primer nivel; los objetos anidados se copian por referencia)."],
+        followUps: [
+          "¿Por qué React depende de la inmutabilidad para detectar cambios?",
+          "¿Qué diferencia hay entre Object.freeze y una copia profunda?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 m\u00e9todo nativo de JavaScript realiza una copia profunda (Deep Clone) completa preservando referencias circulares y tipos complejos?",
@@ -833,7 +909,11 @@ console.log("Fin síncrono");
       },
       interviewTips: {
         whatInterviewersWant: "Comprender la diferencia exacta de prioridad entre Microtasks (Promises) y Macrotasks (setTimeout), y saber predecir el orden de logs en pantalla.",
-        commonPitfalls: ["Creer que setTimeout(..., 0) se ejecuta de inmediato (siempre debe esperar a que el call stack y microtareas terminen)."]
+        commonPitfalls: ["Creer que setTimeout(..., 0) se ejecuta de inmediato (siempre debe esperar a que el call stack y microtareas terminen)."],
+        followUps: [
+          "¿En qué orden se ejecutan setTimeout(0), Promise.then y queueMicrotask?",
+          "¿Cómo puede una tarea larga bloquear la interfaz?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la prioridad de ejecuci\u00f3n en el Event Loop tras vaciarse el Call Stack s\u00edncrono?",
@@ -876,7 +956,11 @@ console.log(counter.count);     // undefined (inaccesible externamente)`,
       },
       interviewTips: {
         whatInterviewersWant: "Saber explicar closures sin rodeos: 'acceso de una funci\u00f3n interna al scope de una funci\u00f3n externa tras su ejecuci\u00f3n'. Explicar casos reales (variables privadas, debounce, factories).",
-        commonPitfalls: ["Mencionar que el closure 'copia' el valor (en realidad mantiene la referencia en memoria)."]
+        commonPitfalls: ["Mencionar que el closure 'copia' el valor (en realidad mantiene la referencia en memoria)."],
+        followUps: [
+          "¿Cómo pueden los closures provocar memory leaks?",
+          "¿Cómo resolverías el problema clásico de var dentro de un bucle con setTimeout?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 ocurre con las variables de una funci\u00f3n externa cuando una funci\u00f3n interna crea un closure sobre ellas?",
@@ -917,7 +1001,11 @@ console.log(Object.getPrototypeOf(dev) === Developer.prototype); // true`,
       },
       interviewTips: {
         whatInterviewersWant: "Diferenciar 'F.prototype' (objeto que se asigna como prototipo a instancias creadas con new F) de 'Object.getPrototypeOf(obj)' (el prototipo real del objeto).",
-        commonPitfalls: ["Modificar Object.prototype directamente (contaminaci\u00f3n del prototipo global o prototype pollution)."]
+        commonPitfalls: ["Modificar Object.prototype directamente (contaminaci\u00f3n del prototipo global o prototype pollution)."],
+        followUps: [
+          "¿Qué diferencia hay entre __proto__, Object.getPrototypeOf y la propiedad prototype?",
+          "¿Cómo crearías un objeto sin prototipo y para qué sirve?"
+        ]
       },
       quiz: {
         question: "\u00bfA qu\u00e9 apunta la propiedad __proto__ en el extremo superior de toda la cadena de prototipos en JavaScript?",
@@ -957,7 +1045,11 @@ console.log('Total evaluado:', totalClassAverage);`,
       },
       interviewTips: {
         whatInterviewersWant: "Definir qu\u00e9 es una funci\u00f3n pura y qu\u00e9 constituye un efecto secundario (mutar par\u00e1metros, peticiones de red, console.log, Date.now()).",
-        commonPitfalls: ["Creer que la programaci\u00f3n funcional proh\u00edbe todo efecto secundario (se deben aislar en los bordes de la arquitectura)."]
+        commonPitfalls: ["Creer que la programaci\u00f3n funcional proh\u00edbe todo efecto secundario (se deben aislar en los bordes de la arquitectura)."],
+        followUps: [
+          "¿Qué son las funciones puras y por qué facilitan los tests?",
+          "¿Cómo implementarías una función compose o pipe?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es la caracter\u00edstica innegociable de una funci\u00f3n pura en programaci\u00f3n funcional?",
@@ -997,7 +1089,11 @@ console.log(postsUrl); // 'https://api.cabuweb.com/posts'`,
       },
       interviewTips: {
         whatInterviewersWant: "Distinguir currying estricto (siempre 1 argumento por llamada) de aplicaci\u00f3n parcial (fijar N argumentos de antemano).",
-        commonPitfalls: ["Creer que currying es solo una curiosidad acad\u00e9mica sin valor pr\u00e1ctico (es vital en librer\u00edas funcionales como Ramda y selectores de Redux)."]
+        commonPitfalls: ["Creer que currying es solo una curiosidad acad\u00e9mica sin valor pr\u00e1ctico (es vital en librer\u00edas funcionales como Ramda y selectores de Redux)."],
+        followUps: [
+          "¿Qué diferencia hay entre currying y aplicación parcial?",
+          "¿Cómo implementarías un curry genérico?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 transformaci\u00f3n realiza el currying sobre una funci\u00f3n f(a, b, c)?",
@@ -1041,7 +1137,11 @@ const heavyCalculation = memoize((n) => {
       },
       interviewTips: {
         whatInterviewersWant: "Aclarar que la memoizaci\u00f3n intercambia espacio de memoria RAM por tiempo de CPU, y que solo es v\u00e1lida para funciones puras.",
-        commonPitfalls: ["Memoizar funciones con alto consumo de memoria sin implementar pol\u00edticas de limpieza de cach\u00e9 como LRU (Least Recently Used)."]
+        commonPitfalls: ["Memoizar funciones con alto consumo de memoria sin implementar pol\u00edticas de limpieza de cach\u00e9 como LRU (Least Recently Used)."],
+        followUps: [
+          "¿Cómo invalidarías el caché de una función memoizada?",
+          "¿Qué riesgos de memoria tiene la memoization sin límite (y cómo ayuda un LRU)?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 condici\u00f3n debe cumplir una funci\u00f3n para que sea seguro aplicar memoizaci\u00f3n sobre ella?",
@@ -1080,7 +1180,11 @@ userTable?.addEventListener('click', (event) => {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar las tres fases del evento (Capturing, Target, Bubbling) y las ventajas en memoria y dinamismo de nodos.",
-        commonPitfalls: ["Intentar usar delegaci\u00f3n con eventos que NO hacen bubbling por defecto (como 'focus' o 'blur'; en su lugar usar 'focusin' o 'focusout')."]
+        commonPitfalls: ["Intentar usar delegaci\u00f3n con eventos que NO hacen bubbling por defecto (como 'focus' o 'blur'; en su lugar usar 'focusin' o 'focusout')."],
+        followUps: [
+          "¿Qué diferencia hay entre event.target y event.currentTarget?",
+          "¿Qué eventos no burbujean y cómo los manejarías?"
+        ]
       },
       quiz: {
         question: "\u00bfEn qu\u00e9 fase de propagaci\u00f3n del DOM se apoya primordialmente el patr\u00f3n Event Delegation?",
@@ -1126,7 +1230,11 @@ userTable?.addEventListener('click', (event) => {
       },
       interviewTips: {
         whatInterviewersWant: "Vincular su uso con el patr\u00f3n cleanup en React (useEffect / useQuery) y la prevenci\u00f3n de 'Race Conditions' en b\u00fasquedas concurrentes.",
-        commonPitfalls: ["No capturar el error 'AbortError' en el bloque catch, tratando una cancelaci\u00f3n voluntaria como un error fatal de red."]
+        commonPitfalls: ["No capturar el error 'AbortError' en el bloque catch, tratando una cancelaci\u00f3n voluntaria como un error fatal de red."],
+        followUps: [
+          "¿Cómo cancelarías una petición fetch al desmontar un componente?",
+          "¿Qué hace AbortSignal.timeout() y AbortSignal.any()?"
+        ]
       },
       quiz: {
         question: "\u00bfQu\u00e9 m\u00e9todo se invoca en AbortController para cancelar peticiones de red activas asociadas a su signal?",
@@ -1169,7 +1277,11 @@ self.onmessage = (e) => {
       },
       interviewTips: {
         whatInterviewersWant: "Destacar el uso de Transferable Objects para no penalizar la memoria con serializaciones de structuredClone en buffers masivos.",
-        commonPitfalls: ["Intentar acceder al DOM o a document dentro del c\u00f3digo de un Web Worker."]
+        commonPitfalls: ["Intentar acceder al DOM o a document dentro del c\u00f3digo de un Web Worker."],
+        followUps: [
+          "¿Qué no puede hacer un Web Worker (acceso al DOM)?",
+          "¿Qué son los Transferable Objects?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l de las siguientes APIs est\u00e1 DISPONIBLE dentro del contexto de un Dedicated Web Worker?",
@@ -1207,7 +1319,11 @@ setTimeout(() => console.log('Macrotask esperando...'), 0);`,
       },
       interviewTips: {
         whatInterviewersWant: "Explicar el peligro de Starvation (inanici\u00f3n del hilo de render) si una microtarea genera indefinidamente otras microtareas.",
-        commonPitfalls: ["Confundir 'requestAnimationFrame' con una macrotarea ordinaria (rAF se ejecuta en el paso de renderizado, antes de pintar la pantalla)."]
+        commonPitfalls: ["Confundir 'requestAnimationFrame' con una macrotarea ordinaria (rAF se ejecuta en el paso de renderizado, antes de pintar la pantalla)."],
+        followUps: [
+          "¿Qué ocurre si una microtarea encola microtareas indefinidamente?",
+          "¿Dónde encaja requestAnimationFrame en el event loop?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de Explica la cola de microtareas vs macrotareas.?",
@@ -1248,7 +1364,11 @@ console.log(gen.next().value); // 'usr_3'
       },
       interviewTips: {
         whatInterviewersWant: "Explicar su uso en orquestaci\u00f3n de efectos as\u00edncronos complejos (Redux Saga) y flujos iterables de streams masivos sin saturar la RAM.",
-        commonPitfalls: ["Intentar usar una arrow function como generador: `const fn = *() => {}` no es v\u00e1lido en la sintaxis de ECMAScript."]
+        commonPitfalls: ["Intentar usar una arrow function como generador: `const fn = *() => {}` no es v\u00e1lido en la sintaxis de ECMAScript."],
+        followUps: [
+          "¿Cómo usarías un generator para implementar un iterador perezoso?",
+          "¿Qué diferencia hay entre generators y async generators (for await)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de \u00bfQu\u00e9 es un generator en JavaScript??",
@@ -1290,7 +1410,11 @@ function trackElementClicks(buttonElement) {
       },
       interviewTips: {
         whatInterviewersWant: "Explicar por qu\u00e9 las claves de WeakMap solo pueden ser Objetos y la imposibilidad de iterar debido al recolector de basura.",
-        commonPitfalls: ["Intentar almacenar tipos primitivos como string o number como claves de un WeakMap (arroja TypeError)."]
+        commonPitfalls: ["Intentar almacenar tipos primitivos como string o number como claves de un WeakMap (arroja TypeError)."],
+        followUps: [
+          "¿Por qué las claves de un WeakMap no pueden ser primitivos?",
+          "¿Qué caso de uso real tiene un WeakMap (metadatos privados, caché por objeto)?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de \u00bfQu\u00e9 es un WeakMap y un WeakSet??",
@@ -1340,7 +1464,11 @@ state.count = 1; // Dispara: UI Trigger: propiedad 'count' cambió a 1`,
       },
       interviewTips: {
         whatInterviewersWant: "Comparar la reactividad de Vue 2 (Object.defineProperty, que no detectaba adici\u00f3n de claves ni \u00edndices de array) con Vue 3 (Proxy nativo).",
-        commonPitfalls: ["Olvidar devolver 'true' en la trampa 'set' (si devuelve false o undefined en modo estricto se lanzar\u00e1 un TypeError)."]
+        commonPitfalls: ["Olvidar devolver 'true' en la trampa 'set' (si devuelve false o undefined en modo estricto se lanzar\u00e1 un TypeError)."],
+        followUps: [
+          "¿Cómo se usa un Proxy para implementar reactividad (Vue 3)?",
+          "¿Por qué se combina Proxy con Reflect dentro de los traps?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de \u00bfQu\u00e9 son los proxies en JavaScript??",
@@ -1393,7 +1521,11 @@ unsubscribeUI(); // Limpieza para evitar memory leaks`,
       },
       interviewTips: {
         whatInterviewersWant: "Explicar la diferencia sutil entre Observer cl\u00e1sico (el Subject conoce a los observers) y Pub/Sub (canal intermediario Event Bus completamente desacoplado).",
-        commonPitfalls: ["No desuscribir observadores al destruir vistas o desmontar componentes, provocando graves fugas de memoria (Lapsed Listener Problem)."]
+        commonPitfalls: ["No desuscribir observadores al destruir vistas o desmontar componentes, provocando graves fugas de memoria (Lapsed Listener Problem)."],
+        followUps: [
+          "¿Qué diferencia hay entre el patrón Observer y Pub/Sub?",
+          "¿Cómo evitarías memory leaks al suscribirte a un observable?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de \u00bfQu\u00e9 es el patr\u00f3n Observer en JavaScript??",
@@ -1437,7 +1569,11 @@ console.log(deepCopy.self === deepCopy);        // true (Preserva circularidad)`
       },
       interviewTips: {
         whatInterviewersWant: "Explicar qu\u00e9 tipos NO puede clonar structuredClone (funciones, m\u00e9todos de clase, Error stacks complejos o nodos vivos del DOM).",
-        commonPitfalls: ["Seguir utilizando JSON.parse(JSON.stringify()) en c\u00f3digo moderno en lugar de structuredClone()."]
+        commonPitfalls: ["Seguir utilizando JSON.parse(JSON.stringify()) en c\u00f3digo moderno en lugar de structuredClone()."],
+        followUps: [
+          "¿Qué tipos de datos no puede clonar structuredClone (funciones, nodos DOM)?",
+          "¿En qué se diferencia de JSON.parse(JSON.stringify(obj))?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de \u00bfQu\u00e9 es Structured Clone y cu\u00e1ndo se usa??",
@@ -1476,7 +1612,11 @@ console.log(deepCopy.self === deepCopy);        // true (Preserva circularidad)`
       },
       interviewTips: {
         whatInterviewersWant: "Enumerar los 3 mayores defectos del objeto Date legacy (mutabilidad, meses 0-indexados, nulo soporte IANA) y c\u00f3mo Temporal los soluciona.",
-        commonPitfalls: ["Asumir que Temporal est\u00e1 100% disponible en todos los navegadores antiguos sin polyfill durante su fase de estabilizaci\u00f3n."]
+        commonPitfalls: ["Asumir que Temporal est\u00e1 100% disponible en todos los navegadores antiguos sin polyfill durante su fase de estabilizaci\u00f3n."],
+        followUps: [
+          "¿Qué problemas tiene el objeto Date que resuelve Temporal?",
+          "¿Qué diferencia hay entre Temporal.PlainDate y Temporal.ZonedDateTime?"
+        ]
       },
       quiz: {
         question: "\u00bfCu\u00e1l es el prop\u00f3sito principal de \u00bfQu\u00e9 es el Temporal API y qu\u00e9 problemas resuelve??",

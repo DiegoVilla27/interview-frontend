@@ -25,6 +25,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Afirmar que Babel puede generar el bundle final de una aplicación sin un bundler como Webpack o Rollup.",
                 "Creer que Vite es solo un bundler cuando en realidad es un servidor de desarrollo ESM con esbuild y Rollup como motor de empaquetado."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre transpilar y minificar?",
+                "¿Por qué Vite usa esbuild para transformar pero Rollup para empaquetar?"
             ]
         },
         "quiz": {
@@ -58,6 +62,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Invertir el orden de los loaders en el array (poner `style-loader` antes de `css-loader` rompe el build inmediatamente).",
                 "Creer que un loader puede alterar los nombres de los chunks generados en el disco (eso solo puede hacerlo un Plugin)."
+            ],
+            "followUps": [
+                "¿En qué orden se aplican los loaders en Webpack?",
+                "¿Cómo escribirías un plugin simple de Webpack?"
             ]
         },
         "quiz": {
@@ -91,6 +99,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Creer que Vite no empaqueta nada en producción y solo sube archivos ESM sueltos al servidor.",
                 "Ignorar el rol del pre-bundling con esbuild para convertir dependencias CommonJS a ESM."
+            ],
+            "followUps": [
+                "¿Qué es el pre-bundling de dependencias en Vite?",
+                "¿Por qué el comportamiento puede diferir entre desarrollo y producción en Vite?"
             ]
         },
         "quiz": {
@@ -124,6 +136,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Poner `sideEffects: false` en un proyecto que importa archivos CSS globales (`import './styles.css'`), haciendo que el bundler borre el CSS en producción por considerarlo 'sin uso'.",
                 "Creer que Babel transpila automáticamente con tree-shaking si no se configura para preservar módulos ESM (`modules: false`)."
+            ],
+            "followUps": [
+                "¿Por qué CommonJS dificulta el tree shaking?",
+                "¿Qué riesgos tiene marcar sideEffects: false incorrectamente (CSS importado)?"
             ]
         },
         "quiz": {
@@ -157,6 +173,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Crear code splitting a nivel granular excesivo (generar 100 mini-chunks de 1 KB cada uno satura el navegador con overhead de handshakes HTTP).",
                 "Olvidar manejar errores de red en dynamic imports (si se despliega una nueva versión, los viejos chunks desaparecen de la CDN y el import arroja error si no hay recarga)."
+            ],
+            "followUps": [
+                "¿Cómo dividirías una app por rutas con React.lazy?",
+                "¿Qué hace /* webpackPrefetch: true */?"
             ]
         },
         "quiz": {
@@ -190,6 +210,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Dejar los archivos `.map` en la carpeta `dist/` subida a S3/Vercel, filtrando secretos, comentarios internos y arquitectura del backend.",
                 "Desactivar por completo los sourcemaps en el build de CI, haciendo imposible depurar stack traces de errores en Sentry en producción."
+            ],
+            "followUps": [
+                "¿Deberías publicar source maps en producción?",
+                "¿Cómo subirías los source maps a Sentry sin exponerlos públicamente?"
             ]
         },
         "quiz": {
@@ -223,6 +247,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Creer que HMR funciona sin un cliente en el navegador (requiere el script runtime que escucha el WebSocket).",
                 "Tener efectos secundarios no limpiados en `useEffect` que provocan fugas de memoria al re-ejecutarse en HMR si no hay cleanup function."
+            ],
+            "followUps": [
+                "¿Por qué HMR preserva el estado y un full reload no?",
+                "¿Qué hace React Fast Refresh?"
             ]
         },
         "quiz": {
@@ -256,6 +284,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Creer que esbuild realiza comprobación de tipos de TypeScript (esbuild solo elimina los tipos sin verificar errores semánticos de tipado; se requiere `tsc --noEmit` en CI).",
                 "Asumir que SWC y esbuild son 100% idénticos en features a Babel (algunos plugins experimentales AST muy específicos solo existen en Babel)."
+            ],
+            "followUps": [
+                "¿Qué limitaciones tiene esbuild frente a Babel (plugins, type checking)?",
+                "¿Por qué esbuild no hace type checking de TypeScript?"
             ]
         },
         "quiz": {
@@ -289,6 +321,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Empaquetar dependencias peer (como `react`) dentro del bundle de la librería en vez de declararlas en `external` en la config de Rollup.",
                 "Usar UMD como único formato de salida en librerías modernas en vez de dual ESM + CJS."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre scope hoisting y module wrapping?",
+                "¿Qué formatos de salida soporta Rollup (ESM, CJS, UMD)?"
             ]
         },
         "quiz": {
@@ -322,6 +358,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Medir el tamaño del código sin compresión en vez de medir su tamaño comprimido con **Gzip / Brotli** (que es lo que realmente viaja por la red).",
                 "Analizar el bundle solo en desarrollo (los bundles de desarrollo no tienen minificación ni tree shaking y sus tamaños son engañosos)."
+            ],
+            "followUps": [
+                "¿Cómo establecerías un budget de tamaño de bundle en CI?",
+                "¿Cómo detectarías dependencias duplicadas en el bundle?"
             ]
         },
         "quiz": {
@@ -355,6 +395,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Olvidar configurar `singleton: true` para React o librerías de contexto global, provocando fallos de 'Invalid Hook Call'.",
                 "No definir fallbacks en el Host para gestionar la caída de red o errores HTTP 500 del servidor donde se aloja el Remote."
+            ],
+            "followUps": [
+                "¿Qué ocurre si dos micro-frontends usan versiones incompatibles de React?",
+                "¿Qué hacen las opciones singleton y requiredVersion en shared?"
             ]
         },
         "quiz": {
@@ -388,6 +432,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Poner caché de 1 año en `index.html`, provocando que los usuarios no reciban despliegues nuevos a menos que borren manualmente la caché del navegador.",
                 "Usar `[fullhash]` en vez de `[contenthash]`, destruyendo la eficiencia de la caché ante cualquier cambio trivial."
+            ],
+            "followUps": [
+                "¿Qué diferencia hay entre [contenthash] y [chunkhash]?",
+                "¿Por qué el index.html no debe cachearse de forma inmutable?"
             ]
         },
         "quiz": {
@@ -421,6 +469,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Creer que Turbopack es un simple fork de Webpack en Rust (es una arquitectura completamente reescrita desde cero basada en Turbo Engine).",
                 "Asumir que Turbopack ya reemplaza a Vite en todos los frameworks (su foco inicial y madurez están concentrados en Next.js)."
+            ],
+            "followUps": [
+                "¿Qué es la computación incremental basada en funciones memoizadas?",
+                "¿Está Turbopack listo para cualquier proyecto fuera de Next.js?"
             ]
         },
         "quiz": {
@@ -454,6 +506,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Escribir `import 'core-js'` en la primera línea de `index.ts` (añade 200 KB innecesarios de polyfills para APIs que la aplicación jamás utiliza).",
                 "Olvidar configurar `modules: false` en `@babel/preset-env`, lo que convierte el código a CommonJS y destruye el Tree Shaking de Webpack/Rollup."
+            ],
+            "followUps": [
+                "¿Qué hace useBuiltIns: 'usage' frente a 'entry'?",
+                "¿Cómo implementarías differential serving (module/nomodule)?"
             ]
         },
         "quiz": {
@@ -487,6 +543,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Usar `style-loader` en producción (inyectar CSS en tiempo de ejecución vía JavaScript causa FOUC - Flash of Unstyled Content y bloquea el render inicial).",
                 "No configurar purge/content en Tailwind, lo que causaría bundles de CSS de varios megabytes con todas las clases del framework."
+            ],
+            "followUps": [
+                "¿Cómo generan los CSS Modules nombres de clase únicos?",
+                "¿Qué ventajas aporta Lightning CSS frente a PostCSS?"
             ]
         },
         "quiz": {
@@ -520,6 +580,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Pasar objetos complejos de JS directamente a WASM sin serializar (WASM solo entiende números enteros y flotantes nativamente; las cadenas y arrays requieren conversiones de memoria).",
                 "Usar WASM para tareas sencillas del DOM (la sobrecarga de cruzar el puente JS-WASM supera cualquier ganancia si no hay cálculo pesado)."
+            ],
+            "followUps": [
+                "¿Qué overhead tiene cruzar la frontera JS-WASM?",
+                "¿Cuándo compensa usar WebAssembly en frontend?"
             ]
         },
         "quiz": {
@@ -553,6 +617,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Olvidar declarar variables de entorno en el array `env` de `turbo.json`: si el build depende de `API_URL` y no está declarada, el hash no cambiará y se restaurará un build con la URL incorrecta.",
                 "Incluir carpetas con timestamps dinámicos en los `outputs` de caché."
+            ],
+            "followUps": [
+                "¿Cómo calcula Turborepo el hash de una tarea?",
+                "¿Qué riesgos tiene el remote caching si los inputs no están bien declarados?"
             ]
         },
         "quiz": {
@@ -586,6 +654,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Activar mangling sobre propiedades de objetos que interactúan con APIs externas sin whitelist, renombrando campos JSON que el backend espera con su nombre original.",
                 "Creer que la minificación solo ahorra transferencia de red: también acelera el tiempo de parseo y compilación en el motor V8 del navegador móvil."
+            ],
+            "followUps": [
+                "¿Qué es el mangling de propiedades y por qué es arriesgado?",
+                "¿Qué es el constant folding?"
             ]
         },
         "quiz": {
@@ -619,6 +691,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Creer que `'use client'` significa 'este componente solo se ejecuta en el cliente' (los Client Components también se pre-renderizan a HTML en el servidor durante el SSR).",
                 "Importar librerías de servidor (como `fs` o drivers de DB) dentro de un archivo con `'use client'`, rompiendo el build del cliente."
+            ],
+            "followUps": [
+                "¿Por qué se generan bundles distintos para servidor y cliente?",
+                "¿Cómo impide React Server Components que código de servidor llegue al cliente?"
             ]
         },
         "quiz": {
@@ -652,6 +728,10 @@ export const questionsBuildTools: ISection = {
             "commonPitfalls": [
                 "Incluir `Date.now()` o `new Date().toISOString()` dentro del código generado o banners de build, destruyendo el determinismo del contenthash.",
                 "Confundir builds reproducibles con 'el código compila sin errores en ambas máquinas' (reproducibilidad exige coincidencia idéntica a nivel binario bit a bit)."
+            ],
+            "followUps": [
+                "¿Qué fuentes de no determinismo pueden afectar a un build (timestamps, orden de archivos)?",
+                "¿Cómo verificarías que dos builds son idénticos bit a bit?"
             ]
         },
         "quiz": {
