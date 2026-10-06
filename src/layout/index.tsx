@@ -2,8 +2,6 @@ import React, { ReactNode } from "react";
 import { ExternalLink, Code2 } from "lucide-react";
 
 interface IProps {
-  theme?: boolean;
-  setTheme?: (theme: boolean) => void;
   children: ReactNode;
 }
 

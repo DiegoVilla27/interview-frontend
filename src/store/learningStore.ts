@@ -3,16 +3,9 @@ import { persist } from "zustand/middleware";
 import { IQuestionRef, IQuizResult, QuestionLevel, TActiveView, TModuleId } from "../types";
 
 interface LearningState {
-  // Theme
-  isDark: boolean;
-  toggleTheme: () => void;
-  setTheme: (isDark: boolean) => void;
-
   // Navigation & Views
   activeView: TActiveView;
   setActiveView: (view: TActiveView) => void;
-  selectedModuleId: string | null;
-  setSelectedModuleId: (id: string | null) => void;
   selectedQuestion: IQuestionRef | null;
   setSelectedQuestion: (question: IQuestionRef | null) => void;
 
@@ -45,16 +38,9 @@ interface LearningState {
 export const useLearningStore = create<LearningState>()(
   persist(
     (set, get) => ({
-      // Theme
-      isDark: true,
-      toggleTheme: () => set((state) => ({ isDark: !state.isDark })),
-      setTheme: (isDark: boolean) => set({ isDark }),
-
       // Navigation & Views
       activeView: "roadmap",
       setActiveView: (activeView) => set({ activeView }),
-      selectedModuleId: null,
-      setSelectedModuleId: (selectedModuleId) => set({ selectedModuleId }),
       selectedQuestion: null,
       setSelectedQuestion: (selectedQuestion) => set({ selectedQuestion }),
 
@@ -116,7 +102,6 @@ export const useLearningStore = create<LearningState>()(
     {
       name: "interview-frontend-storage",
       partialize: (state) => ({
-        isDark: state.isDark,
         completedQuestionIds: state.completedQuestionIds,
         bookmarkedQuestionIds: state.bookmarkedQuestionIds,
         quizHistory: state.quizHistory

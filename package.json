@@ -19,7 +19,6 @@
     "lucide-react": "^1.46.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "sweetalert2": "^11.9.0",
     "zustand": "^5.0.15"
   },
   "devDependencies": {

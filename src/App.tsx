@@ -1,8 +1,7 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import LayoutScreen from "./layout";
 import { contentIndex, totalQuestions } from "./content";
 import { IQuestionRef, TModuleId } from "./types";
-import { saveStorage } from "./utils/storage.utils";
 import { useLearningStore } from "./store/learningStore";
 
 import { DashboardHeader } from "./features/dashboard/DashboardHeader";
@@ -41,11 +40,6 @@ export const App = () => {
   } = useLearningStore();
 
   const [isQuizOpen, setIsQuizOpen] = useState(false);
-
-  // Always apply dark theme
-  useEffect(() => {
-    saveStorage(true);
-  }, []);
 
   const handleSelectQuestion = (question: IQuestionRef) => setSelectedQuestion(question);
 
