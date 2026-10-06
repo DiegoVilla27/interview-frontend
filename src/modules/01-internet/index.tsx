@@ -27,6 +27,17 @@ export const questionsInternet: ISection = {
           "¿Qué diferencia hay entre Internet y la World Wide Web?",
           "¿Qué ocurre a nivel de red desde que escribes una URL hasta que ves la página?"
         ]
+      },
+      quiz: {
+        question: "¿Cuál es la relación correcta entre Internet y la World Wide Web?",
+        options: [
+          "La Web es la red física de cables submarinos e Internet el software",
+          "La Web es un servicio (HTTP + hipertexto) que funciona sobre la infraestructura de red que es Internet",
+          "Son sinónimos: ambos nombres designan la misma red",
+          "Internet es un servicio que funciona sobre la Web"
+        ],
+        correctIndex: 1,
+        explanation: "Internet es la red de redes interconectadas mediante TCP/IP y BGP. La Web es solo uno de los servicios que corren sobre ella, junto con el correo, SSH, DNS o los videojuegos online."
       }
     },
     {
@@ -78,6 +89,17 @@ function parsePacketHeader(buffer: DataView): IPPacket {
           "¿Qué es la MTU y qué ocurre cuando un paquete la supera?",
           "¿Para qué sirve el campo TTL de la cabecera IP?"
         ]
+      },
+      quiz: {
+        question: "¿Qué ocurre cuando un paquete IP supera la MTU de un enlace y tiene activado el bit 'Don't Fragment'?",
+        options: [
+          "El router lo fragmenta igualmente",
+          "El router lo descarta y responde con un ICMP 'Fragmentation Needed'",
+          "Se comprime automáticamente para que quepa",
+          "Se reenvía por una ruta alternativa con MTU mayor"
+        ],
+        correctIndex: 1,
+        explanation: "Con DF activado el router no puede fragmentar, así que descarta el paquete y avisa con ICMP. En esto se basa Path MTU Discovery para ajustar el tamaño de los paquetes."
       }
     },
     {
@@ -101,6 +123,17 @@ function parsePacketHeader(buffer: DataView): IPPacket {
           "¿Cuál es la diferencia entre un router y un switch?",
           "¿Cómo elige un router la ruta cuando hay varias coincidencias en su tabla (longest prefix match)?"
         ]
+      },
+      quiz: {
+        question: "¿Qué decide un router al recibir un paquete?",
+        options: [
+          "El siguiente salto, consultando su tabla de enrutamiento según la IP de destino",
+          "La ruta completa hasta el destino final",
+          "La dirección MAC final del servidor de destino",
+          "Qué aplicación del destino debe recibir el paquete"
+        ],
+        correctIndex: 0,
+        explanation: "Un router trabaja en Capa 3 y solo decide el siguiente salto (next hop), eligiendo el prefijo más específico que coincide con la IP de destino (longest prefix match)."
       }
     },
     {
@@ -147,6 +180,17 @@ export function isPrivateSubnet(ip: string): boolean {
           "¿Qué significa una notación CIDR como 192.168.1.0/24?",
           "¿Qué diferencia hay entre una IP estática y una dinámica?"
         ]
+      },
+      quiz: {
+        question: "¿Cuál de estas direcciones pertenece a un rango privado RFC 1918?",
+        options: [
+          "172.20.4.10",
+          "1.1.1.1",
+          "8.8.8.8",
+          "200.45.10.3"
+        ],
+        correctIndex: 0,
+        explanation: "Los rangos privados son 10.0.0.0/8, 172.16.0.0/12 (172.16 a 172.31) y 192.168.0.0/16. Estas direcciones no se enrutan en Internet y requieren NAT para salir."
       }
     },
     {
@@ -170,6 +214,17 @@ export function isPrivateSubnet(ip: string): boolean {
           "¿Qué es un FQDN y por qué termina técnicamente en un punto?",
           "¿Qué diferencia hay entre un registro A, AAAA y CNAME?"
         ]
+      },
+      quiz: {
+        question: "En el dominio 'api.shop.example.com', ¿cuál es el TLD (dominio de primer nivel)?",
+        options: [
+          "shop",
+          "example",
+          "api",
+          "com"
+        ],
+        correctIndex: 3,
+        explanation: "El TLD es la parte más a la derecha (.com). 'example' es el dominio de segundo nivel, y 'shop' y 'api' son subdominios."
       }
     },
     {
@@ -211,6 +266,17 @@ console.log(url.toString());
           "¿Qué diferencia hay entre URL, URI y URN?",
           "¿Cómo parsearías y modificarías query params de forma segura en JavaScript (URL / URLSearchParams)?"
         ]
+      },
+      quiz: {
+        question: "¿Qué parte de la URL https://app.com/docs?page=2#install NO se envía al servidor en la petición HTTP?",
+        options: [
+          "#install",
+          "?page=2",
+          "app.com",
+          "/docs"
+        ],
+        correctIndex: 0,
+        explanation: "El fragmento (#hash) se procesa solo en el cliente: el navegador lo usa para navegar dentro del documento o lo usan las SPAs para su enrutamiento, pero nunca viaja al servidor."
       }
     },
     {
@@ -268,6 +334,17 @@ async function fetchWithTimeout<T>(url: string, options: RequestOptions = {}): P
           "¿Qué significa que un método HTTP sea idempotente y cuáles lo son?",
           "¿Qué diferencia hay entre PUT y PATCH?"
         ]
+      },
+      quiz: {
+        question: "¿Cuál de estos métodos HTTP es idempotente pero NO seguro?",
+        options: [
+          "GET",
+          "HEAD",
+          "PUT",
+          "POST"
+        ],
+        correctIndex: 2,
+        explanation: "PUT modifica el estado del servidor (no es seguro), pero repetir la misma petición produce el mismo resultado (es idempotente). GET y HEAD son seguros; POST no es ni seguro ni idempotente."
       }
     },
     {
@@ -291,6 +368,17 @@ async function fetchWithTimeout<T>(url: string, options: RequestOptions = {}): P
           "¿Qué diferencia hay entre un firewall stateful y uno stateless?",
           "¿Qué ataques bloquea un WAF que un firewall de red no puede detectar?"
         ]
+      },
+      quiz: {
+        question: "¿Qué tipo de protección es capaz de bloquear un ataque de SQL Injection en una petición HTTPS?",
+        options: [
+          "La NAT del router doméstico",
+          "El cifrado TLS de la conexión",
+          "Un WAF que inspecciona el contenido de la capa de aplicación",
+          "Un firewall stateless de capa 3"
+        ],
+        correctIndex: 2,
+        explanation: "Un firewall de red solo ve IPs, puertos y protocolos. Para detectar patrones de ataque en el contenido HTTP hace falta un WAF (capa 7), que termina o inspecciona el tráfico TLS."
       }
     },
     // === MEDIO ===
@@ -333,6 +421,17 @@ console.log(pathRelative.href); // 'https://cabuweb.com/dashboard/settings/avata
           "¿Cómo afecta la etiqueta <base> a la resolución de URLs relativas?",
           "¿Por qué las URLs canónicas absolutas son importantes para SEO?"
         ]
+      },
+      quiz: {
+        question: "Estando en https://site.com/blog/post/, ¿a qué URL apunta href=\"../img/a.png\"?",
+        options: [
+          "https://site.com/blog/img/a.png",
+          "https://img/a.png",
+          "https://site.com/blog/post/img/a.png",
+          "https://site.com/img/a.png"
+        ],
+        correctIndex: 0,
+        explanation: "'..' sube un nivel desde el directorio actual (/blog/post/) hasta /blog/, y desde ahí se resuelve img/a.png."
       }
     },
     {
@@ -376,6 +475,17 @@ async function lookupDomainIp(domain: string): Promise<string[]> {
           "¿Por qué un cambio de DNS puede tardar horas en propagarse?",
           "¿Qué es dns-prefetch y cómo reduce la latencia en el frontend?"
         ]
+      },
+      quiz: {
+        question: "¿Por qué un cambio de registro DNS puede tardar horas en verse en todos los clientes?",
+        options: [
+          "Porque resolvers, sistemas operativos y navegadores cachean la respuesta anterior hasta que expira su TTL",
+          "Porque DNS usa TCP y las conexiones tardan en cerrarse",
+          "Porque los root servers solo se actualizan una vez al día",
+          "Porque el registrador valida manualmente cada cambio"
+        ],
+        correctIndex: 0,
+        explanation: "Cada nivel de caché respeta el TTL del registro. Bajar el TTL antes de una migración reduce el tiempo de propagación."
       }
     },
     {
@@ -422,6 +532,17 @@ export function forceHttps(req: Request): Response | null {
           "¿Qué es un ataque de mixed content y cómo lo bloquea el navegador?",
           "¿Qué es HSTS y qué problema resuelve frente al primer acceso por HTTP?"
         ]
+      },
+      quiz: {
+        question: "¿Qué información puede seguir viendo un observador de red cuando visitas un sitio por HTTPS (sin ECH)?",
+        options: [
+          "El contenido de los formularios enviados",
+          "Las cookies de sesión",
+          "La ruta completa y los query params de la URL",
+          "El dominio visitado, a través del SNI y de las consultas DNS"
+        ],
+        correctIndex: 3,
+        explanation: "TLS cifra la ruta, las cabeceras y el cuerpo, pero el nombre del host viaja en claro en el SNI del handshake (salvo con Encrypted Client Hello) y en las consultas DNS tradicionales."
       }
     },
     {
@@ -475,6 +596,17 @@ export async function handleApiResponse<T>(response: Response): Promise<T> {
           "¿Qué diferencia hay entre 301, 302, 307 y 308?",
           "¿Cómo debería reaccionar el frontend ante un 429 Too Many Requests?"
         ]
+      },
+      quiz: {
+        question: "Un usuario autenticado intenta acceder a un recurso para el que no tiene permisos. ¿Qué código debe devolver la API?",
+        options: [
+          "401 Unauthorized",
+          "403 Forbidden",
+          "404 Not Found",
+          "400 Bad Request"
+        ],
+        correctIndex: 1,
+        explanation: "401 significa 'no autenticado' (faltan credenciales o no son válidas). 403 significa 'autenticado pero sin permiso'. A veces se usa 404 para no revelar que el recurso existe, pero el código semántico es 403."
       }
     },
     {
@@ -517,6 +649,17 @@ function createFastUdpChannel(pc: RTCPeerConnection) {
           "¿Cómo funciona el three-way handshake de TCP?",
           "¿Por qué los videojuegos y la VoIP prefieren UDP?"
         ]
+      },
+      quiz: {
+        question: "¿Por qué las videollamadas y los videojuegos en tiempo real suelen preferir UDP?",
+        options: [
+          "Porque UDP garantiza el orden de llegada",
+          "Porque TCP no funciona en redes móviles",
+          "Porque retransmitir un paquete perdido llega tarde y es peor que descartarlo; UDP evita el head-of-line blocking",
+          "Porque UDP cifra los datos por defecto"
+        ],
+        correctIndex: 2,
+        explanation: "En tiempo real, un dato que llega tarde no sirve. TCP bloquea toda la secuencia hasta recuperar el paquete perdido; con UDP la aplicación decide qué hacer con las pérdidas."
       }
     },
     {
@@ -540,6 +683,17 @@ function createFastUdpChannel(pc: RTCPeerConnection) {
           "¿Qué ocurre si dos servidores DHCP responden en la misma red?",
           "¿Qué es un ataque de DHCP spoofing?"
         ]
+      },
+      quiz: {
+        question: "¿Por qué el primer mensaje DHCP (DISCOVER) se envía como broadcast?",
+        options: [
+          "Para cifrar la negociación",
+          "Para que todos los equipos registren la nueva IP",
+          "Porque el cliente todavía no tiene IP ni conoce la dirección del servidor DHCP",
+          "Porque DHCP solo funciona con IPv6"
+        ],
+        correctIndex: 2,
+        explanation: "El cliente arranca sin configuración de red, así que envía DISCOVER a 255.255.255.255 para que cualquier servidor DHCP del segmento pueda responderle."
       }
     },
     {
@@ -588,6 +742,17 @@ app.use(cors({
           "¿Qué hace que una petición sea 'simple' y no dispare un preflight OPTIONS?",
           "¿Por qué Postman o curl no sufren errores de CORS?"
         ]
+      },
+      quiz: {
+        question: "¿Cuál de estas peticiones cross-origin dispara un preflight OPTIONS?",
+        options: [
+          "POST con Content-Type: application/json",
+          "POST con Content-Type: application/x-www-form-urlencoded",
+          "GET sin cabeceras personalizadas",
+          "HEAD sin cabeceras adicionales"
+        ],
+        correctIndex: 0,
+        explanation: "application/json no es uno de los Content-Type 'simples' (form-urlencoded, multipart/form-data, text/plain), así que el navegador pregunta antes al servidor con un preflight OPTIONS."
       }
     },
     {
@@ -624,6 +789,17 @@ export const cdnCacheHeaders = {
           "¿Cómo invalidarías el caché de un CDN tras un despliegue?",
           "¿Qué diferencia hay entre Cache-Control: max-age y s-maxage?"
         ]
+      },
+      quiz: {
+        question: "Tras un despliegue, ¿qué estrategia evita servir JavaScript antiguo desde el CDN sin necesidad de purgar la caché?",
+        options: [
+          "Usar nombres de archivo con hash de contenido y cachear esos assets como immutable",
+          "Añadir un query param aleatorio en cada petición",
+          "Poner max-age=0 a todos los assets",
+          "Desactivar el CDN durante los despliegues"
+        ],
+        correctIndex: 0,
+        explanation: "Si el nombre del archivo cambia cuando cambia su contenido (app.3f9a.js), los assets pueden cachearse para siempre. Solo el HTML, que referencia los nuevos nombres, necesita una caché corta."
       }
     },
     {
@@ -647,6 +823,17 @@ export const cdnCacheHeaders = {
           "¿Qué mejoras de rendimiento aporta TLS 1.3 frente a TLS 1.2 (1-RTT, 0-RTT)?",
           "¿Qué es Perfect Forward Secrecy?"
         ]
+      },
+      quiz: {
+        question: "En una conexión TLS establecida, ¿qué tipo de criptografía cifra los datos de la aplicación?",
+        options: [
+          "Ninguna: TLS solo autentica al servidor",
+          "Asimétrica (RSA) en cada paquete",
+          "Simétrica (por ejemplo AES-GCM o ChaCha20) con claves acordadas durante el handshake",
+          "Solo funciones hash como SHA-256"
+        ],
+        correctIndex: 2,
+        explanation: "La criptografía asimétrica se usa en el handshake para autenticar y acordar claves (ECDHE). Los datos se cifran con algoritmos simétricos, que son mucho más rápidos."
       }
     },
     {
@@ -670,6 +857,17 @@ export const cdnCacheHeaders = {
           "¿Qué es dual stack y por qué IPv4 sigue dominando?",
           "¿Cómo se escribe una dirección IPv6 dentro de una URL?"
         ]
+      },
+      quiz: {
+        question: "¿Cuál es la forma abreviada válida de la dirección IPv6 2001:0db8:0000:0000:0000:0000:0000:0001?",
+        options: [
+          "2001::db8::1",
+          "2001:db8::1",
+          "2001:db8:0:1",
+          "2001.db8.1"
+        ],
+        correctIndex: 1,
+        explanation: "Se eliminan los ceros a la izquierda de cada bloque y una única secuencia de bloques a cero se sustituye por '::'. Usar '::' dos veces sería ambiguo."
       }
     },
     // === AVANZADO ===
@@ -694,6 +892,17 @@ export const cdnCacheHeaders = {
           "¿Por qué WebRTC necesita servidores STUN y TURN?",
           "¿Qué es el port forwarding?"
         ]
+      },
+      quiz: {
+        question: "¿Por qué WebRTC necesita servidores STUN y TURN para conectar dos navegadores?",
+        options: [
+          "Porque los navegadores no soportan UDP",
+          "Para cifrar el audio y el vídeo",
+          "Porque NAT impide conexiones entrantes directas: STUN descubre la IP pública y TURN retransmite el tráfico cuando no hay conexión directa",
+          "Para comprimir el vídeo"
+        ],
+        correctIndex: 2,
+        explanation: "Detrás de NAT un dispositivo no es alcanzable directamente. STUN permite conocer la dirección pública mapeada; si el NAT es simétrico, TURN hace de relay."
       }
     },
     {
@@ -757,6 +966,17 @@ export class ReconnectingWebSocket {
           "¿Cuándo elegirías Server-Sent Events en lugar de WebSocket?",
           "¿Cómo escalarías WebSockets horizontalmente con varios servidores?"
         ]
+      },
+      quiz: {
+        question: "Necesitas enviar notificaciones del servidor al cliente y el cliente nunca envía mensajes. ¿Qué tecnología es más simple y adecuada?",
+        options: [
+          "Server-Sent Events (EventSource)",
+          "WebRTC DataChannel",
+          "WebSocket",
+          "Long polling con setInterval de 100 ms"
+        ],
+        correctIndex: 0,
+        explanation: "SSE es unidireccional (servidor a cliente), funciona sobre HTTP estándar, incluye reconexión automática y es más sencillo de escalar que WebSocket para este caso."
       }
     },
     {
@@ -800,6 +1020,17 @@ export default defineConfig({
           "¿Qué ventajas aporta Nginx como reverse proxy delante de una app Node.js?",
           "¿Cómo configurarías el proxy del dev server de Vite para evitar CORS en desarrollo?"
         ]
+      },
+      quiz: {
+        question: "Un Nginx delante de varios servidores Node.js que termina TLS y reparte el tráfico es un ejemplo de...",
+        options: [
+          "Servidor DNS recursivo",
+          "Forward proxy",
+          "Reverse proxy",
+          "Proxy transparente del ISP"
+        ],
+        correctIndex: 2,
+        explanation: "Un reverse proxy actúa en nombre de los servidores: los clientes no los ven directamente. Un forward proxy actúa en nombre de los clientes."
       }
     },
     {
@@ -823,6 +1054,17 @@ export default defineConfig({
           "¿Qué diferencia hay entre DoH y DoT (DNS over TLS)?",
           "¿Qué es Encrypted Client Hello (ECH)?"
         ]
+      },
+      quiz: {
+        question: "¿Qué protege DNS over HTTPS (DoH)?",
+        options: [
+          "La IP del usuario frente al servidor web",
+          "El contenido de las páginas visitadas",
+          "El certificado TLS del sitio",
+          "Las consultas DNS frente a escuchas y manipulación en la red local o del ISP"
+        ],
+        correctIndex: 3,
+        explanation: "DoH cifra la resolución de nombres dentro de HTTPS. No oculta la IP del usuario ni cifra el resto del tráfico, que ya depende de TLS."
       }
     },
     {
@@ -846,6 +1088,17 @@ export default defineConfig({
           "¿Qué diferencia hay entre Anycast, Unicast, Multicast y Broadcast?",
           "¿Por qué los root servers DNS usan Anycast?"
         ]
+      },
+      quiz: {
+        question: "Con Anycast, ¿cómo llega un usuario al nodo más cercano?",
+        options: [
+          "Varios nodos anuncian la misma IP por BGP y la red enruta hacia el anuncio con la ruta más corta",
+          "El navegador hace ping a todos los nodos y elige el más rápido",
+          "El DNS devuelve una IP distinta según el país",
+          "Un balanceador central redirige con HTTP 302"
+        ],
+        correctIndex: 0,
+        explanation: "Anycast se resuelve a nivel de enrutamiento: la misma IP existe en muchos puntos y BGP lleva cada paquete al anuncio topológicamente más cercano."
       }
     },
     {
@@ -896,6 +1149,17 @@ export const enterpriseSecurityHeaders = [
           "¿Cómo desplegarías una CSP sin romper producción (Content-Security-Policy-Report-Only)?",
           "¿Qué hace la cabecera Permissions-Policy?"
         ]
+      },
+      quiz: {
+        question: "¿Qué cabecera mitiga principalmente los ataques XSS restringiendo el origen de los scripts?",
+        options: [
+          "Strict-Transport-Security",
+          "X-Content-Type-Options",
+          "Content-Security-Policy",
+          "Referrer-Policy"
+        ],
+        correctIndex: 2,
+        explanation: "CSP define desde qué orígenes se pueden cargar scripts, estilos y otros recursos, y puede bloquear los scripts inline. HSTS fuerza HTTPS y X-Content-Type-Options evita el MIME sniffing."
       }
     },
     {
@@ -936,6 +1200,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
           "¿Por qué Server Push fue abandonado por los navegadores?",
           "¿Qué técnicas de HTTP/1.1 son hoy un antipatrón con HTTP/2?"
         ]
+      },
+      quiz: {
+        question: "¿Qué optimización heredada de HTTP/1.1 se vuelve contraproducente con HTTP/2?",
+        options: [
+          "Hacer domain sharding de assets en varios subdominios",
+          "Usar caché HTTP",
+          "Comprimir con gzip o brotli",
+          "Minificar el JavaScript"
+        ],
+        correctIndex: 0,
+        explanation: "HTTP/2 multiplexa todas las peticiones sobre una sola conexión. Repartir los assets entre dominios obliga a abrir conexiones TCP y TLS extra y anula la priorización."
       }
     },
     // === EXPERTO ===
@@ -960,6 +1235,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
           "¿Qué es un BGP hijacking y cómo lo mitiga RPKI?",
           "¿Cómo pudo una mala configuración de BGP dejar fuera de línea a Facebook en 2021?"
         ]
+      },
+      quiz: {
+        question: "¿Qué mecanismo ayuda a prevenir el BGP hijacking validando qué AS puede anunciar un prefijo?",
+        options: [
+          "DNSSEC",
+          "HSTS",
+          "OSPF",
+          "RPKI (Route Origin Validation)"
+        ],
+        correctIndex: 3,
+        explanation: "RPKI firma criptográficamente qué Sistema Autónomo está autorizado a originar cada prefijo, de modo que los routers pueden rechazar anuncios ilegítimos."
       }
     },
     {
@@ -983,6 +1269,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
           "¿Qué diferencia hay entre un ataque DDoS volumétrico y uno de capa 7?",
           "¿Cómo protegerías un endpoint de login frente a ataques de capa 7?"
         ]
+      },
+      quiz: {
+        question: "¿Qué tipo de ataque DDoS es más difícil de distinguir del tráfico legítimo?",
+        options: [
+          "Capa 7: peticiones HTTP válidas a endpoints costosos",
+          "SYN flood",
+          "Ping of death",
+          "Volumétrico por amplificación UDP"
+        ],
+        correctIndex: 0,
+        explanation: "Un ataque de capa 7 imita a usuarios reales (peticiones HTTP completas). Mitigarlo requiere rate limiting por comportamiento, challenges y WAF, no solo ancho de banda."
       }
     },
     {
@@ -1006,6 +1303,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
           "¿Qué es la connection migration de QUIC y por qué beneficia a los móviles?",
           "¿Qué riesgos de seguridad introduce el 0-RTT (replay attacks)?"
         ]
+      },
+      quiz: {
+        question: "¿Qué ventaja aporta la connection migration de QUIC a los usuarios móviles?",
+        options: [
+          "Elimina la necesidad de TLS",
+          "Mantiene la conexión al cambiar de red (Wi-Fi a 4G) porque se identifica por un Connection ID y no por la tupla IP:puerto",
+          "Permite usar IPv4 e IPv6 a la vez",
+          "Aumenta el ancho de banda máximo"
+        ],
+        correctIndex: 1,
+        explanation: "TCP identifica la conexión por IP y puerto, así que al cambiar de red se rompe. QUIC usa Connection IDs y puede continuar sin repetir el handshake."
       }
     },
     {
@@ -1029,6 +1337,17 @@ req2.on('data', (chunk) => console.log('CSS recibido'));`,
           "¿Cómo sabe el navegador que un servidor soporta HTTP/3 (cabecera Alt-Svc)?",
           "¿Cómo verificarías en DevTools qué versión de HTTP usa cada recurso?"
         ]
+      },
+      quiz: {
+        question: "¿Cómo descubre el navegador que un servidor soporta HTTP/3?",
+        options: [
+          "Mediante una meta tag en el HTML",
+          "Prueba siempre HTTP/3 primero",
+          "Mediante la cabecera Alt-Svc (o registros DNS HTTPS) en una respuesta previa",
+          "El usuario debe activarlo manualmente"
+        ],
+        correctIndex: 2,
+        explanation: "Normalmente la primera conexión usa HTTP/2 sobre TCP. El servidor anuncia h3 con Alt-Svc o con un registro DNS HTTPS, y el navegador lo usa en las siguientes conexiones."
       }
     },
     {
@@ -1071,6 +1390,17 @@ https.get('https://api-finanzas.internal.net/v1/ledger', { agent }, (res) => {
           "¿Cómo automatiza un service mesh (Istio, Linkerd) la gestión de mTLS?",
           "¿Qué diferencia hay entre mTLS y la autenticación con tokens JWT entre servicios?"
         ]
+      },
+      quiz: {
+        question: "¿Qué diferencia a mTLS del TLS habitual de un sitio web?",
+        options: [
+          "En mTLS el cliente también presenta un certificado y el servidor lo verifica",
+          "mTLS funciona únicamente sobre UDP",
+          "mTLS usa claves más largas",
+          "mTLS no cifra los datos, solo autentica"
+        ],
+        correctIndex: 0,
+        explanation: "En TLS normal solo se autentica el servidor. En mTLS ambos extremos se autentican con certificados, lo que es habitual entre microservicios en arquitecturas Zero Trust."
       }
     }
   ]

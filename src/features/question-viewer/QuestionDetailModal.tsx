@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   BookOpen,
   Code2,
@@ -20,11 +20,7 @@ import { Tabs, TabItem } from "../../components/ui/Tabs";
 import { CodeBlock } from "../../components/ui/CodeBlock";
 import { DiagramRenderer } from "../diagrams/DiagramRenderer";
 import { useLearningStore } from "../../store/learningStore";
-import {
-  getCoherentDiagram,
-  getCoherentTips,
-  getCoherentQuiz
-} from "../../utils/coherent-resources.utils";
+import { shuffleOptions } from "../../utils/shuffle.utils";
 
 interface QuestionDetailModalProps {
   question: IQuestion | null;
@@ -59,7 +55,17 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
     }
   }, [isOpen, question?.title]);
 
-  if (!question) return null;
+  // Opciones barajadas una vez por pregunta para que la posición no delate la respuesta
+  const quiz = useMemo(
+    () =>
+      question && {
+        ...question.quiz,
+        ...shuffleOptions(question.quiz.options, question.quiz.correctIndex)
+      },
+    [question]
+  );
+
+  if (!question || !quiz) return null;
 
   const isCompleted = isQuestionCompleted(question.title);
   const isBookmarked = isQuestionBookmarked(question.title);
@@ -75,12 +81,8 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
     toggleQuestionCompleted(question.title);
   };
 
-  // Requisitos 2 y 4:
-  // Obligatorios: Teoría, Diagrama (coherente), Tips, Quiz.
-  // Opcional: Práctica (solo si la pregunta tiene código coherente real).
-  const diagram = getCoherentDiagram(question, moduleTitle);
-  const tips = getCoherentTips(question, moduleTitle);
-  const quiz = getCoherentQuiz(question);
+  // Obligatorios: Teoría, Diagrama, Tips, Quiz. Opcional: Práctica (solo si hay código).
+  const tips = question.interviewTips;
 
   const tabs: TabItem[] = [
     {
@@ -246,7 +248,7 @@ export const QuestionDetailModal: React.FC<QuestionDetailModalProps> = ({
         {/* Tab Diagrama (obligatorio y coherente) */}
         {activeTab === "diagrama" && (
           <div>
-            <DiagramRenderer diagram={diagram} isDark={true} />
+            <DiagramRenderer diagram={question.visualDiagram} />
           </div>
         )}
 

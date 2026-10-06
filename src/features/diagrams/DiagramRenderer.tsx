@@ -4,7 +4,6 @@ import { createDiagramTheme, IDiagramTheme, TDiagramType } from "./diagram.types
 import {
   getDiagramGroup,
   loadDiagramGroup,
-  renderFallbackDiagram,
   TDiagramGroup
 } from "./registry";
 
@@ -26,8 +25,7 @@ const getLazyGroup = (group: TDiagramGroup) => {
   if (!LazyGroup) {
     LazyGroup = lazy(() =>
       loadDiagramGroup(group).then((registry) => ({
-        default: ({ type, theme }: DiagramGroupProps) =>
-          (registry[type] ?? renderFallbackDiagram)(theme)
+        default: ({ type, theme }: DiagramGroupProps) => registry[type]?.(theme) ?? null
       }))
     );
     lazyGroups.set(group, LazyGroup);
@@ -73,12 +71,10 @@ export const DiagramRenderer: React.FC<DiagramRendererProps> = ({
       </div>
 
       <div className="flex justify-center items-center py-1">
-        {DiagramGroup ? (
+        {DiagramGroup && (
           <Suspense fallback={<DiagramSkeleton border={border} />}>
             <DiagramGroup type={diagram.diagramType} theme={theme} />
           </Suspense>
-        ) : (
-          renderFallbackDiagram(theme)
         )}
       </div>
 

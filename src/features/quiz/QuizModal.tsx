@@ -17,27 +17,7 @@ import { Button } from "../../components/ui/Button";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 import { Badge } from "../../components/ui/Badge";
 import { useLearningStore } from "../../store/learningStore";
-
-/**
- * Shuffles quiz options using Fisher-Yates and returns the
- * new options array along with the updated correctIndex.
- */
-function shuffleOptions(
-  options: string[],
-  correctIndex: number
-): { shuffledOptions: string[]; newCorrectIndex: number } {
-  const indices = options.map((_, i) => i);
-
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
-
-  const shuffledOptions = indices.map((idx) => options[idx]);
-  const newCorrectIndex = indices.indexOf(correctIndex);
-
-  return { shuffledOptions, newCorrectIndex };
-}
+import { shuffle, shuffleOptions } from "../../utils/shuffle.utils";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -77,54 +57,28 @@ export const QuizModal: React.FC<QuizModalProps> = ({
   const initQuiz = () => {
     const pool: QuizQuestionItem[] = [];
 
-    // Collect questions with predefined quiz items or synthesized quizzes
     sections.forEach((section) => {
       if (initialModuleTitle && section.title !== initialModuleTitle) {
         return;
       }
 
       section.questions.forEach((q, idx) => {
-        if (q.quiz) {
-          const { shuffledOptions, newCorrectIndex } = shuffleOptions(
-            q.quiz.options,
-            q.quiz.correctIndex
-          );
+        const { options, correctIndex } = shuffleOptions(q.quiz.options, q.quiz.correctIndex);
 
-          pool.push({
-            id: q.id || `${section.title}-${idx}`,
-            moduleTitle: section.title,
-            question: q.quiz.question,
-            options: shuffledOptions,
-            correctIndex: newCorrectIndex,
-            explanation: q.quiz.explanation,
-            level: q.level
-          });
-        } else {
-          // Synthesize interactive quiz question from title & response
-          const rawOptions = [
-            q.response.slice(0, 160) + (q.response.length > 160 ? "..." : ""),
-            "Es un mecanismo deprecado en HTML5 que no debe usarse en navegadores modernos.",
-            "Es una directiva exclusiva de Node.js que no tiene efecto en el motor del navegador.",
-            "No tiene relación con el frontend y solo aplica a bases de datos relacionales."
-          ];
-
-          const { shuffledOptions, newCorrectIndex } = shuffleOptions(rawOptions, 0);
-
-          pool.push({
-            id: q.id || `${section.title}-${idx}`,
-            moduleTitle: section.title,
-            question: `Respecto a "${q.title}", ¿cuál de las siguientes opciones es la afirmación correcta?`,
-            options: shuffledOptions,
-            correctIndex: newCorrectIndex,
-            explanation: q.response,
-            level: q.level
-          });
-        }
+        pool.push({
+          id: q.id || `${section.title}-${idx}`,
+          moduleTitle: section.title,
+          question: q.quiz.question,
+          options,
+          correctIndex,
+          explanation: q.quiz.explanation,
+          level: q.level
+        });
       });
     });
 
     // Shuffle and pick 20 questions
-    const shuffled = [...pool].sort(() => 0.5 - Math.random()).slice(0, 20);
+    const shuffled = shuffle(pool).slice(0, 20);
     setQuestions(shuffled);
     setCurrentIndex(0);
     setSelectedOption(null);

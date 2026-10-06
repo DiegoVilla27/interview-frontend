@@ -13,6 +13,7 @@ import { IQuestion, ISection } from "../../types";
 import { Badge } from "../../components/ui/Badge";
 import { Button } from "../../components/ui/Button";
 import { useLearningStore } from "../../store/learningStore";
+import { shuffle } from "../../utils/shuffle.utils";
 
 interface FlashcardViewProps {
   sections: ISection[];
@@ -46,7 +47,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({ sections }) => {
   const isBookmarked = isQuestionBookmarked(q.title);
 
   const handleShuffle = () => {
-    const shuffled = [...cards].sort(() => 0.5 - Math.random());
+    const shuffled = shuffle(cards);
     setCards(shuffled);
     setCurrentIndex(0);
     setIsFlipped(false);

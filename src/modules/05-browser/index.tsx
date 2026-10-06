@@ -56,7 +56,7 @@ async function loadWasmModule() {
     },
     {
       id: "browser-02",
-      title: "\u00bfQu\u00e9 es el DOM?",
+      title: "¿Qué es el DOM y cómo lo construye el navegador a partir del HTML?",
       level: "basico",
       tags: ["DOM", "Document Object Model", "Nodos", "Tree", "JavaScript"],
       response: "El DOM (Document Object Model) es una interfaz de programaci\u00f3n de aplicaciones orientada a objetos que representa la estructura jer\u00e1rquica de un documento HTML o XML como un \u00e1rbol de nodos (Tree of Nodes). Cuando el motor del navegador analiza los bytes de un archivo HTML, realiza tokenizaci\u00f3n, construcci\u00f3n de nodos y ensambla este \u00e1rbol en memoria viva. Cada elemento, atributo y fragmento de texto se convierte en un nodo programable (interfaces Node, Element, HTMLElement, Text) que JavaScript puede consultar, agregar, modificar o eliminar din\u00e1micamente en tiempo de ejecuci\u00f3n, desencadenando la actualizaci\u00f3n del renderizado.",
@@ -444,7 +444,7 @@ requestAnimationFrame(() => {
     },
     {
       id: "browser-10",
-      title: "\u00bfQu\u00e9 son los Web Workers?",
+      title: "¿Qué son los Web Workers y cómo evitan bloquear el hilo principal del navegador?",
       level: "medio",
       tags: ["Web Workers", "Hilos", "Multithreading", "postMessage", "Main Thread"],
       response: "Los Web Workers son hilos de ejecuci\u00f3n en segundo plano (Background Threads) que corren en paralelo al hilo principal (Main Thread) del navegador. Permiten ejecutar c\u00e1lculos matem\u00e1ticos pesados, procesamiento de im\u00e1genes o parsing masivo sin congelar la interfaz gr\u00e1fica ni degradar la tasa de cuadros (60/120 FPS). Operan en un contexto global aislado ('self' o DedicatedWorkerGlobalScope) y NO tienen acceso al DOM, a 'window' ni a 'document'. La comunicaci\u00f3n entre el hilo principal y el Worker es as\u00edncrona y basada en paso de mensajes mediante 'postMessage()' y el evento 'onmessage', utilizando Structured Clone Algorithm o transferencia de memoria directa de objetos ArrayBuffer (Transferable Objects) con costo de copia cero.",

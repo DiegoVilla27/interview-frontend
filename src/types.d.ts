@@ -16,16 +16,12 @@ export interface IVisualDiagram {
     | "event-loop"
     | "react-fiber-reconciliation"
     | "css-box-model"
-    | "javascript-prototype-chain"
     | "browser-rendering-path"
     | "stencil-architecture"
-    | "http2-multiplexing"
     | "client-server-network"
     | "git-workflow"
     | "typescript-pipeline"
     | "testing-trophy"
-    | "cicd-pipeline"
-    | "flux-architecture"
     | "dns-resolution-tree"
     | "packet-anatomy"
     | "http-vs-https"
@@ -458,8 +454,6 @@ export interface IVisualDiagram {
     | "webapp-push-notifications-webpush"
     | "webapp-seo-dynamic-rendering"
     | "webapp-telemetry-real-user-monitoring"
-    | "concept-model"
-    | "generic-flow"
     | "cicd-pipeline-ci-cd-cd-flow"
     | "cicd-stages-jobs-dependencies-dag"
     | "cicd-runners-hosted-vs-self-hosted"
@@ -485,7 +479,7 @@ export interface IVisualDiagram {
 export interface IInterviewTips {
   whatInterviewersWant: string;
   commonPitfalls: string[];
-  followUps?: string[];
+  followUps: string[];
 }
 
 export interface IQuizItem {
@@ -501,9 +495,9 @@ export interface IQuestion {
   response: string;
   level: QuestionLevel;
   codeExample?: ICodeExample;
-  visualDiagram?: IVisualDiagram;
-  interviewTips?: IInterviewTips;
-  quiz?: IQuizItem;
+  visualDiagram: IVisualDiagram;
+  interviewTips: IInterviewTips;
+  quiz: IQuizItem;
   tags?: string[];
 }
 
