@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import LayoutScreen from "./layout";
 import { sections as sectionsModule } from "./modules";
 import { IQuestion, ISection } from "./types";
@@ -7,11 +7,29 @@ import { useLearningStore } from "./store/learningStore";
 
 import { DashboardHeader } from "./features/dashboard/DashboardHeader";
 import { CategoryRoadmap } from "./features/dashboard/CategoryRoadmap";
-import { FlashcardView } from "./features/flashcards/FlashcardView";
-import { BookmarksView } from "./features/dashboard/BookmarksView";
-import { StatsView } from "./features/dashboard/StatsView";
-import { QuestionDetailModal } from "./features/question-viewer/QuestionDetailModal";
-import { QuizModal } from "./features/quiz/QuizModal";
+
+// Vistas y modales secundarios: se descargan solo cuando el usuario los abre.
+const FlashcardView = lazy(() =>
+  import("./features/flashcards/FlashcardView").then((m) => ({ default: m.FlashcardView }))
+);
+const BookmarksView = lazy(() =>
+  import("./features/dashboard/BookmarksView").then((m) => ({ default: m.BookmarksView }))
+);
+const StatsView = lazy(() =>
+  import("./features/dashboard/StatsView").then((m) => ({ default: m.StatsView }))
+);
+const QuestionDetailModal = lazy(() =>
+  import("./features/question-viewer/QuestionDetailModal").then((m) => ({
+    default: m.QuestionDetailModal
+  }))
+);
+const QuizModal = lazy(() =>
+  import("./features/quiz/QuizModal").then((m) => ({ default: m.QuizModal }))
+);
+
+const ViewFallback = () => (
+  <div className="h-64 rounded-2xl bg-zinc-800/40 animate-pulse" aria-label="Cargando vista" />
+);
 
 export const App = () => {
   const sections: ISection[] = sectionsModule;
@@ -71,40 +89,48 @@ export const App = () => {
           />
         )}
 
-        {activeView === "flashcards" && (
-          <FlashcardView sections={sections} />
-        )}
+        <Suspense fallback={<ViewFallback />}>
+          {activeView === "flashcards" && (
+            <FlashcardView sections={sections} />
+          )}
 
-        {activeView === "bookmarks" && (
-          <BookmarksView
-            sections={sections}
-            onSelectQuestion={handleSelectQuestion}
+          {activeView === "bookmarks" && (
+            <BookmarksView
+              sections={sections}
+              onSelectQuestion={handleSelectQuestion}
+            />
+          )}
+
+          {activeView === "stats" && (
+            <StatsView sections={sections} />
+          )}
+        </Suspense>
+      </div>
+
+      <Suspense fallback={null}>
+        {/* Question Detail Modal (Theory, Practice Code, SVG Diagrams, Interview Tips, Mini Quiz) */}
+        {selectedQuestion && (
+          <QuestionDetailModal
+            question={selectedQuestion}
+            isOpen
+            onClose={() => setSelectedQuestion(null)}
+            moduleTitle={activeQuestionModule}
           />
         )}
 
-        {activeView === "stats" && (
-          <StatsView sections={sections} />
+        {/* Interactive Quiz / Mock Interview Modal */}
+        {isQuizOpen && (
+          <QuizModal
+            isOpen
+            onClose={() => {
+              setIsQuizOpen(false);
+              setActiveQuizModule(null);
+            }}
+            sections={sections}
+            initialModuleTitle={activeQuizModule}
+          />
         )}
-      </div>
-
-      {/* Question Detail Modal (Theory, Practice Code, SVG Diagrams, Interview Tips, Mini Quiz) */}
-      <QuestionDetailModal
-        question={selectedQuestion}
-        isOpen={selectedQuestion !== null}
-        onClose={() => setSelectedQuestion(null)}
-        moduleTitle={activeQuestionModule}
-      />
-
-      {/* Interactive Quiz / Mock Interview Modal */}
-      <QuizModal
-        isOpen={isQuizOpen}
-        onClose={() => {
-          setIsQuizOpen(false);
-          setActiveQuizModule(null);
-        }}
-        sections={sections}
-        initialModuleTitle={activeQuizModule}
-      />
+      </Suspense>
     </LayoutScreen>
   );
 };
