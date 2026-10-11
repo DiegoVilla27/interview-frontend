@@ -2,17 +2,22 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface SettingsState {
-  /** API key de Anthropic del usuario (BYOK). Solo se guarda en este navegador. */
-  anthropicApiKey: string;
-  setAnthropicApiKey: (key: string) => void;
+  /** API key de Gemini del usuario (BYOK). Solo se guarda en este navegador. */
+  geminiApiKey: string;
+  setGeminiApiKey: (key: string) => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
   persist(
     (set) => ({
-      anthropicApiKey: "",
-      setAnthropicApiKey: (anthropicApiKey) => set({ anthropicApiKey: anthropicApiKey.trim() })
+      geminiApiKey: "",
+      setGeminiApiKey: (geminiApiKey) => set({ geminiApiKey: geminiApiKey.trim() })
     }),
-    { name: "interview-frontend-settings" }
+    {
+      name: "interview-frontend-settings",
+      version: 1,
+      migrate: () => ({ geminiApiKey: "" }),
+      partialize: (state) => ({ geminiApiKey: state.geminiApiKey })
+    }
   )
 );
