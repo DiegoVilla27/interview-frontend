@@ -110,7 +110,7 @@ const InterviewSetup: React.FC<{
   onStart: () => void;
   onOpenSettings: () => void;
 }> = ({ config, onChange, onStart, onOpenSettings }) => {
-  const hasApiKey = useSettingsStore((state) => Boolean(state.anthropicApiKey));
+  const hasApiKey = useSettingsStore((state) => Boolean(state.geminiApiKey));
   const history = useLearningStore((state) => state.interviewHistory);
   const selectClass =
     "w-full px-3 py-2 text-sm rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 focus:outline-none focus:border-indigo-500";
@@ -184,8 +184,8 @@ const InterviewSetup: React.FC<{
           <div className="flex-1 space-y-1">
             <p>
               {hasApiKey
-                ? "Evaluación con IA activada: podrás pedir a Claude que puntúe cada respuesta."
-                : "Opcional: añade tu API key de Anthropic para que Claude evalúe tus respuestas."}
+                ? "Evaluación con IA activada: podrás pedir a Gemini que puntúe cada respuesta."
+                : "Opcional: añade tu API key de Gemini para que Gemini evalúe tus respuestas."}
             </p>
           </div>
           <button onClick={onOpenSettings} className="font-semibold text-indigo-300 hover:text-indigo-200 cursor-pointer shrink-0">
@@ -395,7 +395,7 @@ const RevealPanel: React.FC<{
   onOpenSettings: () => void;
   onDone: (answer: string, selfAssessment: (typeof SELF_ASSESSMENT)[number], aiScore?: number) => void;
 }> = ({ question, answer, onOpenSettings, onDone }) => {
-  const apiKey = useSettingsStore((state) => state.anthropicApiKey);
+  const apiKey = useSettingsStore((state) => state.geminiApiKey);
   const [evaluation, setEvaluation] = useState<IAnswerEvaluation | null>(null);
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
@@ -403,7 +403,7 @@ const RevealPanel: React.FC<{
   const handleEvaluate = async () => {
     setIsEvaluating(true);
     setEvaluationError(null);
-    // Zod y el SDK de Anthropic solo se descargan si el usuario pide una evaluación
+    // Zod y la integración con Gemini solo se descargan si el usuario pide una evaluación
     const { evaluateAnswer, describeEvaluationError } = await import("./ai-evaluation");
     try {
       setEvaluation(
@@ -509,7 +509,7 @@ const AiEvaluationPanel: React.FC<{
         className="w-full p-3 rounded-2xl border border-dashed border-zinc-700 text-xs text-zinc-400 hover:text-zinc-200 hover:border-zinc-500 transition cursor-pointer flex items-center justify-center gap-2"
       >
         <KeyRound className="w-4 h-4" />
-        Añade tu API key de Anthropic para que Claude evalúe tu respuesta
+        Añade tu API key de Gemini para que Gemini evalúe tu respuesta
       </button>
     );
   }
@@ -524,7 +524,7 @@ const AiEvaluationPanel: React.FC<{
           disabled={isEvaluating || !hasAnswer}
           icon={isEvaluating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Bot className="w-4 h-4" />}
         >
-          {isEvaluating ? "Claude está evaluando…" : "Evaluar con IA"}
+          {isEvaluating ? "Gemini está evaluando…" : "Evaluar con IA"}
         </Button>
         {!hasAnswer && <p className="text-xs text-zinc-500">Escribe o dicta una respuesta para poder evaluarla.</p>}
         {error && <p className="text-xs text-rose-400">{error}</p>}
@@ -537,7 +537,7 @@ const AiEvaluationPanel: React.FC<{
       <div className="flex items-center justify-between">
         <h4 className="text-xs font-bold uppercase tracking-wider text-sky-300 flex items-center gap-1.5">
           <Bot className="w-4 h-4" />
-          Evaluación de Claude
+          Evaluación de Gemini
         </h4>
         <span className="font-mono font-bold text-sky-200">
           {evaluation.score}/10 · {evaluation.verdict}

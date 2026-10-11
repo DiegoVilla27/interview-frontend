@@ -9,12 +9,12 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
-  const { anthropicApiKey, setAnthropicApiKey } = useSettingsStore();
-  const [draft, setDraft] = useState(anthropicApiKey);
+  const { geminiApiKey, setGeminiApiKey } = useSettingsStore();
+  const [draft, setDraft] = useState(geminiApiKey);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleSave = () => {
-    setAnthropicApiKey(draft);
+    setGeminiApiKey(draft);
     onClose();
   };
 
@@ -28,28 +28,27 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
               Evaluación con IA (opcional)
             </h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Con tu propia API key de Anthropic, Claude puede puntuar tus respuestas en la entrevista simulada.
-              Puedes crear una en{" "}
+              Con tu propia API key, Gemini puede puntuar tus respuestas en la entrevista simulada. Puedes crear una en{" "}
               <a
-                href="https://platform.claude.com/settings/keys"
+                href="https://aistudio.google.com/apikey"
                 target="_blank"
                 rel="noreferrer"
                 className="text-indigo-300 hover:text-indigo-200 underline"
               >
-                platform.claude.com
+                aistudio.google.com
               </a>
               .
             </p>
           </div>
 
           <label className="block space-y-1.5">
-            <span className="text-xs font-semibold text-zinc-300">API key de Anthropic</span>
+            <span className="text-xs font-semibold text-zinc-300">API key de Gemini</span>
             <div className="relative">
               <input
                 type={isVisible ? "text" : "password"}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
-                placeholder="sk-ant-..."
+                placeholder="AIza..."
                 autoComplete="off"
                 spellCheck={false}
                 className="w-full pl-3 pr-10 py-2 text-sm font-mono rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-indigo-500"
@@ -68,8 +67,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
           <div className="flex gap-2 p-3 rounded-xl border border-amber-500/30 bg-amber-950/20 text-xs text-amber-200 leading-relaxed">
             <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
             <p>
-              La clave se guarda solo en el localStorage de este navegador y se envía únicamente a api.anthropic.com.
-              Cada evaluación consume créditos de tu cuenta. No la uses en equipos compartidos.
+              La clave se guarda solo en el localStorage de este navegador y se envía únicamente a
+              generativelanguage.googleapis.com. Cada evaluación consume créditos de tu cuenta. No la uses en equipos
+              compartidos.
             </p>
           </div>
         </section>
@@ -79,10 +79,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
             variant="secondary"
             size="sm"
             onClick={() => {
-              setAnthropicApiKey("");
+              setGeminiApiKey("");
               setDraft("");
             }}
-            disabled={!anthropicApiKey}
+            disabled={!geminiApiKey}
           >
             Borrar clave
           </Button>

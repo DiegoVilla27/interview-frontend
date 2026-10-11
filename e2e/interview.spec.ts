@@ -13,35 +13,39 @@ test("entrevista simulada desde una ruta, con evaluación de IA simulada", async
   // Nunca se llama a la API real: se responde primero 401 y después una evaluación válida
   let calls = 0;
   let requestBody: Record<string, unknown> = {};
-  await page.route("https://api.anthropic.com/**", async (route) => {
+  await page.route("https://generativelanguage.googleapis.com/**", async (route) => {
     calls++;
     requestBody = route.request().postDataJSON();
     if (calls === 1) {
       return route.fulfill({
         status: 401,
         contentType: "application/json",
-        body: JSON.stringify({ type: "error", error: { type: "authentication_error", message: "invalid x-api-key" } })
+        body: JSON.stringify({
+          type: "error",
+          error: {
+            type: "authentication_error",
+            message: "invalid x-api-key"
+          }
+        })
       });
     }
     return route.fulfill({
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        id: "msg_test",
-        type: "message",
-        role: "assistant",
-        model: "claude-opus-5-5",
-        content: [{ type: "text", text: JSON.stringify(evaluation) }],
-        stop_reason: "end_turn",
-        stop_sequence: null,
-        usage: { input_tokens: 10, output_tokens: 10 }
+        candidates: [
+          {
+            content: { parts: [{ text: JSON.stringify(evaluation) }] },
+            finishReason: "STOP"
+          }
+        ]
       })
     });
   });
 
   await page.goto("/");
   await page.getByRole("button", { name: "Ajustes" }).click();
-  await page.getByPlaceholder("sk-ant-...").fill("sk-ant-test");
+  await page.getByPlaceholder("AIza...").fill("gemini-test");
   await page.getByRole("button", { name: "Guardar" }).click();
 
   await page.getByRole("button", { name: "Rutas", exact: true }).click();
@@ -59,7 +63,16 @@ test("entrevista simulada desde una ruta, con evaluación de IA simulada", async
   await expect(page.getByText("La API key no es válida")).toBeVisible();
   await page.getByRole("button", { name: "Evaluar con IA" }).click();
   await expect(page.getByText("7/10 · solida")).toBeVisible();
-  expect(requestBody).toMatchObject({ model: "claude-opus-5-5", fallbacks: "default" });
+  expect(requestBody).toMatchObject({
+    generationConfig: { responseMimeType: "application/json" }
+  });
+  const contents = requestBody.contents as { parts: { text: string }[] }[];
+  expect(JSON.parse(contents[0].parts[0].text)).toMatchObject({
+    candidateAnswer: "Una red global de redes conectadas mediante TCP/IP.",
+    question: expect.any(String),
+    modelAnswer: expect.any(String),
+    pitfalls: expect.any(Array)
+  });
 
   await page.getByRole("button", { name: "La clavé" }).click();
   await page.getByRole("button", { name: "No lo sé" }).click();
