@@ -12,7 +12,7 @@ Plataforma para preparar entrevistas técnicas de Frontend: 465 preguntas en 21 
 | **Roadmap** | 21 módulos agrupados en 4 áreas, con filtro por nivel y búsqueda (títulos y tags al instante, respuestas completas en segundo plano). |
 | **Detalle de pregunta** | Teoría, código práctico, diagrama SVG, tips del entrevistador con preguntas de seguimiento y mini quiz. |
 | **Rutas por rol** | Junior, React, Senior React, Senior Angular, Mobile y Staff: un subconjunto ordenado del temario con su progreso. |
-| **Entrevista simulada** | Respuesta abierta con tiempo (escrita o dictada por voz), respuesta modelo, errores típicos y repreguntas. Evaluación opcional con Claude usando tu propia API key. |
+| **Entrevista simulada** | Respuesta abierta con tiempo (escrita o dictada por voz), respuesta modelo, errores típicos y repreguntas. Evaluación opcional con Gemini usando tu propia API key. |
 | **Flashcards** | Repetición espaciada (SM-2): repaso diario con Otra vez / Difícil / Bien / Fácil (teclas 1–4) y modo explorar. |
 | **Quiz rápido** | 20 preguntas tipo test con opciones barajadas. |
 | **Offline (PWA)** | Instalable; todo el temario queda precacheado para estudiar sin conexión. |
@@ -55,7 +55,7 @@ src/
 └── store/                         # Zustand (progreso persistido y ajustes)
 ```
 
-- **Carga inicial mínima**: solo el índice ligero y React (~110 KB gzip). El contenido de cada módulo, los diagramas, las vistas secundarias y el SDK de Anthropic se cargan bajo demanda.
+- **Carga inicial mínima**: solo el índice ligero y React (~110 KB gzip). El contenido de cada módulo, los diagramas, las vistas secundarias y la integración con Gemini se cargan bajo demanda.
 - **El progreso se guarda por título de pregunta**: los títulos deben ser únicos (lo comprueba `content:validate`).
 
 ### Añadir o editar preguntas
@@ -66,7 +66,7 @@ src/
 
 ## Evaluación con IA 🤖
 
-En **Ajustes** puedes añadir tu API key de Anthropic. Claude (`claude-opus-5-5`) puntúa tus respuestas de la entrevista simulada. La clave se guarda solo en el localStorage del navegador y se envía únicamente a `api.anthropic.com`; cada evaluación consume créditos de tu cuenta.
+En **Ajustes** puedes añadir tu API key de Gemini. Gemini (`gemini-3.8-flash`) puntúa tus respuestas de la entrevista simulada. La clave se guarda solo en el localStorage del navegador y se envía únicamente a `generativelanguage.googleapis.com`; cada evaluación consume créditos de tu cuenta.
 
 ## Commits 📝
 
@@ -81,3 +81,5 @@ Se sigue [Conventional Commits](https://www.conventionalcommits.org/):
 - `chore:` dependencias, configuración o tooling
 
 La CI (`.github/workflows/ci.yml`) ejecuta lint, tipos, validación de contenido, tests, build y E2E en cada push y PR.
+
+La evaluación utiliza la pregunta seleccionada del proyecto, su nivel, la respuesta de referencia y los errores típicos para generar una nota, comentarios, una repregunta y una respuesta mejorada. Las claves antiguas de Anthropic se descartan al actualizar los ajustes; introduce la clave de Gemini en **Ajustes**.

@@ -3,9 +3,10 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FlashcardView } from "./FlashcardView";
+import { loadAllContent } from "../../content";
 import { useLearningStore } from "../../store/learningStore";
 
-// React 19 solo reintenta un componente suspendido con use() dentro de un act asíncrono
+// Espera la carga real dentro de act para que React resuelva Suspense antes de las interacciones.
 const renderView = () =>
   act(async () => {
     render(
@@ -13,6 +14,7 @@ const renderView = () =>
         <FlashcardView />
       </Suspense>
     );
+    await loadAllContent();
   });
 
 describe("FlashcardView", () => {
